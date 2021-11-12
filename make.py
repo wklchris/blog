@@ -227,7 +227,7 @@ def update_homepage():
         for i, docname in enumerate(blog_list):
             doc_meta = total_meta["blogs"][docname]
             doc_row = [
-                f'<a href="/{docname}/index.html">{docname}</a>',
+                f'<a href="{docname}/index.html">{docname}</a>',
                 doc_meta["category"],
                 doc_meta["abstract"],
                 doc_meta["date_init"],

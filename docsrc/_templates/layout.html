@@ -5,9 +5,9 @@
 <div class="home-button">
    <a class="home-button" href="https://github.com/wklchris/blog">
       仓库
-   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
       博客主页
-   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
       关于我
    </a>
 </div>
@@ -16,7 +16,7 @@
 {%- block extrahead %}
 {{ super() }}
 
-<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/>
 
 <meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
 <script>
@@ -32,14 +32,14 @@
 <script>
   require.config({
      paths: {
-        "jquery": "/_static/jquery",
-        "datatables": "/_config/static/DataTables/datatables.min"
+        "jquery": "_static/jquery",
+        "datatables": "_config/static/DataTables/datatables.min"
      }
   });
   requirejs( ["datatables"], function () {
      $('#tableofblogs').DataTable( {
         language: {
-           url: "/_config/static/DataTables/zh_CN.json" 
+           url: "_config/static/DataTables/zh_CN.json" 
         } 
      } );
   } );
