@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="Python" name="category" />
+<meta content="python,matplotlib,plot,computing" name="keywords" />
+<meta content="Python" name="series" />
+<meta content="4" name="series_num" />
+<meta content="2017-06-10" name="date_init" />
+<meta content="2020-01-12" name="date_modified" />
+<meta content="本文介绍了 Python 最广为使用的科学绘图库 Matplotlib" name="abstract" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python科学计算：Matplotlib &mdash; Matplotlib  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Matplotlib/index.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="初识绘图" href="BasicPlot.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="#" class="icon icon-home"> Matplotlib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="BasicPlot.html">初识绘图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxesControl.html">图像控制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlotFunc.html">统计绘图函数</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Matplotlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Python科学计算：Matplotlib</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="python-matplotlib">
+<h1>Python科学计算：Matplotlib<a class="headerlink" href="#python-matplotlib" title="永久链接至标题"></a></h1>
+<p>本文介绍 Python 的 Matplotlib 绘图库的一些使用方法。全文注重以例说明用法。</p>
+<p>读者需要具有：</p>
+<ul class="simple">
+<li><p>Python 基础</p></li>
+<li><p>一定程度的 Numpy 基础</p></li>
+<li><p>（可选） Jupyter Notebook 使用经验。</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="BasicPlot.html">初识绘图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BasicPlot.html#基础的-plt.plot()">基础的 plt.plot()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicPlot.html#子图绘制-plt.subplots()">子图绘制 plt.subplots()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicPlot.html#保存绘图-f.savefig()">保存绘图 f.savefig()</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="AxesControl.html">图像控制</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#默认参数：mpl.rcParams">默认参数：mpl.rcParams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#通用的绘图流程：plt.subplots">通用的绘图流程：plt.subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#图像标题：ax.set_title">图像标题：ax.set_title</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#坐标轴标题：ax.set_xlabel">坐标轴标题：ax.set_xlabel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#图例：ax.legend-/-f.legend">图例：ax.legend / f.legend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#坐标轴区间：ax.axis-/-set_xlim">坐标轴区间：ax.axis / set_xlim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#坐标轴刻度">坐标轴刻度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#坐标轴刻度网格：ax.grid">坐标轴刻度网格：ax.grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#坐标轴的高级控制">坐标轴的高级控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#添加文字：ax.text-/-annotate">添加文字：ax.text / annotate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AxesControl.html#其他坐标系">其他坐标系</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PlotFunc.html">统计绘图函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PlotFunc.html#水平或竖直的线/矩形：ax.axhline-/-axhspan">水平或竖直的线/矩形：ax.axhline / axhspan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlotFunc.html#散点图：ax.scatter">散点图：ax.scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlotFunc.html#条形图：ax.bar-/-barh">条形图：ax.bar / barh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlotFunc.html#直方图：ax.hist">直方图：ax.hist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlotFunc.html#核密度曲线">核密度曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlotFunc.html#饼图：ax.pie">饼图：ax.pie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlotFunc.html#箱型图：ax.boxplot">箱型图：ax.boxplot</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="BasicPlot.html" class="btn btn-neutral float-right" title="初识绘图" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Git 准备工作 &mdash; Git  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Git/Preparation.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="Git 基础命令" href="Fundamentals.html" />
+    <link rel="prev" title="Git 简介" href="Intro.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> Git
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">Git 简介</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Git 准备工作</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">全局配置：用户名与邮箱</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">查阅帮助</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Fundamentals.html">Git 基础命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Branch.html">分支：branch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Conflict.html">高级合并与冲突处理</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Git</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Git 准备工作</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Preparation.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="git">
+<h1>Git 准备工作<a class="headerlink" href="#git" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<p>前往 <a class="reference external" href="https://git-scm.com/downloads">Git 官网</a> 下载和安装 Git。</p>
+</section>
+<section id="id3">
+<h2>全局配置：用户名与邮箱<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>设置用户名和邮箱地址：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git config --global user.name <span class="s2">&quot;wklchris&quot;</span>
+$ git config --global user.email wklchris@example.com
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>选项 <cite>--global</cite> 表示这些设定会应用于每个项目的 Git 仓库。如果只想为当前仓库设置，取消 <cite>--global</cite> 参数即可。</p></li>
+<li><p>当前计算机用户的“全局配置”会被存储在 <cite>~/.gitconfig</cite> 文件中（Windows 用户的 <cite>~</cite> 路径是 <cite>C:Usersusername</cite> ）。</p></li>
+</ul>
+<p>要查看我们的配置文件，使用 <cite>git config --list</cite> ；要查询单个键的值，使用 <cite>git config &lt;key&gt;</cite>：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git config user.name
+wklchris
+</pre></div>
+</div>
+<p>除了用户名与邮箱，我们还常常用 <cite>git config</cite> 命令来：</p>
+<ul class="simple">
+<li><p>配置别名（alias）命令，方便我们用更短的命令来实现复杂操作。</p></li>
+<li><p>配置全局的 <cite>.gitignore_global</cite> 文件，用来在所有仓库中忽略指定类型的文件。</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>查阅帮助<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<p>使用 <cite>git help &lt;command&gt;</cite> 来显示帮助内容．这些帮助内容实质是本地的 HTML 文件，均可以离线访问。例如，查看 <cite>git config</cite> 命令的用法：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git <span class="nb">help</span> config
+... <span class="o">(</span>在网页浏览器中打开<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Intro.html" class="btn btn-neutral float-left" title="Git 简介" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="Fundamentals.html" class="btn btn-neutral float-right" title="Git 基础命令" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>附录A：Jinja2 快速介绍 &mdash; Sphinx  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Sphinx/Jinja.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="附录B：Sphinx 主题开发" href="ThemeDevelopment.html" />
+    <link rel="prev" title="Sphinx" href="index.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> Sphinx
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">附录A：Jinja2 快速介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">语法结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">变量使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">字典变量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">变量过滤器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">变量测试器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">变量赋值*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">控制语句与宏</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#if">If 判断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for">For 循环</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#macro">宏</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">网页模板</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ThemeDevelopment.html">附录B：Sphinx 主题开发</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Sphinx</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>附录A：Jinja2 快速介绍</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Jinja.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="a-jinja2">
+<h1>附录A：Jinja2 快速介绍<a class="headerlink" href="#a-jinja2" title="永久链接至标题"></a></h1>
+<p><a class="reference external" href="https://jinja.palletsprojects.com/">Jinja2</a> 是 Sphinx 的格式与主题定制中的一个重要角色，作为网页模板语言被使用。它的风格与 Django 的模板语言非常类似。如果你接触过 <a class="reference external" href="https://shopify.github.io/liquid/">Liquid</a> 模板语言或相关项目，例如 <a class="reference external" href="https://jekyllrb.com/">Jekyll</a> （使用 Github Pages 搭建站点的用户应该都不会陌生），你可能对 Jinja2 中的许多语法逻辑感到熟悉。</p>
+<p>读者可以前往 Jinja2 官方文档的 <a class="reference external" href="https://jinja.palletsprojects.com/en/master/templates/#template-designer-documentation">Jinja2: template-designer-documentation</a> 一节寻找更多信息。</p>
+<p>官方文档给出的示例：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE html&gt;</span>
+<span class="x">&lt;html lang=&quot;en&quot;&gt;</span>
+<span class="x">&lt;head&gt;</span>
+<span class="x">    &lt;title&gt;My Webpage&lt;/title&gt;</span>
+<span class="x">&lt;/head&gt;</span>
+<span class="x">&lt;body&gt;</span>
+<span class="x">    &lt;ul id=&quot;navigation&quot;&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">item</span> <span class="k">in</span> <span class="nv">navigation</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;&lt;a href=&quot;</span><span class="cp">{{</span> <span class="nv">item.href</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span> <span class="nv">item.caption</span> <span class="cp">}}</span><span class="x">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/ul&gt;</span>
+
+<span class="x">    &lt;h1&gt;My Webpage&lt;/h1&gt;</span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">a_variable</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="x">    </span><span class="c">{# a comment #}</span><span class="x"></span>
+<span class="x">&lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>顺便一提，Sphinx 支持 Jinja2 的语法高亮，上面这个代码块使用了： <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">code-block::</span> <span class="pre">jinja</span></code></p>
+<section id="id1">
+<h2>语法结构<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<p>Jinja 中有几种主要的语法结构：</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></code></dt><dd><p>块语句。例如一个 for 循环的语句：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;ul&gt;</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">k</span> <span class="k">in</span> <span class="nv">mylist</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">k.id</span> <span class="o">|</span> <span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+<p>有时用户会看到诸如 <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">if</span> <span class="pre">k</span> <span class="pre">&gt;</span> <span class="pre">0</span> <span class="pre">-%}</span> <span class="pre">...</span> <span class="pre">{%-</span> <span class="pre">endif</span> <span class="pre">%}</span></code> 这样带短横线的块语句，它们用于删去块首尾的多余空格及换行符。例如，下例会在 mylist 是数字 1 到 5 的列表时，打印紧凑的 <code class="docutils literal notranslate"><span class="pre">12345</span></code> 字符串：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">k</span> <span class="k">in</span> <span class="nv">mylist</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">k</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">..</span> <span class="pre">}}</span></code></dt><dd><p>表达式。解析其内部的表达式，并打印其值。比如 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">variable_name</span> <span class="pre">}}</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">{#</span> <span class="pre">...</span> <span class="pre">#}</span></code></dt><dd><p>标准注释。Jinja 模板中应使用该语法，而不是纯 HTML 文件中的 <code class="docutils literal notranslate"><span class="pre">&lt;!--</span> <span class="pre">...</span> <span class="pre">--&gt;</span></code> 注释语法。这是因为，后者内部的 Jinja 表达式仍会被解析，因此其注释内容如有错误也会报错；前者无此问题。</p>
+<p>该注释可以跨行。</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{# Comment here.</span>
+<span class="c">    {% if k &gt; 0 %}</span>
+<span class="c">        This block is commented!</span>
+<span class="c">    {% end if %}</span>
+<span class="c">#}</span><span class="x"></span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">...</span></code></dt><dd><p>行语句。比如上例中的循环语句可以写为：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;ul&gt;</span>
+<span class="x"># for k in mylist</span>
+<span class="x">    &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">k.id</span> <span class="o">|</span> <span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x"># endfor</span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>开启代码块的语句（如 if, for）也可以以冒号结尾： <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">k</span> <span class="pre">in</span> <span class="pre">mylist:</span></code></p></li>
+<li><p>行语句可跨行。如果检测到语法上未匹配的左括号（圆、方、花），会自动阅读到下一行。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">...</span></code></dt><dd><p>行内注释。比如在上例中： <code class="docutils literal notranslate"><span class="pre">&lt;li&gt;{{</span> <span class="pre">k.id</span> <span class="pre">|</span> <span class="pre">e</span> <span class="pre">}}&lt;/li&gt;</span>&#160; <span class="pre">##</span> <span class="pre">This</span> <span class="pre">is</span> <span class="pre">comment</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>变量使用<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>Jinja 的基本变量与 Python 基本一致，而且它们基本可以直接运用 Python 中的内置方法（最常用的可能是 <code class="docutils literal notranslate"><span class="pre">.format()</span></code> 字符串方法）：</p>
+<ul class="simple">
+<li><p>字符串：单引号或双引号均可 <code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code> 或 <code class="docutils literal notranslate"><span class="pre">'world'</span></code></p></li>
+<li><p>数字：可以使用科学计数法 <code class="docutils literal notranslate"><span class="pre">123,</span> <span class="pre">1.23e10</span></code></p></li>
+<li><p>列表： <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code></p></li>
+<li><p>元组： <code class="docutils literal notranslate"><span class="pre">('a',</span> <span class="pre">'b')</span></code></p></li>
+<li><p>字典： 并不是一个常用的 Jinja 类型 <code class="docutils literal notranslate"><span class="pre">{'key1':</span> <span class="pre">'val1',</span> <span class="pre">'key2':</span> <span class="pre">'val2'}</span></code></p></li>
+<li><p>布尔型： <code class="docutils literal notranslate"><span class="pre">true</span></code> 与 <code class="docutils literal notranslate"><span class="pre">false</span></code></p></li>
+</ul>
+<p>需要注意的与 Python 的区别是：</p>
+<ul class="simple">
+<li><p>推荐使用 <strong>全小写的布尔型关键字</strong> true/false，而不是 True/False；尽管 Jinja 现在也能识别首字母大写的写法。</p></li>
+<li><p>在元组只有一个元素时，必须添加一个空逗号： <code class="docutils literal notranslate"><span class="pre">('one',)</span></code></p></li>
+</ul>
+<p>操作符上也基本与 Python 类似，有一些值得强调：</p>
+<ul class="simple">
+<li><p>截断取整除法： <code class="docutils literal notranslate"><span class="pre">//</span></code> ，比如 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">5</span> <span class="pre">//</span> <span class="pre">3</span> <span class="pre">}}</span></code> 结果是 1</p></li>
+<li><p>取余： <code class="docutils literal notranslate"><span class="pre">%</span></code> ，比如 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">5</span> <span class="pre">%</span> <span class="pre">3</span> <span class="pre">}}</span></code> 结果是 2</p></li>
+<li><p>字符串连接： <code class="docutils literal notranslate"><span class="pre">~</span></code> ，它会将两侧对象转换为字符串型，然后连接起来。</p></li>
+</ul>
+<section id="id3">
+<h3>字典变量<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p>假设现在有字典变量 var，那么它的键 key 对应的值可以用 <code class="docutils literal notranslate"><span class="pre">var[key]</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">var.key</span></code> 的方式访问。比如，要把字典的该值在 p 标签中打印出来：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">var.key</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;  ## 或者 var[key]</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>变量过滤器<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>变量还能以过滤器（filter）的形式访问，即带竖线的 <code class="docutils literal notranslate"><span class="pre">variable</span> <span class="pre">|</span> <span class="pre">filter</span></code> 语法。例如可能是最常见的转义过滤器 <code class="docutils literal notranslate"><span class="pre">escape</span></code> / <code class="docutils literal notranslate"><span class="pre">e</span></code> ，它能够将字符中的 HTML 特殊字符（&amp;, &lt;, &gt; 等）转义为能正常输出的字符格式：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">var.key</span> <span class="o">|</span> <span class="nf">e</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>这里列出几个常用的过滤器：</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">default(value，default_value</span> <span class="pre">=''，boolean</span> <span class="pre">=</span> <span class="pre">False)</span></code></dt><dd><p>如果 value 未被定义，那么返回 default_value。如果你想对布尔值为假的变量都应用 default_value 返回，那么需要将 boolean 参数设置为 true。</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">variable</span> <span class="o">|</span> <span class="nf">default</span><span class="o">(</span><span class="s1">&#39;Not defined&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="s2">&quot;&quot;</span> <span class="o">|</span> <span class="nf">default</span><span class="o">(</span><span class="s1">&#39;Boolean false&#39;</span><span class="o">,</span> <span class="kp">true</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dictsort(value,</span> <span class="pre">case_sensitive=False,</span> <span class="pre">by='key',</span> <span class="pre">reverse=False)</span></code></dt><dd><p>返回排序后的字典，默认大小写不敏感、按键排序（按值使用 by='value'）、按升序排序。</p>
+<p>{% for item in mydict|dictsort(reverse=true) %}</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">escape(s)</span></code> ，或者 <code class="docutils literal notranslate"><span class="pre">e</span></code></dt><dd><p>转换字符串为 HTML 安全字符（针对含 &amp;, &lt; 等符号的字符串）。别名 <code class="docutils literal notranslate"><span class="pre">e</span></code> ： <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">mystr|e</span> <span class="pre">}}</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">format(value,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code></dt><dd><p>类似 Python 的格式化字符串，使用 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting">printf 风格</a> 。例如：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">## mydict 中有 key1 键</span>
+<span class="cp">{{</span> <span class="s2">&quot;Key1 has value: %{key1}s&quot;</span><span class="o">|</span><span class="nf">format</span><span class="o">(</span><span class="nv">mydict</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="x">## 直接传键值对</span>
+<span class="cp">{{</span> <span class="s2">&quot;Key1 has value: %{key1}s&quot;</span><span class="o">|</span><span class="nf">format</span><span class="o">(</span><span class="nv">key1</span><span class="o">=</span><span class="s1">&#39;val1&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="x">## 位置传参</span>
+<span class="cp">{{</span> <span class="s2">&quot;Key1 has value: %s&quot;</span><span class="o">|</span><span class="nf">format</span><span class="o">(</span><span class="s1">&#39;val1&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">groupby(value,</span> <span class="pre">attribute)</span></code></dt><dd><p>分组返回（排序后的）列表。来看一个官方的例子：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;ul&gt;</span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">city</span><span class="o">,</span> <span class="nv">items</span> <span class="k">in</span> <span class="nv">users</span><span class="o">|</span><span class="nf">groupby</span><span class="o">(</span><span class="s2">&quot;city&quot;</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;li&gt;</span><span class="cp">{{</span> <span class="nv">city</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    &lt;ul&gt;</span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">items</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.name</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x">&lt;/ul&gt;</span>
+<span class="x">&lt;/li&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+<p>该命令还可以用 <code class="docutils literal notranslate"><span class="pre">(grouper,</span> <span class="pre">list)</span></code> 的模式进行调用：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;ul&gt;</span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">group</span> <span class="k">in</span> <span class="nv">users</span><span class="o">|</span><span class="nf">groupby</span><span class="o">(</span><span class="s2">&quot;city&quot;</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">group.grouper</span> <span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span> <span class="nv">group.list</span><span class="o">|</span><span class="nf">join</span><span class="o">(</span><span class="s2">&quot;, &quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">join(value,</span> <span class="pre">d='',</span> <span class="pre">attribute=None)</span></code></dt><dd><p>类似 Python 的连接字符串列表，如 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">[1,</span> <span class="pre">2]|join(',')</span> <span class="pre">}}</span></code> 。其 attribute 参数支持连接 value.attribute 而不是 value 本身。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">map(*args,</span> <span class="pre">**kwargs)</span></code></dt><dd><p>应用过滤器或者选择变量的属性到对象中的每一项。官方文档给出了如下应用场景：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">## 等同于 (u.username or &quot;Anonymous&quot; for u in users)</span>
+<span class="cp">{{</span> <span class="nv">users</span><span class="o">|</span><span class="nf">map</span><span class="o">(</span><span class="nv">attribute</span><span class="o">=</span><span class="s2">&quot;username&quot;</span><span class="o">,</span> <span class="nv">default</span><span class="o">=</span><span class="s2">&quot;Anonymous&quot;</span><span class="o">)|</span><span class="nf">join</span><span class="o">(</span><span class="s2">&quot;, &quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="x">## 应用 lower 过滤器，等同于 (do_lower(x) for x in titles)</span>
+<span class="cp">{{</span> <span class="nv">titles</span><span class="o">|</span><span class="nf">map</span><span class="o">(</span><span class="s1">&#39;lower&#39;</span><span class="o">)|</span><span class="nf">join</span><span class="o">(</span><span class="s1">&#39;, &#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">select(*args,</span> <span class="pre">**kwargs)</span></code></dt><dd><p>应用测试器到对象中的每一项。例如：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">numbers</span><span class="o">|</span><span class="nf">select</span><span class="o">(</span><span class="s2">&quot;odd&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">numbers</span><span class="o">|</span><span class="nf">select</span><span class="o">(</span><span class="s2">&quot;divisibleby&quot;</span><span class="o">,</span> <span class="m">3</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">truncate</span></code> 与 <code class="docutils literal notranslate"><span class="pre">wordwrap</span></code></dt><dd><p>限制字符串长度时可能用到的过滤器。</p>
+</dd>
+</dl>
+<p>一份完整的 Jinja2 内置过滤器列表，请参考： <a class="reference external" href="https://jinja.palletsprojects.com/en/master/templates/#builtin-filters">Jinja2: builtin-filters</a> 。</p>
+</section>
+<section id="id5">
+<h3>变量测试器<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>变量测试器（test）是另一种变量的处理方式，即带关键字 is 的 <code class="docutils literal notranslate"><span class="pre">variable</span> <span class="pre">is</span> <span class="pre">test</span></code> 语法。例如测试一个变量是否为偶数，使用 <code class="docutils literal notranslate"><span class="pre">even</span></code> 测试器：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">var</span> <span class="k">is</span> <span class="nf">even</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;p&gt;Var is even.&lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>或者使用接受参数的测试器（当测试器只有一个参数时，可省略括号）：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">var</span> <span class="k">is</span> <span class="nf">in</span><span class="o">(</span><span class="nv">mylist</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="nv">var</span> <span class="k">is</span> <span class="nf">in</span> <span class="nv">mylist</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>常用的测试器有：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">defined/undefined</span></code> ：判断变量是否是定义的/未定义的</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">divisibleby</span></code> ：检查整除性。 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">if</span> <span class="pre">9</span> <span class="pre">is</span> <span class="pre">divisibleby(3)</span> <span class="pre">}}</span></code></p></li>
+<li><p>比较测试：等于/不等于 <code class="docutils literal notranslate"><span class="pre">eq/ne</span></code> ，大/小于等于 <code class="docutils literal notranslate"><span class="pre">ge/le</span></code> ，大/小于 <code class="docutils literal notranslate"><span class="pre">gt/lt</span></code> 。这些测试器的单词名称一般不会直接书写（因为一般直接使用二元关系符代替），但可以用于上文介绍过的 <code class="docutils literal notranslate"><span class="pre">select</span></code> 过滤器。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">even/odd</span></code> ：判断是否是偶数/奇数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">in</span></code> ：判断是否在 seq 中。 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">if</span> <span class="pre">2</span> <span class="pre">is</span> <span class="pre">in([1,</span> <span class="pre">2])</span> <span class="pre">}}</span></code> ；这个通常也不会直接书写。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lower/upper</span></code> ：判断是否全为大写/小写字母。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">true/false</span></code> ：判断逻辑真/假。</p></li>
+</ul>
+<p>一份完整的 Jinja2 内置测试器列表，请参考： <a class="reference external" href="https://jinja.palletsprojects.com/en/master/templates/#list-of-builtin-tests">Jinja2: list-of-builtin-tests</a> 。</p>
+</section>
+<section id="id6">
+<h3>变量赋值*<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<p>Jinja 中被 set 语句赋值的变量可以在 <strong>块内部</strong> 通用。</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">var</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;a&#39;</span><span class="o">,</span> <span class="s1">&#39;bb&#39;</span><span class="o">,</span> <span class="s1">&#39;ccc&#39;</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>如果变量在顶层（所有块的外部）被赋值，那么它可以像宏一样，用 import 语句从其他文件引入（参考 <a class="reference internal" href="#macro"><span class="std std-ref">宏</span></a> 一节）。</p>
+<p>Jinja 还支持一个 <code class="docutils literal notranslate"><span class="pre">with</span></code> 块，专门用于限制变量的作用域：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">with</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">var</span> <span class="o">=</span> <span class="m">1</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endwith</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">var is undefined here.</span>
+</pre></div>
+</div>
+<p>上例中的赋值也可以写在 with 块的开启语句内： <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">with</span> <span class="pre">var</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">%}</span></code></p>
+</section>
+</section>
+<section id="id7">
+<h2>控制语句与宏<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<p>控制语句和宏（macro）是 Jinja 的核心内容。</p>
+<section id="if">
+<h3>If 判断<a class="headerlink" href="#if" title="永久链接至标题"></a></h3>
+<p>If 判断的一个示例。用 <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">if</span> <span class="pre">variable</span> <span class="pre">%}</span></code> 来判断某变量是否被定义（这不同于空变量或值为假的布尔型变量）。</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{# 本例来自官方文档 #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="nv">kenny.sick</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Kenny is sick.</span>
+<span class="cp">{%</span> <span class="k">elif</span> <span class="nv">kenny.dead</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    You killed Kenny!  You bastard!!!</span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Kenny looks okay --- so far</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>If 语句还能使用 Python 中类似的一种三元语法。更灵活的是，Jinja 中三元语法的 else 部分是可忽略的（返回 undefined）：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{# 本例来自官方文档 #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="nv">layout_template</span> <span class="k">if</span> <span class="nv">layout_template</span> <span class="k">is</span> <span class="nf">defined</span> <span class="k">else</span> <span class="s1">&#39;master.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="s2">&quot;[{}]&quot;</span><span class="nv">.format</span><span class="o">(</span><span class="nv">page.title</span><span class="o">)</span> <span class="k">if</span> <span class="nv">page.title</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</section>
+<section id="for">
+<h3>For 循环<a class="headerlink" href="#for" title="永久链接至标题"></a></h3>
+<p>For 循环的一个示例：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{# 本例来自官方文档 #}</span><span class="x"></span>
+<span class="x">&lt;ul&gt;</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;&lt;em&gt;no users found&lt;/em&gt;&lt;/li&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+<ul>
+<li><p>Jinja 中的 for 语句的 else 块与 Python 不同。Jinja 不会中途中断循环，因此 else 在上述 users 为空时执行；而在 Python 中，只要循环未中途跳出就会执行。注意这两者的差别。</p></li>
+<li><p>Jinja 循环中的 <code class="docutils literal notranslate"><span class="pre">loop</span></code> 是个特殊的变量，它能够调用循环的某些数据。</p>
+<ul class="simple">
+<li><p>用 <code class="docutils literal notranslate"><span class="pre">loop.previtem</span></code> 与 <code class="docutils literal notranslate"><span class="pre">loop.nextitem</span></code> 来调用当前值（在循环对象中对应位置的）前一个与后一个值。</p></li>
+<li><p>用 <code class="docutils literal notranslate"><span class="pre">loop.index</span></code> 来获取当前循环序数（从1开始）。或者使用 <code class="docutils literal notranslate"><span class="pre">loop.index0</span></code> （从0开始）。</p></li>
+</ul>
+</li>
+<li><p>Jinja 的插件 jinja2.ext.loopcontrols 提供了 break 与 continue 的支持。</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span>- <span class="k">if</span> <span class="nb">loop</span><span class="nv">.index</span> <span class="k">is</span> <span class="nf">even</span> <span class="cp">%}{%</span> <span class="k">continue</span> <span class="cp">%}{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    ...</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><p>由于早期 Python 的字典变量顺序是不稳定的，在 Jinja 的循环中要特别注意。</p></li>
+<li><p>Jinja 中也支持过滤循环对象（类似于 Python 中的列表解析语法）：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{# 本例来自官方文档 #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="k">if</span> <span class="k">not</span> <span class="nv">user.hidden</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="macro">
+<span id="id8"></span><h3>宏<a class="headerlink" href="#macro" title="永久链接至标题"></a></h3>
+<p>Jinja 中的宏的概念类似于函数：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{# 本例来自官方文档 #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">macro</span> <span class="nv">input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="o">,</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="o">,</span> <span class="nv">size</span><span class="o">=</span><span class="m">20</span><span class="o">)</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;input type=&quot;</span><span class="cp">{{</span> <span class="nv">type</span> <span class="cp">}}</span><span class="x">&quot; name=&quot;</span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">&quot; value=&quot;</span><span class="cp">{{</span>
+        <span class="nv">value</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&quot; size=&quot;</span><span class="cp">{{</span> <span class="nv">size</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="cp">{%</span>- <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">input</span><span class="o">(</span><span class="s1">&#39;username&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+<span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">input</span><span class="o">(</span><span class="s1">&#39;password&#39;</span><span class="o">,</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;password&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>如果宏在其他文件中定义，可以通过 import 语句来导入：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">import</span> <span class="s1">&#39;macrofile.html&#39;</span> <span class="k">as</span> <span class="nv">mymacro</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x"> &lt;p&gt;</span><span class="cp">{{</span> <span class="nv">mymacro.input</span><span class="o">(</span><span class="s1">&#39;username&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>宏的一种灵活用法是结合 call 语句块，将块内的内容以 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">caller()</span> <span class="pre">}}</span></code> 的形式放入宏中。下例是一个接受单参数的 call 语句块的例子：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{# 本例来自官方文档 #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">macro</span> <span class="nv">dump_users</span><span class="o">(</span><span class="nv">users</span><span class="o">)</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span>- <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span><span class="cp">{{</span> <span class="nv">caller</span><span class="o">(</span><span class="nv">user</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span>- <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/ul&gt;</span>
+<span class="cp">{%</span>- <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">call</span><span class="o">(</span><span class="nv">user</span><span class="o">)</span> <span class="nv">dump_users</span><span class="o">(</span><span class="nv">list_of_user</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;dl&gt;</span>
+<span class="x">        &lt;dl&gt;Realname&lt;/dl&gt;</span>
+<span class="x">        &lt;dd&gt;</span><span class="cp">{{</span> <span class="nv">user.realname</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/dd&gt;</span>
+<span class="x">        &lt;dl&gt;Description&lt;/dl&gt;</span>
+<span class="x">        &lt;dd&gt;</span><span class="cp">{{</span> <span class="nv">user.description</span> <span class="cp">}}</span><span class="x">&lt;/dd&gt;</span>
+<span class="x">    &lt;/dl&gt;</span>
+<span class="cp">{%</span> <span class="k">endcall</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id9">
+<h2>网页模板<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<p>本节的例子全部取自 Jinja2 的官方文档 <a class="reference external" href="https://jinja.palletsprojects.com/en/master/templates/#template-inheritance">Jinja2: template-inheritance</a> 一节。</p>
+<p>假设我们有一个基本模板 <code class="docutils literal notranslate"><span class="pre">base.html</span></code></p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE html&gt;</span>
+<span class="x">&lt;html lang=&quot;en&quot;&gt;</span>
+<span class="x">&lt;head&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">head</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;</span>
+<span class="x">    &lt;title&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"> - My Webpage&lt;/title&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/head&gt;</span>
+<span class="x">&lt;body&gt;</span>
+<span class="x">    &lt;div id=&quot;content&quot;&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x">&lt;/div&gt;</span>
+<span class="x">    &lt;div id=&quot;footer&quot;&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">footer</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &amp;copy; Copyright 2008 by &lt;a href=&quot;http://domain.invalid/&quot;&gt;you&lt;/a&gt;.</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>注意到那些 <code class="docutils literal notranslate"><span class="pre">{{%</span> <span class="pre">block</span> <span class="pre">...</span> <span class="pre">%}}</span></code> 语句，即网页块。它们是网页模板复用的关键。</p>
+<p>现在来看一个用户自定义的模板 <code class="docutils literal notranslate"><span class="pre">template.html</span></code>，它替换了部分上述模板的功能：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span><span class="x">Index</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">head</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nb">super</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    &lt;style type=&quot;text/css&quot;&gt;</span>
+<span class="x">        .important { color: #336699; }</span>
+<span class="x">    &lt;/style&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;h1&gt;</span><span class="cp">{{</span> <span class="nv">self.title</span><span class="o">()</span> <span class="cp">}}</span><span class="x">&lt;/h1&gt;</span>
+<span class="x">    &lt;p class=&quot;important&quot;&gt;</span>
+<span class="x">    Welcome to my awesome homepage.</span>
+<span class="x">    &lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>在该自定义模板中，用户的操作涉及：</p>
+<ul class="simple">
+<li><p>引用父模板： <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">&quot;base.html&quot;</span> <span class="pre">%}</span></code> 表示该自定义模板从 base.html 继承而来。</p></li>
+<li><p>替换块内容：比如父模板中的 title 块会被当前模板指定的 &quot;Index&quot; 字串所替代。</p></li>
+<li><p>扩展块内容：注意到 head 块中的继承指令 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">super()</span> <span class="pre">}}</span></code>，它可以在块内的任意位置。它将在此处引入父模板中的块内容，因此整个 head 块在父模板的基础上添加一些内容。</p></li>
+<li><p>重复打印块内容：上例中的 <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">self.title()</span> <span class="pre">}}</span></code> 将打印 title 块的内容。</p></li>
+</ul>
+<hr class="docutils" />
+<p>一些其他的在使用 Jinja 模板时，值得注意内容：</p>
+<ol class="arabic">
+<li><p>Jinja 允许在 endblock 语句中包含块的名称，以提高可读性： <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">title</span> <span class="pre">%}</span> <span class="pre">...</span> <span class="pre">{%</span> <span class="pre">endblock</span> <span class="pre">title</span> <span class="pre">%}</span></code></p></li>
+<li><p>块嵌套时，外层的变量默认在内层块不可用（ <a class="reference external" href="https://jinja.palletsprojects.com/en/master/templates/#block-nesting-and-scope">Jinja2: block-nesting-and-scope</a> ）。需要在内层块中，指定 <code class="docutils literal notranslate"><span class="pre">scoped</span></code> 关键字：</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">item</span> <span class="k">in</span> <span class="nv">seq</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">loop_item</span> <span class="k">scoped</span> <span class="cp">%}{{</span> <span class="nv">item</span> <span class="cp">}}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x">&lt;/li&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Sphinx" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="ThemeDevelopment.html" class="btn btn-neutral float-right" title="附录B：Sphinx 主题开发" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

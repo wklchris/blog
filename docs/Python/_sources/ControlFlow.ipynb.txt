@@ -1,0 +1,656 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 流程控制语句\n",
+    "\n",
+    "本章介绍流程控制相关的内容，例如循环语句与判断语句。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## if 判断语句\n",
+    "\n",
+    "判断语句是最简单的流程控制语句：\n",
+    "\n",
+    "- 语句首行由 `if` 开头，后接逻辑表达式，然后以冒号结尾\n",
+    "- 前面提到过，语句主体代码块每行的行首需要（相比语句首行）向右缩进 4 个空格\n",
+    "\n",
+    "下例判断了逻辑表达式 `x > 0` 的结果是 True，因此执行了代码块中的内容，使 x 增加了 1 。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = 1\n",
+    "if x > 0:\n",
+    "    x = x + 1\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "if 语句也支持 `else` 结构，用来添加一个逻辑表达式为 False 时要执行的代码块；不过该结构不是必须的。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "-1\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = -0.1\n",
+    "if x > 0:\n",
+    "    x = 1\n",
+    "else:\n",
+    "    x = -1\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "如果判断支有多个分岔，可以使用若干个 `elif` 在中间进行连接，开启若干个代码块："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Equal to zero.\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = 0\n",
+    "if x > 0:\n",
+    "    print(\"Larger than zero\")\n",
+    "elif x < 0:\n",
+    "    print(\"Smaller than zero\")\n",
+    "else:\n",
+    "    print(\"Equal to zero.\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## for 循环语句\n",
+    "\n",
+    "for 语句的标准格式是 `for xxx in yyy` ，其中 `yyy` 需要是一个可迭代的数据（常用的是序列类的数据，比如列表），而 `xxx` 则是依次取 `yyy` 中的数值。for 语句内部的代码会在 xxx 每读取一次数据后执行一遍，直到 `yyy` 中的所有项被遍历。\n",
+    "\n",
+    "一个简单的例子是计算 1+2+3+…+5 求和，我们这里创建一个列表 `lst` 来对其中的每项进行遍历："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "15\n"
+     ]
+    }
+   ],
+   "source": [
+    "lst = [1, 2, 3, 4, 5]\n",
+    "s = 0\n",
+    "for i in lst:\n",
+    "    s += i\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "for 语句还包含一个 else 的写法，能让循环在正常结束（即非break跳出的结束）后执行一段内容："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = 0\n",
+    "for i in (1,2,3):\n",
+    "    pass\n",
+    "else:\n",
+    "    s = i\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## while 循环语句\n",
+    "\n",
+    "while 语句的标准格式是 `while xxx` ，其中 `xxx` 是循环条件。如果循环条件不满足，则结束循环。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n"
+     ]
+    }
+   ],
+   "source": [
+    "i =  1\n",
+    "while i < 5:\n",
+    "    print(i)\n",
+    "    i += 1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "while 语句也支持 else 写法，让循环在正常结束（即非break跳出的结束）后执行一段内容："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "4\n"
+     ]
+    }
+   ],
+   "source": [
+    "s, i = 0, 1\n",
+    "while i <= 3:\n",
+    "    i += 1\n",
+    "else:\n",
+    "    s = i\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 循环内控制：break 与 continue\n",
+    "\n",
+    "循环内控制是进行复杂循环的重要一环。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### break：跳出\n",
+    "\n",
+    "循环内在特定的条件下，需要跳出循环语句。这时需要 `break` 关键字，它会跳出它所在的这一层循环语句："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "j = 1\n",
+      "j = 2\n",
+      "k = 1\n",
+      "j = 1\n",
+      "j = 2\n",
+      "k = 2\n"
+     ]
+    }
+   ],
+   "source": [
+    "for k in [1,2]:\n",
+    "    for j in [1,2,3]:\n",
+    "        if j > 2:\n",
+    "            break\n",
+    "        print(\"j =\", j)\n",
+    "    print(\"k =\", k)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "上例中，在 `j=3` 时判断 `j>2` 为真，因此执行 `break` 跳出了内层的 j 循环；但外层的 k 循环并不受影响。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "注意\n",
+    "\n",
+    "for 或 while 循环语句如果被 break 跳出时，循环语句的 else 语句块将 **不会被执行** 。\n",
+    "\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "else 语句块只在循环语句正常结束时执行，而 break 跳出不属于此列："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Break\n"
+     ]
+    }
+   ],
+   "source": [
+    "s =  \"Init\"\n",
+    "for k in [1,2,3]:\n",
+    "    if k == 2:\n",
+    "        s = \"Break\"\n",
+    "        break\n",
+    "else:  # break 成功时将不会执行\n",
+    "    s = \"End\" \n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "作为对比，如果循环语句中不含 break（或者 break 未被执行），那么 else 块能够正常执行："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "End\n"
+     ]
+    }
+   ],
+   "source": [
+    "s =  \"Init\"\n",
+    "for k in [1,2,3]:\n",
+    "    if k > 10:\n",
+    "        s = \"Break\"\n",
+    "        break\n",
+    "else:\n",
+    "    s = \"End\" \n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### continue：跳过\n",
+    "\n",
+    "用 `continue` 关键字来跳过当前的遍历项，开始遍历下一项。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1\n",
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "for k in [1, 2, 3]:\n",
+    "    if k == 2:\n",
+    "        continue\n",
+    "    print(k)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 循环语句工具\n",
+    "\n",
+    "有一些函数非常适合用在循环语句中，可以简化语句的书写。这类工具包括：\n",
+    "\n",
+    "- range()：在等差数列上循环\n",
+    "- enumerate()：循环时同时提供索引序数与项数据\n",
+    "- zip()：同时在循环多个序列"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### range() 函数：等差数列\n",
+    "\n",
+    "函数 `range()` 用于生成“等差数列”，方便用户在循环语句中遍历数字：\n",
+    "\n",
+    "- range() 生成的并不是列表，而是一种名叫 range 的序列类型。它比列表更节省空间（因为只存储了首项、末项与公差），但一般地你可以将它视作一个列表。\n",
+    "\n",
+    "其用法也非常简单：\n",
+    "\n",
+    "- `range(start, stop, step)` ：生成一个首项为 start、末项为 stop、公差为 step 的等差数列\n",
+    "- `range(start, stop)` ：省略 step 参数时，默认公差为 1。\n",
+    "- `range(stop)` ：省略 start 参数时，默认首项从 0 开始。这是为了与长度为 stop 的序列的索引相吻合：0, 1, 2, …, n-1 。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0\n",
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = range(5)\n",
+    "for number in x:\n",
+    "    print(number)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "另一个例子是，打印序列 x 的索引下标。这种用 `range()` 函数配合长度函数 `len()` 的使用是较为常见的。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0\n",
+      "1\n",
+      "2\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [\"a\", \"c\", \"b\"]\n",
+    "for i in range(len(x)):\n",
+    "    print(i)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "你也可以将 range 类型强行转为列表类型，但通常这没有必要："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[0, 1, 2, 3, 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(list(range(5)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "一个稍微复杂点的例子，用循环语句计算一百以内所有奇数 1+3+5+…+99 的求和结果。当然，更简单的方法是直接对数字序列使用 `sum()` 函数来求和，两者的结果是一致的。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2500 2500\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = 0\n",
+    "nums = range(1, 100, 2)\n",
+    "for number in nums:  # 或者 range(1, 99, 2)\n",
+    "    s += number\n",
+    "print(s, sum(nums))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### enumerate() 函数：序数与值循环\n",
+    "\n",
+    "枚举函数 `enumerate()` 能够让用户方便地对序列的索引序数进行操作。\n",
+    "\n",
+    "一个应用场景是，打印列表中的第 i 项分别是什么。如果用朴素的按索引循环的写法："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0 \t apple\n",
+      "1 \t banana\n",
+      "2 \t orange\n"
+     ]
+    }
+   ],
+   "source": [
+    "lst_with_a_long_name = [\"apple\", \"banana\", \"orange\"]\n",
+    "\n",
+    "for i in range(len(lst_with_a_long_name)):\n",
+    "    print(i, \"\\t\", lst_with_a_long_name[i])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "如果使用 `enumerate()` 函数，可以得到一种更为紧凑的写法——它在遍历时会返回一个二元的 `(index, item)` 元组，因此用户可以方便地将它拆分到两个循环变量中去。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0 \t apple\n",
+      "1 \t banana\n",
+      "2 \t orange\n"
+     ]
+    }
+   ],
+   "source": [
+    "lst_with_a_long_name = [\"apple\", \"banana\", \"orange\"]\n",
+    "\n",
+    "for i, item in enumerate(lst_with_a_long_name):\n",
+    "    print(i, \"\\t\", item)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "如你所见，这在列表的变量名较长的时候尤其有意义，可以显著地提高循环语句内容的可读性。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### zip() 函数：多序列并列循环\n",
+    "\n",
+    "函数 `zip()` 将多个序列并在一起，并在遍历索引下标 i 时返回这些序列的第 i 项组成的元组：\n",
+    "\n",
+    "- 如果这些序列长度不同，以最短的为准。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "A 10 a\n",
+      "B 20 b\n",
+      "C 30 c\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [\"A\", \"B\", \"C\"]\n",
+    "y = [10, 20, 30]\n",
+    "z = [\"a\", \"b\", \"c\", \"d\"]\n",
+    "\n",
+    "for xi, yi, zi in zip(x, y, z):\n",
+    "    print(xi, yi, zi)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.3"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

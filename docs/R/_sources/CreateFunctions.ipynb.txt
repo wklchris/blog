@@ -1,0 +1,336 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 函数操作\n",
+    "\n",
+    "本文介绍 R 中的控制语句（条件 if/switch 与循环 for/while），抛出警告与异常（stop()/warning()/message()），以及如何自编写函数、如何把编写函数放入启动环境中。\n",
+    "\n",
+    "## 条件语句\n",
+    "\n",
+    "### if 语句\n",
+    "\n",
+    "R 中的 if 语句有三种形式：\n",
+    "\n",
+    "- If (cond) state \n",
+    "- If (cond) yes-state else no-state\n",
+    "- Ifelse (cond, yes-state, no-state)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] TRUE\n"
+     ]
+    }
+   ],
+   "source": [
+    "# if 语句\n",
+    "if (2 > 1) {\n",
+    "    a <- TRUE\n",
+    "}\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] TRUE\n"
+     ]
+    }
+   ],
+   "source": [
+    "# if-else 语句\n",
+    "if (2 != 1) {\n",
+    "    a <- TRUE\n",
+    "} else {\n",
+    "    a <- False\n",
+    "}\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "TRUE"
+      ],
+      "text/latex": [
+       "TRUE"
+      ],
+      "text/markdown": [
+       "TRUE"
+      ],
+      "text/plain": [
+       "[1] TRUE"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# 三元选择器：ifelse()\n",
+    "ifelse(2 != 1, a <- TRUE, a <- False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### switch 语句"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] \"A\"\n",
+      "[1] \"B\"\n",
+      "[1] \"C\"\n"
+     ]
+    }
+   ],
+   "source": [
+    "dt <- c(\"a\", \"b\", \"c\")\n",
+    "for (i in dt) {\n",
+    "    print(switch(i, a = \"A\", b = \"B\", c = \"C\"))\n",
+    "}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 循环语句\n",
+    "\n",
+    "之前在 [“数据管理”一文](ManageData.ipynb#函数式编程) 中介绍过函数式编程 apply()。如果可能，请尽量使用函数式编程，而不是使用循环语句。\n",
+    "\n",
+    "### for 语句\n",
+    "\n",
+    "在 switch() 中已经展示了 for 语句的用法。\n",
+    "\n",
+    "### while 语句"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] 0\n",
+      "[1] 1\n",
+      "[1] 2\n"
+     ]
+    }
+   ],
+   "source": [
+    "i <- 0\n",
+    "while (i < 3) {\n",
+    "    print(i)\n",
+    "    i <- i + 1\n",
+    "}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 自编写函数\n",
+    "\n",
+    "R 中的函数声明与其他语言并没有什么不同："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<table>\n",
+       "<thead><tr><th scope=col>X</th><th scope=col>Y</th><th scope=col>SUM</th></tr></thead>\n",
+       "<tbody>\n",
+       "\t<tr><td>1</td><td>4</td><td>5</td></tr>\n",
+       "\t<tr><td>2</td><td>5</td><td>7</td></tr>\n",
+       "\t<tr><td>3</td><td>6</td><td>9</td></tr>\n",
+       "</tbody>\n",
+       "</table>\n"
+      ],
+      "text/latex": [
+       "\\begin{tabular}{r|lll}\n",
+       " X & Y & SUM\\\\\n",
+       "\\hline\n",
+       "\t 1 & 4 & 5\\\\\n",
+       "\t 2 & 5 & 7\\\\\n",
+       "\t 3 & 6 & 9\\\\\n",
+       "\\end{tabular}\n"
+      ],
+      "text/markdown": [
+       "\n",
+       "X | Y | SUM | \n",
+       "|---|---|---|\n",
+       "| 1 | 4 | 5 | \n",
+       "| 2 | 5 | 7 | \n",
+       "| 3 | 6 | 9 | \n",
+       "\n",
+       "\n"
+      ],
+      "text/plain": [
+       "  X Y SUM\n",
+       "1 1 4 5  \n",
+       "2 2 5 7  \n",
+       "3 3 6 9  "
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "DfSum <- function(x, is.print=FALSE) {\n",
+    "    # Compute the sum of all columns and put the results into SUM column.\n",
+    "    #\n",
+    "    # Args: \n",
+    "    #     x: Any data.frame object.\n",
+    "    #     is.print: if TRUE, print the new data.frame to the screen\n",
+    "    #\n",
+    "    # Returns:\n",
+    "    #     A data.frame combined by the original one and the SUM column.\n",
+    "    if (class(x) != \"data.frame\") {\n",
+    "        stop(\"Require data.frame input.\")\n",
+    "    }\n",
+    "    x$SUM <- apply(x, 1, sum)\n",
+    "    if (is.print)\n",
+    "        print(x)\n",
+    "    return(x)\n",
+    "}\n",
+    "\n",
+    "dt <- data.frame(X=c(1:3), Y=c(4:6))\n",
+    "DfSum(dt)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## R 启动环境：Startup\n",
+    "\n",
+    "我们常常把函数写在 R 文件中，然后在需要使用时用 source() 命令引用它。你可以配置 R 的相关配置文件（R 的安装目录下 etc/Rprofile.site 文件），使得你可以在任何 R 项目中方便地调用本地自编写的函数。\n",
+    "\n",
+    "你可以在其中创建一个名为 .First() 的函数，作为**每个 R 会话的启动函数**。一个例子：\n",
+    "\n",
+    "```r\n",
+    ".First() <- function() {\n",
+    "    library(Hmisc)  # 加载 Hmisc 包\n",
+    "    source(\"c:/R-files/myfunctions.R\")\n",
+    "}\n",
+    "```\n",
+    "\n",
+    "同理可以设置的还有关闭函数，叫做 .Last()。例如自动保存历史文件：\n",
+    "\n",
+    "```r\n",
+    ".Last() <- function() {\n",
+    "    history.name <- paste(paste(\"AutoSave\", Sys.Date(), strsplit(date(), \" \")[[1]][4], sep=\"-\"), \".Rhistory\", sep=\"\")\n",
+    "    savehistory(paste(getwd(), history.name))\n",
+    "}\n",
+    "```\n",
+    "\n",
+    "可以通过 help(Startup) 查看更多的内容。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 抛出异常\n",
+    "\n",
+    "你可能注意到了 stop() 函数，它在自编写函数中用于停止编译，可能会被经常用到。\n",
+    "\n",
+    "- stop(): 停止执行并报错。\n",
+    "- warning()：错误提示。\n",
+    "- message()：诊断信息提示。\n",
+    "\n",
+    "我们可以测试刚才编写的 DfSum 函数中使用的 stop()，输入一个不符合输入要求的参数："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ERROR",
+     "evalue": "Error in DfSum(\"abc\"): Require data.frame input.\n",
+     "output_type": "error",
+     "traceback": [
+      "Error in DfSum(\"abc\"): Require data.frame input.\nTraceback:\n",
+      "1. DfSum(\"abc\")",
+      "2. stop(\"Require data.frame input.\")   # at line 11 of file <text>"
+     ]
+    }
+   ],
+   "source": [
+    "DfSum(\"abc\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "R",
+   "language": "R",
+   "name": "ir"
+  },
+  "language_info": {
+   "codemirror_mode": "r",
+   "file_extension": ".r",
+   "mimetype": "text/x-r-source",
+   "name": "R",
+   "pygments_lexer": "r",
+   "version": "4.0.0"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

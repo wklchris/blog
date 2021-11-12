@@ -1,0 +1,3403 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 变量类型\n",
+    "\n",
+    "本章介绍 Python 的内置变量类型。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "我认为以下内置变量类型是在 Python 中经常用到、或者必须有所了解的：\n",
+    "\n",
+    "| 类型 | 关键字 | 说明 | 例子 |\n",
+    "| :---: | :--- | :--- | :--- |\n",
+    "| 【数字】 |\n",
+    "| 整型 | `int` | 整数 | `1`, `-1` |\n",
+    "| 浮点型 | `float` | 浮点数 | `1.0` |\n",
+    "| 复数型 | `complex` | 复数 | `complex(1,2)`\n",
+    "| 【序列】 |\n",
+    "| 列表 | `list` | 一串有序的可变数据序列，每一项数据可以是任意类型。 | `[1, 2]` |\n",
+    "| 元组 | `tuple` | 一串有序的不可变数据序列，在创建时就固定了每一项的数据值。 | `(1, 2)` |\n",
+    "| 字符串 | `str` | 一串文本字符组成的不可变序列。 | `\"string\"` |\n",
+    "| 【映射】 |\n",
+    "| 字典 | `dict` | 一些互不相同的键及它们各自对应的值组成的键值对数据集。 | `{\"a\":1, \"b\":2}` |\n",
+    "| 【集合】 |\n",
+    "| 集合 | `set` | 一些互不相同的数据值组成的无序可变数据集。 | `{1, 2}` |\n",
+    "| 【其他】 |\n",
+    "| 布尔型 | `bool` | 表示真或假的逻辑类型。 | `True` |\n",
+    "| 空对象 | `None` | 表示空。 | `None` |\n",
+    "\n",
+    "以上并不是 Python 的全部内置类型：\n",
+    "\n",
+    "- 一些高级的、复杂的变量类型，例如 `range` 构造器，不再在这里列出。它们会在后续的章节进行介绍。\n",
+    "- 一些较少使用到的类型，比如 `byte` 二进制字节类型，不会在本文的任何章节介绍。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 布尔型与空对象\n",
+    "\n",
+    "在介绍其他的变量类型之前，先介绍这两个特殊的类型。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 布尔型\n",
+    "\n",
+    "布尔型有真（True）或假（False）两种逻辑值，单词的首字母大写。常用的逻辑运算：\n",
+    "\n",
+    "- 逻辑与：全真才为真 `x and y`\n",
+    "- 逻辑或：含真即为真 `x or y`\n",
+    "- 逻辑非： `not x`\n",
+    "- 逻辑异或：相异为真 `x ^ y`\n",
+    "\n",
+    "以上 `x` 与 `y` 均是布尔型变量。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "False True False True\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = True\n",
+    "y = False\n",
+    "\n",
+    "print(x and y, x or y, not x, x ^ y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 空对象\n",
+    "\n",
+    "None 是 Python 中的空对象，它或许并不常用，但读者有必要了解。\n",
+    "\n",
+    "空对象的逻辑值为假："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "False\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = None\n",
+    "print(bool(x))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 数字类型：int, float, complex\n",
+    "\n",
+    "数字类型没有太多需要介绍的地方。\n",
+    "\n",
+    "- 四则运算：`+`, `-`, `*`, `/`\n",
+    "- 整除与取余：`c = a // b`, `d = a % b`；或者 `c, d = divmod(a,b)`。\n",
+    "  - 这里的整除是指向负无穷取整，例如 `-5//2` 的结果是 `-3`。\n",
+    "  - 复数不能参与整除或取余运算。\n",
+    "- 乘方：`a ** b`，或者 `pow(a, b)`\n",
+    "- 取模：`abs(a)`。如果 `a` 是复数，那么会计算模长；如果是整数或浮点数，实质上就是取绝对值。\n",
+    "- 自运算：`a += 1` 即 `a` 自增 1；同理有 `-=`, `*=`, `/=`\n",
+    "\n",
+    "值得注意的点：\n",
+    "\n",
+    "- **只要有除法参与的数学运算，其结果一定是浮点型**。\n",
+    "- **只要有浮点型参与的数学运算，其结果也一定是浮点型**。\n",
+    "- Python 的内部机制已经处理了整数溢出的问题，因此无须担心。\n",
+    "- 虽然在数学上不合法，但是在 Python（以及一众编程语言）中，`0 ** 0` 等于 1。\n",
+    "\n",
+    "特别地，浮点型中还包含两个特殊的值，分别是”非数“（Not a Number, `nan`）与”正/负无穷“（Infinity, `inf`）："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "nan inf -inf\n"
+     ]
+    }
+   ],
+   "source": [
+    "x, y, z = 'nan', 'inf', '-inf'\n",
+    "print(float(x), float(y), float(z))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "复数的使用非常少见，随便举个例子吧："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(3+4j) 5.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = complex(1, 5)\n",
+    "y = complex(2, -1)\n",
+    "z = x + y\n",
+    "print(z, abs(z))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 类型转换与取整\n",
+    "\n",
+    "Python 中从浮点型到整型的强制类型转换会截断小数点之后的部分："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 1 -1 -1\n"
+     ]
+    }
+   ],
+   "source": [
+    "a, b, c, d = 1.2, 1.6, -1.2, -1.6\n",
+    "print(int(a), int(b), int(c), int(d))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "要实现复杂的取整控制，可以调用 Python 内置的 `math` 模块：\n",
+    "\n",
+    "- floor：向负无穷取整。\n",
+    "- ceil：向正无穷取整。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 2 -2 -1\n"
+     ]
+    }
+   ],
+   "source": [
+    "import math  # 导入 math 模块\n",
+    "\n",
+    "print(math.floor(a), math.ceil(b), math.floor(c), math.ceil(d))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "不过在我个人的实践中，取整与四舍五入进位的任务通常由 `numpy` 库代劳；有兴趣的读者，可以阅读 Numpy 的相关函数：\n",
+    "\n",
+    "- [numpy.round](https://numpy.org/doc/stable/reference/generated/numpy.round_.html)\n",
+    "- [numpy.floor](https://numpy.org/doc/stable/reference/generated/numpy.floor.html)\n",
+    "- [numpy.ceil](https://numpy.org/doc/stable/reference/generated/numpy.ceil.html)\n",
+    "- [numpy.trunc](https://numpy.org/doc/stable/reference/generated/numpy.trunc.html)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 比较数字大小\n",
+    "\n",
+    "常规的数字大小判断：\n",
+    "\n",
+    "- 小于 `<` 与小于等于 `<=`\n",
+    "- 大于 `>` 与大于等于 `>=`\n",
+    "- 等于 `==` 与不等于 `!=`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "True\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = 3\n",
+    "y = 4\n",
+    "print(x != y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "特别地，Python 还支持“三元比较”："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "True True True\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(3 < 4 == 4, 3 > 2 < 4, 1 < 3 <= 5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "重要\n",
+    "    \n",
+    "不要试图用双等号比较两个浮点值的是否相等！\n",
+    "\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "浮点计算是有精度的，直接比较它们是否相等是不明智的："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.30000000000000004 0.3 False\n"
+     ]
+    }
+   ],
+   "source": [
+    "x, y = 0.1, 0.2\n",
+    "z = 0.3\n",
+    "\n",
+    "print(x+y, z, x+y==z)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "关于高精度的数学计算，推荐配合科学计算库 NumPy 使用。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 列表：list\n",
+    "\n",
+    "Python 的三种常用序列 list, tuple, str, 我们先讲列表 list；列表大概是最接近其他编程语言的序列了。\n",
+    "\n",
+    "- 列表序号从 0 开始。\n",
+    "- Python 中的列表类似于其他语言的数组，不过列表的长度可变、并且元素不必是同一类型的。\n",
+    "\n",
+    "*虽然列表中可以包含不同类型的元素，但从编程习惯上说，个人不推荐这样做。*"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 2, 'a', 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 'a', 4]\n",
+    "y = []  # 空列表\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python 中的列表默认支持常见所有的序列操作：\n",
+    "\n",
+    "- 索引元素：单个选取 `x[index]` ，切片型选取 `x[start:end:step]`\n",
+    "- 元素个数： `len(x)`\n",
+    "- 追加：单个元素 `x.append(item)` ，追加一个列表 `x.extend(y)`\n",
+    "- 插入： `x.insert(index, item)`\n",
+    "- 排序： \n",
+    "  - 按值排序：`x.sort()` ，或者带返回值的 `sorted(x)`\n",
+    "  - 反序：`x.reverse()` ，或者带返回值的 `reversed(x)`\n",
+    "- 查询：\n",
+    "  - 判断是否包含 `item in x` \n",
+    "  - 判断包含的次数 `x.count(item)`\n",
+    "  - 返回索引序数 `x.index(item)`\n",
+    "- 删除：\n",
+    "  - 按索引：弹出并返回一个元素 `x.pop(index)` ，直接删除元素 `del(x[index])`\n",
+    "  - 按值：移除等于给定值的项 `x.remove(item)`\n",
+    "  - 清空： `x.clear()`\n",
+    "- 最值：最大值 `max(x)` ，最小值 `min(x)`\n",
+    "\n",
+    "上述叙述中， `x` 与 `y` 均表示列表， `index` 表示序数（整数类型）， `item` 表示列表元素。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 索引元素\n",
+    "\n",
+    "列表中最基础的操作就是根据索引序号，取出单个（或多个）元素："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 5\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4, 5]\n",
+    "print(x[0], x[4])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python 支持负数索引，比如 `x[-1]` 表示列表的倒数第 1 位元素："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "4\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4, 5]\n",
+    "print(x[-2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python 支持一种切片语法，可以指定索引序号的起始、终止、步长，来选取多个元素。\n",
+    "\n",
+    "- `x[start:end]` ：从 `x[start]` 依次选取到 `x[end-1]`\n",
+    "- `x[start:end:step]` ：从 `x[start]` 每 `step` 个元素选取依次，直到 `x[end-1]` （或它之前最后一个能被选取到的元素）。步长可以是负数，但相应地必须有 start >= end\n",
+    "- `x[start:]` 或者 `x[:end]` ：从 `x[start]` 选取到末尾，或者从起始选取到 `x[end-1]` 。这其实是忽略了冒号一侧的项，也可以用空值 None 补位"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "重要\n",
+    "\n",
+    "切片选取的结束是第 end-1 个元素，而不是第 end 个元素。\n",
+    "\n",
+    "Python这样设计的原因是，这样保证了切片 x[start:end] 的长度恰好是 end 减去 start，而不是 end-start+1.\n",
+    "\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 2, 3, 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 选取 0 到 3，注意末尾被舍去\n",
+    "x = [1, 2, 3, 4, 5]\n",
+    "print(x[0:4])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 3] [1, 3, 5]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 选取 0 到 3 (或4)，每 2 个选取一次\n",
+    "print(x[0:4:2], x[0:5:2])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[5, 4, 3, 2, 1]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 负数步长\n",
+    "print(x[::-1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[2, 3, 4, 5] [1, 2, 3, 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 从 1 选取到末尾，或从起始选取至倒数第 2 项\n",
+    "print(x[1:], x[:-1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 3, 5] [1, 3, 5]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 也可以忽略某一项，等同于 None\n",
+    "print(x[::2], x[None:None:2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "赋值可以直接进行："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[6, 7, 3, 4, 5]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4, 5]\n",
+    "x[:2] = [6, 7]  # 本质是将右侧解包，然后分别传入两个元素位\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 元素个数\n",
+    "\n",
+    "Python 的 `len()` 函数是一个独立的函数，并不是通过 `x.len()` 的方式调用的。这其中设计的差别，读者可以仔细体会。\n",
+    "\n",
+    "该函数不止适用于列表，也适用于其他序列类型。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "5\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4, 5]\n",
+    "print(len(x))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 追加\n",
+    "\n",
+    "Python 的追加元素使用 `x.append()` ： "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 2, 3, 4, 5, -2]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4, 5]\n",
+    "x.append(-2)\n",
+    "\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "要追加一个列表，使用 `x.extend()` ："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 2, 3, 4, 5, -2, -1]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4, 5]\n",
+    "x.extend([-2, -1])\n",
+    "\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "注意， `x.append()` 这种 Python 内置实例的方法并不返回任何值。所以，你不能把它赋值到另一个变量："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "None\n"
+     ]
+    }
+   ],
+   "source": [
+    "y = [1, 2, 3, 4, 5].append(-2)\n",
+    "print(y)  # 无效的赋值，因为它并没有返回值"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "要实现这种“返回值”效果，可以考虑下面两种方法之一：\n",
+    "\n",
+    "- 加号：Python 支持用加号连接两个可变列表，从而把它们“融合”在一起\n",
+    "- 星号：Python 支持用前缀星号的方式进行列表展开"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 2, 3, 4, 5] [1, 2, 3, 4, 5]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3]\n",
+    "y1 = x + [4, 5]\n",
+    "y2 = [*x, 4, 5]\n",
+    "\n",
+    "print(y1, y2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 插入\n",
+    "\n",
+    "用 `x.insert(index, item)` 将元素插入到第 `index` 个元素的位置，原第 index 及以后的元素依次后移："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, -1, 2, 3] -1\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3]\n",
+    "x.insert(1, -1)  # 插入到 x[1] 处\n",
+    "\n",
+    "print(x, x[1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "要实现类似上一小节的“返回值”效果，仍然可以使用加号或者星号两种方式："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, -1, 2, 3] [1, -1, 2, 3]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3]\n",
+    "item = -1\n",
+    "\n",
+    "y1 = x[:1] + [item] + x[1:]\n",
+    "y2 = [*x[:1], item, *x[1:]]\n",
+    "\n",
+    "print(y1, y2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 排序\n",
+    "\n",
+    "#### 按值排序\n",
+    "\n",
+    "用 `x.sort()` 对列表进行排序，默认是按升序。Python 的排序是稳定排序。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 2, 3, 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 4, 3, 2]\n",
+    "x.sort()\n",
+    "\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "添加 `reverse=True` 选项，可以按降序进行排列。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[4, 3, 2, 1]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 4, 3, 2]\n",
+    "x.sort(reverse=True)\n",
+    "\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "如果列表内的元素不是数字，是列表或其他序列，会按 `<` 比较的方式来排序。下面是对列表元素进行排序："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[1, 2], [3, 2], [3, 4], [4, 3, 2]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [[1, 2], [4, 3, 2], [3, 4], [3, 2]]\n",
+    "x.sort()\n",
+    "\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "要实现类似上一小节的“返回值”效果，仍然可以使用加号或者星号两种方式："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[4, 3, 2, 1]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 4, 3, 2]\n",
+    "\n",
+    "print(sorted(x, reverse=True))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### 反序\n",
+    "\n",
+    "列表反序有三种方式：\n",
+    "\n",
+    "- 就地反序： `x.reverse()`\n",
+    "- 带返回值的反序：\n",
+    "  - 利用 `reversed` 生成器： `list(reversed(x))` \n",
+    "  - 利用步长为 -1 的切片： `x[::-1]`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[2, 3, 4, 1] True True\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 4, 3, 2]\n",
+    "x_copy = [1, 4, 3, 2]\n",
+    "\n",
+    "x.reverse()\n",
+    "y1 = list(reversed(x_copy))\n",
+    "y2 = x_copy[::-1]\n",
+    "print(x, x==y1, x==y2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 查询\n",
+    "\n",
+    "要查询一个元素是否在列表中，使用 `in` 关键字："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "True False\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4]\n",
+    "\n",
+    "print(2 in x, 5 in x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "相反地，要确定一个元素是否不再列表中，使用 `not in` 来取非："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "False True\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4]\n",
+    "\n",
+    "print(2 not in x, 5 not in x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "要查询一个元素在列表中的位置，使用 `x.index(item)` 。\n",
+    "\n",
+    "* 如果列表中该元素出现了多次， `x.index()` 只会返回最靠前的那项对应的索引序数。\n",
+    "* 如果要返回该元素在列表中出现的所有位置，可以使用列表解析（参考下方的[列表解析](#列表解析)一节）功能。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1\n",
+      "[1, 3]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 2]\n",
+    "item = 2\n",
+    "y1 = x.index(item)\n",
+    "y2 = [i for i, v in enumerate(x) if v == item]\n",
+    "\n",
+    "print(y1, y2, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "如果 `item` 不在列表中，这样会弹出 ValueError 错误，提示你要查询的对象并不在列表中："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ValueError",
+     "evalue": "5 is not in list",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[1;32m<ipython-input-52-96ad5df81983>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mx\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mindex\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m5\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[1;31mValueError\u001b[0m: 5 is not in list"
+     ]
+    }
+   ],
+   "source": [
+    "x.index(5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "使用 `x.count()` 函数，可以避免该错误："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2 0\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 2]\n",
+    "\n",
+    "print(x.count(2), x.count(5))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 删除\n",
+    "\n",
+    "#### 按索引删除\n",
+    "\n",
+    "用 `x.pop()` 弹出列表末尾的元素，或用 `x.pop(index)` 弹出第 index 位的元素："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "4 [1, 2, 3]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4]\n",
+    "y = x.pop()\n",
+    "print(y, x)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "3 [1, 2, 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4]\n",
+    "y = x.pop(2)\n",
+    "print(y, x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "或者直接用 `del(index)` 命令来删除元素 `x[index]` ："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 56,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 3, 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4]\n",
+    "del(x[1])\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### 按值删除"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "给定一个值 `item` ，用 `x.remove(item)` 可以删除列表中等于 `item` 的项：\n",
+    "\n",
+    "* 类似于 `x.index()` ，它只会删除最靠前的匹配项。\n",
+    "* 考虑使用列表解析（参考下方的[列表解析](#列表解析)一节）来移除所有的匹配项。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 3, 2]\n",
+      "[1, 3]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 2]\n",
+    "x_copy = [1, 2, 3, 2]\n",
+    "item = 2\n",
+    "\n",
+    "x.remove(item)\n",
+    "y = [k for k in x_copy if k != item]\n",
+    "print(x, y, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### 清空列表\n",
+    "\n",
+    "使用 `x.clear()` 来清空列表为 `[]` ："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 58,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4]\n",
+    "x.clear()\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 最值\n",
+    "\n",
+    "用 `max()` 或 `min()` 函数返回列表中的最值。类似于 `len()` ，这两个函数对其他的序列变量类型也同样有效。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 4\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 3, 4, 2]\n",
+    "\n",
+    "print(min(x), max(x))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 高级列表操作"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 列表展开\n",
+    "\n",
+    "可以“就地”把列表拆开成多个以逗号分隔的元素。除了上文提到的展开为列表中的项（比如 `[1, *x, 2]` ），更常见的是拆成函数的传入参数。比如取余函数 `divmod()` 接受两个参数："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(3, 1)\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [7, 2]\n",
+    "\n",
+    "print(divmod(*x))  # 7÷2=3 … 1 "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    ".. _list-comprehension:\n",
+    "\n",
+    "### 列表解析\n",
+    "\n",
+    "列表解析（也称列表推导）通过 for 循环与 if 判断来筛选列表中的元素。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[11, 12, 13]\n",
+      "[1, 3, 5]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = [1, 2, 3, 4, 5, 6]\n",
+    "y = [k+10 for k in x[:3]]\n",
+    "z = [k for k in x if k % 2 == 1]\n",
+    "\n",
+    "print(y, z, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 元组\n",
+    "\n",
+    "Python 中的元组与列表类似，但是元素不可变。\n",
+    "\n",
+    "- 元组与列表有不同的使用场景。\n",
+    "- 元组的元素之间以逗号隔开，外侧的圆括号是可选的。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = 1, 2, 3  # 等同于 x = (1, 2, 3)\n",
+    "y = ()       # 空元组\n",
+    "z = (1,)     # 单元素元组"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "元组也可以解包，将内部值赋给多个变量："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 2 3\n"
+     ]
+    }
+   ],
+   "source": [
+    "a, b, c = x\n",
+    "print(a, b, c)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "元组的索引与列表的方式一致，只是不能赋值给元组中的元素："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(1, 3, 5)"
+      ]
+     },
+     "execution_count": 64,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = 1, 2, 3, 4, 5\n",
+    "x[::2]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "元组的长度也可以用 `len()` 函数获取："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = 1, 2, 3\n",
+    "print(len(x))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 字符串\n",
+    "\n",
+    "字符串是一种不可变序列。因此，字符串不存在“就地改动”，任何字符串方法都不会改变原字符串的值。\n",
+    "\n",
+    "它在创建时可以用单引号包括，也可以用双引号包括。内部的引号可以用反斜线 `\\` 转义："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "It's a string. It's a string. True\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"It's a string.\"\n",
+    "y = 'It\\'s a string.'\n",
+    "print(x, y, x == y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "字符串可以用加号与乘号来进行连接与重复；如果要连接的均是字符串面值（直接用引号括起的值，而不是字符串变量），可以用空格进行连接。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 67,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "abcabcabcdef\n",
+      "This is a single-line string but I can write it across lines.\n",
+      "abcabcabcdefqwe\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"abc\" * 3 + \"def\"\n",
+    "y = (\"This is a single-line string \"\n",
+    "     \"but I can write it across lines.\")\n",
+    "z = x + 'qwe'  # 字符串变量也可用加号与面值连接\n",
+    "print(x, y, z, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "多行字符串可以用三个连续的单引号（或双引号）包括。多行字符串内容的所有换行都会被保留；可以在行尾添加一个反斜线 `\\` 来忽略当前行的换行："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 68,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "This is\n",
+      "a multiline\n",
+      "string.\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"\"\"\\\n",
+    "This is\n",
+    "a multiline\n",
+    "string.\n",
+    "\"\"\"\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 强制类型转换\n",
+    "\n",
+    "用 `str()` 可以强制将其他类型转换为字符串（如果能够转换）："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "123\n",
+      "True\n",
+      "[3, [1, 2], 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = 123\n",
+    "y = True\n",
+    "z = [3, [1, 2], 4]\n",
+    "\n",
+    "print(str(x), str(y), str(z), sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "字符串也可以转换为列表，本质是按字符依次拆开："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['a', 'b', 'c', 'd', 'e', 'f', 'g']\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"abcdefg\"\n",
+    "print(list(x))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 转义与 r 字符串\n",
+    "\n",
+    "常见的转移字符包括：\n",
+    "\n",
+    "| 字符 | 含义 |\n",
+    "| --- | :--- |\n",
+    "| `\\b` | 退格 |\n",
+    "| `\\n` | 换行 |\n",
+    "| `\\r` | 回车（移动到行首） |\n",
+    "| `\\t` | 制表符 |\n",
+    "| `\\\\` | 被转义的反斜线 |\n",
+    "\n",
+    "如果不想让反斜线进行转义，在字符串的 **左侧引号之前** 添加 `r` 实现："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "String with\tTAB.\n",
+      "String with\\tTAB.\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"String with\\tTAB.\"\n",
+    "y = r\"String with\\tTAB.\"\n",
+    "print(x, y, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 字符串索引\n",
+    "\n",
+    "字符串的索引仍然是字符串。Python 中没有字符类型，单个字符只是长度为 1 的字符串。\n",
+    "\n",
+    "字符串的索引仍然支持"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 72,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'This i'"
+      ]
+     },
+     "execution_count": 72,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = \"This is a string.\"\n",
+    "x[:6]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 73,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'Ti sasrn.'"
+      ]
+     },
+     "execution_count": 73,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x[::2]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "唯一不同于列表索引的是，字符串在切片选取时，可以超出索引范围而不报错："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 74,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "is a string.\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"This is a string.\"\n",
+    "print(x[5:2333])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 分割字符串\n",
+    "\n",
+    "Python 中字符串分割函数主要有 `split()` ， `rsplit()` 与 `splitline()` 三个方法。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "使用 `x.split(sep, maxsplit)` 来用 sep 字符串分割字符串 `x` ，并指定最多分割 maxsplit 次：\n",
+    "\n",
+    "- 分割字符串长度可以大于 1\n",
+    "- 默认的 `maxsplit=-1` ，即会完全分割字符串"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 75,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Thi', ' i', ' a ', 'tring.']\n",
+      "['Thi', ' is a string.']\n",
+      "['This is a string.']\n",
+      "['This', 'is', 'a', 'string.']\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"This is a string.\"\n",
+    "\n",
+    "print(x.split('s'))     # 默认完全分割\n",
+    "print(x.split('s', 1))  # 最多分割 1 次，即分割成 2 份\n",
+    "print(x.split('z'))     # 空分割\n",
+    "print(x.split())        # 默认以空格分割"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "我们经常把这个技巧用在 for 循环语句中："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 76,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "apple\n",
+      "pear\n",
+      "orange\n",
+      "banana\n"
+     ]
+    }
+   ],
+   "source": [
+    "fruits = \"apple,pear,orange,banana\"\n",
+    "for fruit in fruits.split(','):\n",
+    "    print(fruit)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python 还提供了 `rsplit()` ，可以从字符串的右侧开始分割。从下例比较两者的区别："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Thi', ' is a string.']\n",
+      "['This is a ', 'tring.']\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"This is a string.\"\n",
+    "\n",
+    "print(x.split('s', 1))\n",
+    "print(x.rsplit('s', 1))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "最后是 `splitlines(keepends=False)` ，它可以按行分隔符集中的所有符号进行分割（因此比手动地使用 `split('\\n')` 的效果更好）：\n",
+    "\n",
+    "- 在 `keepends=True` 时，它能保留换行符。\n",
+    "- 关于该函数认定的换行符号集，参考 [官方文档：str.splitlines()](https://docs.python.org/zh-cn/3/library/stdtypes.html?highlight=join#str.splitlines) 。\n",
+    "- 它与 `split()` 函数的另一个差别是对末尾空白行的处理，读者可以参考下例。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 78,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['line 1', 'line 2', 'line 3']\n",
+      "['line 1\\n', 'line 2\\r\\n', 'line 3\\n']\n",
+      "['line 1', 'line 2\\r', 'line 3', '']\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"line 1\\nline 2\\r\\nline 3\\n\"\n",
+    "\n",
+    "print(x.splitlines())\n",
+    "print(x.splitlines(keepends=True))\n",
+    "print(x.split('\\n'))  # 多一行"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 合并字符串：join()\n",
+    "\n",
+    "与 `x.split(sep)` 相反， 函数 `sep.join(lst)` 则是将一个列表用指定的分割符连接起来，组成一个字符串："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "apple ~ pear ~ orange ~ banana\n"
+     ]
+    }
+   ],
+   "source": [
+    "data = [\"apple\", \"pear\", \"orange\", \"banana\"]\n",
+    "s = ' ~ '.join(data)\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 替换子字符串：replace()\n",
+    "\n",
+    "字符串替换方法 `x.split(old, new, count)` 用 new 来替换（从左向右）前 count 次搜索到的 old 子字符串。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 80,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Thit it a ttring.\n",
+      "Thit it a string.\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"This is a string.\"\n",
+    "y1 = x.replace(\"s\", \"t\")\n",
+    "y2 = x.replace(\"s\", \"t\", 2)\n",
+    "print(y1, y2, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 检查首尾匹配：startswith() / endswith()\n",
+    "\n",
+    "用 `x.startswith(prefix)` 与 `x.endswith(suffix)` 这两个方法来检查字符串首尾端的子字符串是否匹配 prefix 或 suffix。比较常用的情形可能是检查文件的扩展名："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "doc - doc-A.txt\n",
+      "txt - doc-A.txt\n",
+      "doc - doc-B.md\n",
+      "txt - Doc-C.txt\n"
+     ]
+    }
+   ],
+   "source": [
+    "files = [\"doc-A.txt\", \"doc-B.md\", \"Doc-C.txt\"]\n",
+    "\n",
+    "for f in files:\n",
+    "    if f.startswith('doc'):\n",
+    "        print(f\"doc - {f}\")\n",
+    "    if f.endswith('txt'):\n",
+    "        print(f\"txt - {f}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 清除首尾字符：strip()\n",
+    "\n",
+    "用 `strip()` 清除两侧匹配的字符串，或者用 `lstrip()` 单独清除左侧的，或用 `rstrip()` 单独清除右侧的。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "strip: oc-A.txt  \tlstrip: A.txt     \trstrip: doc-A.\n",
+      "strip: oc-B.m    \tlstrip: B.md      \trstrip: doc-B.md\n",
+      "strip: Doc-C.txt \tlstrip: Doc-C.txt \trstrip: Doc-C.\n"
+     ]
+    }
+   ],
+   "source": [
+    "files = [\"doc-A.txt\", \"doc-B.md\", \"Doc-C.txt\"]\n",
+    "\n",
+    "for f in files:\n",
+    "    s = (f\"strip: {f.strip('d'):10}\\t\"\n",
+    "         f\"lstrip: {f.lstrip('doc-'):10}\\t\"\n",
+    "         f\"rstrip: {f.rstrip('txt')}\")\n",
+    "    print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "默认的 `strip()` 函数会清除字符串两侧的空格——这有时在读取文件时会用到："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 83,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['line 1 ', ' line 2 ', '\\tline 3']\n",
+      "['line 1', 'line 2', 'line 3']\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"line 1 \\n line 2 \\r\\n\\tline 3\\n\"\n",
+    "lines = x.splitlines()\n",
+    "lines_strip = [line.strip() for line in lines]\n",
+    "print(lines, lines_strip, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 字符串格式化：format() 与 f 字符串"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "字符串格式化是一种将字符串中的一部分（通常以 `{}` 标记）以外部数据（比如变量值或者其他字符串）替换的方法。\n",
+    "\n",
+    "- 方法 `x.format()` 在任何版本的 Python 3 中受到支持\n",
+    "- 带有前缀 f 的格式化字符串（即 f-string 或 f 字符串）在 Python 3.6 开始被支持\n",
+    "\n",
+    "字符串还有一种以百分号 `%` 进行格式化的方法，是从 Python 2 时期延续下来的语法（在 Python 3 中也可以使用）。本文不再介绍这部分内容，有兴趣的读者可以自行查阅。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "我们常常需要把变量的值（可能不是字符串类型）嵌入到字符串中，比如："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 84,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "We are learning Python 3.\n"
+     ]
+    }
+   ],
+   "source": [
+    "lang, ver = \"Python\", 3\n",
+    "x = \"We are learning \" + lang + \" \" + str(ver) + \".\"\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "上例中虽然用加法连接实现了这一点，但的确非常狼狈。\n",
+    "\n",
+    "#### format() 方法\n",
+    "\n",
+    "Python 支持用 `x.format()` 的形式来格式化字符串："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 85,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "We are learning Python 3.\n",
+      "True\n",
+      "True\n"
+     ]
+    }
+   ],
+   "source": [
+    "lang, ver = \"Python\", 3\n",
+    "x = \"We are learning {} {}.\".format(lang, ver)\n",
+    "\n",
+    "# 也可以按名称访问\n",
+    "y = \"We are learning {mylang} {myver}.\".format(mylang=lang, myver=ver)\n",
+    "\n",
+    "# 甚至可以进行字典展开，参考字典章节\n",
+    "d = {\"mylang\": lang, \"myver\": ver}\n",
+    "z = \"We are learning {mylang} {myver}.\".format(**d)\n",
+    "\n",
+    "print(x, x==y, x==z, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "上面的几种写法都可以得到相同的结果。如你所见，在格式化字符串中，我们用花括号来占位。默认的， `x.format()` 的输入参数都会被转为字符串格式。\n",
+    "\n",
+    "- 如果要在格式化字符串中打印花括号，请使用双写花括号（比如 `{{` ）。\n",
+    "- 如果传入的参数是键值对（即 `key=value` 的形式），请在花括号内注明键名称。这样的优势是代码可读性好。\n",
+    "\n",
+    "利用重复的键名或者重复的序号，可以反复使用同一个目标："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "We are learning Python 3. I love Python!\n",
+      "True\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 复用 lang 变量\n",
+    "x = \"We are learning {0} {1}. I love {0}!\".format(lang, ver)\n",
+    "y = \"We are learning {mylang} {myver}. I love {mylang}!\".format(mylang=lang, myver=ver)\n",
+    "print(x, x==y, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "一个更复杂的例子是将输入参数转为特定的字符串格式，比如将浮点数转换为保留指定小数位的字符串。这时候需要用到冒号 `:` 来指定格式——格式指定位于冒号右侧，而键名（如果无则留空）位于冒号左侧："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "PI = 3.14159...\n",
+      "True\n",
+      "True\n"
+     ]
+    }
+   ],
+   "source": [
+    "val, digits = 3.1415926535, 5\n",
+    "x = \"PI = {:.5f}...\".format(val)\n",
+    "y = \"PI = {val:.5f}...\".format(val=val)\n",
+    "z = \"PI = {0:.{1}f}...\".format(val, digits)\n",
+    "print(x, x==y, x==z, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python 支持的格式有：\n",
+    "\n",
+    "| 格式声明 | 格式示例 | 解释 | 输入 | 输出 |\n",
+    "| :--- | :---: | :--- | :--- | :--- |\n",
+    "| `s` | `{:5s}` | 字符串，以最小宽5位输出 | `\"abc\"` | \"  abc\" |\n",
+    "| 任意数 | \n",
+    "| `e` | `{:.2e}` | 科学计数法小数点后2位（默认6） | `1234.567` | \"1.23e+03\" |\n",
+    "| `E` | / | 同上，但输出时大写字母 E |  `1234.567` | \"1.23E+03\" |\n",
+    "| `f` | `{:.4f}` | 保留小数点后4位（默认6） | `1234.567` | \"1234.5670\" |\n",
+    "| `F` | / | 同上，但输出时大写 NAN 与 INF | `float('inf')` | \"INF\" |\n",
+    "| `g` | / | 接受数字，并自行判断输出格式 | | |\n",
+    "|     | `{:.5g}` | 5位有效数字（自动定点格式） | `1234.567` | \"1234.6\" |\n",
+    "|     | `{:.3g}` | 3位有效数字（自动科学计数格式）| `1234.567` | \"1.23e+03\" |\n",
+    "|     | `{:g}`   | （默认6位） | `float('nan')` | \"nan\" |\n",
+    "| `G` | `{:.3G}` | 同上，但输出时使用大写的 E、NAN 与 INF | `1234.567` | \"1.23E+03\" |\n",
+    "| `+` | `{:+.2f}` | 正负数均标明符号；保留2位小数 | `1234.567` | \"+1234.57\" | \n",
+    "| `␣` | `{: .2f}` | 正数空格，负数标明负号；保留2位小数 | `1234.567` | \" 1234.57\" |\n",
+    "| `%` | `{:.1%}` | 百分比，保留2位小数 | `0.12` | \" 12.0%\" |\n",
+    "| 整数 |\n",
+    "| `d` | `{:d}`   | 十进制整数 | `123` | \"123\" |\n",
+    "| `b` | `{:b}`   | 二进制整数 | `123` | \"1111011\" |\n",
+    "| `o` | `{:o}`   | 八进制整数 | `123` | \"173\" |\n",
+    "| `x` | `{:x}`   | 十六进制整数 | `123` | \"7b\" |\n",
+    "| `X` | / | 同上，但使用大写的 a~f | `123` | \"7B\" |\n",
+    "| 格式符 |\n",
+    "| `>` | `{:>4d}` | 强制右对齐（数字对象默认） | `123` | \" 123\" |\n",
+    "|     | `{:0>4d}` | 以0而不是空格补位 | `123` | \"0123\" |\n",
+    "| `<` | `{:<4d}` | 强制左对齐（其他对象默认） | `123` | \"123 \" |\n",
+    "| `^` | `{:^4d}` | 强制居中对齐 | `123` | \"123 \" |\n",
+    "| 其他 |\n",
+    "| `,` | `{:,}` | 以逗号千分位分隔 | `1234` | \"1,234\" |\n",
+    "| `#` | `{:#b}` | 显式保留输入类型；如二进制以\"0b\"开头 | `123` | \"0b1111011\" |"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "下面是几个例子："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 88,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "***1234***\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 在数字两侧各添加3个星号\n",
+    "x = 1234\n",
+    "print(\"{:*^{}d}\".format(x, len(str(x))+6))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 89,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Type d: 123\n",
+      "Type b: 0b1111011\n",
+      "Type o: 0o173\n",
+      "Type x: 0x7b\n",
+      "Type X: 0X7B\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 输入给定十进制数的其他进制形式\n",
+    "x = 123\n",
+    "for base in \"dboxX\":\n",
+    "    print(\"Type {base}: {val:#{base}}\".format(base=base, val=x))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### f 字符串\n",
+    "\n",
+    "上面的例子均由 `x.format()` 方法实现，但是不足之处在于不能方便地直接利用已有的变量值。比如上文中给浮点数保留指定位数的例子，变量 `val` 与 `digits` 仍然需要显式地作为 `format()` 方法的输入参数："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 90,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "PI = 3.14159...\n",
+      "True\n"
+     ]
+    }
+   ],
+   "source": [
+    "val, digits = 3.1415926535, 5\n",
+    "x = \"PI = {0:.{1}f}...\".format(val, digits)\n",
+    "y = \"PI = {myval:.{mydigits}f}...\".format(myval=val, mydigits=digits)\n",
+    "print(x, x==y, sep='\\n')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "当然，采用上文所介绍过字典展开的方式，你可以用先声明一个字典，然后在传入时用双写星号前缀来展开……"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 91,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "PI = 3.14159...\n"
+     ]
+    }
+   ],
+   "source": [
+    "val, digits = 3.1415926535, 5\n",
+    "d = {\"myval\": val, \"mydigits\": digits}\n",
+    "x = \"PI = {myval:.{mydigits}f}...\".format(**d)\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "这样， `x.format()` 方法的输入就显得不是太累赘。\n",
+    "\n",
+    "但并不是所有数据都适合写入同一个字典里的。因此，我推荐使用更方便的 f 字符串来格式化字符串，在字符串的左侧引号之前添加字母 f 即可："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "PI = 3.14159...\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Python >= 3.6\n",
+    "val, digits = 3.1415926535, 5\n",
+    "x = f\"PI = {val:.{digits}f}...\"\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "与 `x.format()` 方法一样，f 字符串支持格式化字串的所有格式。f 字符串也允许在花括号内进行合法的 Python 表达式书写："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 93,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0008\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f\"{2**3:0>4d}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "但是，花括号中的表达式不能显示地含有反斜线："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 94,
+   "metadata": {
+    "run_control": {
+     "marked": false
+    }
+   },
+   "outputs": [
+    {
+     "ename": "SyntaxError",
+     "evalue": "f-string expression part cannot include a backslash (<ipython-input-94-65ada2ec2e1b>, line 1)",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;36m  File \u001b[1;32m\"<ipython-input-94-65ada2ec2e1b>\"\u001b[1;36m, line \u001b[1;32m1\u001b[0m\n\u001b[1;33m    print(f\"A multiline string:\\n{'a'+'\\n'+'b'}\")\u001b[0m\n\u001b[1;37m          ^\u001b[0m\n\u001b[1;31mSyntaxError\u001b[0m\u001b[1;31m:\u001b[0m f-string expression part cannot include a backslash\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f\"A multiline string:\\n{'a'+'\\n'+'b'}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "你可以通过将带反斜线的值赋值到变量来规避这一点："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 95,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "A multiline string:\n",
+      "a\n",
+      "b\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"{}\\n{}\".format('a', 'b')\n",
+    "print(f\"A multiline string:\\n{x}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 大小写转换\\*\n",
+    "\n",
+    "Python 提供了丰富的大小写转换支持，包括\n",
+    "\n",
+    "- 全体强制大小写 `upper()/lower()`\n",
+    "- 仅首字母大写 `capitalize()`\n",
+    "- 每个单词首字母大写 `title()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 96,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "全大写       \tIT'S A STRING. THIS IS ANOTHER.\n",
+      "全小写       \tit's a string. this is another.\n",
+      "首字母大写     \tIt's a string. this is another.\n",
+      "单词首字母大写   \tIt'S A String. This Is Another.\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = \"It's a string. This is another.\"\n",
+    "n = len(x) + 10\n",
+    "\n",
+    "d = {\n",
+    "    \"全大写\": x.upper(),\n",
+    "    \"全小写\": x.lower(),\n",
+    "    \"首字母大写\": x.capitalize(),\n",
+    "    \"单词首字母大写\": x.title()\n",
+    "}\n",
+    "for k, v in d.items():\n",
+    "    print(f\"{k:10}\\t{v}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "注意， `title()` 方法会将一些并非单词头的字母识别为单词头（比如上例中 `It's` 的字母 s）。要避免这一情形，可以配合正则表达式处理，参考 [官方文档：str.title()](https://docs.python.org/zh-cn/3/library/stdtypes.html?highlight=split#str.title) 。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 字典：dict\n",
+    "\n",
+    "Python 的字典以键值对（key-value pairs）的形式存储数据：\n",
+    "\n",
+    "- 每一项数据之间用逗号 `,` 分隔，所有数据外侧用一组花括号 `{}` 包裹\n",
+    "- 每一项数据都是一组键值对，键与值之间用冒号 `:` 分隔\n",
+    "- 一个字典内，不能存在相同的键名\n",
+    "- 在 Python >= 3.7 的版本中，字典的项变更为 **有序的** （指在循环中被迭代，或被强制转换成序列时，键或键值对的顺序是稳定的），其顺序与创建时每一项被加入的顺序相同。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 97,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': 1, 'b': 3}\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {}  # 空字典\n",
+    "y = {\"a\": 1, \"b\": 3}\n",
+    "print(y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "字典的每一项数据的值可以是任意的数据类型。同时，不同于 JSON 文件中的键，Python 字典的键也可以是大多数类型（而不仅仅是字符串）。\n",
+    "\n",
+    "*从编程习惯上讲，我并不推荐在字典键中使用字符串以外的其他类型。*\n",
+    "\n",
+    "字典可以用 `len()` 来返回其键值对的个数，用 `in` 来查询一个键是否在字典中："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 98,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0\n",
+      "False\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {}\n",
+    "print(len(x))\n",
+    "print(\"a\" in x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 字典初始化\n",
+    "\n",
+    "字典有许多初始化方式。\n",
+    "\n",
+    "- 依次添加键值对\n",
+    "- 利用 `dict()` 构造\n",
+    "  - 从成对序列数据中构造\n",
+    "  - 显式地传入字面键值\n",
+    "- 利用 `fromkeys()` 方法\n",
+    "- 字典解析\n",
+    "\n",
+    "最朴素的方式是依次添加键值对。先新建一个空字典，然后依次向内添加键值对："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': 1, 'c': 3, 'b': 2}\n"
+     ]
+    }
+   ],
+   "source": [
+    "d = {}\n",
+    "d[\"a\"] = 1\n",
+    "d[\"c\"] = 3\n",
+    "d[\"b\"] = 2\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "在键与值分别存储在两个序列中时，我们可以利用 for 循环："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 100,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': 1, 'c': 3, 'b': 2}\n"
+     ]
+    }
+   ],
+   "source": [
+    "keys = \"a\", \"c\", \"b\"\n",
+    "vals = 1, 3, 2\n",
+    "\n",
+    "d = {}\n",
+    "for k, v in zip(keys, vals):\n",
+    "    d[k] = v\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "从成对序列数据中构造要求一种整合的数据存储方式。如果键与值是“成对地”存储在一个序列中，可以直接使用 `dict()` 来进行初始化："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 101,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': 1, 'c': 3, 'b': 2}\n"
+     ]
+    }
+   ],
+   "source": [
+    "data = [[\"a\", 1], [\"c\", 3], [\"b\", 2]]\n",
+    "d = dict(data)\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "在字典数据不多时，也可能考虑显式地传入字面键值（键自动视为字符串）："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 102,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': 1, 'c': 3, 'b': 2}\n"
+     ]
+    }
+   ],
+   "source": [
+    "d = dict(a=1, c=3, b=2)\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "使用 `fromkeys()` 方法能够快速初始化已知键名的字典，将所有键都赋同一个初始值（比如 `None` ）："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 103,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': None, 'c': None, 'b': None}\n"
+     ]
+    }
+   ],
+   "source": [
+    "keys = \"a\", \"c\", \"b\"\n",
+    "d = {}.fromkeys(keys, None)\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "类似于列表解析，字典也支持解析："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 104,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': 1, 'c': 3, 'b': 2} True\n"
+     ]
+    }
+   ],
+   "source": [
+    "data = [[\"a\", 1], [\"c\", 3], [\"b\", 2]]\n",
+    "d1 = {x[0]: x[1] for x in data}\n",
+    "\n",
+    "keys = \"a\", \"c\", \"b\"\n",
+    "vals = 1, 3, 2\n",
+    "d2 = {k: v for k, v in zip(keys, vals)}\n",
+    "\n",
+    "print(d1, d1==d2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 字典的视图\n",
+    "\n",
+    "由于字典有键、值、项（键值对）这三个概念，Python 也提供了对应的三种视图：\n",
+    "\n",
+    "- 键视图： `x.keys()` ，一个依序的、每个键为一个元素的序列\n",
+    "- 值视图： `x.values()` ，一个与键视图中的键依次对应的值组成的序列\n",
+    "- 项视图： `x.items()` ，一个依上述顺序的、每个元素是一个键值对元组的序列\n",
+    "\n",
+    "用 for 循环来展示一下这三种视图："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 105,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "key: a\n",
+      "key: c\n",
+      "val: 1\n",
+      "val: 3\n",
+      "item: ('a', 1)\n",
+      "item: ('c', 3)\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3}\n",
+    "for k in x.keys():\n",
+    "    print(f\"key: {k}\")\n",
+    "\n",
+    "for v in x.values():\n",
+    "    print(f\"val: {v}\")\n",
+    "\n",
+    "for i in x.items():\n",
+    "    print(f\"item: {i}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "在 `x.keys()` 中循环其实与在 `x` 中循环的结果是相同的，都是遍历字典的键："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 106,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "a\n",
+      "c\n"
+     ]
+    }
+   ],
+   "source": [
+    "for k in x:\n",
+    "    print(k)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "字典的项视图 `items()` 常常被用在 for 循环中，解包成两个循环变量："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 107,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "a = 1\n",
+      "c = 3\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3}\n",
+    "for k, v in x.items():\n",
+    "    print(f\"{k} = {v}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 按键索引值：get() / setdefault()\n",
+    "\n",
+    "要按字典键索引其对应的值，有以下几种方法：\n",
+    "\n",
+    "- 如果确认键 key 位于字典 x 中，可以直接使用该键来索引 `x[key]`\n",
+    "- 如果键 key 可能不在 x 中：\n",
+    "  - 用 `x.get(key, default=None)` 方法，失败时它会返回一个备用值 `default`\n",
+    "  - 用 `x.setdefault(key, default=None)` 方法，失败时它会把键值对 `key: default` 添加到字典"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 108,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3}\n",
+    "print(x[\"a\"])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "更安全的选择是使用 `x.get(key, default=None)` 方法。它的作用是：如果 key 存在于 x 的键中，那么返回该键对应的值；否则，返回 default 指定的值。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 109,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Not in dict\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3}\n",
+    "print(x.get(\"b\", \"Not in dict\"))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "另一个选择是利用 `x.setdefault(key, default=None)` 方法。如果 key 存在于 x 的键中，那么返回该键对应的值；否则，将 default 值与 key 键组成键值对，加入到字典 x 中。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 110,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2 2\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3}\n",
+    "y1 = x.setdefault(\"b\", 2)\n",
+    "y2 = x[\"b\"]  # 键值对已经被添加\n",
+    "print(y1, y2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 删除项：pop() / popitem()\n",
+    "\n",
+    "最简单的自然是 `del()` 删除函数："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 111,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'c': 3, 'b': 2}\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3, \"b\": 2}\n",
+    "del(x[\"a\"])\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "字典的 `x.pop(key)` 与列表在表现上类似，也是返回一个值的同时将其从容器中删除："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 112,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'c': 3, 'b': 2} 1\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3, \"b\": 2}\n",
+    "y = x.pop(\"a\")\n",
+    "print(x, y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "特别指出，方法 `pop()` 也有一个名为 `default` 的参数，会在字典不包含键时返回该 default 值（如果不显示地给出 default 的值，那么会造成 KeyError）。这一点与 `setdefault()` 方法相映成趣。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 113,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'c': 3, 'b': 2} 1 100\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3, \"b\": 2}\n",
+    "y = x.pop(\"a\", 10)    # 正常返回 x[\"a\"]，并删除键 \"a\"\n",
+    "z = x.pop(\"a\", 100)   # 没有键 \"a\"，返回默认值 100\n",
+    "print(x, y, z)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "最后，介绍 `popitem()` ，这个方法被用到的较少。它并不指定键名来抛出一个项，而是按照字典键的顺序，反向地依次抛出字典地项——即后进先出（LIFO），如同对栈容器进行弹栈操作一样。\n",
+    "\n",
+    "*对于 Python 3.7 之前的版本，它并不是依照 LIFO 顺序弹出字典项的，而是按照随机选择的顺序。* "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 114,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "('b', 2)\n",
+      "('c', 3)\n",
+      "('a', 1)\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3, \"b\": 2}\n",
+    "while len(x) > 0:\n",
+    "    y = x.popitem()\n",
+    "    print(y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 更新字典：update()\n",
+    "\n",
+    "通过 `x.update(y)` ，字典 x 可以根据字典 y 的键值对来就地更新字典 x 的数据：\n",
+    "\n",
+    "- 在字典 x 与 y 中都存在的键，以 y 中的值为准\n",
+    "- 仅在一个字典中存在的键，得以保留"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 115,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': -10, 'c': 3, 'b': 2, 'd': 4}\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3, \"b\": 2}\n",
+    "y = {\"a\": -10, \"d\": 4}\n",
+    "x.update(y)\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "利用循环，我们可以实现与 `update()` 方法相同的效果："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 116,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': -10, 'c': 3, 'b': 2, 'd': 4}\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = {\"a\": 1, \"c\": 3, \"b\": 2}\n",
+    "y = {\"a\": -10, \"d\": 4}\n",
+    "\n",
+    "for k in y:\n",
+    "    x[k] = y[k]\n",
+    "print(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 更改键名\\*\n",
+    "\n",
+    "字典并没有单独提供更改键名的方法，但这也是一个实用场景。由于 Python >= 3.7 版本引入了字典键的顺序，要在更改键名时保持键的顺序也显得重要。\n",
+    "\n",
+    "先说明一种会打乱键顺序的键名更改方法，那就是将指定键用 `pop(oldkey)` 弹出然后赋值给 `d[newkey]` 。下面以将键名改为小写为例："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 117,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': 1, 'c': 3, 'b': 2, 'd': 4}\n"
+     ]
+    }
+   ],
+   "source": [
+    "d = dict(a=1, B=2, c=3, D=4)\n",
+    "dkey = dict(B=\"b\", D=\"d\")\n",
+    "\n",
+    "for oldkey, newkey in dkey.items():\n",
+    "    d[newkey] = d.pop(oldkey)\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "可以看到，字典 d 的键顺序也被打乱了。要保留顺序，只能遍历所有的字典键："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 118,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'a': 1, 'b': 2, 'c': 3, 'd': 4}\n"
+     ]
+    }
+   ],
+   "source": [
+    "d =  {\"a\": 1, \"B\": 2, \"c\": 3, \"D\": 4}\n",
+    "dkey = {\"B\": \"b\", \"D\": \"d\"}\n",
+    "\n",
+    "oldkeys = tuple(d.keys())\n",
+    "for k in oldkeys:\n",
+    "    # 如果有新键名则使用 dkey[k]，否则使用旧键名 k\n",
+    "    d[dkey.get(k, k)] = d.pop(k)\n",
+    "\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 集合\n",
+    "\n",
+    "Python 中的集合借鉴了数学意义上的集合概念，要求内部的元素不能重复。\n",
+    "\n",
+    "- 集合 set 是可变的；Python 也提供了一种不可变集合 frozenset ，其不涉及可变性部分的用法与 set 大致相同。\n",
+    "\n",
+    "集合用花括号括起的、逗号分隔的多个项来表示。但是，空集合不能使用 `{}` 来指明（因为这代表空字典），请使用 `set()` 指明。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 119,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{1, 2, 3} {1, 2, 3} set()\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = set([1, 2, 3, 2])\n",
+    "y = {1, 2, 3}\n",
+    "z = set()   # 空集合\n",
+    "print(x, y, z)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "集合同样支持长度度量 `len()` ，包含性检查 `in` ，以及循环遍历。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 120,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "3 False\n",
+      "1 2 3 "
+     ]
+    }
+   ],
+   "source": [
+    "x = {1, 2, 3}\n",
+    "print(len(x), 4 in x)\n",
+    "\n",
+    "for k in x:\n",
+    "    print(k, end=' ')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 集合运算与包含关系\n",
+    "\n",
+    "集合运算包括交集、并集、差集、对称差集，包含关系包括（真）子集、（真）超集。\n",
+    "\n",
+    "| 运算 | 说明 | 运算符 | 示例 | 集合方法 | 示例 |\n",
+    "| --- | --- | --- | :--- | :--- | :--- |\n",
+    "| 交 | `&` | `a & b` | 同时位于两个集合中的元素 | `intersection` | `a.intersection(b, c, ...)` |\n",
+    "| 并 | `\\|` | `a \\| b` | 至少位于其一集合中的元素 | `union` | `a.union(b，c, ...)` |\n",
+    "| 差 | `-` | `a - b` | 只位于 a 而不位于 b 的元素 | `difference` | `a.difference(b, c, ...)` |\n",
+    "| 对称差 | `^` | `a ^ b` | 位于且仅位于其一集合中的元素 | `symmetric_difference` | `a.symmetric_difference(b)` |\n",
+    "| 子集 | `<=` | `a <= b` | a 的所有元素都在 b 中 | `issubset` | `a.issubset(b)` |\n",
+    "| 真子集 | `<` | `a < b` | a 是 b 的子集且 a、b 不同 | / | / |\n",
+    "| 超集 | `>=` | `a >= b` | b 的所有元素都在 a 中 | `issuperset` | `a.issuperset(b)` |\n",
+    "| 真超集 | `>` | `a > b` | b 是 a 的子集且 a、b 不同 | / | / |\n",
+    "| 互斥 | / | /| a 与 b 没有共同元素 | `isdisjoint()` | `a.isdisjoint(b)` |\n",
+    "\n",
+    "注意，上述命令中：\n",
+    "\n",
+    "- 交、并、差可以输入多个集合（如最后一列所示）。如果使用运算符，则用重复使用相同的运算符连接即可。\n",
+    "- 对于“运算符”这一列命令，变量 a 与 b 都必须是集合（或者不可变集合）类型。对于“集合方法”这一列命令，只有 a 必须是严格的集合（或者不可变集合）类型，b 可以是任意的可迭代对象。\n",
+    "- 上述集合方法也可以用 `set` 来调用。例如，取差集可以写为 `set.difference(a, b)` 。\n",
+    "- 上述运算的返回值的结果均以 a 为准。例如，如果 a 是 set 类型而 b 是 frozenset 类型，那么返回值将是 set 类型。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 121,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "交       \t{2}\n",
+      "并       \t{1, 2, 3, 4, 5}\n",
+      "差       \t{1, 3}\n",
+      "对称差     \t{1, 3, 4, 5}\n",
+      "子集      \tFalse\n",
+      "超集      \tFalse\n",
+      "互斥      \tFalse\n"
+     ]
+    }
+   ],
+   "source": [
+    "a, b = {1, 2, 3}, {2, 4, 5}\n",
+    "set_funcs = {\n",
+    "    \"交\": set.intersection,\n",
+    "    \"并\": set.union,\n",
+    "    \"差\": set.difference,\n",
+    "    \"对称差\": set.symmetric_difference, \n",
+    "    \"子集\": set.issubset,\n",
+    "    \"超集\": set.issuperset,\n",
+    "    \"互斥\": set.isdisjoint\n",
+    "}\n",
+    "\n",
+    "for text, func in set_funcs.items():\n",
+    "    print(f\"{text:8}\\t{func(a, b)}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 更新集合\n",
+    "\n",
+    "集合的更新是就地更新，也涉及到上面的集合运算：\n",
+    "\n",
+    "- 直接更新 `a.update(b, ...)` ，即将并集赋回，等同于 `a |= b | ...`\n",
+    "- 只保留交集 `a.intersection_update(b, ...)` ，即将交集赋回，等同于 `a &= b & ...`\n",
+    "- 只保留差集 `a.difference_update(b, ...)` ，等同于 `a -= b | ...`\n",
+    "- 只保留对称差集 `a.symmetric_difference_update(b)` ，等同于 `a ^= b`\n",
+    "\n",
+    "以上命令中，除了对称差以外的运算都可以输入多个集合。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 122,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "（并）更新   \t{1, 2, 3, 4, 5}\n",
+      "交更新     \t{2}\n",
+      "差更新     \t{1, 3}\n",
+      "对称差更新   \t{1, 3, 4, 5}\n"
+     ]
+    }
+   ],
+   "source": [
+    "a, b = {1, 2, 3}, {2, 4, 5}\n",
+    "set_funcs = {\n",
+    "    \"（并）更新\": set.update,\n",
+    "    \"交更新\": set.intersection_update,\n",
+    "    \"差更新\": set.difference_update,\n",
+    "    \"对称差更新\": set.symmetric_difference_update\n",
+    "}\n",
+    "\n",
+    "for text, func in set_funcs.items():\n",
+    "    a_copy = a.copy()  # 拷贝一个副本，避免直接对 a 改动\n",
+    "    func(a_copy, b)\n",
+    "    print(f\"{text:8}\\t{a_copy}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 增删元素\n",
+    "\n",
+    "本节中的命令只对可变集合（set 类型）有效，对不可变集合（frozenset 类型）无效 。\n",
+    "\n",
+    "- 增加：`add(elem)`\n",
+    "- 移除：\n",
+    "  - 移除指定：\n",
+    "    - `remove(elem)` ：移除一个不存在集合中的元素时会造成 KeyError\n",
+    "    - `discard(elem)` ：尝试移除一个元素，如果不存在集合中则静默\n",
+    "  - 随机移除： `pop()` ，随机返回一个集合中的元素，并将其从集合中移除\n",
+    "  - 清空： `clear()`\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 123,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "After add\t {1, 2, 3, 4}\n",
+      "After remove\t {1, 2, 4}\n",
+      "After discard\t {1, 2, 4}\n"
+     ]
+    }
+   ],
+   "source": [
+    "a = {1, 2, 3}\n",
+    "a.add(4)\n",
+    "print(\"After add\\t\", a)\n",
+    "\n",
+    "a.remove(3)\n",
+    "print(\"After remove\\t\", a)\n",
+    "\n",
+    "a.discard(100)\n",
+    "print(\"After discard\\t\", a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "其中， `pop()` 与 `clear()` 十分易懂，这里就不再用代码说明了。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 其他\n",
+    "\n",
+    "Python 中提供了一个比较奇怪的变量，即单下划线 `_` —— 虽然从理论上讲，下划线是变量名中可以使用的合法字符，这个变量名本应如同单字符变量名 `x`、`s` 一样自然。\n",
+    "\n",
+    "它的作用一般有：\n",
+    "\n",
+    "1. 在交互式 Python 运行环境中，它会自动记录最后一次代码执行的结果。\n",
+    "2. 习惯上，我们将不需要用到的变量值用该变量标记。例如：\n",
+    "   - 不使用的返回值：`x, _ = divmod(7, 2)`\n",
+    "   - 不使用的循环变量值：`[None for _ in range(3)]`\n",
+    "   - 不使用的匿名变量输入值：`lambda _: 1`\n",
+    "3. 避免编辑器的语法检查。Python 语法检查器会忽略 `_` 变量；而其他变量如果声明而未在后文引用，检查器会发出警告。"
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.3"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {
+    "height": "176px",
+    "width": "262px"
+   },
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

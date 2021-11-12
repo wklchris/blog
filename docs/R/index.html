@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="Programming" name="category" />
+<meta content="r" name="keywords" />
+<meta content="R" name="series" />
+<meta content="1" name="series_num" />
+<meta content="2017-01-16" name="date_init" />
+<meta content="2020-09-18" name="date_modified" />
+<meta content="本文介绍统计语言 R 的基础使用。" name="abstract" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R 语言简介 &mdash; R 语言简介  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/R/index.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="1. 数据结构" href="DataStructure.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="#" class="icon icon-home"> R 语言简介
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="DataStructure.html">1. 数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReadData.html">2. 数据读取</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ManageData.html">3. 数据管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CreateFunctions.html">4. 函数操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlottingBasic.html">5. R 绘图基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlottingGGplot2.html">6. ggplot2 绘图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DescriptiveStatistics.html">7. R中的描述性统计</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">R 语言简介</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>R 语言简介</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="r">
+<h1>R 语言简介<a class="headerlink" href="#r" title="永久链接至标题"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>本文直接由旧站点迁移而来，其内容较久未更新，且可能在迁移中有所缺失。</p>
+</div>
+<p>本文将简要介绍 R 语言这门统计语言的使用。</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="DataStructure.html">1. 数据结构</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DataStructure.html#数据类型">1.1. 数据类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataStructure.html#因子(factor)">1.2. 因子(factor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataStructure.html#同类元素集：向量、矩阵与数组">1.3. 同类元素集：向量、矩阵与数组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataStructure.html#列表">1.4. 列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataStructure.html#数据框：data.frame">1.5. 数据框：data.frame</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ReadData.html">2. 数据读取</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ReadData.html#实用函数">2.1. 实用函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReadData.html#手动输入">2.2. 手动输入</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReadData.html#读取文件">2.3. 读取文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReadData.html#写入文件">2.4. 写入文件</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ManageData.html">3. 数据管理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ManageData.html#数学函数">3.1. 数学函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManageData.html#数据框操作">3.2. 数据框操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManageData.html#字符串处理">3.3. 字符串处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManageData.html#异常值处理">3.4. 异常值处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManageData.html#整合与重构">3.5. 整合与重构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManageData.html#函数式编程">3.6. 函数式编程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManageData.html#其他实用函数">3.7. 其他实用函数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CreateFunctions.html">4. 函数操作</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CreateFunctions.html#条件语句">4.1. 条件语句</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CreateFunctions.html#循环语句">4.2. 循环语句</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CreateFunctions.html#自编写函数">4.3. 自编写函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CreateFunctions.html#R-启动环境：Startup">4.4. R 启动环境：Startup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CreateFunctions.html#抛出异常">4.5. 抛出异常</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PlottingBasic.html">5. R 绘图基础</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PlottingBasic.html#基础命令">5.1. 基础命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlottingBasic.html#绘图参数：par()">5.2. 绘图参数：par()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlottingBasic.html#自定义其他元素">5.3. 自定义其他元素</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlottingBasic.html#统计图">5.4. 统计图</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PlottingGGplot2.html">6. ggplot2 绘图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PlottingGGplot2.html#基础">6.1. 基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlottingGGplot2.html#绘图命令">6.2. 绘图命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PlottingGGplot2.html#主题命令：theme()">6.3. 主题命令：theme()</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DescriptiveStatistics.html">7. R中的描述性统计</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DescriptiveStatistics.html#描述性统计">7.1. 描述性统计</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>本文档最后构建于 2021-11-11。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="DataStructure.html" class="btn btn-neutral float-right" title="1. 数据结构" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

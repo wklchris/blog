@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="Misc" name="category" />
+<meta content="documentation,rst,sphinx" name="keywords" />
+<meta content="Misc" name="series" />
+<meta content="1" name="series_num" />
+<meta content="2018-10-15" name="date_init" />
+<meta content="2020-09-20" name="date_modified" />
+<meta content="本文介绍 reStructuredText，一种最初用于创建 Python 技术文档的标记语言。" name="abstract" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>reStructuredText 简介 &mdash; reStructuredText 简介  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/reStructuredText/index.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS"}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="引言" href="Intro.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="#" class="icon icon-home"> reStructuredText 简介
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fundamentals.html">reST 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Advance.html">高级功能</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">reStructuredText 简介</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>reStructuredText 简介</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="math notranslate nohighlight">
+\[\newcommand{\ud}{\mathop{}\negthinspace\mathrm{d}}
+\newcommand{\pfrac}[2][x]{\frac{\partial #2}{\partial #1}}\]</div>
+<section id="restructuredtext">
+<h1>reStructuredText 简介<a class="headerlink" href="#restructuredtext" title="永久链接至标题"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>本文由个人之前的旁置子站点 /Gitbooks 迁移而来。由 Markdown 文档转为了 reStructuredText，且内容有更新。</p>
+</div>
+<p>reStructuredText（简写为 reST，RST，或 ReST）是一种纯文本标记语言。虽然它并不像 Markdown 那样流行，但提供了更丰富的定制功能与扩展性。</p>
+<p>本文适合：</p>
+<ul>
+<li><p>对轻量标记语言有所了解的读者。最好有 Markdown 的使用经验。关于 Markdown，可以参考 Github 的这篇 <a class="reference external" href="https://guides.github.com/features/mastering-markdown/">英文简介</a> 。</p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> 的用户，他们非常需要了解 reST 。本文中的许多功能并不是 reStructuredText 原生支持的，而是由 Sphinx 在 reStructuredText 的语法上进行扩展而实现的。</p>
+<p>如果您对 Sphinx 知之甚少，可以配合本站的另一篇博文 <a class="reference external" href="../Sphinx/">Sphinx 简介</a> 阅读。</p>
+</li>
+<li><p>正在寻找一种平衡的标记语言的读者。从某种意义上讲，reST 算是一种在“轻量/易读易写”与“强功能性/定制性”之间的达到平衡的文本格式。对我来说，reST 是在某些网络文档构建的场合下是一种恰当的格式。</p>
+<ul class="simple">
+<li><p>HTML 功能强大，但是易读性差。</p></li>
+<li><p>Markdown 易读易写，但是牺牲了太多的功能性。有些功能可以通过插入 HTML 来解决，但无疑是与 Markdown 的核心优势背道而驰。</p></li>
+<li><p>论外，LaTeX 语法——这并不是标记语言——是牺牲易用性来换取功能性的典范。但在网站上展示 PDF 通常不是一个恰当的选择；同时，对于页面的内容更新来说，LaTeX 的编译套件也过于笨重了。</p></li>
+</ul>
+</li>
+</ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#id2">快速示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#markdown">与 Markdown 的比较</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#markdown-rest">兼容 Markdown 风格的 reST</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Fundamentals.html">reST 基础</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#id1">语法速览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#id2">行内标记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#id4">章节标题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#id5">分隔线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#id6">列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#id11">超链接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#id12">图表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#cross-ref">交叉引用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Advance.html">高级功能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Advance.html#id2">代码输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Advance.html#display-math">数学公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Advance.html#id13">警示标记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Advance.html#sec-substitution-text">替换文本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Advance.html#directive-glossary">术语表*</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>最后更新于 2021-11-11。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Intro.html" class="btn btn-neutral float-right" title="引言" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

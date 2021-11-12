@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>初识绘图 &mdash; Matplotlib  文档</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Matplotlib/build/doctrees/nbsphinx/BasicPlot.html"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="../../../index.html" class="icon icon-home"> Matplotlib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../BasicPlot.html">初识绘图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AxesControl.html">图像控制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PlotFunc.html">统计绘图函数</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Matplotlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>初识绘图</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/build/doctrees/nbsphinx/BasicPlot.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="初识绘图">
+<h1>初识绘图<a class="headerlink" href="#初识绘图" title="永久链接至标题"></a></h1>
+<p>本章对基本的 Matplotlib 绘图进行介绍，包括点型、线型与多图绘制。</p>
+<p>本章加载的库如下所示：</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+</pre></div>
+</div>
+</div>
+<p>以上加载的库中，mpl 一般是不用加载的。本章由于需要介绍全局参数，故需要加载。在使用 Jupyter Notebook 时，我们往往还需要指定图像的输出尺寸，以获得较好的视觉效果：</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>在本章最后更新时，使用的 Matplotlib 版本是：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mpl</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;3.0.2&#39;
+</pre></div></div>
+</div>
+<section id="基础的-plt.plot()">
+<h2>基础的 plt.plot()<a class="headerlink" href="#基础的-plt.plot()" title="永久链接至标题"></a></h2>
+<p><em>本小节仅介绍简单的绘制命令，包括线型与颜色。关于添加标题、图例、文字等内容，请参阅后续章节。</em></p>
+<p>Matplotlib 的大部分绘图命令都是通过 <code class="docutils literal notranslate"><span class="pre">plt</span></code> 下的功能实现的，而最简单的函数就是 <code class="docutils literal notranslate"><span class="pre">plt.plot()</span></code>。比如一个二次函数图像：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 记得在最后用 plt.show() 输出图像</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_BasicPlot_7_0.png" src="../../../_images/build_doctrees_nbsphinx_BasicPlot_7_0.png" />
+</div>
+</div>
+<p>从上面也能看出，我们使用 <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> 函数来输出图像。</p>
+<p>我们也可以在一幅图上绘制多个函数，它们会自动以不同的颜色绘制：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">y2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_BasicPlot_9_0.png" src="../../../_images/build_doctrees_nbsphinx_BasicPlot_9_0.png" />
+</div>
+</div>
+<p>也就是说，“叠加绘制”默认是开启的——如果有读者使用过 MatLab，那么恭喜你，在 Matplotlib 这里不需要再惦记着什么 hold on 命令了。</p>
+<p>如果我们不需要叠加绘制，我们可以随时插入 <code class="docutils literal notranslate"><span class="pre">plt.close()</span></code> 命令，来关闭当前绘制。或者使用 <code class="docutils literal notranslate"><span class="pre">plt.close('all')</span></code> 来清除所有绘制。</p>
+<section id="点型与线型">
+<h3>点型与线型<a class="headerlink" href="#点型与线型" title="永久链接至标题"></a></h3>
+<p>在有多个曲线时，我们往往通过更改点型或线型来区分它们。尤其是需要黑白打印的场合，线的颜色并不是有效的方案。下面是一个极端的例子：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dashes</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>  <span class="c1"># 线的属性</span>
+         <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>  <span class="c1"># 点的属性</span>
+         <span class="n">markevery</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="s2">&quot;#bf242a&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_BasicPlot_12_0.png" src="../../../_images/build_doctrees_nbsphinx_BasicPlot_12_0.png" />
+</div>
+</div>
+<p>以上的参数（括号中是参数的缩写）的含义分别是：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>：线的颜色（详细请参考“颜色”一节）。基础的有红r，绿g，蓝b，青c，洋红m，黄y，黑k，白w。以及其他的表述：</p>
+<ul>
+<li><p>HTML 码：例如 <code class="docutils literal notranslate"><span class="pre">&quot;#66ccff&quot;</span></code></p></li>
+<li><p>标准化后的 RGB 元组：例如 <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">0,</span> <span class="pre">0)</span></code></p></li>
+<li><p>灰度字串：<code class="docutils literal notranslate"><span class="pre">&quot;0.5&quot;</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linestyle</span> <span class="pre">(ls)</span></code>：线型。实线”-“，虚线”–“，点划线”-.”，点线”:“。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dashes</span></code>: 虚线比例。传入元组 (a,b)，那么划线长与间隔长之比为 a/b。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linewidth</span> <span class="pre">(lw)</span></code>：线宽。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">marker</span></code>：点样式。实心”.”，像素”,“，圆点”o”，方块”s”，上折/下折箭头”v”/“^”，左折/右折箭头”&lt;“/”&gt;“，五边形”p”，六边形”h”，星”*“，加号”+“，叉号”x”，(瘦)钻石”d/D”，竖线”|“，横线”_“。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">markevery</span></code>：每几个点才绘制一个点。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markersize</span> <span class="pre">(ms)</span></code>：点大小。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markeredgewidth</span> <span class="pre">(mew)</span></code>：点边缘线宽。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markeredgecolor</span> <span class="pre">(mec)</span></code>：点边缘颜色。默认与线同色。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markerfacecolor</span> <span class="pre">(mfc)</span></code>：点填充颜色。默认与线同色。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="颜色">
+<h3>颜色<a class="headerlink" href="#颜色" title="永久链接至标题"></a></h3>
+<p>Matplotlib 的颜色使用是个复杂的话题。通常来说，直接调用的颜色包括：</p>
+<ul class="simple">
+<li><p>标准化的 RGB：以三元元组的形式，比如 <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1)</span></code> 代表 (0, 0, 255)，即纯蓝。</p></li>
+<li><p>HTML 16进制颜色码：以字符串的形式，比如 <code class="docutils literal notranslate"><span class="pre">&quot;#0F0F0F&quot;</span></code>。</p></li>
+<li><p>标准化的灰度值：以字符串形式，比如 <code class="docutils literal notranslate"><span class="pre">0.5</span></code> 。</p></li>
+<li><p>RGB 与 CMYK 标准色字符：以单个字符形式，有：<code class="docutils literal notranslate"><span class="pre">r,g,b,c,m,y,k,w</span></code> 八种，其中 w 是白色。</p></li>
+<li><p>X11/CSS4 标准的颜色名：参考下面的图像。</p></li>
+<li><p>XKCD 颜色调查（参考<a class="reference external" href="https://xkcd.com/color/rgb/">此页面</a>）：例如”xksd:sky blue”。</p></li>
+</ul>
+<p>以及 matplotlib 采用的色环：</p>
+<ul class="simple">
+<li><p>matplotlib 默认的十色环：“C0”, “C1”, …,“C9”。这是 matplotlib 绘图默认依次使用的颜色。</p></li>
+<li><p>十色环的另一种形式：‘tab:blue’, ‘tab:orange’, ‘tab:green’, ‘tab:red’, ‘tab:purple’, ‘tab:brown’, ‘tab:pink’, ‘tab:gray’, ‘tab:olive’, ‘tab:cyan’。</p></li>
+</ul>
+<p>以上字符串（除16进制码外）均是大小写敏感的。</p>
+<p>下图是一个 X11 颜色表。该颜色表是我用 Matplotlib 生成的，不过为了排版简洁，我把这个代码块在生成网站时隐藏了；感兴趣的读者可以访问本章对应的 ipynb 文件进行查看。</p>
+<img alt="build/doctrees/nbsphinx/pics/X11.svg" src="build/doctrees/nbsphinx/pics/X11.svg" /></section>
+</section>
+<section id="子图绘制-plt.subplots()">
+<h2>子图绘制 plt.subplots()<a class="headerlink" href="#子图绘制-plt.subplots()" title="永久链接至标题"></a></h2>
+<p>需要将多张子图绘制到一张图内时，使用 <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> 函数。</p>
+<p>语句 <code class="docutils literal notranslate"><span class="pre">fig,</span> <span class="pre">axarr</span> <span class="pre">=</span> <span class="pre">plt.subplots(...)</span></code> 可以设置一个 nrows 行、ncols 列个子图组成的大图:</p>
+<ul class="simple">
+<li><p>参数：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">nrows=1,</span> <span class="pre">ncols=1</span></code>: 子图矩阵的行数与列数。默认一行一列。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sharex/sharey=False</span></code>：共享 x/y 轴。<code class="docutils literal notranslate"><span class="pre">True</span></code> 是所有子图共享，<code class="docutils literal notranslate"><span class="pre">'row'</span></code> 是每行共享，<code class="docutils literal notranslate"><span class="pre">'col'</span></code> 是每列共享。</p></li>
+</ul>
+</li>
+<li><p>返回值：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">fig</span></code> ：所有子图组成的总图像，可以用于保存为图像文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">axarr</span></code> ：一个 <span class="math notranslate nohighlight">\(nrows\times ncols\)</span> 的矩阵，其第 <span class="math notranslate nohighlight">\(j\)</span> 个元素即是第 <span class="math notranslate nohighlight">\(j\)</span> 个子图。</p></li>
+</ul>
+</li>
+</ul>
+<p>下面是一个例子，展示了绘制 2 个图（两行一列）的情况：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_BasicPlot_18_0.png" src="../../../_images/build_doctrees_nbsphinx_BasicPlot_18_0.png" />
+</div>
+</div>
+<p>对于多行多列的情况，可以利用 for 循环，并使用 <code class="docutils literal notranslate"><span class="pre">axarr.ravel()</span></code> 来展平矩阵。下列是一个两行两列的 4 子图例子，展示了 <code class="docutils literal notranslate"><span class="pre">sharex/sharey</span></code> 参数的使用：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="c1"># 所有子图 x 轴共享，每一行内的子图 y 轴共享</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;row&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axarr</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_BasicPlot_20_0.png" src="../../../_images/build_doctrees_nbsphinx_BasicPlot_20_0.png" />
+</div>
+</div>
+<p>由于子图操作还有很多细节，我将在后文中单独开启章节进行讨论。</p>
+</section>
+<section id="保存绘图-f.savefig()">
+<h2>保存绘图 f.savefig()<a class="headerlink" href="#保存绘图-f.savefig()" title="永久链接至标题"></a></h2>
+<p>上述多图绘制的例子中，返回的 <code class="docutils literal notranslate"><span class="pre">f,</span> <span class="pre">axarr</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">f.savefig(fname,</span> <span class="pre">...)</span></code> 即可帮助我们保存图像到文件 <code class="docutils literal notranslate"><span class="pre">fname</span></code>。该函数的常用参数包括：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">transparent=False</span></code>：是否使用透明背景。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">format</span></code>：如果文件名 <code class="docutils literal notranslate"><span class="pre">fname</span></code> 中不包含扩展名，那么可以通过该参数指定。例如 <code class="docutils literal notranslate"><span class="pre">jpg/jpeg,</span> <span class="pre">png,</span> <span class="pre">pdf,</span> <span class="pre">svg</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bbox_inches</span></code>：设置图像的 bounding box 数值。当设置为 <code class="docutils literal notranslate"><span class="pre">'tight'</span></code> 时会自动设置，以达到“减少图像外侧白边”的效果。题外话：如果仅是为了达到减少白边的效果，也可以尝试在 <code class="docutils literal notranslate"><span class="pre">savefig()</span></code> 之前使用 <code class="docutils literal notranslate"><span class="pre">f.tight_layout()</span></code> 进行处理。</p></li>
+</ul>
+<p>下面是一个保存图片的例子：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">fig_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;pics&quot;</span><span class="p">,</span> <span class="s2">&quot;saved_fig.png&quot;</span><span class="p">)</span>  <span class="c1"># 保存在 pics/saved_fig.png</span>
+<span class="n">f</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_file</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_BasicPlot_23_0.png" src="../../../_images/build_doctrees_nbsphinx_BasicPlot_23_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

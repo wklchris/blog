@@ -1,0 +1,870 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 数据结构\n",
+    "\n",
+    "本节介绍 R 的数据类型，包括 data.frame 相关的重要命令；也给出了转换数据类型的函数。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 数据类型\n",
+    "\n",
+    "R 中标志的数据类型有（部分在下文详细介绍）：\n",
+    "\n",
+    "- 数字：numeric\n",
+    "- 字符：character\n",
+    "- 向量：vector\n",
+    "- 矩阵：matrix\n",
+    "- 数据框：data.frame\n",
+    "- 因子：factor\n",
+    "- 逻辑：logical\n",
+    "\n",
+    "### 类型判断与转换\n",
+    "\n",
+    "对于上述的每个类型的缩写 *abbr*，对应的判断与转换函数：\n",
+    "\n",
+    "- 判断：is.{abbr}()，例如判断是否是数字 is.numeric()\n",
+    "- 转换：as.{abbr}()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[1]]\n",
+      "[1] 1 2 3 4\n",
+      "\n",
+      "[[2]]\n",
+      "[1] \"1\" \"2\" \"3\" \"4\"\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "tmp <- c(1:4)\n",
+    "tmp.ch <- as.character(tmp)\n",
+    "print(list(tmp, tmp.ch))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "此外，还有 class() 与 typeof() 函数可以参考："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] \"integer\" \"integer\"\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(c(class(tmp),\n",
+    "        typeof(tmp)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 经典的数据类型\n",
+    "\n",
+    "由一系列数据组成的变量，按照通常数据处理的分类，有：\n",
+    "\n",
+    "- 数值变量（或定量变量，quantitative）：\n",
+    "    - 连续型（continuous）：又称定比。比如试卷在班级的及格率，其可以是 $[0,1]$ 之间的任意值。连续型变量内各数据间的大小（或优劣）关系是显然的。\n",
+    "    - 离散型（discrete）：又称定距。比如班级的同学个数。这类变量常常是通过计数得到的，其任两个数据之间的差值必定为某基础值的整数倍，如不可能有 16.5 个同学。\n",
+    "- 非数值变量（或定性变量，qualitative）：\n",
+    "    - 类别型（categorical）：又称定类。比如同学的主修专业。这类变量中各数据点往往是字符，互相之间无优劣关系。\n",
+    "    - 有序型（ordinal）：又称定序。比如成绩的等级，ABCD。互相之间有优劣顺序。\n",
+    "\n",
+    "对于一般的二维数据集，其行与列在不同领域的称呼不同：\n",
+    "\n",
+    "| 领域 | 行 | 列 |\n",
+    "| --- | --- | --- |\n",
+    "| 统计学（本文） | 观测(observation) | 变量(variable) |\n",
+    "| 数据库 | 记录(record) | 字段(field) |\n",
+    "| 数据挖掘/机器学习 | 示例(example) | 属性(attribute) |\n",
+    "\n",
+    "## 因子(factor)\n",
+    "\n",
+    "在 R 中，将非数值变量统称为**因子**（factor），并分为有序因子与无序因子两种。例如，我们有主修专业数据："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] \"Engineering\"    \"Math\"           \"Social Science\"\n"
+     ]
+    }
+   ],
+   "source": [
+    "prog <- c(\"Math\", \"Engineering\", \"Social Science\", \"Math\")\n",
+    "tmp <- factor(prog)\n",
+    "\n",
+    "print(levels(tmp))  # 返回因子的类别"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " Factor w/ 3 levels \"Engineering\",..: 2 1 3 2\n"
+     ]
+    }
+   ],
+   "source": [
+    "str(tmp)  # 显示因子类别数。str 是 structure 的缩写"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "从上面的 str(tmp) 中可以看到，Level 1对应 Engineering，2对应Math，3对应Social Science。因为这是根据字符串首字母顺序编号的。\n",
+    "\n",
+    "如果你想从数值记录的变量生成一个因子，使用参数 levels 与 labels ："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " Factor w/ 3 levels \"Math\",\"Engineering\",..: 1 2 3 1\n"
+     ]
+    }
+   ],
+   "source": [
+    "tmp <- factor(c(1, 2, 3, 1), levels=c(1,2,3), \n",
+    "              labels=c(\"Math\", \"Engineering\", \"Social Science\"))\n",
+    "str(tmp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "如果想把有序型变量转成因子，并指定顺序，可以使用参数 order= ："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " Ord.factor w/ 3 levels \"B\"<\"A\"<\"C\": 2 1 3 1 3 2\n"
+     ]
+    }
+   ],
+   "source": [
+    "tmp <- factor(c(\"A\", \"B\", \"C\", \"B\", \"C\", \"A\"), order=TRUE,\n",
+    "             levels=c(\"B\", \"A\", \"C\"))\n",
+    "str(tmp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "还有一点需要注意：在我们对数据框进行了合并、筛选等处理后，**因子可能不再含有全部水平对应的值**（比如原有3个水平，但其中一个水平的值都被筛除了）。这时候需要使用 droplevels() 命令来抛弃多余的水平：\n",
+    "\n",
+    "```r\n",
+    "dt[\"factor\"] <- droplevels(dt[\"dactor\"])\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 同类元素集：向量、矩阵与数组\n",
+    "\n",
+    "**同类型元素**的一维堆叠叫向量，二维堆叠叫矩阵。更高维的叫数组。\n",
+    "\n",
+    "### 向量\n",
+    "\n",
+    "如果向量只有一个元素，称为标量。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] 1 2 3\n"
+     ]
+    }
+   ],
+   "source": [
+    "vector <- c(1:3)\n",
+    "print(vector)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 矩阵\n",
+    "\n",
+    "矩阵的建立方法就复杂一些："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "     [,1] [,2] [,3] [,4]\n",
+      "[1,]    1    2    3    4\n",
+      "[2,]    5    6    7    8\n",
+      "[3,]    9   10   11   12\n"
+     ]
+    }
+   ],
+   "source": [
+    "# matr <- matrix(d, nrow=N, ncol=N, byrow=T/F, [dimnames=list(rownamestr,colnamestr)])\n",
+    "\n",
+    "matr <- matrix(1:12, nrow=3, ncol=4, byrow=T)\n",
+    "print(matr)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "  1 2 3  4\n",
+      "A 1 4 7 10\n",
+      "B 2 5 8 11\n",
+      "C 3 6 9 12\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 按列填充，并加上行名与列名\n",
+    "rowname <- c('A', 'B', 'C')\n",
+    "colname <- c(as.character(1:4))  # 转为字符串\n",
+    "matr <- matrix(1:12, nrow=3, ncol=4, byrow=F, dimnames=list(rowname, colname))\n",
+    "print(matr)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "下标的使用很简单。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " 1  2  3  4 \n",
+      " 2  5  8 11 \n"
+     ]
+    }
+   ],
+   "source": [
+    "print(matr[2,])  # 第二行"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<table>\n",
+       "<thead><tr><th></th><th scope=col>1</th><th scope=col>3</th></tr></thead>\n",
+       "<tbody>\n",
+       "\t<tr><th scope=row>B</th><td>2</td><td>8</td></tr>\n",
+       "\t<tr><th scope=row>C</th><td>3</td><td>9</td></tr>\n",
+       "</tbody>\n",
+       "</table>\n"
+      ],
+      "text/latex": [
+       "\\begin{tabular}{r|ll}\n",
+       "  & 1 & 3\\\\\n",
+       "\\hline\n",
+       "\tB & 2 & 8\\\\\n",
+       "\tC & 3 & 9\\\\\n",
+       "\\end{tabular}\n"
+      ],
+      "text/markdown": [
+       "\n",
+       "| <!--/--> | 1 | 3 | \n",
+       "|---|---|\n",
+       "| B | 2 | 8 | \n",
+       "| C | 3 | 9 | \n",
+       "\n",
+       "\n"
+      ],
+      "text/plain": [
+       "  1 3\n",
+       "B 2 8\n",
+       "C 3 9"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "matr[2:3,c(1,3)]  # 第2、3行，第1、3列"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<table>\n",
+       "<thead><tr><th></th><th scope=col>3</th><th scope=col>4</th></tr></thead>\n",
+       "<tbody>\n",
+       "\t<tr><th scope=row>A</th><td>7 </td><td>10</td></tr>\n",
+       "\t<tr><th scope=row>B</th><td>8 </td><td>11</td></tr>\n",
+       "\t<tr><th scope=row>C</th><td>9 </td><td>12</td></tr>\n",
+       "</tbody>\n",
+       "</table>\n"
+      ],
+      "text/latex": [
+       "\\begin{tabular}{r|ll}\n",
+       "  & 3 & 4\\\\\n",
+       "\\hline\n",
+       "\tA & 7  & 10\\\\\n",
+       "\tB & 8  & 11\\\\\n",
+       "\tC & 9  & 12\\\\\n",
+       "\\end{tabular}\n"
+      ],
+      "text/markdown": [
+       "\n",
+       "| <!--/--> | 3 | 4 | \n",
+       "|---|---|---|\n",
+       "| A | 7  | 10 | \n",
+       "| B | 8  | 11 | \n",
+       "| C | 9  | 12 | \n",
+       "\n",
+       "\n"
+      ],
+      "text/plain": [
+       "  3 4 \n",
+       "A 7 10\n",
+       "B 8 11\n",
+       "C 9 12"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "matr[,-c(1:2)]  # 除前2列外所有列"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "几个注意点：\n",
+    "\n",
+    "- 矩阵的对应元素乘法是“\\*”。如果要使用线性代数中的**矩阵乘法**，使用 “%\\*%”。\n",
+    "- 矩阵的转置：t(matr)\n",
+    "- 矩阵的逆：solve(matr)。该函数 solve(a, b) 是用于求解线性方程组 aX=b 的，b 缺省时求逆。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 数组\n",
+    "\n",
+    "array() 语法类似于 matrix() 。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      ", , C1\n",
+      "\n",
+      "   B1 B2 B3\n",
+      "A1  1  3  5\n",
+      "A2  2  4  6\n",
+      "\n",
+      ", , C2\n",
+      "\n",
+      "   B1 B2 B3\n",
+      "A1  7  9 11\n",
+      "A2  8 10 12\n",
+      "\n",
+      ", , C3\n",
+      "\n",
+      "   B1 B2 B3\n",
+      "A1 13 15 17\n",
+      "A2 14 16 18\n",
+      "\n",
+      ", , C4\n",
+      "\n",
+      "   B1 B2 B3\n",
+      "A1 19 21 23\n",
+      "A2 20 22 24\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "# arr <- array(vector, dimensions, dimnames)\n",
+    "# dimensions: 指定数组有几维，以及各维的长度\n",
+    "\n",
+    "arr <- array(1:24, c(2, 3, 4), \n",
+    "             dimnames=list(c('A1', 'A2'), c('B1', 'B2','B3'), c('C1', 'C2', 'C3', 'C4')))\n",
+    "print(arr)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 列表\n",
+    "\n",
+    "列表是一系列变量的有序组合。声明方式：\n",
+    "\n",
+    "    lst <- list(name1=obj1, name2=obj2, ...)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "$prog\n",
+      "[1] \"Math\"        \"Engineering\"\n",
+      "\n",
+      "$gender\n",
+      "[1] 1 2\n",
+      "\n",
+      "$grade\n",
+      "[1] \"No grade\"\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "lst <- list(prog=c(\"Math\", \"Engineering\"), gender=c(1, 2), grade=\"No grade\")\n",
+    "print(lst)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "你可以通过美元符来调用它们，如："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] \"Math\"        \"Engineering\"\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(lst$prog)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 数据框：data.frame\n",
+    "\n",
+    "数据框是多个等长向量的按列堆叠。这是 R 中最常用的数据结构。由于此内容的重要性，我将其提升了一级大纲。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "   name age gender\n",
+      "1 Allen  20   Male\n",
+      "2 Bruth  21   Male\n",
+      "3 Chris  22   Male\n",
+      "4 Daisy  23 Female\n"
+     ]
+    }
+   ],
+   "source": [
+    "# df <- data.frame(<col1, col2, ...>, [row.names=])\n",
+    "\n",
+    "name <- c('Allen', 'Bruth', 'Chris', 'Daisy')\n",
+    "age <- c(20:23)\n",
+    "gender <- c('Male', 'Male', 'Male', 'Female')\n",
+    "\n",
+    "df <- data.frame(name, age, gender)\n",
+    "print(df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "       name age gender\n",
+      "Allen Allen  20   Male\n",
+      "Bruth Bruth  21   Male\n",
+      "Chris Chris  22   Male\n",
+      "Daisy Daisy  23 Female\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 指定唯一标识的一列作为行名\n",
+    "df <- data.frame(name, age, gender, row.names=name)\n",
+    "print(df)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "数据框默认按照列进行选取："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<table>\n",
+       "<thead><tr><th></th><th scope=col>name</th><th scope=col>gender</th></tr></thead>\n",
+       "<tbody>\n",
+       "\t<tr><th scope=row>Allen</th><td>Allen </td><td>Male  </td></tr>\n",
+       "\t<tr><th scope=row>Bruth</th><td>Bruth </td><td>Male  </td></tr>\n",
+       "\t<tr><th scope=row>Chris</th><td>Chris </td><td>Male  </td></tr>\n",
+       "\t<tr><th scope=row>Daisy</th><td>Daisy </td><td>Female</td></tr>\n",
+       "</tbody>\n",
+       "</table>\n"
+      ],
+      "text/latex": [
+       "\\begin{tabular}{r|ll}\n",
+       "  & name & gender\\\\\n",
+       "\\hline\n",
+       "\tAllen & Allen  & Male  \\\\\n",
+       "\tBruth & Bruth  & Male  \\\\\n",
+       "\tChris & Chris  & Male  \\\\\n",
+       "\tDaisy & Daisy  & Female\\\\\n",
+       "\\end{tabular}\n"
+      ],
+      "text/markdown": [
+       "\n",
+       "| <!--/--> | name | gender | \n",
+       "|---|---|---|---|\n",
+       "| Allen | Allen  | Male   | \n",
+       "| Bruth | Bruth  | Male   | \n",
+       "| Chris | Chris  | Male   | \n",
+       "| Daisy | Daisy  | Female | \n",
+       "\n",
+       "\n"
+      ],
+      "text/plain": [
+       "      name  gender\n",
+       "Allen Allen Male  \n",
+       "Bruth Bruth Male  \n",
+       "Chris Chris Male  \n",
+       "Daisy Daisy Female"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "df[c(1,3)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<table>\n",
+       "<thead><tr><th></th><th scope=col>name</th><th scope=col>gender</th></tr></thead>\n",
+       "<tbody>\n",
+       "\t<tr><th scope=row>Allen</th><td>Allen </td><td>Male  </td></tr>\n",
+       "\t<tr><th scope=row>Bruth</th><td>Bruth </td><td>Male  </td></tr>\n",
+       "\t<tr><th scope=row>Chris</th><td>Chris </td><td>Male  </td></tr>\n",
+       "\t<tr><th scope=row>Daisy</th><td>Daisy </td><td>Female</td></tr>\n",
+       "</tbody>\n",
+       "</table>\n"
+      ],
+      "text/latex": [
+       "\\begin{tabular}{r|ll}\n",
+       "  & name & gender\\\\\n",
+       "\\hline\n",
+       "\tAllen & Allen  & Male  \\\\\n",
+       "\tBruth & Bruth  & Male  \\\\\n",
+       "\tChris & Chris  & Male  \\\\\n",
+       "\tDaisy & Daisy  & Female\\\\\n",
+       "\\end{tabular}\n"
+      ],
+      "text/markdown": [
+       "\n",
+       "| <!--/--> | name | gender | \n",
+       "|---|---|---|---|\n",
+       "| Allen | Allen  | Male   | \n",
+       "| Bruth | Bruth  | Male   | \n",
+       "| Chris | Chris  | Male   | \n",
+       "| Daisy | Daisy  | Female | \n",
+       "\n",
+       "\n"
+      ],
+      "text/plain": [
+       "      name  gender\n",
+       "Allen Allen Male  \n",
+       "Bruth Bruth Male  \n",
+       "Chris Chris Male  \n",
+       "Daisy Daisy Female"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# 可以按列名选取\n",
+    "df[c(\"name\", \"gender\")]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] 20 21 22 23\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 可以通过标识符 '$' 选取\n",
+    "print(df$age)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] Male Male Male\n",
+      "Levels: Female Male\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 双参数时，先行后列\n",
+    "print(df[1:3,\"gender\"])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 临时环境：attach() 与 with()\n",
+    "\n",
+    "df\\$age 从语法上说很清晰，但是可读性却不高。因为我们一般总是在处理一个数据集，因此‘df’显得多余。这里可以借助 attach()/detach() 命令组：\n",
+    "\n",
+    "*请注意：此命令出于容错性、可读性考虑，在任何情况下均__不建议__使用。*"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] 20 21 22 23\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 删除原有的全局变量，否则 age 会覆盖 df$age\n",
+    "rm(age, gender, name)\n",
+    "\n",
+    "attach(df)\n",
+    "print(age)\n",
+    "detach(df)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "或者使用 with() 命令："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] Allen Bruth Chris Daisy\n",
+      "Levels: Allen Bruth Chris Daisy\n",
+      "[1] 2\n"
+     ]
+    }
+   ],
+   "source": [
+    "tmp <- 1\n",
+    "with(df, {\n",
+    "    print(name)\n",
+    "    tmp <<- 2  # 特殊赋值符可以传值到 with() 之外\n",
+    "})\n",
+    "print(tmp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 更多内容\n",
+    "\n",
+    "更多关于数据管理和 data.frame 处理的内容在本系列文章的 [数据管理](ManageData.ipynb) 一文中可以找到。"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "R",
+   "language": "R",
+   "name": "ir"
+  },
+  "language_info": {
+   "codemirror_mode": "r",
+   "file_extension": ".r",
+   "mimetype": "text/x-r-source",
+   "name": "R",
+   "pygments_lexer": "r",
+   "version": "4.0.0"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

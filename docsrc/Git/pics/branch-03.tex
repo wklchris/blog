@@ -1,0 +1,20 @@
+\documentclass[convert=pdf2svg,multi=false]{standalone}
+\usepackage{tikz}
+  \usetikzlibrary{positioning}
+\begin{document}
+\begin{tikzpicture}[commit/.style={draw,circle,inner sep=2pt},pointer/.style={draw=none,fill=red!30,rectangle,inner sep=2pt}]
+\def\ancolor{blue!30}
+\foreach \i/\c[count=\x] in {0/none,1/none,2/\ancolor,4/\ancolor} {
+   \node[commit, fill=\c] (C\i) at (2*\x,0) {C\i};
+}
+\node[commit, below=.5 of C4] (C3) {C3};
+\node[commit, fill=\ancolor, right=of C3] (C5) {C5};
+\foreach \i/\j in {0/1,1/2,2/3,2/4,3/5} {
+  \draw[latex-] (C\i) -- (C\j);
+}
+\node[pointer] (master) [above=.5 of C4] {master};
+\node[pointer] (dev) [below=.5 of C5] {dev};
+\draw[-latex] (master) -- (C4);
+\draw[-latex] (dev) -- (C5);
+\end{tikzpicture}
+\end{document}

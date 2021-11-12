@@ -1,0 +1,29 @@
+{
+    "author": "wklchris",
+    "copyright": "wklchris",
+    "extensions": [
+        "nbsphinx",
+        "sphinx_copybutton",
+        "sphinx.ext.mathjax"
+    ],
+    "language": "zh_CN",
+    "exclude_patterns": [
+        "_build",
+        "**.ipynb_checkpoints"
+    ],
+    "smartquotes": false,
+    "today_fmt": "%Y-%m-%d",
+    "html_theme": "sphinx_rtd_theme",
+    "html_theme_options": {
+        "canonical_url": "https://self-contained.github.io/"
+    },
+    "html_static_path": [
+        "../_static"
+    ],
+    "html_css_files": [
+        "style.css"
+    ],
+    "templates_path": [
+        "../_templates"
+    ]
+}

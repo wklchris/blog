@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>统计绘图函数 &mdash; Matplotlib  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Matplotlib/PlotFunc.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="图像控制" href="AxesControl.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> Matplotlib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="BasicPlot.html">初识绘图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AxesControl.html">图像控制</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">统计绘图函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#水平或竖直的线/矩形：ax.axhline-/-axhspan">水平或竖直的线/矩形：ax.axhline / axhspan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#散点图：ax.scatter">散点图：ax.scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#条形图：ax.bar-/-barh">条形图：ax.bar / barh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#直方图：ax.hist">直方图：ax.hist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#核密度曲线">核密度曲线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#饼图：ax.pie">饼图：ax.pie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#箱型图：ax.boxplot">箱型图：ax.boxplot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#箱型图的常用参数">箱型图的常用参数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#箱型图的细节概念*">箱型图的细节概念*</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Matplotlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>统计绘图函数</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PlotFunc.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="统计绘图函数">
+<h1>统计绘图函数<a class="headerlink" href="#统计绘图函数" title="永久链接至标题"></a></h1>
+<p>本章介绍通用的统计绘图函数，比如直方图、箱型图等。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</pre></div>
+</div>
+</div>
+<section id="水平或竖直的线/矩形：ax.axhline-/-axhspan">
+<h2>水平或竖直的线/矩形：ax.axhline / axhspan<a class="headerlink" href="#水平或竖直的线/矩形：ax.axhline-/-axhspan" title="永久链接至标题"></a></h2>
+<p>用 <code class="docutils literal notranslate"><span class="pre">axhline/axvline</span></code> 绘制水平线/竖直线，用 <code class="docutils literal notranslate"><span class="pre">axhspan/axvspan</span></code> 绘制水平矩形/竖直矩形。</p>
+<p>需要注意，下例中所有 <code class="docutils literal notranslate"><span class="pre">xmin/xmax</span></code> 参数是一个相对比例。比如 <code class="docutils literal notranslate"><span class="pre">axhline</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">xmin=0.25,</span> <span class="pre">xmax=0.75</span></code> 表示从图像的左 1/4 处画起、到右 1/4 处结束。由于用 <code class="docutils literal notranslate"><span class="pre">axis(...)</span></code> 命令给出了横坐标的绘图范围是 <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">3]</span></code>，因此这个 <code class="docutils literal notranslate"><span class="pre">axhline</span></code> 实际上是从横坐标 0.75 处画到 2.25 处。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">axhspan</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;0.5&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;#74D2D5&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_3_0.png" src="_images/PlotFunc_3_0.png" />
+</div>
+</div>
+</section>
+<section id="散点图：ax.scatter">
+<h2>散点图：ax.scatter<a class="headerlink" href="#散点图：ax.scatter" title="永久链接至标题"></a></h2>
+<p>散点图将多维（一般二维）数据用点绘制出来，一般是为了揭示不同维之间的关系。</p>
+<p>如果不显示点的大小，最简单的散点图可以用 <code class="docutils literal notranslate"><span class="pre">plot(...,</span> <span class="pre">'.')</span></code> 绘制：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">230</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_5_0.png" src="_images/PlotFunc_5_0.png" />
+</div>
+</div>
+<p>言归正传，正常的散点图用 <code class="docutils literal notranslate"><span class="pre">ax.scatter(x,</span> <span class="pre">y,</span> <span class="pre">s=None,</span> <span class="pre">c=None,</span> <span class="pre">...)</span></code>：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code>：数组，每个点的大小。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>：列表，每个点的颜色。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">marker='o'</span></code>：所有点的点样式。</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">233</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">666</span><span class="p">)</span>
+<span class="n">point_size</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">point_size</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_7_0.png" src="_images/PlotFunc_7_0.png" />
+</div>
+</div>
+</section>
+<section id="条形图：ax.bar-/-barh">
+<h2>条形图：ax.bar / barh<a class="headerlink" href="#条形图：ax.bar-/-barh" title="永久链接至标题"></a></h2>
+<p>条形图按多个分组来展示数据。用 <code class="docutils literal notranslate"><span class="pre">bar</span></code> 绘制竖立的条形图，或者用 <code class="docutils literal notranslate"><span class="pre">barh</span></code> 绘制横置的。</p>
+<p>基本用法：</p>
+<p><code class="docutils literal notranslate"><span class="pre">ax.bar(x,</span> <span class="pre">height,</span> <span class="pre">width=0.8,</span> <span class="pre">...)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>：一维数组，长度与组个数相同，给出条形图的每组的水平位置。在默认的 <code class="docutils literal notranslate"><span class="pre">align='center'</span></code> 参数下，条形图每组的下端正中与 <code class="docutils literal notranslate"><span class="pre">x</span></code> 数组中每个元素对齐。你可以指定 <code class="docutils literal notranslate"><span class="pre">align='edge'</span></code> 来让每组的下端左侧与 <code class="docutils literal notranslate"><span class="pre">x</span></code> 中的位置对齐。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">height</span></code>：条形图的高，即数据。应该与 <code class="docutils literal notranslate"><span class="pre">x</span></code> 等长。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">width</span></code>：条形图的宽度。</p></li>
+</ul>
+<p>下例的第四幅子图用到了 <code class="docutils literal notranslate"><span class="pre">matplotlib.ticker.PercentFormatter</span></code> 来将纵轴的刻度改为百分数，读者可以参考之前的坐标轴刻度章节，或者<a class="reference external" href="https://matplotlib.org/3.1.1/gallery/ticks_and_spines/tick-formatters.html">官方 Tick formatters 示例</a>。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">ticker</span>
+
+<span class="n">bar_width</span> <span class="o">=</span> <span class="mf">0.35</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">40</span> <span class="o">+</span> <span class="mi">10</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">gridspec_kw</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
+<span class="c1"># 并列竖立条形图</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 1&quot;</span><span class="p">,</span>
+          <span class="n">yerr</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">groups</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span> <span class="o">+</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">groups</span> <span class="o">+</span> <span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABCDE&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+
+<span class="c1"># 堆叠竖立条形图</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">y1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABCDE&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+
+<span class="c1"># 横置条形图</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">groups</span> <span class="o">+</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">groups</span> <span class="o">+</span> <span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABCDE&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+
+<span class="c1"># 堆叠竖立百分比条形图（附百分比数字）</span>
+<span class="n">y1_percent</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">/</span> <span class="p">(</span><span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">y2_percent</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">/</span> <span class="p">(</span><span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">y1_percent</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">y2_percent</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">y1_percent</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 2&quot;</span><span class="p">)</span>
+<span class="c1">## 加上百分比字串</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">y1_percent</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="si">{:.0%}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y1_percent</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">y2_percent</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y1_percent</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                 <span class="sa">r</span><span class="s2">&quot;</span><span class="si">{:.0%}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y2_percent</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABCDE&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center left&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="c1">## 设置 y 轴刻度</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticker</span><span class="o">.</span><span class="n">PercentFormatter</span><span class="p">(</span><span class="n">xmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_9_0.png" src="_images/PlotFunc_9_0.png" />
+</div>
+</div>
+</section>
+<section id="直方图：ax.hist">
+<h2>直方图：ax.hist<a class="headerlink" href="#直方图：ax.hist" title="永久链接至标题"></a></h2>
+<p>不同于条形图，直方图绘制的是一维的数据，展现数据的频数或者频率。</p>
+<p>最简单的直方图 <code class="docutils literal notranslate"><span class="pre">ax.hist(x)</span></code>，可以是单参数的：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>  <span class="c1"># 标准正态</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_11_0.png" src="_images/PlotFunc_11_0.png" />
+</div>
+</div>
+<p>下面是我认为的几个常用参数：</p>
+<p><code class="docutils literal notranslate"><span class="pre">ax.hist(x,</span> <span class="pre">bins=None,</span> <span class="pre">density=None,</span> <span class="pre">weights=None,</span> <span class="pre">histtype='bar',</span> <span class="pre">...)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>：直方图的一维数据。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bins</span></code>：控制分组的参数。</p>
+<ul>
+<li><p>如果传入整数，就会对应自动分为几组。</p></li>
+<li><p>如果传入列表，会按列表中的数给出分组。比如 <code class="docutils literal notranslate"><span class="pre">[1,2,3,4]</span></code>，会将区间 <code class="docutils literal notranslate"><span class="pre">[1,2)</span></code> （左闭右开，即包含1不包含2） 与 <code class="docutils literal notranslate"><span class="pre">[2,3)</span></code> 分为一组。但是列表中的最后一组将是双侧闭区间：<code class="docutils literal notranslate"><span class="pre">[3,4]</span></code>。</p></li>
+<li><p>如果传入字符串（较少用到），请参考 Numpy 文档中 <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges">histogram_bin_edges¶</a> 函数的 bins 参数。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">density</span></code>：（不常使用）控制图像密度的参数。设为 True 时将在绘图时对数据进行归一化，使直方图下方的面积求和为 1。</p>
+<ul>
+<li><p>该“面积求和为 1”与每个组的宽度有关，并不是常规统计意义上的密度。除非组宽是1，否则设置 <code class="docutils literal notranslate"><span class="pre">density=True</span></code> <strong>并不能得到频率图</strong>；频率直方图可以参考 <code class="docutils literal notranslate"><span class="pre">weights</span></code> 参数。</p></li>
+<li><p><em>旧版本有一个与现有的 density 参数相关的 normed 参数，但它即将被废弃。</em></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">weights</span></code>：控制每个数据点的权重。常规的直方图每个数据点出现 1 次，就记 1 频数；因此每个数据点权重均是 1。下例的图 2 用数据点总数的倒数作为权重，给出了一个频率直方图的实现。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">histtype</span></code>：控制直方图类型。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'bar'</span></code>：默认的直方图。多维数据会在组内并排排列。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'barstacked'</span></code>：多维数据会在组内堆叠排列。。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'step'</span></code>：用阶梯折线图（lineplot）代替了直方图，参考下例的图3。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'stepfilled'</span></code>：下方用颜色填充的阶梯折线图。</p></li>
+</ul>
+</li>
+</ul>
+<p>几个例子（<strong>注意例中各图纵坐标刻度的区别</strong>）：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">bins_num</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="c1"># 频数</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins_num</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;darkblue&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Histogram with counts&quot;</span><span class="p">)</span>
+
+<span class="c1"># 频率</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins_num</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Histogram with frequencies&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins_num</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Stacked histogram&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins_num</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Lineplot-style histogram&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_13_0.png" src="_images/PlotFunc_13_0.png" />
+</div>
+</div>
+</section>
+<section id="核密度曲线">
+<h2>核密度曲线<a class="headerlink" href="#核密度曲线" title="永久链接至标题"></a></h2>
+<p>Matplotlib 没有简洁的核密度曲线图（kernel density plot）的实现，这件事恐怕自从 matplotlib 风靡之日起就在被吐槽。相比之下，基于 matplotlib 的 <a class="reference external" href="https://seaborn.pydata.org/">seaborn 库</a> 提供了一个很简单的 <code class="docutils literal notranslate"><span class="pre">distplot</span></code> 来实现这一功能，但在 matplotlib 里我们恐怕需要稍微多花一点功夫。</p>
+<p>下例是频率直方图（通过 <code class="docutils literal notranslate"><span class="pre">weights</span></code> 参数转换为频率）与对应的 Gaussian 核密度曲线：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gaussian_kde</span>
+
+<span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">freqs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">*</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">freqs</span><span class="p">)])</span>
+
+<span class="n">density</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:cyan&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_plot</span><span class="p">,</span> <span class="n">density</span><span class="p">(</span><span class="n">x_plot</span><span class="p">),</span> <span class="s1">&#39;tab:red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Frequency hist with Gaussian kernel density estimation&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_15_0.png" src="_images/PlotFunc_15_0.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">gaussian_kde</span></code> 函数的 <code class="docutils literal notranslate"><span class="pre">bw_method</span></code> 参数的默认值是 <code class="docutils literal notranslate"><span class="pre">'scott'</span></code> 方法，读者也可以选用 <code class="docutils literal notranslate"><span class="pre">'silverman'</span></code> 方法。 除了接受这两种字串，<code class="docutils literal notranslate"><span class="pre">bw_method</span></code> 还可以直接接受数值作为 Scott factor（如上例）。默认的 Scott factor 的选值是：<span class="math notranslate nohighlight">\(n^{-1/(d+4)}\)</span>，其中 <span class="math notranslate nohighlight">\(n\)</span> 是数据长，<span class="math notranslate nohighlight">\(d\)</span> 是数据集的维度。</p>
+<p>更多关于 <code class="docutils literal notranslate"><span class="pre">bw_method</span></code> 参数的细节可以参考 <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gaussian_kde.html">Scipy.stats.gaussian_kde</a> 页面的内容。</p>
+</section>
+<section id="饼图：ax.pie">
+<h2>饼图：ax.pie<a class="headerlink" href="#饼图：ax.pie" title="永久链接至标题"></a></h2>
+<p><em>我讨厌饼图！非常讨厌！如果你一定要画饼图，并且玩很多视觉花招，那我不建议你用 matplotlib 来实现。</em></p>
+<hr class="docutils" />
+<p>饼图的绘制指令的常用参数：</p>
+<p><code class="docutils literal notranslate"><span class="pre">ax.pie(x,</span> <span class="pre">explode=None,</span> <span class="pre">...)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">explode=None</span></code>：控制扇形区域向外“炸开”的距离，传入一个数组。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">radius=1</span></code>：饼图半径。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">labels=None</span></code>, <code class="docutils literal notranslate"><span class="pre">colors=None</span></code>：扇形区的标签与颜色。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">labeldistance</span></code>：标签到圆心的距离。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rotatelabels=False</span></code>：旋转标签，使其文字方向指向圆心。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">autopct=None</span></code>：显示百分数。可以传入一个格式化字串，或者一个函数。</p>
+<ul>
+<li><p>如果原数据集已经是百分数，那么可以使用格式化字串 <code class="docutils literal notranslate"><span class="pre">autopct=&quot;%.1f%%&quot;</span></code> 显示含一位小数的百分数。下例中使用了较复杂的函数实现来针对不同的数据集情况。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pctdistance=0.6</span></code>: 在 <code class="docutils literal notranslate"><span class="pre">autopct</span></code> 有效时使用，指定百分数标签到圆心的距离。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">startangle=0</span></code>：开始绘制饼图的角度，从 X 轴正向开始逆时针旋转。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">counterclock=True</span></code>：是否沿逆时针绘制，设为 False 是沿顺时针绘制。</p></li>
+<li><p>其他绘图参数：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">wedgeprops</span></code>：绘图属性，比如线型等。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">textprops</span></code>：标签文字的属性。</p></li>
+</ul>
+</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">25</span><span class="p">]]</span>
+<span class="n">x_flatten</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">item</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;B1&quot;</span><span class="p">,</span> <span class="s2">&quot;B2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">]]</span>
+<span class="n">labels_flatten</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">labels</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">item</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">percentify</span><span class="p">(</span><span class="n">percent_num</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">percent_num</span><span class="o">/</span><span class="n">total</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">counterclock</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Clockwised pie plot&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels_flatten</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">autopct</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">percentify</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">)))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Pie plot with labels and shadows&quot;</span><span class="p">)</span>
+
+<span class="n">explodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">))</span>
+<span class="n">explodes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># 只炸开第4个扇形区</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels_flatten</span><span class="p">,</span>
+          <span class="n">autopct</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">percentify</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">)),</span>
+          <span class="n">explode</span><span class="o">=</span><span class="n">explodes</span><span class="p">,</span> <span class="n">rotatelabels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Pie plot with an exploded pie slice&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">pctdistance</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+          <span class="n">autopct</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">percentify</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">)),</span>
+          <span class="n">textprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span>
+          <span class="n">wedgeprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.7</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Pie plot with customized props&quot;</span><span class="p">)</span>
+
+<span class="n">x_outer</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">r</span><span class="p">,</span> <span class="n">width_outer</span><span class="p">,</span> <span class="n">inner_blank</span> <span class="o">=</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span>
+<span class="n">width_inner</span> <span class="o">=</span> <span class="n">r</span><span class="o">-</span><span class="n">width_outer</span><span class="o">-</span><span class="n">inner_blank</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">x_outer</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">textprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">),</span>
+          <span class="n">wedgeprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width_outer</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">),</span>
+          <span class="n">autopct</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">percentify</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_outer</span><span class="p">)),</span>
+          <span class="n">pctdistance</span><span class="o">=</span><span class="n">r</span><span class="o">-</span><span class="mf">1.2</span><span class="o">*</span><span class="n">width_outer</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABC&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">r</span><span class="o">-</span><span class="n">width_outer</span><span class="p">,</span>
+          <span class="n">textprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">),</span>
+          <span class="n">wedgeprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width_inner</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">),</span>
+          <span class="n">autopct</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">percentify</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">)),</span>
+          <span class="n">pctdistance</span><span class="o">=</span><span class="n">inner_blank</span><span class="o">+</span><span class="mf">.7</span><span class="o">*</span><span class="n">width_inner</span><span class="p">)</span>
+
+<span class="n">patches</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">autotexts</span> <span class="o">=</span> \
+    <span class="n">ax</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">percentify</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_flatten</span><span class="p">)))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">patches</span><span class="p">,</span> <span class="n">labels_flatten</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Categories&quot;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+              <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper center&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Pie plot with legend instead of labels&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_18_0.png" src="_images/PlotFunc_18_0.png" />
+</div>
+</div>
+</section>
+<section id="箱型图：ax.boxplot">
+<h2>箱型图：ax.boxplot<a class="headerlink" href="#箱型图：ax.boxplot" title="永久链接至标题"></a></h2>
+<p>箱型图（也称盒须图）可以认为是五数概括（five number summary，即两个最值与三个四分位值；但最值的定义有所不同，下详）的一种可视化，主要由两部分组成：箱子与离群值（outliers）区。因为这几个概念的理解直接影响箱型图的读图，所以下面先简要谈谈这几个概念：</p>
+<ul>
+<li><p>箱子：箱型图的主体当然是中间的箱子，其顶部一般对应上四分位值（或第三四分位，Q3，the 3rd quartile），即75分位值；底部一般是下四分位值Q1，即25分位值；这两个值之差（即箱子的高）称为四分位距（IQR，Interquartile range）。箱子中心的那根线是中位数（也即Q2）。所有的箱型图一般都遵循以上原则。</p></li>
+<li><p>离群值区：不同箱型图的离群值区域规定可以不同。常见的方法是 Tukey 围栏（Tukey’s fences）定义的闭区间：</p>
+<p><span class="math">\begin{equation*}
+T(w) = [Q_1 - w\cdot IQR, Q_3 + w\cdot IQR]
+\end{equation*}</span></p>
+<p>其中，<span class="math notranslate nohighlight">\(w\)</span> （须，whisker）是一个非负常数，而 <span class="math notranslate nohighlight">\(IQR=Q_3-Q_1\)</span> 即是上文提到的四分位距。下面是最朴素、可能也是最常见的离群值规则：</p>
+<ul class="simple">
+<li><p>当 <span class="math notranslate nohighlight">\(w=0\)</span> 时，该围栏表示箱子的主体。</p></li>
+<li><p>当 <span class="math notranslate nohighlight">\(w=1.5\)</span> 时，除了箱子主体，该围栏也将适度离群值（mild outliers）包括在内。</p></li>
+<li><p>当 <span class="math notranslate nohighlight">\(w=3\)</span>，时，除了箱子主体与适度离群值，该围栏也将极限离群值（extreme outliers）包括在内。在箱型图中，有时把此时围栏的上下限称为“最值”（虽然我本人并不太赞同这种称呼）；这个最值与数据集的最值是不同的（因为还可能有在 <span class="math notranslate nohighlight">\(T(3)\)</span> 围栏外侧的点），注意区分。</p></li>
+<li><p>对于更外侧的情形，这部分数据点有时也被标记为 far out。</p></li>
+</ul>
+</li>
+</ul>
+<p>一个简洁的箱型图例子。</p>
+<ul class="simple">
+<li><p>箱体中的橙色线是中位数。</p></li>
+<li><p>箱体两侧的须的末端，标明了 <span class="math notranslate nohighlight">\(T(w)\)</span> 围栏的两个端点。</p></li>
+<li><p>在 <span class="math notranslate nohighlight">\(T(w)\)</span> 围栏外侧的数据被称为异常值点（fliers），会单独以圆圈点的形式绘制出来。</p></li>
+</ul>
+<p>Matplotlib 中的默认围栏取 <span class="math notranslate nohighlight">\(w=1.5\)</span>，即它认为极限离群值属于异常值。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="mi">20</span><span class="p">))</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_22_0.png" src="_images/PlotFunc_22_0.png" />
+</div>
+</div>
+<section id="箱型图的常用参数">
+<h3>箱型图的常用参数<a class="headerlink" href="#箱型图的常用参数" title="永久链接至标题"></a></h3>
+<p>箱型图的绘制命令：</p>
+<p><code class="docutils literal notranslate"><span class="pre">ax.boxplot(x,</span> <span class="pre">whis=1.5,</span> <span class="pre">vert=True,</span> <span class="pre">...)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>：一维或多维的数据。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whis</span></code>：须（whisker）值，影响绘制时围栏的上下端点。默认是 1.5。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vert</span></code>：默认 True，即以竖直方式绘图。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">widths</span></code>：箱型图在绘制时的箱体宽度。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">labels</span></code>：每个箱型图的标签。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notch</span></code>：切口箱型图。切口在中位数处，切口宽度是中位数的 95% 置信区间。</p>
+<ul>
+<li><p>当 <code class="docutils literal notranslate"><span class="pre">notch=True</span></code> 时，可配合使用 <code class="docutils literal notranslate"><span class="pre">bootstrap=True</span></code> 来使用 bootstrap 来估计该置信区间。</p></li>
+</ul>
+</li>
+<li><p>绘图参数：</p>
+<ul>
+<li><p>箱子主体：显隐 <code class="docutils literal notranslate"><span class="pre">showbox</span></code>，外观 <code class="docutils literal notranslate"><span class="pre">boxprops</span></code>。注意：箱子的前景色只能在 <code class="docutils literal notranslate"><span class="pre">patch_artists=True</span></code> 时使用。</p></li>
+<li><p>异常值点：显隐 <code class="docutils literal notranslate"><span class="pre">showfliers</span></code>，外观 <code class="docutils literal notranslate"><span class="pre">filerprops</span></code></p></li>
+<li><p>须：须外观 <code class="docutils literal notranslate"><span class="pre">whiskerprops</span></code></p>
+<ul>
+<li><p>须的末端线的显隐 <code class="docutils literal notranslate"><span class="pre">showcaps</span></code>，须的末端线外观 <code class="docutils literal notranslate"><span class="pre">capprops</span></code>，</p></li>
+</ul>
+</li>
+<li><p>中位数线：显隐 <code class="docutils literal notranslate"><span class="pre">showmedians</span></code>，外观 <code class="docutils literal notranslate"><span class="pre">medianprops</span></code></p></li>
+<li><p>均值点/线（默认关闭）：显隐 <code class="docutils literal notranslate"><span class="pre">showmeans</span></code>，按线显示 <code class="docutils literal notranslate"><span class="pre">meanline</span></code>，外观 <code class="docutils literal notranslate"><span class="pre">meanprops</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>下面的例子涵盖了上述所有参数：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mu_shared</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">mu_shared</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="s2">&quot;face&quot;</span><span class="p">:</span> <span class="s1">&#39;lightblue&#39;</span><span class="p">}</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">patch_artist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABC&quot;</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;boxes&#39;</span><span class="p">,</span> <span class="s1">&#39;whiskers&#39;</span><span class="p">,</span> <span class="s1">&#39;means&#39;</span><span class="p">,</span> <span class="s1">&#39;medians&#39;</span><span class="p">,</span> <span class="s1">&#39;caps&#39;</span><span class="p">]:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">line</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">])</span>
+<span class="c1">## 论外的箱子前景色与异常值点的颜色。</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="s1">&#39;fliers&#39;</span><span class="p">],</span> <span class="n">mec</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">])</span>  <span class="c1"># mec=markeredgecolor，参考第一章</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="s1">&#39;boxes&#39;</span><span class="p">],</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="s2">&quot;face&quot;</span><span class="p">])</span>  <span class="c1"># 前景色需要 patch_artist=True</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Boxplot with customized colors&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">whis</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="s2">&quot;A&#39; B&#39; C&#39;&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABC&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Whikser 1.5 &amp; 3.0 comparison boxplot&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABC&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Horizontal boxplot&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">showcaps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">showfliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">showmeans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">meanprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Boxplot without caps and fliers,</span><span class="se">\n</span><span class="s2">but with mean points&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">widths</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">showmeans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">meanline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">notch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">meanprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">),</span>
+              <span class="n">flierprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Notch boxplot with mean lines&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_24_0.png" src="_images/PlotFunc_24_0.png" />
+</div>
+</div>
+</section>
+<section id="箱型图的细节概念*">
+<h3>箱型图的细节概念*<a class="headerlink" href="#箱型图的细节概念*" title="永久链接至标题"></a></h3>
+<p><em>本节是针对不太了解箱型图的读者的补充内容。对箱型图概念很熟悉的读者可以跳过。</em></p>
+<hr class="docutils" />
+<p>我们来看一个模拟的例子：用符合正态分布 <span class="math notranslate nohighlight">\(N(0,1)\)</span> 的一维数据，模拟一下 Tukey 围栏：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5000</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">q1</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">iqr</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+<span class="n">bpmin</span><span class="p">,</span> <span class="n">bpmax</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">-</span> <span class="n">w</span><span class="o">*</span><span class="n">iqr</span><span class="p">,</span> <span class="n">q3</span> <span class="o">+</span> <span class="n">w</span><span class="o">*</span><span class="n">iqr</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;height_ratios&#39;</span><span class="p">:[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">]})</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="c1"># 绘制箱型图</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Boxplot &amp; density plot of Normally choosen data&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="c1">## 标出关键值的位置</span>
+<span class="n">maxmincolor</span><span class="p">,</span> <span class="n">boxcolor</span> <span class="o">=</span> <span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="s1">&#39;tab:orange&#39;</span>
+<span class="p">[</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">maxmincolor</span><span class="p">)</span> <span class="k">for</span> <span class="n">lines</span> <span class="ow">in</span> <span class="p">(</span><span class="n">bpmin</span><span class="p">,</span> <span class="n">bpmax</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">boxcolor</span><span class="p">)</span> <span class="k">for</span> <span class="n">lines</span> <span class="ow">in</span> <span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q3</span><span class="p">)]</span>
+
+<span class="c1"># 绘制 0.01%~99.99% 累计概率范围内的真实正态密度曲线</span>
+<span class="n">plt_x</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">.0001</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">),</span>
+                     <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">.9999</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">plt_y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">plt_x</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plt_x</span><span class="p">,</span> <span class="n">plt_y</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1">## 显示 Tukey 围栏的数据</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;box | min, max</span><span class="se">\n</span><span class="s1">= </span><span class="si">{</span><span class="n">q1</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">q3</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">boxcolor</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s1"> whisker | min, max</span><span class="se">\n</span><span class="s1">= </span><span class="si">{</span><span class="n">bpmin</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">bpmax</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">maxmincolor</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PlotFunc_26_0.png" src="_images/PlotFunc_26_0.png" />
+</div>
+</div>
+<p>上例中：</p>
+<ul class="simple">
+<li><p>模拟得到的箱子上下限（Q1, Q3）是：-0.65, 0.69</p></li>
+<li><p>模拟得到的 <span class="math notranslate nohighlight">\(w=1.5\)</span> 的 Tukey 围栏上下限是： -2.65, 2.70.</p></li>
+</ul>
+<p>而理论值（只针对数据服从标准正态分布的情形）是：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">q1_theory</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">.25</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+<span class="n">q3_theory</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">.75</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+<span class="n">iqr_theory</span> <span class="o">=</span> <span class="n">q3_theory</span> <span class="o">-</span> <span class="n">q1_theory</span>
+<span class="n">bpmin_theory</span> <span class="o">=</span> <span class="n">q1_theory</span> <span class="o">-</span> <span class="n">w</span> <span class="o">*</span> <span class="n">iqr_theory</span>
+<span class="n">bpmax_theory</span> <span class="o">=</span> <span class="n">q3_theory</span> <span class="o">+</span> <span class="n">w</span> <span class="o">*</span> <span class="n">iqr_theory</span>
+<span class="n">tukey_prob</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">bpmax_theory</span><span class="p">)</span> <span class="o">-</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">bpmin_theory</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Q1 = </span><span class="si">{</span><span class="n">q1_theory</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, Q3 = </span><span class="si">{</span><span class="n">q3_theory</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, 覆盖了 0.50 概率范围；</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+      <span class="sa">f</span><span class="s2">&quot;T(</span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">) = [</span><span class="si">{</span><span class="n">bpmin_theory</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">bpmax_theory</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">]，覆盖了 </span><span class="si">{</span><span class="n">tukey_prob</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> 概率范围。&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Q1 = -0.6745, Q3 = 0.6745, 覆盖了 0.50 概率范围；
+T(1.5) = [-2.6980, 2.6980]，覆盖了 0.9930 概率范围。
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="AxesControl.html" class="btn btn-neutral float-left" title="图像控制" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

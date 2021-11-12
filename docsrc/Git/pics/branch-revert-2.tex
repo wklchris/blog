@@ -1,0 +1,29 @@
+\documentclass[convert=pdf2svg,multi=false]{standalone}
+\usepackage{tikz}
+  \usetikzlibrary{positioning}
+\begin{document}
+\begin{tikzpicture}[commit/.style={draw,circle,inner sep=2pt,minimum size=24pt},pointer/.style={draw=none,fill=red!30,rectangle,inner sep=2pt}]
+\foreach \i[count=\x] in {0,1,2,4} {
+   \node[commit] (C\i) at (2*\x,0) {C\i};
+}
+\node[commit, below=.5 of C4] (C3) {C3};
+\node[commit, right=of C3] (C5) {C5};
+\node[commit, right=2.5 of C4] (M) {M};
+\node[commit, right=of M] (M') {M'};
+\node[commit, right=of M'] (M'') {M''};
+\node[commit, right=of C5] (C6) {C6};
+\node[commit, right=of M''] (C7) {C7};
+
+\foreach \i/\j in {C0/C1,C1/C2,C2/C3,C2/C4,C3/C5,C4/M,C5/M,M/M',M'/M'',C5/C6,M''/C7} {
+  \draw[latex-] (\i) -- (\j);
+}
+\draw[latex-] (C6) to[out=0,in=225] (C7);
+% pointers
+\node[pointer] (master) [above=.5 of C7] {master};
+\node[pointer, fill=green!40] (head) [above=.5 of master] {HEAD};
+\node[pointer] (dev) [below=.5 of C6] {dev};
+\draw[-latex] (master) -- (C7);
+\draw[-latex] (head) -- (master);
+\draw[-latex] (dev) -- (C6);
+\end{tikzpicture}
+\end{document}

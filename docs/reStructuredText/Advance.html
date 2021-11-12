@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>高级功能 &mdash; reStructuredText 简介  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/reStructuredText/Advance.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS"}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="reST 基础" href="Fundamentals.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> reStructuredText 简介
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fundamentals.html">reST 基础</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">高级功能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">代码输出</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">文本代码块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">导入代码文件</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#display-math">数学公式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathjax">MathJax 支持</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">单行公式引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mathjax-multi-ref">多行公式引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">自定义数学命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">警示标记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sec-substitution-text">替换文本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#directive-glossary">术语表*</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">reStructuredText 简介</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>高级功能</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Advance.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="math notranslate nohighlight">
+\[\newcommand{\ud}{\mathop{}\negthinspace\mathrm{d}}
+\newcommand{\pfrac}[2][x]{\frac{\partial #2}{\partial #1}}\]</div>
+<section id="id1">
+<h1>高级功能<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>本章介绍 reStructuredText 的高级语法功能。</p>
+<section id="id2">
+<h2>代码输出<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>行内代码我们在之前已经介绍过，使用一对双反引号 <code class="docutils literal notranslate"><span class="pre">``text``</span></code> 或者 literal 角色 <code class="docutils literal notranslate"><span class="pre">:literal:`text`</span></code> 。</p>
+<p>本节主要介绍代码块的使用。</p>
+<section id="id3">
+<h3>文本代码块<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>reStructuredText 原生的代码块指令是 <code class="docutils literal notranslate"><span class="pre">code</span></code> （ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#code">Directive: code</a> ），本文不做介绍。</p>
+</div>
+<p>Sphinx 中独立的代码块输出，使用 <code class="docutils literal notranslate"><span class="pre">code-block</span></code> 指令（或其别名 <code class="docutils literal notranslate"><span class="pre">sourcecode</span></code> 指令）。</p>
+<ul>
+<li><p>在该指令的同一行，可选指定一种编程语言的语法进行高亮。restructuredText 使用 Pygments 进行语法高亮，它支持的编程语言的简要列表可以参考 <a class="reference external" href="https://pygments.org/languages/">Supported languages</a> ；这些编程语言除了正式名，也有一些别名可以使用，具体可以参考本地安装的 pygments 库下的这个文件中的 <code class="docutils literal notranslate"><span class="pre">LEXERS</span></code> 变量：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>site-packages\pygments\lexers\_mapping.py
+</pre></div>
+</div>
+<ul>
+<li><p>例如，在 <code class="docutils literal notranslate"><span class="pre">LEXERS</span></code> 变量中，我们可以找到关于 Python 语法高亮的那一行：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;PythonLexer&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;pygments.lexers.python&#39;</span><span class="p">,</span> <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;py&#39;</span><span class="p">,</span> <span class="s1">&#39;sage&#39;</span><span class="p">,</span> <span class="s1">&#39;python3&#39;</span><span class="p">,</span> <span class="s1">&#39;py3&#39;</span><span class="p">),</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>注意到此行内侧嵌套的那组圆括号，表示 python, py, sage, python3, py3 这些名称都可以用来指定 Python 语法高亮（但我一般推荐最靠前的那个名称）。</p>
+</li>
+<li><p>如果不需要在该代码块中启用语法高亮（纯文本），可以指定一个不被 Pygments 支持的名称，比如 text 或者 none。</p></li>
+</ul>
+</li>
+<li><p>代码块的行号选项</p>
+<ul class="simple">
+<li><p>启用行号 <code class="docutils literal notranslate"><span class="pre">:linenos:</span></code></p></li>
+<li><p>指定第一行行号从何数字开始 <code class="docutils literal notranslate"><span class="pre">:lineno-start:</span> <span class="pre">NUM</span></code> 。该选项会自动启用行号选项</p></li>
+<li><p>强调某一行或几行 <code class="docutils literal notranslate"><span class="pre">:emphasize-lines:</span> <span class="pre">NUM1,NUM2,...</span></code></p></li>
+</ul>
+</li>
+<li><p>添加代码块标题 <code class="docutils literal notranslate"><span class="pre">:caption:</span> <span class="pre">TEXT</span></code></p></li>
+<li><p>代码块被以 <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> 引用时显示的文本 <code class="docutils literal notranslate"><span class="pre">:name:</span> <span class="pre">TEXT</span></code></p></li>
+<li><p>反向缩进代码块 <code class="docutils literal notranslate"><span class="pre">:dedent:</span> <span class="pre">NUM</span></code></p></li>
+</ul>
+<p>文本代码块的例子。注意，所有的选项都不是必须的。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> python
+   <span class="nc">:linenos:</span>
+   <span class="nc">:emphasize-lines:</span> 1,4-5
+   <span class="nc">:caption:</span> A highlighted code-block example
+   <span class="nc">:name:</span> 一个代码块示例
+
+   def foo():
+       x = 3
+       y = 4
+       z = x <span class="gs">** 2 + y **</span> 2
+       print(f&quot;Val = {z}&quot;)
+       return z
+</pre></div>
+</div>
+<p>该例将会输出下述的代码块。它在被引用时会显示为 <a class="reference internal" href="#code-block-eg"><span class="std std-ref">A highlighted code-block example</span></a> 这个链接。</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<span id="code-block-eg"></span><div class="code-block-caption"><span class="caption-number">列表 1 </span><span class="caption-text">A highlighted code-block example</span><a class="headerlink" href="#id4" title="永久链接至代码"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="linenos">1</span><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span><span class="linenos">2</span>    <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="linenos">3</span>    <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="hll"><span class="linenos">4</span>    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span>
+</span><span class="hll"><span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Val = </span><span class="si">{</span><span class="n">z</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class="linenos">6</span>    <span class="k">return</span> <span class="n">z</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>导入代码文件<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>reStructuredText 原生的导入代码文件指令是 <code class="docutils literal notranslate"><span class="pre">include</span></code> （ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#including-an-external-document-fragment">Directive: including-an-external-document-fragment</a> ），本文不做介绍。</p>
+</div>
+<p>Sphinx 支持从外部文件导入代码文本，使用 <code class="docutils literal notranslate"><span class="pre">literalinclude</span></code> 指令。该指令支持的选项有：</p>
+<ul class="simple">
+<li><p>显示行号 <code class="docutils literal notranslate"><span class="pre">:linenos:</span></code></p></li>
+<li><p>语法高亮 <code class="docutils literal notranslate"><span class="pre">:language:</span> <span class="pre">LANG</span></code></p></li>
+<li><p>行包括，即有选择地导入哪些行： <code class="docutils literal notranslate"><span class="pre">:lines:</span> <span class="pre">NUM1,NUM2,...</span></code></p></li>
+<li><p>行强调 <code class="docutils literal notranslate"><span class="pre">:emphasize-lines:</span> <span class="pre">NUM1,NUM2</span></code> 。注意，如果有选择地导入代码行，行号将与文件原本的行号不同。</p></li>
+</ul>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">literalinclude</span><span class="p">::</span> conf.py
+   <span class="nc">:linenos:</span>
+   <span class="nc">:language:</span> python
+   <span class="nc">:emphasize-lines:</span> 3-6
+   <span class="nc">:lines:</span> 1, 17-21, 23-
+</pre></div>
+</div>
+<p>以上导入代码的例子将导入与当前 rst 文档同目录下的 conf.py 文件，并输出以下结果：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">author</span> <span class="o">=</span> <span class="s2">&quot;wklchris&quot;</span>
+<span class="linenos"> 2</span>
+<span class="hll"><span class="linenos"> 3</span><span class="c1"># [sphinx.ext.extlinks]</span>
+</span><span class="hll"><span class="linenos"> 4</span><span class="n">extlinks</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="hll"><span class="linenos"> 5</span>   <span class="s1">&#39;docutils&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;Docutils: &#39;</span><span class="p">),</span>
+</span><span class="hll"><span class="linenos"> 6</span>   <span class="s1">&#39;docutils-directive&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;https://docutils.sourceforge.io/docs/ref/rst/directives.html#</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;Directive: &#39;</span><span class="p">)</span>
+</span><span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># Others</span>
+<span class="linenos"> 9</span><span class="n">highlight_language</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
+<span class="linenos">10</span><span class="n">numfig</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="n">mathjax3_config</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">13</span>  <span class="s1">&#39;TeX&#39;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos">14</span>     <span class="s1">&#39;equationNumbers&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s1">&#39;autoNumber&#39;</span><span class="p">:</span> <span class="s2">&quot;AMS&quot;</span> <span class="p">}</span>
+<span class="linenos">15</span>   <span class="p">}</span>
+<span class="linenos">16</span><span class="p">}</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="n">rst_prolog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos">19</span><span class="s2">.. math::</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">ud}{</span><span class="se">\\</span><span class="s2">mathop</span><span class="si">{}</span><span class="se">\\</span><span class="s2">negthinspace\mathrm</span><span class="si">{d}</span><span class="s2">}</span>
+<span class="linenos">22</span><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">pfrac}[2][x]{</span><span class="se">\\</span><span class="s2">frac{</span><span class="se">\\</span><span class="s2">partial #2}{</span><span class="se">\\</span><span class="s2">partial #1}}</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="s2">.. |section-symbols| replace:: </span>
+<span class="linenos">25</span><span class="s2">   ! &quot; # $ % &amp; &#39; ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</span>
+<span class="linenos">26</span><span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="display-math">
+<span id="id6"></span><h2>数学公式<a class="headerlink" href="#display-math" title="永久链接至标题"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>reStructuredText 中支持的数学公式使用 LaTeX 语法。对使用 LaTeX 书写数学公式不熟悉的读者，可以在网络上找到许多入门语法；或者，也可以参考我撰写的 <a class="reference external" href="https://github.com/wklchris/Note-by-LaTeX">《简单粗暴LaTeX》一书</a> 中的数学公式章节。</p>
+</div>
+<p>行内数学公式直接使用角色 <code class="docutils literal notranslate"><span class="pre">:math:</span></code> ，例如 <span class="math notranslate nohighlight">\(\sin\alpha\)</span> ，这里主要讲行间公式的处理。</p>
+<p>reStructuredText 语法中使用 <code class="docutils literal notranslate"><span class="pre">math</span></code> 指令（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#math">Directive: math</a> ）来插入行间数学公式。</p>
+<ul class="simple">
+<li><p>数学公式语法上与 LaTeX 的原生命令一致。</p>
+<ul>
+<li><p>单行公式可以直接写在指令的同一行，比如 <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">math::</span> <span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span> <span class="pre">=</span> <span class="pre">c</span></code> 。</p></li>
+<li><p>多行公式需要在公式间插入一个空白行。</p></li>
+</ul>
+</li>
+<li><p>数学公式中可以使用与符号 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> 来对齐列，使用双反斜线 <code class="docutils literal notranslate"><span class="pre">\\</span></code> 来换行。Sphinx 会自动将整个块放在一个 LaTeX 语法的 split 环境中。</p></li>
+</ul>
+<p>关于 Sphinx 中的数学公式使用：</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>在 Sphinx 输出 HTML 时，建议在 conf.py 中加载 <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/math.html#module-sphinx.ext.mathjax">sphinx.ext.mathjax</a> 插件。本文档开启了该插件，且**配置了 MathJax 的自动编号**。下文中所有右侧的编号都由 MathJax 提供，而左侧的、位于公式前一行的编号是 Sphinx 构建的结果。当然，这两者的格式都可以在配置（或 CSS 文件）中进行变更。</p>
+<p>Sphinx 用户可以参考下文的 <a class="reference internal" href="#mathjax-support"><span class="std std-ref">MathJax 支持</span></a> 一节来获取更多关于 MathJax 的信息。</p>
+</div>
+<ul class="simple">
+<li><p>Sphinx 支持以 <code class="docutils literal notranslate"><span class="pre">:label:</span> <span class="pre">TEXT</span></code> 选项来给公式添加编号，并使其能够被 <code class="docutils literal notranslate"><span class="pre">:eq:</span></code> 角色交叉引用。更复杂的引用可以使用 MathJax 中的功能支持，见 <a class="reference internal" href="#mathjax-support"><span class="std std-ref">MathJax 支持</span></a> 一节。</p></li>
+<li><p>Sphinx 支持以 <code class="docutils literal notranslate"><span class="pre">:nowrap:</span></code> 选项来取消自动公式环境（equation, align, split），而显式地由读者自行指定。</p></li>
+</ul>
+<section id="id7">
+<h3>示例<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<p>单行公式的例子如下。使用 <code class="docutils literal notranslate"><span class="pre">:eq:`math-single`</span></code> 引用时会显示 <a class="reference internal" href="#equation-math-single">(1)</a> 这个链接。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+    <span class="nc">:label:</span> math-single
+
+    \int_1^\infty \frac{1}{x^2} dx = 1
+</pre></div>
+</div>
+<div class="math notranslate nohighlight" id="equation-math-single">
+<span class="eqno">(1)<a class="headerlink" href="#equation-math-single" title="公式的永久链接"></a></span>\[\int_1^\infty \frac{1}{x^2} dx = 1\]</div>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> 与 <code class="docutils literal notranslate"><span class="pre">\\</span></code> 进行标记的对齐多行公式，引用如 <a class="reference internal" href="#equation-math-multi">(2)</a> 。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+    <span class="nc">:label:</span> math-multi
+
+    (a + b)^2 &amp;= (a + b)(a + b) \\
+              &amp;= a^2 + 2ab + b^2
+</pre></div>
+</div>
+<div class="math notranslate nohighlight" id="equation-math-multi">
+<span class="eqno">(2)<a class="headerlink" href="#equation-math-multi" title="公式的永久链接"></a></span>\[\begin{split}(a + b)^2 &amp;= (a + b)(a + b) \\
+          &amp;= a^2 + 2ab + b^2\end{split}\]</div>
+<p>用空白行分隔的多个公式，在 MathJax 支持下的 HTML 输出会默认向右对齐。如果开启了 MathJax 的自动编号，那么右侧会对整体附加一个序号（而不是给每行编号）；这类似于 LaTeX 中的 split 环境。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+
+    f(x) = x^2 + \sin x
+
+    S(r) = \{ x \in \mathbb{R}^n \,|\, \|x\| \leq r \}
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}f(x) = x^2 + \sin x\\S(r) = \{ x \in \mathbb{R}^n \,|\, \|x\| \leq r \}\end{aligned}\end{align} \]</div>
+<p>如果要居中对齐，使用 <code class="docutils literal notranslate"><span class="pre">:nowrap:</span></code> 选项配合 LaTeX 语法中的 gather(*) 环境：</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>无编号多行居中：
+
+<span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+    <span class="nc">:nowrap:</span>
+
+    \begin{gather*}
+    f(x) = x^2 + \sin x \\
+    S(r) = \{ x \in \mathbb{R}^n \,|\, \|x\| \leq r \}
+    \end{gather*}
+</pre></div>
+</div>
+<p>无编号多行居中：</p>
+<div class="math notranslate nohighlight">
+\begin{gather*}
+f(x) = x^2 + \sin x \\
+S(r) = \{ x \in \mathbb{R}^n \,|\, \|x\| \leq r \}
+\end{gather*}</div><p>要给多行公式中的每一行进行自动编号（并使它们在文中能够被交叉引用），参考 <a class="reference internal" href="#mathjax-multi-ref"><span class="std std-ref">多行公式引用</span></a> 一节。</p>
+</section>
+<section id="mathjax">
+<span id="mathjax-support"></span><h3>MathJax 支持<a class="headerlink" href="#mathjax" title="永久链接至标题"></a></h3>
+<p>MathJax （ <a class="reference external" href="http://docs.mathjax.org/en/latest/index.html">官方文档</a> ）是一个 JavaScript 数学公式渲染引擎。在使用 Sphinx 将 reStructuredText 文档转换为 HTML 后，往往需要用 MathJax 来支持其中的数学公式输出。</p>
+<p>Sphinx 中启用 MathJax 的方式是在 conf.py 中加载 <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/math.html#module-sphinx.ext.mathjax">sphinx.ext.mathjax</a> 插件：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 向 extensions 变量中添加一项 &#39;sphinx.ext.mathjax&#39;</span>
+<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sphinx.ext.mathjax&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>在 conf.py 中，我们还可能需要配置 <code class="docutils literal notranslate"><span class="pre">mathjax_config</span></code> 变量来设置 MathJax，比如启用 MathJax 支持的 <a class="reference external" href="http://docs.mathjax.org/en/latest/input/tex/eqnumbers.html#automatic-equation-numbering">公式自动编号</a> ：</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>由于 reStructuredText 与 MathJax 语法的兼容性，Sphinx 并非接受 MathJax 的所有功能。MathJax 的自动编号在 Sphinx 文档中很难进行交叉引用，因此仍然推荐使用 Sphinx 的 <code class="docutils literal notranslate"><span class="pre">:label:</span></code> 角色。</p>
+<p>同理，在 reStructuredText 文档中，应当使用 <code class="docutils literal notranslate"><span class="pre">:math:</span></code> 行内角色，而不是 MathJax 支持的 <code class="docutils literal notranslate"><span class="pre">$..$</span></code> 语法。</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 如果是 MathJax v2，使用：</span>
+<span class="c1"># mathjax2_config = {</span>
+<span class="c1">#    &#39;TeX&#39;: {</span>
+<span class="c1">#        &#39;equationNumbers&#39;: { &#39;autoNumber&#39;: &quot;AMS&quot; }</span>
+<span class="c1">#    }</span>
+<span class="c1"># }</span>
+<span class="n">mathjax3_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;TeX&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="s2">&quot;AMS&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="id10">
+<h4>单行公式引用<a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
+<p>单行公式引用需要启用 <code class="docutils literal notranslate"><span class="pre">:nowrap:</span></code> 选项，并以 MathJax 语法（LaTeX 语法）中的 <code class="docutils literal notranslate"><span class="pre">\label</span></code> 显式地声明标签。在需要引用时，使用 <code class="docutils literal notranslate"><span class="pre">\ref</span></code> 引用公式序号，或者使用 <code class="docutils literal notranslate"><span class="pre">\eqref</span></code> 引用由圆括号括起的公式序号。</p>
+<p>LaTeX 中支持的单行公式有两种：</p>
+<ul class="simple">
+<li><p>带编号的单行公式： <code class="docutils literal notranslate"><span class="pre">\begin{equation}..\end{equation}</span></code></p></li>
+<li><p>无编号的单行公式： <code class="docutils literal notranslate"><span class="pre">\begin{equation*}..\end{equation*}</span></code></p></li>
+</ul>
+<p>由于需引用的公式一般都含编号，下面以带编号公式为例。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>引用 MathJax 单行公式： <span class="na">:math:</span><span class="nv">`\ref{mathjax-single}`</span> 或 <span class="na">:math:</span><span class="nv">`\eqref{mathjax-single}`</span> 。
+
+<span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+    <span class="nc">:nowrap:</span>
+
+    \begin{equation}
+    \label{mathjax-single}
+    \alpha + \beta = \gamma
+    \end{equation}
+</pre></div>
+</div>
+<p>引用 MathJax 单行公式： <span class="math notranslate nohighlight">\(\ref{mathjax-single}\)</span> 或 <span class="math notranslate nohighlight">\(\eqref{mathjax-single}\)</span> 。</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+\label{mathjax-single}
+\alpha + \beta = \gamma
+\end{equation}</div></section>
+<section id="mathjax-multi-ref">
+<span id="id11"></span><h4>多行公式引用<a class="headerlink" href="#mathjax-multi-ref" title="永久链接至标题"></a></h4>
+<p>多行公式需要配合 <code class="docutils literal notranslate"><span class="pre">math</span></code> 指令的 <code class="docutils literal notranslate"><span class="pre">:nowrap:</span></code> 选项，并以 MathJax 语法（LaTeX 语法）中的 <code class="docutils literal notranslate"><span class="pre">\label</span></code> 显式地声明标签。</p>
+<p>LaTeX 语法中常用的多行公式环境有（不带星号环境将给每行编号，带星号的不做任何编号）：</p>
+<ul class="simple">
+<li><p>align(*)：支持以 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> 对齐各列，每行独立编号。列对齐方式在居右与居左之间轮替，即各列的对齐依次是：居右、居左、居右、居左、……</p></li>
+<li><p>split(*)：与 align(*) 类似，但所有行共享一个编号。与 equation-aligned 嵌套环境的效果类似。</p></li>
+<li><p>gather(*)：每行内容居中且独立编号。</p></li>
+<li><p>gathered：在 equation 内部嵌套 gathered 环境，可以达成居中且共享编号的输出效果。</p></li>
+</ul>
+<p>先看一个 gather 环境的例子，每行独立编号（align 环境也是如此）。要引用的行需要用 <code class="docutils literal notranslate"><span class="pre">\label</span></code> 语法声明一个标签。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>类似单行公式引用，引用时使用 <span class="na">:math:</span><span class="nv">`\ref{mj-gather-a}`</span> 或者 <span class="na">:math:</span><span class="nv">`\eqref{mj-gather-a}`</span> 。
+
+<span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+    <span class="nc">:nowrap:</span>
+
+    \begin{gather}
+    f(x) = x^2 + \sin x \label{mj-gather-a} \\
+    S(r) = \{ x \in \mathbb{R}^n \,|\, \|x\| \leq r \}
+    \end{gather}
+</pre></div>
+</div>
+<p>类似单行公式引用，引用时使用 <span class="math notranslate nohighlight">\(\ref{mj-gather-a}\)</span> 或者 <span class="math notranslate nohighlight">\(\eqref{mj-gather-a}\)</span> 。</p>
+<div class="math notranslate nohighlight">
+\begin{gather}
+f(x) = x^2 + \sin x \label{mj-gather-a} \\
+S(r) = \{ x \in \mathbb{R}^n \,|\, \|x\| \leq r \}
+\end{gather}</div><p>如果将上例中的 gather 环境改为带星号的 gather 环境，将不进行任何公式编号。此时，标签命令 <code class="docutils literal notranslate"><span class="pre">\label</span></code> 应该写在数学环境内部、第一行公式之前。引用公式 <span class="math notranslate nohighlight">\(\ref{eq:gatherstar-a}\)</span> 的语法同上。</p>
+<div class="math notranslate nohighlight">
+\begin{gather*}
+\label{eq:gatherstar-a}
+f(x) = x^2 + \sin x \\
+S(r) = \{ x \in \mathbb{R}^n \,|\, \|x\| \leq r \}
+\end{gather*}</div><p>最后，看一个 split 环境的例子。split 环境中所有行共享同一个编号，引用为 <span class="math notranslate nohighlight">\(\ref{eq:split}\)</span> 。标签命令同样写在第一行公式之前。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+    <span class="nc">:nowrap:</span>
+
+    \begin{split}
+    \label{eq:split}
+    a &amp;&gt; b &amp; c &amp;\geq d \\
+    e &amp;\neq f &amp; \lim_\infty g &amp;= h
+    \end{split}
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\begin{split}
+\label{eq:split}
+a &amp;&gt; b &amp; c &amp;\geq d \\
+e &amp;\neq f &amp; \lim_\infty g &amp;= h
+\end{split}</div><p>关于 MathJax 支持的全部 LaTeX 命令，参考 <a class="reference external" href="http://docs.mathjax.org/en/latest/input/tex/macros/index.html#supported-tex-latex-commands">MathJax: Supported TeX/LaTeX commands</a> 文档。</p>
+</section>
+<section id="id12">
+<h4>自定义数学命令<a class="headerlink" href="#id12" title="永久链接至标题"></a></h4>
+<p>MathJax 允许自定义简单的 LaTeX 命令，即 LaTeX 中的 <code class="docutils literal notranslate"><span class="pre">\newcommand</span></code> 命令。参考 <a class="reference external" href="http://docs.mathjax.org/en/latest/input/tex/macros.html#defining-tex-macros">MathJax: Defining TeX Macros</a> 页面。</p>
+<p>在 Sphinx 中，由于 <code class="docutils literal notranslate"><span class="pre">rst_prolog</span></code> 变量的存在，我们可以直接在 conf.py 文件中更改该变量值，来在每一个文档文件的头部添加一个额外的数学环境，用于自定义数学命令：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="hll"><span class="n">rst_prolog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+</span><span class="hll"><span class="s2">.. math::</span>
+</span><span class="hll">
+</span><span class="hll"><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">ud}{</span><span class="se">\\</span><span class="s2">mathop</span><span class="si">{}</span><span class="se">\\</span><span class="s2">negthinspace\mathrm</span><span class="si">{d}</span><span class="s2">}</span>
+</span><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">pfrac}[2][x]{</span><span class="se">\\</span><span class="s2">frac{</span><span class="se">\\</span><span class="s2">partial #2}{</span><span class="se">\\</span><span class="s2">partial #1}}</span>
+
+<span class="s2">.. |section-symbols| replace:: </span>
+<span class="s2">   ! &quot; # $ % &amp; &#39; ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>上例是本文档使用的 conf.py 文件的一部分，定义了两个数学命令：</p>
+<ul class="simple">
+<li><p>一个是 <code class="docutils literal notranslate"><span class="pre">\ud</span></code> 命令，无输入参数，用来打印一个竖直的积分符号。</p></li>
+<li><p>另一个是 <code class="docutils literal notranslate"><span class="pre">\pfrac[#1]{#2}</span></code> 命令，有分子分母两个参数，用来打印偏导分式。参数1是分母，默认值是x；参数2是分子。</p></li>
+</ul>
+<p>下面是一个使用了上述两个自定义符号的例子：</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+
+    \pfrac{f(x,y)} &amp;= y \\
+    \pfrac[y]{f(x,y)} &amp;= \int_0^\pi \sin x \ud x
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\pfrac{f(x,y)} &amp;= y \\
+\pfrac[y]{f(x,y)} &amp;= \int_0^\pi \sin x \ud x\end{split}\]</div>
+</section>
+</section>
+</section>
+<section id="id13">
+<h2>警示标记<a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
+<p>警示标记（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#admonitions">Directive: admonitions</a> ）是我个人最喜欢的 reStructuredText 功能之一。它将绘制一个能够快速引起读者注意的消息框。比如 warning 警示标记：</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">warning</span><span class="p">::</span> This is an optional title
+
+    Warning mesage.
+
+    Warning message paragraph 2.
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>This is an optional title</p>
+<p>Warning mesage.</p>
+<p>Warning message paragraph 2.</p>
+</div>
+<p>reStructuredText 提供特殊支持的警示标记有以下 9 种：</p>
+<ul class="simple">
+<li><p>attention 注意</p></li>
+<li><p>caution 警告。Sphinx 中，caution 的默认的 HTML （中文）输出样式与 warning 相同。</p></li>
+<li><p>danger 危险</p></li>
+<li><p>error 错误</p></li>
+<li><p>hint 提示</p></li>
+<li><p>important 重要</p></li>
+<li><p>note 注解</p></li>
+<li><p>tip 小技巧</p></li>
+<li><p>warning 警告。Sphinx 中，warning 默认的 HTML （中文）输出样式与 caution 相同。</p></li>
+</ul>
+<p>它们的样式如下：</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>attention</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">小心</p>
+<p>caution</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">危险</p>
+<p>danger</p>
+</div>
+<div class="admonition error">
+<p class="admonition-title">错误</p>
+<p>error</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>hint</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>important</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>note</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>tip</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>warning</p>
+</div>
+<p>除了上述几种警示以外，reStructuredText 允许用户使用 <code class="docutils literal notranslate"><span class="pre">admonition</span></code> 指令来自定义警示。比如，用户可以创建一个不在上述 9 类中的一类新警示（比如叫 critical），然后再在 CSS 文件中对 critical 类进行样式定义。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span>
+   <span class="nc">:class:</span> critical
+
+   Admonition message.
+</pre></div>
+</div>
+<p>上例在 Sphinx 构建后，会输出一个具有 admonition 与 critical 类别的 div 容器。</p>
+</section>
+<section id="sec-substitution-text">
+<span id="id14"></span><h2>替换文本<a class="headerlink" href="#sec-substitution-text" title="永久链接至标题"></a></h2>
+<p>reStructuredText 支持的替换功能（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#substitution-definitions">Docutils: substitution-definitions</a> ）有许多应用场景。一个是用来替代比较长的一个短语或称谓，减少键盘输入的痛苦。</p>
+<ul class="simple">
+<li><p>以双侧竖线 <code class="docutils literal notranslate"><span class="pre">|text|</span></code> 来标记目标文本。在生成文档时，它会被替换文本所代替。</p></li>
+<li><p>以含下划线后缀的语法 <code class="docutils literal notranslate"><span class="pre">|text|_</span></code> 将让目标文本在被代替的同时，还成为一个指向 <code class="docutils literal notranslate"><span class="pre">_text</span></code> 地址的超链接。</p></li>
+<li><p>替换文本的写法类似于脚注，不过还需要 <code class="docutils literal notranslate"><span class="pre">replace::</span></code> 关键字。</p></li>
+<li><p>替换文本中可以包含行内标记，比如强调、斜体等。</p></li>
+</ul>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>本文将介绍文本标记语言 |rst| (reST)。由于 |rst-plain| 这个词太长了，很多人喜欢在输入时简化它。
+
+前往文档页面： |rst|_
+
+<span class="p">..</span> <span class="nt">|rst-plain|</span> <span class="ow">replace</span><span class="p">::</span> reStructuredText
+<span class="p">..</span> <span class="nt">|rst|</span> <span class="ow">replace</span><span class="p">::</span> <span class="gs">**reS**</span>\ tructured\ <span class="gs">**T**</span>\ ext
+<span class="p">..</span> <span class="nt">_rst:</span> https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html
+</pre></div>
+</div>
+<p>本文将介绍 <strong>reS</strong>tructured<strong>T</strong>ext (reST)，一种文本标记语言。由于 reStructuredText 这个词太长了，很多人喜欢在输入时简化它。</p>
+<hr class="docutils" />
+<p>除了文本，替换对象也可以是图片。事实上它还可以是一些奇奇怪怪的东西，但用的比较少，这里就不介绍了。感兴趣的读者可以参考 Docutils 文档。</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>本段中的这个目标对象 |kitty| 将会被替换为一个宽、高均为 70 px 的竖直居中图片。
+
+<span class="p">..</span> <span class="nt">|kitty|</span> <span class="ow">image</span><span class="p">::</span> eg.png
+    <span class="nc">:height:</span> 70
+    <span class="nc">:width:</span> 70
+    <span class="nc">:align:</span> middle
+</pre></div>
+</div>
+<p>本段中的这个目标对象 <a class="reference internal" href="_images/eg.png"><img alt="kitty" class="align-middle" src="_images/eg.png" style="width: 70px; height: 70px;" /></a> 将会被替换为一个宽、高均为 70 px 的竖直居中图片。</p>
+<p>最后，Sphinx 还提供了几个默认的替换文本：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">|today|</span></code> ：文档构建当天的日期。需要在 <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> 文件中声明 <code class="docutils literal notranslate"><span class="pre">today_fmt</span></code> 变量来指定日期的格式，比如：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">today_fmt</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>这会打印如 2000-01-31 这样的日期格式。定义日期格式的语法与 Python 中 datetime 格式的使用相同。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">|release|</span></code> ：文档的发布信息，需要在 <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> 中声明 <code class="docutils literal notranslate"><span class="pre">release</span></code> 变量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">|version|</span></code> ：文档的版本信息，需要在 <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> 中声明 <code class="docutils literal notranslate"><span class="pre">version</span></code> 变量。</p></li>
+</ul>
+</section>
+<section id="directive-glossary">
+<span id="id15"></span><h2>术语表*<a class="headerlink" href="#directive-glossary" title="永久链接至标题"></a></h2>
+<p>术语表是由 Sphinx 支持的一个指令，本质上是一个位于 glossary 指令块内部的定义列表：</p>
+<ul class="simple">
+<li><p>术语表中的每一组术语可以是单个（例中 a1），也可以是多个（例中 f2 与 c3）</p></li>
+<li><p>术语表支持一个可选的选项 <code class="docutils literal notranslate"><span class="pre">:sorted:</span></code> ，它将按（每组的第一个术语的）首字母顺序排列该表所有术语组。</p></li>
+<li><p>术语表中的术语可以用 <code class="docutils literal notranslate"><span class="pre">:term:</span></code> 角色引用（引用时忽略行内标记格式），比如 <a class="reference internal" href="#term-a1"><span class="xref std std-term">a1</span></a> 与 <a class="reference internal" href="#term-d4-term"><span class="xref std std-term">d4 term</span></a> 。</p></li>
+</ul>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">glossary</span><span class="p">::</span>
+    <span class="nc">:sorted:</span>
+
+    <span class="gs">**a1**</span>
+        A1 is a term.
+
+    f2
+    c3
+        F2 and C3 are two closely related terms, or they are identical.
+
+    d4 term
+    e4 term
+        D4/E4 are two keys to be sorted.
+</pre></div>
+</div>
+<p>上例将给出以下的输出结果：</p>
+<dl class="glossary simple">
+<dt id="term-a1"><strong>a1</strong><a class="headerlink" href="#term-a1" title="Permalink to this term"></a></dt><dd><p>A1 is a term.</p>
+</dd>
+<dt id="term-d4-term">d4 term<a class="headerlink" href="#term-d4-term" title="Permalink to this term"></a></dt><dt id="term-e4-term">e4 term<a class="headerlink" href="#term-e4-term" title="Permalink to this term"></a></dt><dd><p>D4/E4 are two keys to be sorted.</p>
+</dd>
+<dt id="term-f2">f2<a class="headerlink" href="#term-f2" title="Permalink to this term"></a></dt><dt id="term-c3">c3<a class="headerlink" href="#term-c3" title="Permalink to this term"></a></dt><dd><p>F2 and C3 are two closely related terms, or they are identical.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Fundamentals.html" class="btn btn-neutral float-left" title="reST 基础" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

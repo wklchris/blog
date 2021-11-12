@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Python 安装与配置 &mdash; Python  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Python/Intro.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="2. Python 简介" href="Fundamentals.html" />
+    <link rel="prev" title="Python 简介" href="index.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> Python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Python 安装与配置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#安装">1.1. 安装</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#如何选择-Python-版本">1.1.1. 如何选择 Python 版本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#如何选择-32-位还是-64-位版本">1.1.2. 如何选择 32 位还是 64 位版本</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#与-VS-Code-协同*">1.2. 与 VS Code 协同*</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#下载与安装-Python">1.2.1. 下载与安装 Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#安装与配置-VS-Code">1.2.2. 安装与配置 VS Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#执行-Python-文件">1.2.3. 执行 Python 文件</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#安装-Python-库">1.3. 安装 Python 库</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#更改-pip-仓库镜像">1.3.1. 更改 pip 仓库镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#更新-pip">1.3.2. 更新 pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#选择预编译镜像*">1.3.3. 选择预编译镜像*</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Fundamentals.html">2. Python 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControlFlow.html">3. 流程控制语句</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VariableTypes.html">4. 变量类型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Functions.html">5. 函数与迭代器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FileIO.html">6. 文件读写与 os 库</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>Python 安装与配置</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Intro.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="Python-安装与配置">
+<h1><span class="section-number">1. </span>Python 安装与配置<a class="headerlink" href="#Python-安装与配置" title="永久链接至标题"></a></h1>
+<p>本文介绍了编程语言 <a class="reference external" href="https://www.python.org/">Python</a>，主要面向 Windows 用户。但 Python 的绝大部分的用法对 macOS 与 Linux 用户也是一样的。</p>
+<p>本章主要介绍：</p>
+<ul class="simple">
+<li><p>Python 安装时的版本选择</p></li>
+<li><p>如何配置一个编辑器（以 VS Code 为例）</p></li>
+<li><p>怎样通过 pip 命令安装 Python 的外部库</p></li>
+</ul>
+<section id="安装">
+<h2><span class="section-number">1.1. </span>安装<a class="headerlink" href="#安装" title="永久链接至标题"></a></h2>
+<p>本节介绍 Python 的安装。结论写在前面：建议安装最新或次新的 64 位版本。比如，如果最新的稳定版本是 3.8.x，可以安装该 3.8.x 版本，或者安装 3.7 中版本号最大的稳定版。</p>
+<p>安装 Python 有两种重要的途径：</p>
+<ol class="arabic simple">
+<li><p>（个人推荐）直接前往官网安装 Python，然后根据需要自己安装库与包，并选用自己喜欢的编辑器来执行 Python 代码。一般来说，编辑器的扩展性比 IDE 更强，下文会介绍如何在 <a class="reference external" href="https://code.visualstudio.com/download">VisualStudio Code</a> 编辑器中配置和使用 Python。</p></li>
+<li><p>选择 Python 的集成开发环境（IDE），比较著名的有：人称最强 Python IDE 的 <a class="reference external" href="https://www.jetbrains.com/pycharm/download/">PyCharm</a> 、倾向于数据科学的 <a class="reference external" href="https://www.anaconda.com/products/individual">Annoconda</a> 等等。</p></li>
+</ol>
+<section id="如何选择-Python-版本">
+<h3><span class="section-number">1.1.1. </span>如何选择 Python 版本<a class="headerlink" href="#如何选择-Python-版本" title="永久链接至标题"></a></h3>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">重要</p>
+<p>本文只介绍 Python 3。原则上不再推荐使用 Python 2，因为它已于 2020 年 1 月 1 日停止维护。</p>
+</div>
+<p>Python 的版本一直在更新，不过对一般用户来说核心功能并没有太大的变化。最近的一次有影响力的改动大概是在 3.6 版本引入了 f-string，并没有对普通用户而言特别大的改动。</p>
+<p>本文撰写时，使用的 Python 版本是：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>python -V
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Python 3.8.3
+</pre></div></div>
+</div>
+<p>我始终<strong>建议读者尽量安装最新的 Python 版本</strong>，除非新版本的库尚未跟上。我个人一般推崇的版本选择方式步骤：</p>
+<ol class="arabic simple">
+<li><p>前往 Python 官网，查看最新的（稳定版的）版本号 <code class="docutils literal notranslate"><span class="pre">3.x.y</span></code>；</p></li>
+<li><p>如果 <code class="docutils literal notranslate"><span class="pre">y&lt;=1</span></code>，建议安装 <code class="docutils literal notranslate"><span class="pre">3.(x-1)</span></code> 版本；如果 <code class="docutils literal notranslate"><span class="pre">y&gt;=2</span></code>，一般认为可以安装该版本 <code class="docutils literal notranslate"><span class="pre">3.x.y</span></code>。</p></li>
+</ol>
+<p>例如，如果 Python 最新的版本是 3.8.0，一般来说这时候一些主要的库可能尚未支持 3.8，因此我仍推荐安装 3.7 版本；如果最新的稳定版已经到了 3.8.3，这时候绝大部分的库已经跟上，那么安装 3.8.3 即可。</p>
+<p>当然，小心总无大错。如果你准备使用一些非常重要的库，请在安装 Python 前先查询这些库支持的 Python 版本。</p>
+<p>附上 3.8.0~3.8.5 版本 Python 的迭代日期，便于读者对 Python 的稳定版发布间隔有个大致的概念：</p>
+<ul class="simple">
+<li><p>2019.10.19 - Python 3.8.0</p></li>
+<li><p>2019.12.18 - Python 3.8.1</p></li>
+<li><p>2020.02.24 - Python 3.8.2</p></li>
+<li><p>2020.03.10 - Python 3.7.7，这是上个版本的更新</p></li>
+<li><p>2020.05.13 - Python 3.8.3</p></li>
+<li><p>2020.06.27 - Python 3.7.8，这是上个版本的更新</p></li>
+<li><p>2020.07.13 - Python 3.8.4</p></li>
+<li><p>2020.07.20 - Python 3.8.5</p></li>
+</ul>
+<p>可以看到，越靠后的版本，间隔的时间越短（也越不会包含重要的变化）。我是在初代版本 <code class="docutils literal notranslate"><span class="pre">3.8.0</span></code> 发布后 5 个月（即 2020 年 3 月）转到 3.8.2 的，之前我一直使用的是 3.7.x 的版本。</p>
+</section>
+<section id="如何选择-32-位还是-64-位版本">
+<h3><span class="section-number">1.1.2. </span>如何选择 32 位还是 64 位版本<a class="headerlink" href="#如何选择-32-位还是-64-位版本" title="永久链接至标题"></a></h3>
+<p>我个人<strong>始终建议安装64位版本</strong>。有一些库对 32 位版本 Python 的支持并不好（甚至根本不支持），著名的机器学习库 <a class="reference external" href="https://pytorch.org/">Pytorch</a> 就是一个例子。</p>
+<ul class="simple">
+<li><p>要安装 64 位版本的 Python，请前往<a class="reference external" href="https://www.python.org/downloads/windows/">官网下载页面</a>，选择其中标有“x86-64”的进行下载。比如，若要安装 3.8.2，可以选择下述三个中的任意一个：</p>
+<ul>
+<li><p>Download Windows x86-64 embeddable zip file：（不推荐）Zip 版本。</p></li>
+<li><p>Download Windows x86-64 executable installer：完整的离线安装文件。</p></li>
+<li><p>Download Windows x86-64 web-based installer：在线安装文件，安装时需要连接到互联网。</p></li>
+</ul>
+</li>
+<li><p>如需安装 32 位版本的 Python，对应选择“x86”的条目即可。</p></li>
+</ul>
+<p>您可以在命令行中输入 <code class="docutils literal notranslate"><span class="pre">python</span></code> 来检查是否是 64 位版本，例如：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Python 3.8.3 (tags/v3.8.3:6f8c832, May 13 2020, 22:37:02) [MSC v.1924 64 bit (AMD64)] on win32
+...
+</pre></div>
+</div>
+<p>该返回信息的 <code class="docutils literal notranslate"><span class="pre">(AMD64)</span></code> 表示您安装的是 64 位版本；否则，您安装的是 32 位版本。</p>
+</section>
+</section>
+<section id="与-VS-Code-协同*">
+<h2><span class="section-number">1.2. </span>与 VS Code 协同*<a class="headerlink" href="#与-VS-Code-协同*" title="永久链接至标题"></a></h2>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">重要</p>
+<p>本节是选读章节，因为这只是我个人推荐的一种方式。如果您选择了安装 IDE 或其他编辑器，则可以跳过此节。</p>
+</div>
+<p>下面是如何（在 64 位 Windows 10 平台）安装 Python 与 VS Code，以便能在 VS Code 编辑器中直接编写、运行于调试 Python 的一般步骤。</p>
+<section id="下载与安装-Python">
+<h3><span class="section-number">1.2.1. </span>下载与安装 Python<a class="headerlink" href="#下载与安装-Python" title="永久链接至标题"></a></h3>
+<ol class="arabic">
+<li><p>首先，前往官网下载安装 <a class="reference external" href="https://www.python.org/downloads/windows/">64 位的 Python</a>（推荐），选择哪个版本请参考上文中关于 <code class="docutils literal notranslate"><span class="pre">3.x.y</span></code> 如何选择的说明。</p>
+<p>这里以 <code class="docutils literal notranslate"><span class="pre">3.8.3</span></code> 为例，下拉找到 <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.8.3</span></code> （注意：不是 <code class="docutils literal notranslate"><span class="pre">3.8.3rc</span></code>；rc=Release Candidate，表示候选版本而非正式版本），点击其下的 <code class="docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Windows</span> <span class="pre">x86-64</span> <span class="pre">executable</span> <span class="pre">installer</span></code> 来下载 exe 安装文件。</p>
+</li>
+<li><p>运行该 exe 文件。您可以自定义 Python 的安装路径，其他的选项不必更改。</p></li>
+<li><p>安装完毕后，打开命令行（键盘 <code class="docutils literal notranslate"><span class="pre">Win</span> <span class="pre">+</span> <span class="pre">X</span></code> 再按 <code class="docutils literal notranslate"><span class="pre">I</span></code>），输入 <code class="docutils literal notranslate"><span class="pre">python</span></code> 并按回车，您应当能看到类似下方的字样：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PS C:\Users\wklchris&gt; python
+Python 3.8.3 (tags/v3.8.3:6f8c832, May 13 2020, 22:37:02) [MSC v.1924 64 bit (AMD64)] on win32
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p><strong>注意</strong>：首行行末尾的括号中的 <code class="docutils literal notranslate"><span class="pre">AMD64</span></code> 表示您安装的是 64 位的版本。</p>
+<ul>
+<li><p>如果您在命令行中输入 python 显示错误，请将 Python 的安装路径加入 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> 环境变量。</p></li>
+<li><p>如果您在命令行中输入 python 调用的不是您想要的 Python 版本，这可能是因为:</p>
+<ul class="simple">
+<li><p>您下载了错误的安装包，或者</p></li>
+<li><p>您在系统上安装了多个版本的 Python。</p></li>
+</ul>
+<p>您可以在 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> 环境变量中，将刚安装的 Python 路径挪到顶部来使用新安装的 Python。</p>
+</li>
+</ul>
+</li>
+<li><p>在 <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code> 提示符右侧，输入 <code class="docutils literal notranslate"><span class="pre">exit()</span></code> 并回车以退出 Python 而回到命令行；或者，也可以按 <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">C</span></code> 来强行打断。</p></li>
+<li><p>您已完成 Python 的安装。</p></li>
+</ol>
+</section>
+<section id="安装与配置-VS-Code">
+<h3><span class="section-number">1.2.2. </span>安装与配置 VS Code<a class="headerlink" href="#安装与配置-VS-Code" title="永久链接至标题"></a></h3>
+<p>在安装好 Python 之后，可以继续 VS Code 的安装与配置工作</p>
+<ol class="arabic simple">
+<li><p>前往 <a class="reference external" href="https://code.visualstudio.com/download">VisualStudio Code</a> 下载。</p></li>
+<li><p>安装过程略，没有特别需要注意的项。</p></li>
+</ol>
+<p>安装完毕后，打开 VS Code，现在来安装 Python 插件：</p>
+<ol class="arabic simple">
+<li><p>如果您的 VS Code 的界面语言不是中文，请按 <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">P</span></code> 调出 VS Code 检索框，并输入 <code class="docutils literal notranslate"><span class="pre">language</span></code>，然后选中 <code class="docutils literal notranslate"><span class="pre">Configure</span> <span class="pre">Display</span> <span class="pre">Language</span></code> 来配置界面语言。</p>
+<ul class="simple">
+<li><p>点击后，您会看到一个语言列表，上面列出了所有本地可用的界面语言。选择其中的 <code class="docutils literal notranslate"><span class="pre">zh-cn</span></code> 即可。</p></li>
+<li><p>如果您的本地可用语言中没有 <code class="docutils literal notranslate"><span class="pre">zh-cn</span></code>，请点击列表中的最后一项来从扩展插件商店安装中文扩展。插件商店会在左侧边栏弹出，您可以选择标有 Chinese (Simplified) 的那一项，点击其右下角的“安装”绿色按钮。</p></li>
+</ul>
+</li>
+<li><p>在界面左侧边栏，点击“扩展”按钮来打开扩展商店。</p></li>
+<li><p>在扩展商店的搜索框中输入 <code class="docutils literal notranslate"><span class="pre">python</span></code> 来查找插件。您可以找到一个名为 Python、由 Microsoft 提供的官方扩展插件，点击其右下角的“安装”绿色按钮即可。</p></li>
+</ol>
+<p>为了更好地编写 Python，您可能还需要以下扩展插件；它们同样可以通过类似的方式在扩展商店中搜索和安装。</p>
+<ul class="simple">
+<li><p>Pylance：（推荐）一个强大而高效的 Python 语法提示、自动补全、悬浮显示帮助信息的插件；比上述 Python 插件原生提供的功能更强。</p></li>
+<li><p>Code Runner：（非必须）一个帮助用户执行 Python 文件的插件，但其实上面提到的 Python 插件已经提供了执行功能。</p></li>
+</ul>
+</section>
+<section id="执行-Python-文件">
+<h3><span class="section-number">1.2.3. </span>执行 Python 文件<a class="headerlink" href="#执行-Python-文件" title="永久链接至标题"></a></h3>
+<p>安装好上述插件后，您可以尝试在 VS Code 编辑器中编写并运行您的第一个 Python 文件了。</p>
+<ol class="arabic">
+<li><p>点击“文件”菜单，并打开一个空文件夹（例如创建在 <code class="docutils literal notranslate"><span class="pre">D:\pyproject</span></code>）。这是编写代码的一般规则，即以一个新文件夹来作为项目的起点。这个文件夹会在执行 Python 文件时被自动识别为当前项目的工作目录。</p></li>
+<li><p>点击左边栏最上方的“资源管理器”来展开文件边栏。将鼠标移入其中，可以看到文件夹名右侧出现的几个小图标。点击其中的“新建文件”图标，来创建一个新文件。</p></li>
+<li><p>给新文件键入名称，如 <code class="docutils literal notranslate"><span class="pre">pytest.py</span></code> ；Python 的代码文件以 <code class="docutils literal notranslate"><span class="pre">.py</span></code> 结尾。</p></li>
+<li><p>单击该 <code class="docutils literal notranslate"><span class="pre">pytest.py</span></code> 文件以在右侧的编辑视图中浏览其内容（当前无内容）。</p></li>
+<li><p>在编辑视图中输入简单的一行内容：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>按 <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">S</span></code> 保存文件。</p></li>
+<li><p>点击编辑视图右上角的绿色执行按钮“在终端中运行 Python 文件”。</p></li>
+<li><p>观察下方弹出的终端对话框，应当出现如下信息：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PS D:\pyproject&gt; &amp; C:/Python38/python.exe d:/pyproject/pytest.py
+Hello world
+</pre></div>
+</div>
+<p>其中，<code class="docutils literal notranslate"><span class="pre">&amp;</span></code> 之后的信息是由 Python 插件自动填写的，<code class="docutils literal notranslate"><span class="pre">C:/Python38/python.exe</span></code> 是 VS Code 检测到的 Python 安装路径。</p>
+<p>如果您要指定另一处路径的 Python，请：</p>
+<ul class="simple">
+<li><p>点击“文件”菜单，选择“首选项 - 设置” （或者直接按 <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">,</span></code>）。</p></li>
+<li><p>在设置界面顶部的搜索框中，输入 <code class="docutils literal notranslate"><span class="pre">interpreter</span> <span class="pre">path</span></code> 来搜索。</p></li>
+<li><p>在找到的 <code class="docutils literal notranslate"><span class="pre">Python:</span> <span class="pre">Default</span> <span class="pre">Interpreter</span> <span class="pre">Path</span></code> 中填写您安装的 Python 路径。</p></li>
+</ul>
+</li>
+<li><p>您可以点击下方终端对话框右上角的“终止终端”按钮来终止该终端，或者“关闭面板”按钮来暂时隐藏面板。要重新打开终端面板，可以按 <code class="docutils literal notranslate"><span class="pre">Ctrl</span></code> + 重音键（键盘上数字 1 左侧的键）。</p></li>
+</ol>
+</section>
+</section>
+<section id="安装-Python-库">
+<h2><span class="section-number">1.3. </span>安装 Python 库<a class="headerlink" href="#安装-Python-库" title="永久链接至标题"></a></h2>
+<p>Python 的众多库为它提供了丰富的外部功能。要安装 Python 库，最通常的方式是使用随 Python 安装的 pip 命令行工具。</p>
+<p>例如，要安装科学计算库 <a class="reference external" href="https://numpy.org/install/">NumPy</a>，直接在命令行中输入：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python -m pip install numpy
+</pre></div>
+</div>
+<p>即可完成安装。如果你确认直接使用 <code class="docutils literal notranslate"><span class="pre">pip</span></code> 命令不会错误地调用其他的 pip，那么可以更简洁地写为：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install numpy
+</pre></div>
+</div>
+<section id="更改-pip-仓库镜像">
+<h3><span class="section-number">1.3.1. </span>更改 pip 仓库镜像<a class="headerlink" href="#更改-pip-仓库镜像" title="永久链接至标题"></a></h3>
+<p>由于 pip 仓库在海外，有时连接会出现波动。国内的用户可以考虑将<a class="reference external" href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华大学的 TUNA pip 源</a>设置为默认镜像，即在命令行中输入；</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+</pre></div>
+</div>
+<p>这样，当前计算机的默认的 pip 源就被设置为了清华 TUNA 源，以后的 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> 操作都会尝试连接该源，而不是默认的 <code class="docutils literal notranslate"><span class="pre">https://pypi.org/simple</span></code> 官方 PyPi 镜像。</p>
+<p>如果只是临时使用而不是替换默认的镜像设置，可以使用 <code class="docutils literal notranslate"><span class="pre">-i</span></code> 参数，例如，在安装 NumPy 库时选择连接 TUNA 镜像：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install -i https://pypi.tuna.tsinghua.edu.cn/simple numpy
+</pre></div>
+</div>
+</section>
+<section id="更新-pip">
+<h3><span class="section-number">1.3.2. </span>更新 pip<a class="headerlink" href="#更新-pip" title="永久链接至标题"></a></h3>
+<p>pip 工具会自动检查更新；如果您使用的不是最新版的 pip，在 pip 命令运行结束时，会提醒您安装新版本。安装命令一般是：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python -m pip install -U pip
+</pre></div>
+</div>
+</section>
+<section id="选择预编译镜像*">
+<h3><span class="section-number">1.3.3. </span>选择预编译镜像*<a class="headerlink" href="#选择预编译镜像*" title="永久链接至标题"></a></h3>
+<p>绝大部分的 Python 库在从 pip 镜像被拉取时都是编译过的，因此用户极少会用到本节的内容。</p>
+<p>我遇到的唯一例外是统计学库 <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>，如果直接使用 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">statsmodels</span></code>，它会在安装时请求编译。我建议使用</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python -m pip install --only-binary :all: statsmodels
+</pre></div>
+</div>
+<p>来进行安装——上述命令会自动在镜像中选择预编译的版本，而不是下载未编译的版本然后尝试在本地编译。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Python 简介" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="Fundamentals.html" class="btn btn-neutral float-right" title="2. Python 简介" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

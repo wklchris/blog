@@ -1,0 +1,16 @@
+/** Textwidth **/
+.wy-nav-content {
+    max-width: 95% !important;
+}
+
+/** Home-button block**/
+
+a.home-button {
+    color: white;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+div.home-button {
+    margin-top: 0.8em;
+}

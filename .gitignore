@@ -1,0 +1,6 @@
+.vscode
+
+**/.ipynb_checkpoints
+docs/**/*.ipynb
+docsrc/_homepage/tableofblogs.html
+docsrc/**/_build

@@ -1,0 +1,430 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# R中的描述性统计\n",
+    "\n",
+    "本文展示了 R 语言中基础的描述性统计相关的内容。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 描述性统计\n",
+    "\n",
+    "最简单的是 summary() 函数，给出数值变量的的最值、四分位值、中位数（这五个又称为五位数总括，可以用 fivenum() 函数单独调用），以及均值；非数值变量的频数统计。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<table>\n",
+       "<thead><tr><th scope=col>x</th><th scope=col>y</th><th scope=col>f</th></tr></thead>\n",
+       "<tbody>\n",
+       "\t<tr><td>1</td><td>2</td><td>1</td></tr>\n",
+       "\t<tr><td>2</td><td>3</td><td>2</td></tr>\n",
+       "\t<tr><td>3</td><td>4</td><td>3</td></tr>\n",
+       "\t<tr><td>2</td><td>3</td><td>1</td></tr>\n",
+       "\t<tr><td>3</td><td>4</td><td>2</td></tr>\n",
+       "\t<tr><td>4</td><td>5</td><td>3</td></tr>\n",
+       "\t<tr><td>4</td><td>5</td><td>1</td></tr>\n",
+       "\t<tr><td>5</td><td>6</td><td>2</td></tr>\n",
+       "\t<tr><td>6</td><td>7</td><td>3</td></tr>\n",
+       "</tbody>\n",
+       "</table>\n"
+      ],
+      "text/latex": [
+       "\\begin{tabular}{r|lll}\n",
+       " x & y & f\\\\\n",
+       "\\hline\n",
+       "\t 1 & 2 & 1\\\\\n",
+       "\t 2 & 3 & 2\\\\\n",
+       "\t 3 & 4 & 3\\\\\n",
+       "\t 2 & 3 & 1\\\\\n",
+       "\t 3 & 4 & 2\\\\\n",
+       "\t 4 & 5 & 3\\\\\n",
+       "\t 4 & 5 & 1\\\\\n",
+       "\t 5 & 6 & 2\\\\\n",
+       "\t 6 & 7 & 3\\\\\n",
+       "\\end{tabular}\n"
+      ],
+      "text/markdown": [
+       "\n",
+       "x | y | f | \n",
+       "|---|---|---|---|---|---|---|---|---|\n",
+       "| 1 | 2 | 1 | \n",
+       "| 2 | 3 | 2 | \n",
+       "| 3 | 4 | 3 | \n",
+       "| 2 | 3 | 1 | \n",
+       "| 3 | 4 | 2 | \n",
+       "| 4 | 5 | 3 | \n",
+       "| 4 | 5 | 1 | \n",
+       "| 5 | 6 | 2 | \n",
+       "| 6 | 7 | 3 | \n",
+       "\n",
+       "\n"
+      ],
+      "text/plain": [
+       "  x y f\n",
+       "1 1 2 1\n",
+       "2 2 3 2\n",
+       "3 3 4 3\n",
+       "4 2 3 1\n",
+       "5 3 4 2\n",
+       "6 4 5 3\n",
+       "7 4 5 1\n",
+       "8 5 6 2\n",
+       "9 6 7 3"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "dt <- data.frame(x=c(seq(1, 3), seq(2, 4), seq(4, 6))) \n",
+    "dt$y <- dt$x + 1\n",
+    "dt$f <- as.factor(rep(c(1, 2, 3), 3))\n",
+    "dt"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "       x               y         f    \n",
+       " Min.   :1.000   Min.   :2.000   1:3  \n",
+       " 1st Qu.:2.000   1st Qu.:3.000   2:3  \n",
+       " Median :3.000   Median :4.000   3:3  \n",
+       " Mean   :3.333   Mean   :4.333        \n",
+       " 3rd Qu.:4.000   3rd Qu.:5.000        \n",
+       " Max.   :6.000   Max.   :7.000        "
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "summary(dt)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1] 1 2 3 4 6\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(fivenum(dt$x))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "在 [这篇文章](ManageData.ipynb#整合：aggregate()) 中介绍了利用 aggregate() 函数对二维数据进行分组统计的方法。不过该函数只能调用单返回值的统计函数，如果要调用多返回值的，请使用 by() 函数："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "dt$f: 1\n",
+       "    x y\n",
+       "Min 1 2\n",
+       "Max 4 5\n",
+       "------------------------------------------------------------ \n",
+       "dt$f: 2\n",
+       "    x y\n",
+       "Min 2 3\n",
+       "Max 5 6\n",
+       "------------------------------------------------------------ \n",
+       "dt$f: 3\n",
+       "    x y\n",
+       "Min 3 4\n",
+       "Max 6 7"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "mystats <- function(x) {\n",
+    "    return(c(Min=min(x), Max=max(x)))\n",
+    "}\n",
+    "# 分别统计列 x 与 列 y 中在 f 列各水平下的最值\n",
+    "by(dt[,c(\"x\",\"y\")], dt$f, function(data) sapply(data, mystats))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 频数表\n",
+    "\n",
+    "函数 table() 与 prop.table() 分别统计频数或频率："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[1]]\n",
+      "\n",
+      "1 2 3 4 5 6 \n",
+      "1 2 2 2 1 1 \n",
+      "\n",
+      "[[2]]\n",
+      "[1] 0.03 0.07 0.10 0.07 0.10 0.13 0.13 0.17 0.20\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(list(table(dt$x), round(prop.table(dt$x), digits=2)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "此外，如果要制作二维列联表，使用 table(A, B) 或者 xtabs(~ A + B, data=) 函数。其中 A 是行， B是列。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "   y\n",
+       "x   2 3 4\n",
+       "  1 1 0 0\n",
+       "  2 0 1 1\n",
+       "  3 1 1 0"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "tmp <- data.frame(x=c(1, 2, 2, 3, 3), y=c(2, 3, 4, 3, 2))\n",
+    "ct <- xtabs(~x+y, data=tmp)\n",
+    "ct"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<table>\n",
+       "<thead><tr><th></th><th scope=col>2</th><th scope=col>3</th><th scope=col>4</th><th scope=col>Sum</th></tr></thead>\n",
+       "<tbody>\n",
+       "\t<tr><th scope=row>1</th><td>1</td><td>0</td><td>0</td><td>1</td></tr>\n",
+       "\t<tr><th scope=row>2</th><td>0</td><td>1</td><td>1</td><td>2</td></tr>\n",
+       "\t<tr><th scope=row>3</th><td>1</td><td>1</td><td>0</td><td>2</td></tr>\n",
+       "\t<tr><th scope=row>Sum</th><td>2</td><td>2</td><td>1</td><td>5</td></tr>\n",
+       "</tbody>\n",
+       "</table>\n"
+      ],
+      "text/latex": [
+       "\\begin{tabular}{r|llll}\n",
+       "  & 2 & 3 & 4 & Sum\\\\\n",
+       "\\hline\n",
+       "\t1 & 1 & 0 & 0 & 1\\\\\n",
+       "\t2 & 0 & 1 & 1 & 2\\\\\n",
+       "\t3 & 1 & 1 & 0 & 2\\\\\n",
+       "\tSum & 2 & 2 & 1 & 5\\\\\n",
+       "\\end{tabular}\n"
+      ],
+      "text/markdown": [
+       "\n",
+       "| <!--/--> | 2 | 3 | 4 | Sum | \n",
+       "|---|---|---|---|\n",
+       "| 1 | 1 | 0 | 0 | 1 | \n",
+       "| 2 | 0 | 1 | 1 | 2 | \n",
+       "| 3 | 1 | 1 | 0 | 2 | \n",
+       "| Sum | 2 | 2 | 1 | 5 | \n",
+       "\n",
+       "\n"
+      ],
+      "text/plain": [
+       "     y\n",
+       "x     2 3 4 Sum\n",
+       "  1   1 0 0 1  \n",
+       "  2   0 1 1 2  \n",
+       "  3   1 1 0 2  \n",
+       "  Sum 2 2 1 5  "
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# 为列联表添加边际和；也可以通过 addmargins(ct, 1/2) 只累加列/行\n",
+    "addmargins(ct)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "边际频数使用 margin.table() 进行计算，比例使用 prop.table() 进行计算。参数 1 表示行，2 表示列。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "x\n",
+       "1 2 3 \n",
+       "1 2 2 "
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# 行内总计（每行累加）\n",
+    "margin.table(ct, 1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "   y\n",
+       "x     2   3   4\n",
+       "  1 1.0 0.0 0.0\n",
+       "  2 0.0 0.5 0.5\n",
+       "  3 0.5 0.5 0.0"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# 行内比例（每行累加为 1）\n",
+    "prop.table(ct, 1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 独立性检验：卡方\n",
+    "\n",
+    "这里介绍卡方 $\\chi^2$ 独立性检验。本例中，p = 0.44 > 0.05，接受了相互独立的假设，即认为它们是独立的。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "Warning message in chisq.test(ct):\n",
+      "\"Chi-squared approximation may be incorrect\""
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\n",
+       "\tPearson's Chi-squared test\n",
+       "\n",
+       "data:  ct\n",
+       "X-squared = 3.75, df = 4, p-value = 0.4409\n"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "chisq.test(ct)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "R",
+   "language": "R",
+   "name": "ir"
+  },
+  "language_info": {
+   "codemirror_mode": "r",
+   "file_extension": ".r",
+   "mimetype": "text/x-r-source",
+   "name": "R",
+   "pygments_lexer": "r",
+   "version": "4.0.0"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

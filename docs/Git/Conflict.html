@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>高级合并与冲突处理 &mdash; Git  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Git/Conflict.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="分支：branch" href="Branch.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> Git
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">Git 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Preparation.html">Git 准备工作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fundamentals.html">Git 基础命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Branch.html">分支：branch</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">高级合并与冲突处理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">中断合并</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">忽略空白符变更</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">手动合并文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">检出冲突</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">查询日志</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#revert-merge-commit">撤销合并提交</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">压缩合并</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">偏好合并</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">伪合并*</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Git</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>高级合并与冲突处理</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Conflict.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="advanced-conflict">
+<span id="id1"></span><h1>高级合并与冲突处理<a class="headerlink" href="#advanced-conflict" title="永久链接至标题"></a></h1>
+<p>本章介绍如何应对合并分支时的冲突。</p>
+<section id="id2">
+<h2>中断合并<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>当一次合并操作出现问题，你可以使用 <cite>--abort</cite> 选项中断合并：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git merge --abort
+</pre></div>
+</div>
+<p>该操作会恢复到你合并前的状态——如果你合并前的目录没有未提交、未提交的修改，它可能出现问题；此外的情形它总是可靠的。</p>
+</section>
+<section id="id3">
+<h2>忽略空白符变更<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>如果要合并的文件有空白的问题（比如将制表符格式化为空格）,可以使用 <cite>-Xignore-all-space</cite> （忽略已有空白处的空白修改） 或 <cite>-Xignore-space-change</cite> （忽略所有空白修改）。</p>
+</section>
+<section id="id4">
+<h2>手动合并文件<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<p>这里需要一个特别的 <cite>git show</cite> 命令，可以将同一文件的不同版本保存到当前目录：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git show :1:hello.md &gt; hello-ancestor.md
+$ git show :2:hello.md &gt; hello-current.md
+$ git show :3:hello.md &gt; hello-branch.md
+</pre></div>
+</div>
+<p>其中，数字 1~3 分别表示共同祖先、当前分支、要合并的分支。然后，使用罕用的 <cite>merge-file</cite> 命令来合并它们：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># ... 做一些修改 ...</span>
+$ git merge-file -p <span class="se">\</span>
+    hello-ancestor.md hello-current.md hello-branch.md &gt; hello.md
+</pre></div>
+</div>
+<p>完成了合并后，可以通过以下命令查看修改的内容：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git diff --ours    <span class="c1"># 合并与当前分支文件的不同</span>
+$ git diff --theirs  <span class="c1"># 合并与要合并的分支文件的不同</span>
+$ git diff --base    <span class="c1"># 合并怎样改动了共同祖先</span>
+</pre></div>
+</div>
+<p>选项 <cite>-b</cite> 可以忽略空白变更的修改。</p>
+<p>最后，新创建的三个 md 文件都没有用了，我们可以用 <cite>clean</cite> 命令清除：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git clean -f
+Removing hello-ancestor.md
+Removing hello-current.md
+Removing hello-branch.md
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h2>检出冲突<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>当 <cite>merge</cite> 命令检查到冲突时，文件中会有类似这样的片段（摘自官方手册）：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello</span>
+<span class="o">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="n">HEAD</span>
+<span class="n">puts</span> <span class="s1">&#39;hola world&#39;</span>
+<span class="o">=======</span>
+<span class="n">puts</span> <span class="s1">&#39;hello mundo&#39;</span>
+<span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">mundo</span>
+<span class="n">end</span>
+</pre></div>
+</div>
+<p>我们在 <a class="reference internal" href="Branch.html#basic-conflict"><span class="std std-ref">冲突处理</span></a> 中已经介绍过，&quot;&lt;&quot; 与 &quot;=&quot; 之间是当前分支的内容，而 &quot;=&quot; 与 &quot;&gt;&quot; 之间是待合并分支的内容。可有时你并不清楚应当采用哪个版本，因此你希望查看它们的共同祖先的内容。使用 <cite>--conflict=diff3</cite> （默认是 <cite>=merge</cite> ） 会重新生成冲突片段，但添加共同祖先内容在中间：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git checkout --conflict<span class="o">=</span>diff3 hello.rb
+...
+def hello
+<span class="o">&lt;&lt;&lt;&lt;&lt;&lt;</span>&lt; ours
+puts <span class="s1">&#39;hola world&#39;</span>
+<span class="o">||||||</span><span class="p">|</span> base
+puts <span class="s1">&#39;hello world&#39;</span>
+<span class="o">=======</span>
+puts <span class="s1">&#39;hello mundo&#39;</span>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs
+end
+</pre></div>
+</div>
+<p>这样你就清楚地知道，共同祖先使用的是 &quot;hello world&quot;，与两者都不一样。如果你偏好这种格式，可以让 git 把合并冲突的默认格式设置成 <cite>diff3</cite> 模式：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git config --global merge.conflictstyle diff
+</pre></div>
+</div>
+<p><cite>checkout</cite> 命令也有 <cite>--ours</cite> 与 <cite>--theirs</cite> 选项，用以选择对应提交的版本而抛弃另一个提交的版本。这是一种无需合并的快速方式，尤其是对二进制文件的版本控制而言。</p>
+</section>
+<section id="id6">
+<h2>查询日志<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<p>合并冲突有时需要借助日志来解决，尝试：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 显示两个分支在共同祖先之后的提交</span>
+$ git log --oneline --left-right HEAD...MERGE_HEAD
+<span class="c1"># 显示两个分支中与冲突文件相关的提交</span>
+$ git log --oneline --left-right --merge
+</pre></div>
+</div>
+</section>
+<section id="revert-merge-commit">
+<span id="id7"></span><h2>撤销合并提交<a class="headerlink" href="#revert-merge-commit" title="永久链接至标题"></a></h2>
+<p>假如你错误地进行了合并，尚未进行新的更改。那么可以使用：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git reset --hard HEAD~
+</pre></div>
+</div>
+<p>这是因为 HEAD 分支指向 master 上的合并提交，向前回退到父提交则是移动 HEAD 到 master 合并前的那个版本。至于并入的分支的指针，它并没有移动过。</p>
+<p><strong>如果你的仓库已经推送到远程，那么上述方法是不合适的</strong> ；请记住，<cite>reset</cite> 命令会更改日志，在共享工作流中需要避免。这时的替代方案是 <cite>revert</cite> 命令：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git revert -m <span class="m">1</span> HEAD
+</pre></div>
+</div>
+<p>选项 <cite>-m 1</cite> 表示保留该合并提交的第一父提交（对于将其他分支合并到 master 分支的情形，即指位于 master 分支的父提交）。尚未完成的合并提交中，第一父提交是 HEAD，第二父提交是并入分支（假设叫 dev）的最新提交。上述命令会撤销从第二父提交中引入的更改，同时保留第一父提交中的所有内容。注意：本命令实质上在合并提交 <cite>M</cite> 后**新建**了一个提交 <cite>M'</cite>，但 <cite>M</cite> 仍然被保留在了日志中。</p>
+<a class="reference internal image-reference" href="_images/branch-revert.svg"><img alt="_images/branch-revert.svg" class="align-center" src="_images/branch-revert.svg" width="80%" /></a>
+<p>这里 M' 实质与 C4 的快照相同。</p>
+<p>这样做的问题是，如果你再尝试合并，git 不会响应你的请求：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git merge dev
+Already up-to-date.
+</pre></div>
+</div>
+<p>也就是 C5 并不能和 M' 合并；因为 C5 已经可以由 M' 回溯到达，git 认为没有合并可以做。更不妙的是，假如你在 dev 分支又更新了内容（提交 C6），请**不要**与 M' 直接合并，否则 C3 与 C5 这两个位于上一次合并之前的更改不会被加入这次合并（而上一次合并，也就是 M，实质上又被 M' 遮盖了），你就会在这次合并后发现 C3 与 C5 的内容并没有被加入到新的合并提交中去。</p>
+<p>解决方法是利用 <cite>revert</cite> 命令，将 M' 再反转回去，“恢复” M 这个合并提交（因为 M 是包含 C3 与 C5 内容的），之后再进行合并：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git revert   <span class="c1"># revert M&#39;</span>
+$ git merge dev
+</pre></div>
+</div>
+<p>这样新建的 M'' 提交实质上等同于之前的合并提交 M。</p>
+<a class="reference internal image-reference" href="_images/branch-revert-2.svg"><img alt="_images/branch-revert-2.svg" class="align-center" src="_images/branch-revert-2.svg" width="80%" /></a>
+</section>
+<section id="id8">
+<h2>压缩合并<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<p>有时你的开发分支 dev 可能会充满无意义的提交与不清晰的历史（虽然我建议你尽量避免这种情形），因此向主分支 master 合并时可能会不想保留这些记录。那么压缩合并 <cite>--squash</cite> 正是你的救星。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>压缩合并并不是真的合并了分支，它只是将待合并分支的改动复制到了当前分支，从而允许用户将待合并分支的众多提交“压缩”成当前分支的单个提交。</p>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git merge --squash dev
+$ git commit -m <span class="s2">&quot;Update ...&quot;</span>
+</pre></div>
+</div>
+<p>注意到在上述操作之后，dev 分支并没有真的被合并到 master 分支。如果 dev 分支仍在将来会被合并，不可避免地，你将把它之上的提交历史也合并到 master 分支。因此，我建议只对临时本地分支使用压缩合并，并在压缩合并后删除该分支。</p>
+</section>
+<section id="id9">
+<h2>偏好合并<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<p>如果你预计合并中会出现冲突，但你只要求 master 分支的内容覆盖 dev 分支的内容，你可以使用 <cite>-Xours</cite> 选项：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git merge -Xours dev
+</pre></div>
+</div>
+<p>正如上文提及的，“ours” 指代当前分支，“theirs” 指代待合并分支。因此你也可以类似地使用 <cite>-Xtheirs</cite> 选项。多说一句，这两个选项对于较少用到的 <cite>merge-file</cite> 命令也生效。</p>
+</section>
+<section id="id10">
+<h2>伪合并*<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<p>伪合并（fake merge）是指一种欺骗 git 创建合并提交的方式。它使用 <cite>-s</cite> 选项，指定一个伪合并策略（通常是 <cite>ours</cite> ）：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git merge -s ours dev
+</pre></div>
+</div>
+<p>作用是将当前分支的最新提交直接复制为这个合并提交（即它完全不管来自 dev 的最新提交是什么），合并后可以发现 <cite>HEAD</cite> 与 <cite>HEAD~</cite> 完全相同。例如，你的 bugfix 分支解决了一个 master 分支的问题。考虑到你的开发分支 dev 尚不能向 master 合并，你需要做的是：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git checkout master
+$ git merge -s ours bugfix
+$ git checkout dev
+$ git merge bugfix
+...
+$ git branch -d bugfix
+</pre></div>
+</div>
+<p>向 master 分支伪合并 bugfix 分支（即使它已经真的合并过了）的好处是欺骗了 git，让它认为这两个分支已经合并过。以后将 dev 分支向 master 分支合并时，就不会有来自 bugfix 分支的冲突。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Branch.html" class="btn btn-neutral float-left" title="分支：branch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

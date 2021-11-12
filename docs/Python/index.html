@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="Python" name="category" />
+<meta content="python" name="keywords" />
+<meta content="Python" name="series" />
+<meta content="1" name="series_num" />
+<meta content="2017-02-22" name="date_init" />
+<meta content="2020-09-18" name="date_modified" />
+<meta content="本文介绍了编程语言 Python，一种易于上手的高效语言。" name="abstract" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python 简介 &mdash; Python  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Python/index.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="1. Python 安装与配置" href="Intro.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="#" class="icon icon-home"> Python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">1. Python 安装与配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fundamentals.html">2. Python 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControlFlow.html">3. 流程控制语句</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VariableTypes.html">4. 变量类型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Functions.html">5. 函数与迭代器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FileIO.html">6. 文件读写与 os 库</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Python 简介</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="python">
+<h1>Python 简介<a class="headerlink" href="#python" title="永久链接至标题"></a></h1>
+<p>本文介绍了 Python 的核心用法。</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">1. Python 安装与配置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#安装">1.1. 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#与-VS-Code-协同*">1.2. 与 VS Code 协同*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#安装-Python-库">1.3. 安装 Python 库</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Fundamentals.html">2. Python 简介</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#编程人员快速上手">2.1. 编程人员快速上手</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#引言：从数字运算熟悉语法">2.2. 引言：从数字运算熟悉语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#注释">2.3. 注释</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#代码块">2.4. 代码块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fundamentals.html#加载库*">2.5. 加载库*</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ControlFlow.html">3. 流程控制语句</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ControlFlow.html#if-判断语句">3.1. if 判断语句</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ControlFlow.html#for-循环语句">3.2. for 循环语句</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ControlFlow.html#while-循环语句">3.3. while 循环语句</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ControlFlow.html#循环内控制：break-与-continue">3.4. 循环内控制：break 与 continue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ControlFlow.html#循环语句工具">3.5. 循环语句工具</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="VariableTypes.html">4. 变量类型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#布尔型与空对象">4.1. 布尔型与空对象</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#数字类型：int,-float,-complex">4.2. 数字类型：int, float, complex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#列表：list">4.3. 列表：list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#高级列表操作">4.4. 高级列表操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#元组">4.5. 元组</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#字符串">4.6. 字符串</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#字典：dict">4.7. 字典：dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#集合">4.8. 集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VariableTypes.html#其他">4.9. 其他</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Functions.html">5. 函数与迭代器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#函数的使用">5.1. 函数的使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#处理异常：try与raise">5.2. 处理异常：try与raise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#迭代器">5.3. 迭代器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#生成器">5.4. 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#装饰器">5.5. 装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#lambda-函数">5.6. lambda 函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#filter-函数">5.7. filter 函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#reduce-函数*">5.8. reduce 函数*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html#map-函数*">5.9. map 函数*</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FileIO.html">6. 文件读写与 os 库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="FileIO.html#读取文件">6.1. 读取文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FileIO.html#写入文件">6.2. 写入文件</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>本文档最后构建于 2021-11-11。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Intro.html" class="btn btn-neutral float-right" title="1. Python 安装与配置" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

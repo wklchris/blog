@@ -1,0 +1,283 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 文件读写与 os 库\n",
+    "\n",
+    "本章介绍 Python 中基本的文件读写功能，以及 `os` 标准库。由于涉及到文件操作会使用到文件路径，一般我们在文件读写中都需要加载该库。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 读取文件\n",
+    "\n",
+    "使用 `open(file, mode='r', encoding=None, ...)` 命令来读取文件，其中：\n",
+    "\n",
+    "- `file` 是文件的（相对或绝对）路径\n",
+    "- `mode` 是读写模式，默认是读（`'r'`），也等同于 `'rt'`。\n",
+    "  \n",
+    "  | 参数 | 解释 | 参数 | 解释 |\n",
+    "  | --- | --- | --- | --- |\n",
+    "  | `'r'` | 读取 | `'w'` | 写入（覆盖原内容）|\n",
+    "  | `'a'` | 追加 | `'x'` | 创建（已存在或失败） |\n",
+    "  | `'b'` | 二进制 | `'t'` | 文本文件 |\n",
+    "  \n",
+    "  - 注意最后一行的 `b/+` 与之前的 `r/w/a/x` 可以结合使用，比如 `rb` 是以二进制方式读取文件。\n",
+    "  - 关于 `+` 参数， `w+` 与 `w+b` 将打开文件并清空内容。 模式 `r+` 与 `r+b` 将打开文件而不清空内容。\n",
+    "- `encoding` 是文件读写时的编码，通常使用的是 `'utf-8'`。其默认值取决于所在的操作系统。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 普通读取：read() 与 readlines()\n",
+    "\n",
+    "文件读取时，需要以 `with open(...) as ...` 的形式开启一个代码块。\n",
+    "\n",
+    "下例给出了读取工作目录下 `conf.py` 文件的例子，使用了 `read()` 函数来读入整个文件。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'author = \"wklchris\"\\ncopyright = \"wklchris\"\\nexclude'"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 以下路径等价于 os.path.join(os.getcwd(), \"conf.py\")\n",
+    "fpath = \"conf.py\"\n",
+    "with open(fpath, 'r', encoding='utf-8') as f:\n",
+    "    fstr_read = f.read()\n",
+    "\n",
+    "fstr_read[:50]  # 显示前50个字符"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "注意上列文件中保留了每一行末尾的换行符（`\\n`）。\n",
+    "\n",
+    "另一种方式是用 `readlines()` 将文件读成一个列表，每一行（不含换行符）作为列表的一项。但注意，你必须保证文件的大小不超过可用的内存大小。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['author = \"wklchris\"\\n',\n",
+       " 'copyright = \"wklchris\"\\n',\n",
+       " \"exclude_patterns = ['_build', '**.ipynb_checkpoints']\\n\"]"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "fpath = \"conf.py\"\n",
+    "with open(fpath, 'r', encoding='utf-8') as f:\n",
+    "    fstr_readlines = f.readlines()\n",
+    "\n",
+    "fstr_readlines[:3]  # 显示前3行"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "再提示一下读者，如果想处理成一个每行为一项的列表，并去掉每行的行末的换行符，可以对 `read()` 的结果进行 `splitlines` 操作："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['author = \"wklchris\"',\n",
+       " 'copyright = \"wklchris\"',\n",
+       " \"exclude_patterns = ['_build', '**.ipynb_checkpoints']\"]"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "fstr_read.splitlines()[:3]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 逐行读取：readline()\n",
+    "\n",
+    "对于比较大的文件，函数 `readline()` 允许我们借助 Python 的迭代器特性来控制内存占用。例如："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "author = \"wklchris\"\n",
+      "copyright = \"wklchris\"\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "with open (fpath, 'r', encoding='utf-8') as f:\n",
+    "    print(f.readline())\n",
+    "    print(f.readline())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "因此，我们可以用循环语句来逐行读取：\n",
+    "\n",
+    "```python\n",
+    "with open (fpath, 'r', encoding='utf-8') as f:\n",
+    "    while True:\n",
+    "        line = f.readline()\n",
+    "        ...  # Do something\n",
+    "        if not line:\n",
+    "            break\n",
+    "```\n",
+    "\n",
+    "或者一种等效的写法：\n",
+    "\n",
+    "```python\n",
+    "with open (fpath, 'r', encoding='utf-8') as f:\n",
+    "    for line in f:\n",
+    "        ...  # Do something\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "注意\n",
+    "\n",
+    "文件流对象（例中的 `f`）拥有成员函数 `tell()` 与 `seek()`，可以移动迭代器”指针“的位置。由于我不推荐使用这种方法，这里就不作介绍了，有兴趣的同学可以自行查阅。\n",
+    "\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 写入文件\n",
+    "\n",
+    "用 `w` 模式代替文件读取中的 `r` 模式、用 `write()` 命令代替 `read()`，即可实现写入："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 向文件中写入全文字符串\n",
+    "with open(fpath, 'w', encoding='utf-8') as f:\n",
+    "    f.write(fstr_read)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "类似地，我们也可以使用 `writelines()` 命令："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 向文件中写入按行（含行尾换行符）划分的字符串列表\n",
+    "with open(fpath, 'w', encoding='utf-8') as f:\n",
+    "    f.writelines(fstr_readlines)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.3"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

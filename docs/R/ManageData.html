@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. 数据管理 &mdash; R 语言简介  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/R/ManageData.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="4. 函数操作" href="CreateFunctions.html" />
+    <link rel="prev" title="2. 数据读取" href="ReadData.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> R 语言简介
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="DataStructure.html">1. 数据结构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReadData.html">2. 数据读取</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 数据管理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#数学函数">3.1. 数学函数</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#数学运算符">3.1.1. 数学运算符</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#基本数学函数">3.1.2. 基本数学函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#统计、概率与随机数">3.1.3. 统计、概率与随机数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#统计函数">3.1.3.1. 统计函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#概率函数">3.1.3.2. 概率函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#例子">3.1.3.3. 例子</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#数据框操作">3.2. 数据框操作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#行、列操作">3.2.1. 行、列操作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#新建">3.2.1.1. 新建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#重命名">3.2.1.2. 重命名</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#选取/剔除:-subset()">3.2.1.3. 选取/剔除: subset()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#横向合并">3.2.1.4. 横向合并</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#纵向合并">3.2.1.5. 纵向合并</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#逻辑型筛选">3.2.2. 逻辑型筛选</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#排序">3.2.3. 排序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#随机抽样">3.2.4. 随机抽样</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SQL语句">3.2.5. SQL语句</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#字符串处理">3.3. 字符串处理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#通用函数">3.3.1. 通用函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#日期型字符串">3.3.2. 日期型字符串</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#异常值处理">3.4. 异常值处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#整合与重构">3.5. 整合与重构</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#转置">3.5.1. 转置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#整合：aggregate()">3.5.2. 整合：aggregate()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#函数式编程">3.6. 函数式编程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apply()：指定多维对象的轴">3.6.1. apply()：指定多维对象的轴</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lapply()：列表式应用">3.6.2. lapply()：列表式应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sapply()/vapply()：变种-lapply()">3.6.3. sapply()/vapply()：变种 lapply()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mapply()：多输入值的应用">3.6.4. mapply()：多输入值的应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tapply()：分组应用">3.6.5. tapply()：分组应用</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#其他实用函数">3.7. 其他实用函数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CreateFunctions.html">4. 函数操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlottingBasic.html">5. R 绘图基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlottingGGplot2.html">6. ggplot2 绘图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DescriptiveStatistics.html">7. R中的描述性统计</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">R 语言简介</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">3. </span>数据管理</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ManageData.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="数据管理">
+<h1><span class="section-number">3. </span>数据管理<a class="headerlink" href="#数据管理" title="永久链接至标题"></a></h1>
+<p>本节内容可应用在数据读取之后。包括基本的运算（包括统计函数）、数据重整（排序、合并、子集、随机抽样、整合、重塑等）、字符串处理、异常值（NA/Inf/NaN）处理等内容。也包括 apply() 这种函数式编程函数的使用。</p>
+<section id="数学函数">
+<h2><span class="section-number">3.1. </span>数学函数<a class="headerlink" href="#数学函数" title="永久链接至标题"></a></h2>
+<p>数学运算符和一些统计学上需要的函数。</p>
+<section id="数学运算符">
+<h3><span class="section-number">3.1.1. </span>数学运算符<a class="headerlink" href="#数学运算符" title="永久链接至标题"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 32%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>四则</p></th>
+<th class="head"><p>幂运算</p></th>
+<th class="head"><p>求余</p></th>
+<th class="head"><p>整除</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>+, -, *, /</p></td>
+<td><p>^ 或 **</p></td>
+<td><p>%%</p></td>
+<td><p>%/%</p></td>
+</tr>
+</tbody>
+</table>
+<p>例子：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">&lt;-</span> <span class="m">2</span> <span class="o">^</span> <span class="m">3</span>
+<span class="n">b</span> <span class="o">&lt;-</span> <span class="m">5</span> <span class="o">%%</span> <span class="m">2</span>
+<span class="n">c</span> <span class="o">&lt;-</span> <span class="m">5</span> <span class="o">%/%</span> <span class="m">2</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1] 8 1 2
+</pre></div></div>
+</div>
+</section>
+<section id="基本数学函数">
+<h3><span class="section-number">3.1.2. </span>基本数学函数<a class="headerlink" href="#基本数学函数" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>绝对值：abs()</p></li>
+<li><p>平方根：sqrt()</p></li>
+<li><p>三角函数：sin(), cos(), tan(), acos(), asin(), atan()</p></li>
+<li><p>对数：</p>
+<ul>
+<li><p>log(x, base=n) 以 n 为底 x 的对数</p></li>
+<li><p>log10(x) 以 10 为底的对数</p></li>
+</ul>
+</li>
+<li><p>指数：exp()</p></li>
+<li><p>取整：</p>
+<ul>
+<li><p>向上取整 ceiling()</p></li>
+<li><p>向下取整 floor()</p></li>
+<li><p>舍尾取整（绝对值减小） trunc()</p></li>
+<li><p>四舍五入到第 N 位 round(x, digits=N)</p></li>
+<li><p>四舍五入为有效数字共 N 位 singif(x, digits=N)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="统计、概率与随机数">
+<h3><span class="section-number">3.1.3. </span>统计、概率与随机数<a class="headerlink" href="#统计、概率与随机数" title="永久链接至标题"></a></h3>
+<p>描述性统计等更多的统计内容，参考 <a class="reference internal" href="DescriptiveStatistics.html"><span class="doc">“描述性统计”一文</span></a>。</p>
+<section id="统计函数">
+<h4><span class="section-number">3.1.3.1. </span>统计函数<a class="headerlink" href="#统计函数" title="永久链接至标题"></a></h4>
+<p>常用的统计函数：</p>
+<ul class="simple">
+<li><p>均值：mean()</p></li>
+<li><p>中位数：median()</p></li>
+<li><p>标准差：sd()</p></li>
+<li><p>方差：var()</p></li>
+<li><p>绝对中位差：mad(x, center=median(x), constant=1.4826, …)，计算式：</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathrm{mad}(x) = constant * \mathrm{Median}(|x - center|)\]</div>
+<ul class="simple">
+<li><p>分位数：quantile(x, probs)，例如 quantile(x, c(.3, 84%)) 返回 x 的 30% 和 84% 分位数。</p></li>
+<li><p>极值：min() &amp; max()</p></li>
+<li><p>值域与极差：range(x)，例如 range(c(1, 2, 3)) 结果为 c(1, 3)。极差用 diff(range(x))</p></li>
+<li><p>差分：diff(x, lag=1)。可以用 lag 指定滞后项的个数，默认 1</p></li>
+<li><p>标准化：scale(x, center=TRUE, scale=TRUE)。可以使用 scale(x) * SD + C 来获得标准差为 SD、均值为 C 的标准化结果。</p></li>
+</ul>
+</section>
+<section id="概率函数">
+<h4><span class="section-number">3.1.3.2. </span>概率函数<a class="headerlink" href="#概率函数" title="永久链接至标题"></a></h4>
+<p>常用的概率分布函数：</p>
+<ul class="simple">
+<li><p>正态分布：norm</p></li>
+<li><p>泊松分布：pois</p></li>
+<li><p>均匀分布：unif</p></li>
+<li><p>Beta 分布：beta</p></li>
+<li><p>二项分布：binom</p></li>
+<li><p>柯西分布：cauchy</p></li>
+<li><p>卡方分布：chisq</p></li>
+<li><p>指数分布：exp</p></li>
+<li><p>F 分布：f</p></li>
+<li><p>t 分布：t</p></li>
+<li><p>Gamma 分布：gamma</p></li>
+<li><p>几何分布：geom</p></li>
+<li><p>超几何分布：hyper</p></li>
+<li><p>对数正态分布：lnorm</p></li>
+<li><p>Logistic 分布：logis</p></li>
+<li><p>多项分布：multinom</p></li>
+<li><p>负二项分布：nbinom</p></li>
+</ul>
+<p>以上各概率函数的缩写记为 <em>abbr</em>, 那么对应的概率函数有：</p>
+<ol class="arabic simple">
+<li><p><strong>密度函数</strong>： d{abbr}()，例如对于正态就是 dnorm()</p></li>
+<li><p><strong>分布函数</strong>：p{abbr}()</p></li>
+<li><p><strong>分位数函数</strong>：q{abbr}()</p></li>
+<li><p><strong>生成随机数</strong>：r{abbr}()，例如常用的 runif() 生成均匀分布</p></li>
+</ol>
+</section>
+<section id="例子">
+<h4><span class="section-number">3.1.3.3. </span>例子<a class="headerlink" href="#例子" title="永久链接至标题"></a></h4>
+<p>通过 runif() 产生 <span class="math notranslate nohighlight">\([0, 1]\)</span> 上的服从均匀分布的伪随机数列。通过 set.seed() 可以指定随机数种子，使得代码可以重现。不过<strong>作用域只有跟随其后的那个随机数函数。</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">runif</span><span class="p">(</span><span class="m">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1] 0.2875775 0.7883051 0.4089769
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 位于 1.96 左侧的标准正态分布曲线下方的面积</span>
+<span class="nf">pnorm</span><span class="p">(</span><span class="m">1.96</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+0.97500210485178</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 均值为500，标准差为100 的正态分布的0.9 分位点</span>
+<span class="nf">qnorm</span><span class="p">(</span><span class="n">.</span><span class="m">9</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="m">500</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="m">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+628.15515655446</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 生成 3 个均值为50，标准差为10 的正态随机数</span>
+<span class="nf">set.seed</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="m">50</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="m">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1] 44.39524 47.69823 65.58708
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="数据框操作">
+<h2><span class="section-number">3.2. </span>数据框操作<a class="headerlink" href="#数据框操作" title="永久链接至标题"></a></h2>
+<p>数据框是最常使用的数据类型。下面给出数据框使用中一些实用的场景，以及解决方案。</p>
+<section id="行、列操作">
+<h3><span class="section-number">3.2.1. </span>行、列操作<a class="headerlink" href="#行、列操作" title="永久链接至标题"></a></h3>
+<section id="新建">
+<h4><span class="section-number">3.2.1.1. </span>新建<a class="headerlink" href="#新建" title="永久链接至标题"></a></h4>
+<p>创建一个新的列（变量）是很常见的操作。比如我们现在有数据框 df ，想要在右侧新建一个列，使其等于左侧两列的和。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">x1</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">),</span> <span class="n">x2</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">6</span><span class="p">))</span>
+<span class="c1"># 直接用美元符声明一个新列</span>
+<span class="n">df</span><span class="o">$</span><span class="n">sumx</span> <span class="o">&lt;-</span> <span class="n">df</span><span class="o">$</span><span class="n">x1</span> <span class="o">+</span> <span class="n">df</span><span class="o">$</span><span class="n">x2</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>x1</th><th scope=col>x2</th><th scope=col>sumx</th></tr></thead>
+<tbody>
+    <tr><td>1 </td><td>2 </td><td> 3</td></tr>
+    <tr><td>3 </td><td>4 </td><td> 7</td></tr>
+    <tr><td>5 </td><td>6 </td><td>11</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 或者使用 transform 函数</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">transform</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sumx2</span><span class="o">=</span><span class="n">x1</span><span class="o">+</span><span class="n">x2</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>x1</th><th scope=col>x2</th><th scope=col>sumx</th><th scope=col>sumx2</th></tr></thead>
+<tbody>
+    <tr><td>1 </td><td>2 </td><td> 3</td><td> 3</td></tr>
+    <tr><td>3 </td><td>4 </td><td> 7</td><td> 7</td></tr>
+    <tr><td>5 </td><td>6 </td><td>11</td><td>11</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section id="重命名">
+<h4><span class="section-number">3.2.1.2. </span>重命名<a class="headerlink" href="#重命名" title="永久链接至标题"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)[</span><span class="m">4</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;SUM&quot;</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1] &#34;x1&#34;   &#34;x2&#34;   &#34;sumx&#34; &#34;SUM&#34;
+</pre></div></div>
+</div>
+</section>
+<section id="选取/剔除:-subset()">
+<h4><span class="section-number">3.2.1.3. </span>选取/剔除: subset()<a class="headerlink" href="#选取/剔除:-subset()" title="永久链接至标题"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 选取前两列</span>
+<span class="n">df</span><span class="p">[,</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">]</span>  <span class="c1"># 或者 df[c(&quot;x1&quot;, &quot;x2&quot;)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>x1</th><th scope=col>x2</th></tr></thead>
+<tbody>
+    <tr><td>1</td><td>2</td></tr>
+    <tr><td>3</td><td>4</td></tr>
+    <tr><td>5</td><td>6</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 剔除列 sumx</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="n">df</span><span class="p">[</span><span class="o">!</span><span class="nf">names</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">==</span> <span class="s">&quot;sumx&quot;</span><span class="p">]</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>x1</th><th scope=col>x2</th><th scope=col>SUM</th></tr></thead>
+<tbody>
+    <tr><td>1 </td><td>2 </td><td> 3</td></tr>
+    <tr><td>3 </td><td>4 </td><td> 7</td></tr>
+    <tr><td>5 </td><td>6 </td><td>11</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 剔除第三列</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="n">df</span><span class="p">[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">)]</span>  <span class="c1"># 或者 df[c(-3)]</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>x1</th><th scope=col>x2</th></tr></thead>
+<tbody>
+    <tr><td>1</td><td>2</td></tr>
+    <tr><td>3</td><td>4</td></tr>
+    <tr><td>5</td><td>6</td></tr>
+</tbody>
+</table></div>
+</div>
+<p>至于选取行，与列的操作方式是类似的：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 选取 x1&gt;2 且 x2为偶数的观测（行）</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">$</span><span class="n">x1</span> <span class="o">&gt;</span> <span class="m">2</span> <span class="o">&amp;</span> <span class="n">df</span><span class="o">$</span><span class="n">x2</span> <span class="o">%%</span> <span class="m">2</span> <span class="o">==</span><span class="m">0</span><span class="p">,]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th></th><th scope=col>x1</th><th scope=col>x2</th></tr></thead>
+<tbody>
+    <tr><th scope=row>2</th><td>3</td><td>4</td></tr>
+    <tr><th scope=row>3</th><td>5</td><td>6</td></tr>
+</tbody>
+</table></div>
+</div>
+<p>再介绍一个 subset() 指令，非常简单粗暴。先来一个复杂点的数据集：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">DF</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">age</span>    <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">22</span><span class="p">,</span> <span class="m">37</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">43</span><span class="p">),</span>
+                 <span class="n">gender</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span>
+                 <span class="n">q1</span>     <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span>
+                 <span class="n">q2</span>     <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span>
+                 <span class="n">q3</span>     <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+<span class="n">DF</span><span class="o">$</span><span class="n">gender</span> <span class="o">&lt;-</span> <span class="nf">factor</span><span class="p">(</span><span class="n">DF</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Male&quot;</span><span class="p">,</span> <span class="s">&quot;Female&quot;</span><span class="p">))</span>
+
+<span class="n">DF</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>age</th><th scope=col>gender</th><th scope=col>q1</th><th scope=col>q2</th><th scope=col>q3</th></tr></thead>
+<tbody>
+    <tr><td>22    </td><td>Male  </td><td>1     </td><td>4     </td><td>3     </td></tr>
+    <tr><td>37    </td><td>Female</td><td>5     </td><td>4     </td><td>2     </td></tr>
+    <tr><td>28    </td><td>Male  </td><td>3     </td><td>5     </td><td>4     </td></tr>
+    <tr><td>33    </td><td>Female</td><td>3     </td><td>3     </td><td>3     </td></tr>
+    <tr><td>43    </td><td>Male  </td><td>2     </td><td>1     </td><td>1     </td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 选中年龄介于 25 与 40 之间的观测</span>
+<span class="c1"># 并只保留变量 age 到 q2</span>
+<span class="nf">subset</span><span class="p">(</span><span class="n">DF</span><span class="p">,</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="m">25</span> <span class="o">&amp;</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="m">40</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="n">age</span><span class="o">:</span><span class="n">q2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th></th><th scope=col>age</th><th scope=col>gender</th><th scope=col>q1</th><th scope=col>q2</th></tr></thead>
+<tbody>
+    <tr><th scope=row>2</th><td>37    </td><td>Female</td><td>5     </td><td>4     </td></tr>
+    <tr><th scope=row>3</th><td>28    </td><td>Male  </td><td>3     </td><td>5     </td></tr>
+    <tr><th scope=row>4</th><td>33    </td><td>Female</td><td>3     </td><td>3     </td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section id="横向合并">
+<h4><span class="section-number">3.2.1.4. </span>横向合并<a class="headerlink" href="#横向合并" title="永久链接至标题"></a></h4>
+<p>如果你有两个<strong>行数相同</strong>的数据框，你可以使用 merge() 将其进行内联合并（inner join），他们将通过一个或多个共有的变量进行合并。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df1</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">),</span> <span class="n">Sym</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">),</span> <span class="n">Oprtr</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="s">&quot;y&quot;</span><span class="p">,</span> <span class="s">&quot;z&quot;</span><span class="p">))</span>
+<span class="n">df2</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span> <span class="n">Oprtr</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="s">&quot;y&quot;</span><span class="p">,</span> <span class="s">&quot;z&quot;</span><span class="p">))</span>
+
+<span class="c1"># 按 ID 列合并</span>
+<span class="nf">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&quot;ID&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>ID</th><th scope=col>Sym</th><th scope=col>Oprtr.x</th><th scope=col>Oprtr.y</th></tr></thead>
+<tbody>
+    <tr><td>1</td><td>A</td><td>x</td><td>x</td></tr>
+    <tr><td>2</td><td>B</td><td>y</td><td>z</td></tr>
+    <tr><td>3</td><td>C</td><td>z</td><td>y</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 由于 ID 与 Oprtr 一致的只有一行，因此其余的都舍弃</span>
+<span class="nf">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;ID&quot;</span><span class="p">,</span> <span class="s">&quot;Oprtr&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>ID</th><th scope=col>Oprtr</th><th scope=col>Sym</th></tr></thead>
+<tbody>
+    <tr><td>1</td><td>x</td><td>A</td></tr>
+</tbody>
+</table></div>
+</div>
+<p>或者直接用 cbind() 函数组合。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 直接组合。注意：列名相同的话，在按列名调用时右侧的会被忽略</span>
+<span class="nf">cbind</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>ID</th><th scope=col>Sym</th><th scope=col>Oprtr</th><th scope=col>ID</th><th scope=col>Oprtr</th></tr></thead>
+<tbody>
+    <tr><td>1</td><td>A</td><td>x</td><td>1</td><td>x</td></tr>
+    <tr><td>2</td><td>B</td><td>y</td><td>3</td><td>y</td></tr>
+    <tr><td>3</td><td>C</td><td>z</td><td>2</td><td>z</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section id="纵向合并">
+<h4><span class="section-number">3.2.1.5. </span>纵向合并<a class="headerlink" href="#纵向合并" title="永久链接至标题"></a></h4>
+<p>相当于追加观测。两个数据框必须有<strong>相同的变量</strong>，尽管顺序可以不同。如果两个数据框变量不同请：</p>
+<ul class="simple">
+<li><p>删除多余变量；</p></li>
+<li><p>在缺少变量的数据框中，追加同名变量并将其设为缺失值 NA。</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df1</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">),</span> <span class="n">Sym</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">),</span> <span class="n">Oprtr</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="s">&quot;y&quot;</span><span class="p">,</span> <span class="s">&quot;z&quot;</span><span class="p">))</span>
+<span class="n">df2</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span> <span class="n">Oprtr</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="s">&quot;y&quot;</span><span class="p">,</span> <span class="s">&quot;z&quot;</span><span class="p">))</span>
+<span class="n">df2</span><span class="o">$</span><span class="n">Sym</span> <span class="o">&lt;-</span> <span class="kc">NA</span>
+
+<span class="nf">rbind</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>ID</th><th scope=col>Sym</th><th scope=col>Oprtr</th></tr></thead>
+<tbody>
+    <tr><td>1 </td><td>A </td><td>x </td></tr>
+    <tr><td>2 </td><td>B </td><td>y </td></tr>
+    <tr><td>3 </td><td>C </td><td>z </td></tr>
+    <tr><td>1 </td><td>NA</td><td>x </td></tr>
+    <tr><td>3 </td><td>NA</td><td>y </td></tr>
+    <tr><td>2 </td><td>NA</td><td>z </td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+</section>
+<section id="逻辑型筛选">
+<h3><span class="section-number">3.2.2. </span>逻辑型筛选<a class="headerlink" href="#逻辑型筛选" title="永久链接至标题"></a></h3>
+<p>通过逻辑判断来过滤数据，或者选取数据子集，或者将子集作统一更改。在前面的一些例子中已经使用到了。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span><span class="o">$</span><span class="n">x3</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span><span class="p">)</span>
+<span class="c1"># 把列 x3 中的奇数换成 NA</span>
+<span class="n">df</span><span class="o">$</span><span class="n">x3</span><span class="p">[</span><span class="n">df</span><span class="o">$</span><span class="n">x3</span> <span class="o">%%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="kc">NA</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>x1</th><th scope=col>x2</th><th scope=col>x3</th></tr></thead>
+<tbody>
+    <tr><td>1 </td><td>2 </td><td>NA</td></tr>
+    <tr><td>3 </td><td>4 </td><td> 8</td></tr>
+    <tr><td>5 </td><td>6 </td><td>NA</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span><span class="o">$</span><span class="n">y</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">7</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">27</span><span class="p">)</span>
+<span class="c1"># 把所有小于 3 的标记为 NaN</span>
+<span class="c1"># 把所有大于 10 的数按奇偶标记为正负Inf</span>
+
+<span class="n">df</span><span class="p">[</span><span class="n">df</span> <span class="o">&lt;</span> <span class="m">3</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="kc">NaN</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span> <span class="o">&gt;</span> <span class="m">10</span> <span class="o">&amp;</span> <span class="n">df</span> <span class="o">%%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="kc">Inf</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span> <span class="o">&gt;</span> <span class="m">10</span> <span class="o">&amp;</span> <span class="n">df</span> <span class="o">%%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">0</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="o">-</span><span class="kc">Inf</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>x1</th><th scope=col>x2</th><th scope=col>x3</th><th scope=col>y</th></tr></thead>
+<tbody>
+    <tr><td>NaN </td><td>NaN </td><td>NA  </td><td>   7</td></tr>
+    <tr><td>  3 </td><td>  4 </td><td> 8  </td><td>-Inf</td></tr>
+    <tr><td>  5 </td><td>  6 </td><td>NA  </td><td> Inf</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section id="排序">
+<h3><span class="section-number">3.2.3. </span>排序<a class="headerlink" href="#排序" title="永久链接至标题"></a></h3>
+<p>排序使用 order() 命令。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">age</span>   <span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">22</span><span class="p">,</span> <span class="m">37</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">43</span><span class="p">),</span>
+                 <span class="n">gender</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+<span class="n">df</span><span class="o">$</span><span class="n">gender</span> <span class="o">&lt;-</span> <span class="nf">factor</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Male&quot;</span><span class="p">,</span> <span class="s">&quot;Female&quot;</span><span class="p">))</span>
+
+<span class="c1"># 按gender升序排序，各gender内按age降序排序</span>
+<span class="n">df</span><span class="p">[</span><span class="nf">order</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="o">-</span><span class="n">df</span><span class="o">$</span><span class="n">age</span><span class="p">),]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th></th><th scope=col>age</th><th scope=col>gender</th></tr></thead>
+<tbody>
+    <tr><th scope=row>5</th><td>43    </td><td>Male  </td></tr>
+    <tr><th scope=row>3</th><td>28    </td><td>Male  </td></tr>
+    <tr><th scope=row>1</th><td>22    </td><td>Male  </td></tr>
+    <tr><th scope=row>2</th><td>37    </td><td>Female</td></tr>
+    <tr><th scope=row>4</th><td>33    </td><td>Female</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section id="随机抽样">
+<h3><span class="section-number">3.2.4. </span>随机抽样<a class="headerlink" href="#随机抽样" title="永久链接至标题"></a></h3>
+<p>从已有的数据集中随机抽选样本是常见的做法。例如，其中一份用于构建预测模型，另一份用于验证模型。</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># 无放回地从 df 的所有观测中，抽取一个大小为 3 的样本</span>
+<span class="n">df</span><span class="p">[</span><span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="m">3</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">F</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>随机抽样的 R 包有 sampling 与 survey，如果可能我会在本系列下另建文章介绍。</p>
+</section>
+<section id="SQL语句">
+<h3><span class="section-number">3.2.5. </span>SQL语句<a class="headerlink" href="#SQL语句" title="永久链接至标题"></a></h3>
+<p>在 R 中，借助 sqldf 包可以直接用 SQL 语句操作数据框（data.frame）。一个来自书中的例子：</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">newdf</span> <span class="o">&lt;-</span> <span class="nf">sqldf</span><span class="p">(</span><span class="s">&quot;select * from mtcars where carb=1 order by mpg&quot;</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这里就不过多涉及了。</p>
+</section>
+</section>
+<section id="字符串处理">
+<h2><span class="section-number">3.3. </span>字符串处理<a class="headerlink" href="#字符串处理" title="永久链接至标题"></a></h2>
+<p>R 中的字符串处理函数有以下几种：</p>
+<section id="通用函数">
+<h3><span class="section-number">3.3.1. </span>通用函数<a class="headerlink" href="#通用函数" title="永久链接至标题"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>函数</p></th>
+<th class="head"><p>含义</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nchar(x)</p></td>
+<td><p>计算字符串的长度</p></td>
+</tr>
+<tr class="row-odd"><td><p>substr(x, start, stop)</p></td>
+<td><p>提取子字符串</p></td>
+</tr>
+<tr class="row-even"><td><p>grep(pattern, x, ignore.case=FALSE, fixed=FALSE)</p></td>
+<td><p>正则搜索，返回为匹配的下标。如果 fixed=T，则按字符串而不是正则搜索。</p></td>
+</tr>
+<tr class="row-odd"><td><p>grepl()</p></td>
+<td><p>类似 grep()，只不过返回值是逻辑值向量。</p></td>
+</tr>
+<tr class="row-even"><td><p>sub(pattern, replacement, x, ignore.base=FALSE, fixed=FALSE)</p></td>
+<td><p>在 x 中搜索正则式，并以 replacement 将其替换。如果 fixed=T，则按字符串而不是正则搜索</p></td>
+</tr>
+<tr class="row-odd"><td><p>strsplit(x, split, fixed=FALSE)</p></td>
+<td><p>在 split 处分割字符向量 x 中的元素，返回一个列表。</p></td>
+</tr>
+<tr class="row-even"><td><p>paste(x1, x2, …, sep=““)</p></td>
+<td><p>连接字符串，连接符为 sep。也可以连接重复字串：<code class="docutils literal notranslate"><span class="pre">paste(&quot;x&quot;,</span> <span class="pre">1:3,</span> <span class="pre">sep=&quot;&quot;)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>toupper(x)</p></td>
+<td><p>转换字符串为全大写</p></td>
+</tr>
+<tr class="row-even"><td><p>tolower(x)</p></td>
+<td><p>转换字符串为全小写</p></td>
+</tr>
+</tbody>
+</table>
+<p>一些例子。首先是正则表达式的使用：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">streg</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;abc&quot;</span><span class="p">,</span> <span class="s">&quot;abcc&quot;</span><span class="p">,</span> <span class="s">&quot;abccc&quot;</span><span class="p">,</span> <span class="s">&quot;abc5&quot;</span><span class="p">)</span>
+<span class="n">re1</span> <span class="o">&lt;-</span> <span class="nf">grep</span><span class="p">(</span><span class="s">&quot;abc*&quot;</span><span class="p">,</span> <span class="n">streg</span><span class="p">)</span>
+<span class="n">re2</span> <span class="o">&lt;-</span> <span class="nf">grep</span><span class="p">(</span><span class="s">&quot;abc\\d&quot;</span><span class="p">,</span> <span class="n">streg</span><span class="p">)</span>  <span class="c1"># 注意反斜杠要双写来在 R 中转义</span>
+<span class="n">re3</span> <span class="o">&lt;-</span> <span class="nf">sub</span><span class="p">(</span><span class="s">&quot;[a-z]*&quot;</span><span class="p">,</span> <span class="s">&quot;Hey&quot;</span><span class="p">,</span> <span class="n">streg</span><span class="p">)</span>
+<span class="n">re4</span> <span class="o">&lt;-</span> <span class="nf">sub</span><span class="p">(</span><span class="s">&quot;[a-z]*\\d&quot;</span><span class="p">,</span> <span class="s">&quot;NEW&quot;</span><span class="p">,</span> <span class="n">streg</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">re1</span><span class="p">,</span> <span class="n">re2</span><span class="p">,</span> <span class="n">re3</span><span class="p">,</span> <span class="n">re4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[1]]
+[1] 1 2 3 4
+
+[[2]]
+[1] 4
+
+[[3]]
+[1] &#34;Hey&#34;  &#34;Hey&#34;  &#34;Hey&#34;  &#34;Hey5&#34;
+
+[[4]]
+[1] &#34;abc&#34;   &#34;abcc&#34;  &#34;abccc&#34; &#34;NEW&#34;
+
+</pre></div></div>
+</div>
+<p>然后是字符串分割与连接。注意这里的 paste() 有非常巧妙的用法：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">splt</span> <span class="o">&lt;-</span> <span class="nf">strsplit</span><span class="p">(</span><span class="n">streg</span><span class="p">,</span> <span class="s">&quot;c&quot;</span><span class="p">)</span>  <span class="c1"># 结果中不含分隔符 &quot;c&quot;</span>
+<span class="n">cat1</span> <span class="o">&lt;-</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&quot;-&quot;</span><span class="p">)</span>
+<span class="n">cat2</span> <span class="o">&lt;-</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># 生成列名时非常有用</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">splt</span><span class="p">,</span> <span class="n">cat1</span><span class="p">,</span> <span class="n">cat2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[1]]
+[[1]][[1]]
+[1] &#34;ab&#34;
+
+[[1]][[2]]
+[1] &#34;ab&#34; &#34;&#34;
+
+[[1]][[3]]
+[1] &#34;ab&#34; &#34;&#34;   &#34;&#34;
+
+[[1]][[4]]
+[1] &#34;ab&#34; &#34;5&#34;
+
+
+[[2]]
+[1] &#34;a-b-c&#34;
+
+[[3]]
+[1] &#34;x1&#34; &#34;x2&#34; &#34;x3&#34;
+
+</pre></div></div>
+</div>
+</section>
+<section id="日期型字符串">
+<h3><span class="section-number">3.3.2. </span>日期型字符串<a class="headerlink" href="#日期型字符串" title="永久链接至标题"></a></h3>
+<p>与其他类型相似，日期型字符串能够通过 as.Date() 函数处理。各格式字符的含义如下：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 33%" />
+<col style="width: 27%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>符号</p></th>
+<th class="head"><p>含义</p></th>
+<th class="head"><p>通用示例</p></th>
+<th class="head"><p>中文示例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>%d</p></td>
+<td><p>日（1~31）</p></td>
+<td><p>22</p></td>
+<td><p>22</p></td>
+</tr>
+<tr class="row-odd"><td><p>%a</p></td>
+<td><p>缩写星期</p></td>
+<td><p>Mon</p></td>
+<td><p>周一</p></td>
+</tr>
+<tr class="row-even"><td><p>%A</p></td>
+<td><p>全写星期</p></td>
+<td><p>Monday</p></td>
+<td><p>星期一</p></td>
+</tr>
+<tr class="row-odd"><td><p>%m</p></td>
+<td><p>月（1~12）</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>%b</p></td>
+<td><p>缩写月</p></td>
+<td><p>Jan</p></td>
+<td><p>1月</p></td>
+</tr>
+<tr class="row-odd"><td><p>%B</p></td>
+<td><p>全写月</p></td>
+<td><p>January</p></td>
+<td><p>一月</p></td>
+</tr>
+<tr class="row-even"><td><p>%y</p></td>
+<td><p>两位年</p></td>
+<td><p>17</p></td>
+<td><p>17</p></td>
+</tr>
+<tr class="row-odd"><td><p>%Y</p></td>
+<td><p>四位年</p></td>
+<td><p>2017</p></td>
+<td><p>2017</p></td>
+</tr>
+</tbody>
+</table>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 对字符串数据 x，用法：as.Date(x, format=, ...)</span>
+<span class="n">dates</span> <span class="o">&lt;-</span> <span class="nf">as.Date</span><span class="p">(</span><span class="s">&quot;01-28-2017&quot;</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;%m-%d-%Y&quot;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1] &#34;2017-01-28&#34;
+</pre></div></div>
+</div>
+<p>要想获得当前的日期或时间，有两种格式可以参考，并可以用 format() 函数辅助输出。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Sys.Date() 返回一个精确到日的标准日期格式</span>
+<span class="n">dates1</span> <span class="o">&lt;-</span> <span class="nf">Sys.Date</span><span class="p">()</span>
+<span class="nf">format</span><span class="p">(</span><span class="n">dates1</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;%A&quot;</span><span class="p">)</span>  <span class="c1"># 可以指定输出格式</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+'星期六'</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># date() 返回一个精确到秒的详细的字串</span>
+<span class="n">dates2</span> <span class="o">&lt;-</span> <span class="nf">date</span><span class="p">()</span>
+<span class="n">dates2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+'Sat Apr 22 15:30:54 2017'</div>
+</div>
+<p>函数 difftime() 提供了计算时间差的方式。其中计量单位可以是以下之一：“auto”, “secs”, “mins”, “hours”, “days”, “weeks”。</p>
+<p>截至本文最后更新，我有 1100+ 周大。唔……这好像听起来没什么感觉</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dates1</span> <span class="o">&lt;-</span> <span class="nf">as.Date</span><span class="p">(</span><span class="s">&quot;1994-11-23&quot;</span><span class="p">)</span>
+<span class="n">dates2</span> <span class="o">&lt;-</span> <span class="nf">Sys.Date</span><span class="p">()</span>
+<span class="nf">difftime</span><span class="p">(</span><span class="n">dates2</span><span class="p">,</span> <span class="n">dates1</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&quot;weeks&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Time difference of 1169.429 weeks
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="异常值处理">
+<h2><span class="section-number">3.4. </span>异常值处理<a class="headerlink" href="#异常值处理" title="永久链接至标题"></a></h2>
+<p>异常值包括三类：</p>
+<ul class="simple">
+<li><p>NA：缺失值。</p></li>
+<li><p>Inf：正无穷。用 -Inf 表示负无穷。<strong>无穷与数可以比较大小，</strong>比如 -Inf &lt; 3 为真。</p></li>
+<li><p>NaN：非可能值。比如 0/0。</p></li>
+</ul>
+<p>使用 is.na() 函数判断数据集中是否存在 NA 或者 NaN，并返回矩阵。注意 NaN 会被判断为缺失值。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">is.na</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>age</th><th scope=col>gender</th></tr></thead>
+<tbody>
+    <tr><td>FALSE</td><td>FALSE</td></tr>
+    <tr><td>FALSE</td><td>FALSE</td></tr>
+    <tr><td>FALSE</td><td>FALSE</td></tr>
+    <tr><td>FALSE</td><td>FALSE</td></tr>
+    <tr><td>FALSE</td><td>FALSE</td></tr>
+</tbody>
+</table></div>
+</div>
+<p>另外也有类似的函数来判断 Inf 与 NaN，但只能对一维数据集使用：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">print</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="nf">is.infinite</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="kc">Inf</span><span class="p">,</span> <span class="o">-</span><span class="kc">Inf</span><span class="p">)),</span> <span class="nf">is.nan</span><span class="p">(</span><span class="kc">NA</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1]  TRUE  TRUE FALSE
+</pre></div></div>
+</div>
+<p>在进行数据处理之前，处理 NA 缺失值是必须的步骤。如果某些数值过于离群，你也可能需要将其标记为 NA 。行移除是最简单粗暴的处理方法。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># NA 行移除</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">na.omit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>age</th><th scope=col>gender</th></tr></thead>
+<tbody>
+    <tr><td>22    </td><td>Male  </td></tr>
+    <tr><td>37    </td><td>Female</td></tr>
+    <tr><td>28    </td><td>Male  </td></tr>
+    <tr><td>33    </td><td>Female</td></tr>
+    <tr><td>43    </td><td>Male  </td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section id="整合与重构">
+<h2><span class="section-number">3.5. </span>整合与重构<a class="headerlink" href="#整合与重构" title="永久链接至标题"></a></h2>
+<section id="转置">
+<h3><span class="section-number">3.5.1. </span>转置<a class="headerlink" href="#转置" title="永久链接至标题"></a></h3>
+<p>常见的转置方法是 t() 函数：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">=</span> <span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">6</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="m">3</span><span class="p">)</span>
+<span class="nf">t</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<tbody>
+    <tr><td>1</td><td>2</td></tr>
+    <tr><td>3</td><td>4</td></tr>
+    <tr><td>5</td><td>6</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section id="整合：aggregate()">
+<h3><span class="section-number">3.5.2. </span>整合：aggregate()<a class="headerlink" href="#整合：aggregate()" title="永久链接至标题"></a></h3>
+<p>这个函数是非常强大的。语法：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>aggregate(x, by=list(), FUN)
+</pre></div>
+</div>
+<p>其中 x 是待整合的数据对象，by 是分类依据的列，FUN 是待应用的标量函数。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 这个例子改编自 R 的官方帮助 aggregate()</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">v1</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="m">8</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="kc">NA</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="m">9</span><span class="p">),</span>
+                     <span class="n">v2</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">11</span><span class="p">,</span><span class="m">33</span><span class="p">,</span><span class="m">55</span><span class="p">,</span><span class="m">77</span><span class="p">,</span><span class="m">88</span><span class="p">,</span><span class="m">33</span><span class="p">,</span><span class="m">55</span><span class="p">,</span><span class="kc">NA</span><span class="p">,</span><span class="m">44</span><span class="p">,</span><span class="m">55</span><span class="p">,</span><span class="m">77</span><span class="p">,</span><span class="m">99</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">by1</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">,</span> <span class="s">&quot;blue&quot;</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="s">&quot;big&quot;</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">&quot;red&quot;</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="m">12</span><span class="p">)</span>
+<span class="n">by2</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;wet&quot;</span><span class="p">,</span> <span class="s">&quot;dry&quot;</span><span class="p">,</span> <span class="m">99</span><span class="p">,</span> <span class="m">95</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="s">&quot;damp&quot;</span><span class="p">,</span> <span class="m">95</span><span class="p">,</span> <span class="m">99</span><span class="p">,</span> <span class="s">&quot;red&quot;</span><span class="p">,</span> <span class="m">99</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="kc">NA</span><span class="p">)</span>
+
+<span class="c1"># 按照 by1 &amp; by2 整合原数据 testDF</span>
+<span class="c1"># 注意(by1, by2)=(1, 99) 对应 (v1, v2)=(5, 55) 与 (6,55) 两条数据</span>
+<span class="c1"># 因此第三行的 v1 = mean(c(5, 6)) = 5.5</span>
+<span class="nf">aggregate</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">b1</span><span class="o">=</span><span class="n">by1</span><span class="p">,</span> <span class="n">b2</span><span class="o">=</span><span class="n">by2</span><span class="p">),</span> <span class="n">FUN</span> <span class="o">=</span> <span class="s">&quot;mean&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>b1</th><th scope=col>b2</th><th scope=col>v1</th><th scope=col>v2</th></tr></thead>
+<tbody>
+    <tr><td>1   </td><td>95  </td><td>5.0 </td><td>55  </td></tr>
+    <tr><td>2   </td><td>95  </td><td>7.0 </td><td>77  </td></tr>
+    <tr><td>1   </td><td>99  </td><td>5.5 </td><td>55  </td></tr>
+    <tr><td>2   </td><td>99  </td><td> NA </td><td>NA  </td></tr>
+    <tr><td>big </td><td>damp</td><td>3.0 </td><td>33  </td></tr>
+    <tr><td>blue</td><td>dry </td><td>3.0 </td><td>33  </td></tr>
+    <tr><td>red </td><td>red </td><td>4.0 </td><td>44  </td></tr>
+    <tr><td>red </td><td>wet </td><td>1.0 </td><td>11  </td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 用公式筛选原数据的列，仅整合这些列</span>
+<span class="c1"># 注意：v1中的一个含 NA 的观测被移除</span>
+<span class="nf">aggregate</span><span class="p">(</span><span class="nf">cbind</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">v1</span><span class="p">)</span> <span class="o">~</span> <span class="n">by1</span><span class="o">+</span><span class="n">by2</span><span class="p">,</span> <span class="n">FUN</span> <span class="o">=</span> <span class="s">&quot;mean&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>by1</th><th scope=col>by2</th><th scope=col>V1</th></tr></thead>
+<tbody>
+    <tr><td>1   </td><td>95  </td><td>5.0 </td></tr>
+    <tr><td>2   </td><td>95  </td><td>7.0 </td></tr>
+    <tr><td>1   </td><td>99  </td><td>5.5 </td></tr>
+    <tr><td>big </td><td>damp</td><td>3.0 </td></tr>
+    <tr><td>blue</td><td>dry </td><td>3.0 </td></tr>
+    <tr><td>red </td><td>red </td><td>4.0 </td></tr>
+    <tr><td>red </td><td>wet </td><td>1.0 </td></tr>
+</tbody>
+</table></div>
+</div>
+<p>还有一个强大的整合包 reshape2，这里就不多介绍了。</p>
+</section>
+</section>
+<section id="函数式编程">
+<h2><span class="section-number">3.6. </span>函数式编程<a class="headerlink" href="#函数式编程" title="永久链接至标题"></a></h2>
+<p>函数式编程是每个科学计算语言中的重要内容；操作实现的优先级依次是<strong>矢量运算（例如 df+1）、函数式书写，最后才是循环语句</strong>。在 R 中，函数式编程主要是由 apply 函数族承担。R 中的 apply 函数族包括：</p>
+<ul class="simple">
+<li><p>apply()：指定轴向。传入 data.frame，返回 vector.</p></li>
+<li><p>tapply()：</p></li>
+<li><p>vapply()：</p></li>
+<li><p>lapply()：</p></li>
+<li><p>sapply()：</p></li>
+<li><p>mapply()：</p></li>
+<li><p>rapply()：</p></li>
+<li><p>eapply()：</p></li>
+</ul>
+<p>下面依次介绍。</p>
+<section id="apply()：指定多维对象的轴">
+<h3><span class="section-number">3.6.1. </span>apply()：指定多维对象的轴<a class="headerlink" href="#apply()：指定多维对象的轴" title="永久链接至标题"></a></h3>
+<p>在 R 中，通过 apply() 可以将函数运用于多维对象。基本语法是：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>apply(d, N, FUN, ...)
+</pre></div>
+</div>
+<p>其中，N 用于指定将函数 FUN 应用于数据 d 的第几维（1为行，2为列）。省略号中可以传入 function 的参数。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span> <span class="n">z</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">9</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">4</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<table>
+<thead><tr><th scope=col>x</th><th scope=col>y</th><th scope=col>z</th><th scope=col>s</th></tr></thead>
+<tbody>
+    <tr><td>1</td><td>5</td><td>8</td><td>3</td></tr>
+    <tr><td>2</td><td>4</td><td>6</td><td>7</td></tr>
+    <tr><td>3</td><td>2</td><td>9</td><td>4</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 计算 df 各列的中位数</span>
+<span class="n">colmean</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">median</span><span class="p">)</span>
+<span class="c1"># 计算 df 各行的 25 分位数</span>
+<span class="n">rowquan</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="n">quantile</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="n">.</span><span class="m">25</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">colmean</span><span class="p">,</span> <span class="n">rowquan</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[1]]
+x y z s
+2 4 8 4
+
+[[2]]
+[1] 2.50 3.50 2.75
+
+</pre></div></div>
+</div>
+</section>
+<section id="lapply()：列表式应用">
+<h3><span class="section-number">3.6.2. </span>lapply()：列表式应用<a class="headerlink" href="#lapply()：列表式应用" title="永久链接至标题"></a></h3>
+<p>lapply 函数的本意是对 list 对象进行操作。返回值是 list 类型。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">lst</span> <span class="o">&lt;-</span> <span class="nf">list</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">))</span>
+<span class="nf">lapply</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="m">2</span><span class="p">)})</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<dl>
+    <dt>$a</dt>
+            <dd>1</dd>
+    <dt>$b</dt>
+            <dd>5</dd>
+    <dt>$c</dt>
+            <dd>25</dd>
+</dl></div>
+</div>
+<p>但同样可以作用于 DataFrame 对象的各个列（因为 DataFrame 对象是类似于各列组成的 list）：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">lapply</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sum</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<dl>
+    <dt>$x</dt>
+            <dd>6</dd>
+    <dt>$y</dt>
+            <dd>11</dd>
+    <dt>$z</dt>
+            <dd>23</dd>
+    <dt>$s</dt>
+            <dd>14</dd>
+</dl></div>
+</div>
+</section>
+<section id="sapply()/vapply()：变种-lapply()">
+<h3><span class="section-number">3.6.3. </span>sapply()/vapply()：变种 lapply()<a class="headerlink" href="#sapply()/vapply()：变种-lapply()" title="永久链接至标题"></a></h3>
+<p>sapply() 实质上是一种异化的 lapply()，返回值可以转变为 vector 而不是 list 类型。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">class</span><span class="p">(</span><span class="nf">sapply</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="m">2</span><span class="p">)}))</span>
+<span class="nf">class</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="m">2</span><span class="p">)}))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+'numeric'</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+'list'</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">print</span><span class="p">(</span><span class="nf">sapply</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sum</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ x  y  z  s
+ 6 11 23 14
+</pre></div></div>
+</div>
+<p>参数 simplify=TRUE 是默认值，表示返回 vector 而不是 list。如果改为 FALSE，就退化为 lapply() 函数。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">sapply</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sum</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<dl>
+    <dt>$x</dt>
+            <dd>6</dd>
+    <dt>$y</dt>
+            <dd>11</dd>
+    <dt>$z</dt>
+            <dd>23</dd>
+    <dt>$s</dt>
+            <dd>14</dd>
+</dl></div>
+</div>
+<p>vapply() 函数可以通过 FUN.VALUE 参数传入行名称，但这一步往往可以借助 lapply()/sapply() 加上外部的 row.names() 函数完成。</p>
+</section>
+<section id="mapply()：多输入值的应用">
+<h3><span class="section-number">3.6.4. </span>mapply()：多输入值的应用<a class="headerlink" href="#mapply()：多输入值的应用" title="永久链接至标题"></a></h3>
+<p>mapply() 函数支持多个输入值：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mapply(FUN, [input1, input2, ...], MoreArgs=NULL)
+</pre></div>
+</div>
+<p>其中各 input 的<strong>长度应该相等或互为整数倍数</strong>。该函数的用处在于避免了事先将数据合并。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="nf">print</span><span class="p">(</span><span class="nf">mapply</span><span class="p">(</span><span class="n">min</span><span class="p">,</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">0.5</span><span class="p">),</span> <span class="m">-2</span><span class="o">:</span><span class="m">7</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ [1] -2.0 -1.0  0.0  1.0  2.0  0.0  0.5  1.0  1.5  2.0
+</pre></div></div>
+</div>
+</section>
+<section id="tapply()：分组应用">
+<h3><span class="section-number">3.6.5. </span>tapply()：分组应用<a class="headerlink" href="#tapply()：分组应用" title="永久链接至标题"></a></h3>
+<p>tapply() 函数可以借助 factor 的各水平进行分组，然后进行计算。类似于 group by 操作：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tapply(X, idx, FUN)
+</pre></div>
+</div>
+<p>其中 X 是数据，idx 是分组依据。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-r notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="o">:</span><span class="m">6</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">),</span> <span class="m">3</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">tapply</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">x</span><span class="p">,</span> <span class="n">df</span><span class="o">$</span><span class="n">groups</span><span class="p">,</span> <span class="n">cumsum</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+$a
+[1] 1 4 9
+
+$b
+[1]  2  6 12
+
+</pre></div></div>
+</div>
+<p>其他的 apply() 函数很少用到，在此就不介绍了。</p>
+</section>
+</section>
+<section id="其他实用函数">
+<h2><span class="section-number">3.7. </span>其他实用函数<a class="headerlink" href="#其他实用函数" title="永久链接至标题"></a></h2>
+<p>在本系列的 <a class="reference internal" href="ReadData.html"><span class="doc">“数据读写操作”一文</span></a> 中，也介绍了一些实用的函数，可以参考。</p>
+<p>此外还有：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>函数</p></th>
+<th class="head"><p>含义</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>seq(from=N, to=N, by=N, [length.out=N, along.with=obj])</p></td>
+<td><p>生成数列。参数分别是起、止、步长、数列长、指定数列长度与某对象等长。</p></td>
+</tr>
+<tr class="row-odd"><td><p>rep(x, N)</p></td>
+<td><p>重复组合。比如 rep(1:2, 2) 会生成一个向量 c(1, 2, 1, 2)</p></td>
+</tr>
+<tr class="row-even"><td><p>cut(x, N, [ordered_result=F])</p></td>
+<td><p>分割为因子。 将连续变量 x 分割为有 N 个水平的因子，可以指定是否有序。</p></td>
+</tr>
+<tr class="row-odd"><td><p>pretty(x, N)</p></td>
+<td><p>美观分割。将连续变量 x 分割为 N 个区间（N+1 个端点），并使端点为取整值。 绘图中使用。</p></td>
+</tr>
+<tr class="row-even"><td><p>cat(obj1, obj2, …, [file=, append=])</p></td>
+<td><p>连接多个对象，并输出到屏幕或文件。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ReadData.html" class="btn btn-neutral float-left" title="2. 数据读取" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="CreateFunctions.html" class="btn btn-neutral float-right" title="4. 函数操作" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

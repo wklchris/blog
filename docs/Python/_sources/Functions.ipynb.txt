@@ -1,0 +1,1799 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 函数与迭代器\n",
+    "\n",
+    "本章介绍 Python 中函数、迭代器、生成器的使用，并介绍一些 Python 中函数：\n",
+    "\n",
+    "- 高级函数：经常用到的 `lambda`，时而会使用的 `filter`，以及极少用到的 `reduce` 与 `map`\n",
+    "- 错误控制语句：`try .. except`\n",
+    "\n",
+    "本章引入了下述 Python 库/模块。它们均为内置库/模块，无需额外的安装步骤："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import timeit\n",
+    "import cProfile\n",
+    "import tracemalloc, linecache\n",
+    "import functools"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 函数的使用\n",
+    "\n",
+    "使用 `def` 定义函数。下例定义了一个名为 `func` 的函数。\n",
+    "\n",
+    "- 参数：下面的 func 函数包含两个输入参数 `a`, `b` 。其中，参数 b 是一个可选参数，在无输入时会自动赋值为 0。\n",
+    "- 注释：Python 中建议（但不强制）标出函数的注释，一般用一对三个双引号来标记多行注释，作为函数的注释。\n",
+    "- 返回值：用 `return` 语句来返回一个对象。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def func(a, b=0):\n",
+    "    \"\"\"\n",
+    "    This is a function that can meow.\n",
+    "    \"\"\"\n",
+    "    return \" \".join([\"meow\"] * (a + b))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 函数参数\n",
+    "\n",
+    "上例的函数接受两个参数："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "meow meow meow\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = func(a=1, b=2)\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "对应的参数名在传入时，可以省略。比如上例中的 `a=` 与 `b=` 可以省略："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'meow meow meow'"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "func(1, 2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "由于参数 b 有一个默认值 0，因此函数 func 也可以只传入一个参数（即参数 a）："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'meow'"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "func(1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "函数也接受以序列（依次传入列表中的项）或者字典（依字典的键传入对应的值）的方式传入参数，使用带星号 `*` 前缀的序列，或者带双星号 `**` 前缀的字典。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'meow meow meow'"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "key_lst = [2]\n",
+    "func(1, *key_lst)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'meow meow meow'"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "key_dict = {\"a\": 1, \"b\": 2}\n",
+    "func(**key_dict)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "这种传参方式有时用在字符串的 `format()` 函数中："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 + 2\n"
+     ]
+    }
+   ],
+   "source": [
+    "key_dict = {\"a\": 1, \"b\": 2}\n",
+    "s = \"{a} + {b}\".format(**key_dict)\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 函数帮助\n",
+    "\n",
+    "用 `help()` 函数来查看函数的帮助，即函数开头的、以三个双引号括起的字符串："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on function func in module __main__:\n",
+      "\n",
+      "func(a, b=0)\n",
+      "    This is a function that can meow.\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "help(func)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 处理异常：try与raise\n",
+    "\n",
+    "用 `try .. except` 语句来控制异常。比如在除法运算时，如果除数为0，那么会弹出异常："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ZeroDivisionError",
+     "evalue": "division by zero",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mZeroDivisionError\u001b[0m                         Traceback (most recent call last)",
+      "\u001b[1;32m<ipython-input-10-e51b4c7d78d1>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m      3\u001b[0m     \u001b[1;32mreturn\u001b[0m \u001b[0mr\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      4\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m----> 5\u001b[1;33m \u001b[0mfunc\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m1\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;36m0\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[1;32m<ipython-input-10-e51b4c7d78d1>\u001b[0m in \u001b[0;36mfunc\u001b[1;34m(m, n)\u001b[0m\n\u001b[0;32m      1\u001b[0m \u001b[1;32mdef\u001b[0m \u001b[0mfunc\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mm\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mn\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m----> 2\u001b[1;33m     \u001b[0mr\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mm\u001b[0m \u001b[1;33m/\u001b[0m \u001b[0mn\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m      3\u001b[0m     \u001b[1;32mreturn\u001b[0m \u001b[0mr\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      4\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      5\u001b[0m \u001b[0mfunc\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m1\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;36m0\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;31mZeroDivisionError\u001b[0m: division by zero"
+     ]
+    }
+   ],
+   "source": [
+    "def func(m, n):\n",
+    "    r = m / n\n",
+    "    return r\n",
+    "\n",
+    "func(1, 0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python 在除数为0是会弹出 ZeroDivisionError。常常见到的 Error 有：\n",
+    "\n",
+    "| 异常名称 | 解释 | 引发示例 |\n",
+    "| ---: | :--- | ---: |\n",
+    "| | **-- 引用异常 --** |\n",
+    "| AttributeError | 引用不存在的属性。 | `int.split()` |\n",
+    "| IndexError | 引用不存在的索引 | `\"abc\"[3]` |\n",
+    "| KeyError | 引用不存在的字典键 | `{}[\"a\"]` |\n",
+    "| NameError | 使用不存在的变量名 | / |\n",
+    "| | **-- 输入参数异常 --** |\n",
+    "| TypeError | 函数被应用在类型错误的对象上 | `abs(\"1\")` |\n",
+    "| ValueError | 函数传入了类型允许但值不适合的参数 | `int(\"a\")` |\n",
+    "| | **-- 其他 --** |\n",
+    "| AssertionError | 断言语句 assert 失败 | `assert(1 < 0)` |\n",
+    "| StopIteration | 迭代器结束迭代 | `next(iter(''))` |\n",
+    "| SyntaxError | 语法错误 | `a = ]` |\n",
+    "| KeyboardInterrupt | 用户从键盘终止了正运行的代码  | Ctrl+C 打断运行 |\n",
+    "\n",
+    "要阅读完整的 Error 列表，请参考官方文档的[内置异常](https://docs.python.org/zh-cn/3/library/exceptions.html#exception-hierarchy)页面。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "添加 `try .. except` 来处理 ZeroDivisionError："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "nan"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def func(m, n):\n",
+    "    try:\n",
+    "        r = m / n\n",
+    "    except ZeroDivisionError:\n",
+    "        r = float('nan')\n",
+    "    return r\n",
+    "\n",
+    "func(1, 0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "还可以用 `except ERROR as ...` 并 print 来输出异常信息："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Error: division by zero\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "nan"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def func(m, n):\n",
+    "    try:\n",
+    "        r = m / n\n",
+    "    except ZeroDivisionError as e:\n",
+    "        r = float('nan')\n",
+    "        print(f\"Error: {e}\")\n",
+    "    return r\n",
+    "\n",
+    "func(1, 0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "其中的 except 语句可以处理多种 error 类型。可以：\n",
+    "\n",
+    "- 把多个 error 组成一个元组，或者\n",
+    "- 使用多个 except 语句。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Error: unsupported operand type(s) for /: 'int' and 'str'\n",
+      "Error: division by zero\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "(nan, nan, 0.5)"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def func(m, n):\n",
+    "    try:\n",
+    "        r = m / n\n",
+    "    except (ZeroDivisionError, TypeError) as e:\n",
+    "        r = float('nan')\n",
+    "        print(f\"Error: {e}\")\n",
+    "    return r\n",
+    "\n",
+    "func(1, 'x'), func(1, 0), func(1, 2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(None, nan, 0.5)"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def func(m, n):\n",
+    "    try:\n",
+    "        r = m / n\n",
+    "    except ZeroDivisionError:\n",
+    "        r = float('nan')\n",
+    "    except TypeError:\n",
+    "        r = None\n",
+    "    return r\n",
+    "\n",
+    "func(1, 'x'), func(1, 0), func(1, 2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "异常处理的最后一个 except 语句可以:\n",
+    "\n",
+    "- 不接任何 error 类型（即 `except:` ），以表示处理所有未被之前 except 所处理的异常；或者\n",
+    "- 接受基类型 Exception（即 `except Exception as e:`），并输出异常信息 `e` 。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Unhandled error in func(1, x): unsupported operand type(s) for /: 'int' and 'str'\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "(None, nan, 0.5)"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def func(m, n):\n",
+    "    try:\n",
+    "        r = m / n\n",
+    "    except ZeroDivisionError:\n",
+    "        r = float('nan')\n",
+    "    except Exception as e:\n",
+    "        r = None\n",
+    "        print(f'Unhandled error in func({m}, {n}): {e}')\n",
+    "    return r\n",
+    "\n",
+    "x = [1, 2, 3]\n",
+    "func(1, 'x'), func(1, 0), func(1, 2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "最后，用户也可以用 `raise` 语句强制抛出异常："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ValueError",
+     "evalue": "This is a forced error.",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[1;32m<ipython-input-16-eb20ffe9fe10>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[1;32mraise\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mValueError\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m\"This is a forced error.\"\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[1;31mValueError\u001b[0m: This is a forced error."
+     ]
+    }
+   ],
+   "source": [
+    "raise(ValueError(\"This is a forced error.\"))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 迭代器\n",
+    "\n",
+    "迭代器（iterator）是可用 `next()` 函数依次访问数据的一种数据对象。从用法上讲，它与序列的应用场合非常近似，但有性能优化方面的潜力。\n",
+    "\n",
+    "迭代器可以用以下方式创建：\n",
+    "\n",
+    "- 使用 iter() 函数强制转换一个序列对象\n",
+    "- 使用迭代器解析（或称生成器解析）\n",
+    "- 使用生成器，参考下方[生成器](#生成器)一节的内容\n",
+    "- 定义一个含有 `__next__()` 方法的类"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "a\n",
+      "b\n",
+      "c\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = \"abc\"\n",
+    "x = iter(s)\n",
+    "\n",
+    "for _ in range(len(s)):\n",
+    "    print(next(x))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "在被遍历一次后，迭代器的“指针”会抵达其末尾。如果继续访问，将会抛出 StopIteration 异常："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "StopIteration",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mStopIteration\u001b[0m                             Traceback (most recent call last)",
+      "\u001b[1;32m<ipython-input-18-92de4e9f6b1e>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mnext\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mx\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[1;31mStopIteration\u001b[0m: "
+     ]
+    }
+   ],
+   "source": [
+    "next(x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "顺带一提，在迭代器上应用 `next()` 实质上是调用了迭代器内部的 `__next__()` 方法："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'a'"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = iter(\"abc\")\n",
+    "x.__next__()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "通常，我们使用循环语句（而不是 `next()` 函数）来遍历迭代器："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "a\n",
+      "b\n",
+      "c\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = iter(\"abc\")\n",
+    "for c in x:\n",
+    "    print(c)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "除了用 `iter()` 强制转换，迭代器也可以使用类似列表解析的“迭代器解析”，不过要将外侧的方括号换成圆括号："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2^0:\t1\n",
+      "2^1:\t2\n",
+      "2^2:\t4\n",
+      "2^3:\t8\n",
+      "2^4:\t16\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = (2 ** k for k in range(5))\n",
+    "\n",
+    "for k, num in enumerate(x):\n",
+    "    print(f\"2^{k}:\\t{num}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 迭代器的意义：性能优化\n",
+    "\n",
+    "迭代器最显著的意义就在于性能优化。由于迭代器解析会依次以（内部的）`__next__()` 方法调用数据，因此在调用时才计算当前项的值，而不是在创建之时一次性地计算出每一项的值。这对于内存占用与优化控制流都较有意义。\n",
+    "\n",
+    "下面是一个较极端的例子，模拟在重负担任务时使用列表与迭代器之间的差异。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 2**(2**10) = 1.79769... x10^308\n",
+    "def func_lst():\n",
+    "    x = [2**(n) for n in range(2**15)]\n",
+    "    for i, k in enumerate(x):\n",
+    "        if k > 1.7e308:\n",
+    "            break\n",
+    "    print(i)\n",
+    "\n",
+    "def func_iter():\n",
+    "    x = (2**(n) for n in range(2**15))\n",
+    "    for i, k in enumerate(x):\n",
+    "        if k > 1.7e308:\n",
+    "            break\n",
+    "    print(i)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "本节中所用到的时间、内存性能测试的模块，都会在之后的标准库章节进行介绍。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 时间开销对比\n",
+    "\n",
+    "下面是用 timeit 模块对上述两个函数的运行时间测试结果。由于 `func_lst()` 函数创建了一个长为 $2\\times 10^{15}$ 的列表，因此速度比 `func_iter()` 慢上不少。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1024\n",
+      "1024\n",
+      "List:\t1.7223 sec\n",
+      "Iter:\t0.0024 sec\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 运算一次所花费的时间\n",
+    "# -- 运行在我的古董级 CPU i7-6700HQ @2.60GHz 上。\n",
+    "\n",
+    "time_lst = timeit.timeit(func_lst, number=1)\n",
+    "time_iter = timeit.timeit(func_iter, number=1)\n",
+    "print(f\"List:\\t{time_lst:.4f} sec\\nIter:\\t{time_iter:.4f} sec\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "用 cProfile 模块查看 `func_lst()` 运算开销，可以看到用时最高的一项是 `<listcomp>`，即 list comprehesion 列表解析。解析这个长度巨大的列表占用了整个函数运行的绝大部分时间。函数 `func_iter()` 的总开销极短，故在这里省略。\n",
+    "\n",
+    "顺便一提， cProfile 并不是一个基准测试工具（请使用 timeit），而主要用来查看各部分运行的耗时占比；它的时间度量可能并不准确。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {
+    "run_control": {
+     "marked": false
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1024\n",
+      "         40 function calls in 1.701 seconds\n",
+      "\n",
+      "   Ordered by: standard name\n",
+      "\n",
+      "   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n",
+      "        1    0.000    0.000    1.685    1.685 <ipython-input-22-eae10954e071>:2(func_lst)\n",
+      "        1    1.685    1.685    1.685    1.685 <ipython-input-22-eae10954e071>:3(<listcomp>)\n",
+      "        1    0.016    0.016    1.701    1.701 <string>:1(<module>)\n",
+      "        3    0.000    0.000    0.000    0.000 iostream.py:197(schedule)\n",
+      "        2    0.000    0.000    0.000    0.000 iostream.py:310(_is_master_process)\n",
+      "        2    0.000    0.000    0.000    0.000 iostream.py:323(_schedule_flush)\n",
+      "        2    0.000    0.000    0.000    0.000 iostream.py:386(write)\n",
+      "        3    0.000    0.000    0.000    0.000 iostream.py:93(_event_pipe)\n",
+      "        3    0.000    0.000    0.000    0.000 socket.py:342(send)\n",
+      "        3    0.000    0.000    0.000    0.000 threading.py:1017(_wait_for_tstate_lock)\n",
+      "        3    0.000    0.000    0.000    0.000 threading.py:1071(is_alive)\n",
+      "        3    0.000    0.000    0.000    0.000 threading.py:513(is_set)\n",
+      "        1    0.000    0.000    1.701    1.701 {built-in method builtins.exec}\n",
+      "        2    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}\n",
+      "        1    0.000    0.000    0.000    0.000 {built-in method builtins.print}\n",
+      "        2    0.000    0.000    0.000    0.000 {built-in method nt.getpid}\n",
+      "        3    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.lock' objects}\n",
+      "        3    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}\n",
+      "        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}\n",
+      "\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "cProfile.run('func_lst()')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 内存开销对比\n",
+    "\n",
+    "最后，我们用 tracemalloc 模块查看一下双方的内存占用，并打印占用内存最大的3条指令。\n",
+    "\n",
+    "下例中的 `display_top` 函数引用自 Python 官方文档 [tracemalloc: Pretty Top](https://docs.python.org/zh-cn/3/library/tracemalloc.html#pretty-top)，仅改动了 limit 参数的默认值。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def display_top(snapshot, key_type='lineno', limit=3):\n",
+    "    snapshot = snapshot.filter_traces((\n",
+    "        tracemalloc.Filter(False, \"<frozen importlib._bootstrap>\"),\n",
+    "        tracemalloc.Filter(False, \"<unknown>\"),\n",
+    "    ))\n",
+    "    top_stats = snapshot.statistics(key_type)\n",
+    "\n",
+    "    print(\"Top %s lines\" % limit)\n",
+    "    for index, stat in enumerate(top_stats[:limit], 1):\n",
+    "        frame = stat.traceback[0]\n",
+    "        print(\"#%s: %s:%s: %.1f KiB\"\n",
+    "              % (index, frame.filename, frame.lineno, stat.size / 1024))\n",
+    "        line = linecache.getline(frame.filename, frame.lineno).strip()\n",
+    "        if line:\n",
+    "            print('    %s' % line)\n",
+    "\n",
+    "    other = top_stats[limit:]\n",
+    "    if other:\n",
+    "        size = sum(stat.size for stat in other)\n",
+    "        print(\"%s other: %.1f KiB\" % (len(other), size / 1024))\n",
+    "    total = sum(stat.size for stat in top_stats)\n",
+    "    print(\"Total allocated size: %.1f KiB\" % (total / 1024))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "使用列表解析的 `func_lst()` 占用高达约 70 MB，而占用第二位的只有十几 KB。这说明绝大部分的内存使用都是创建这个巨大的列表的开销。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {
+    "run_control": {
+     "marked": false
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Top 3 lines\n",
+      "#1: <ipython-input-26-0957e906499f>:4: 71111.4 KiB\n",
+      "    x = [2**(n) for n in range(2**15)]\n",
+      "#2: d:\\programming\\python38\\lib\\site-packages\\IPython\\core\\history.py:763: 0.4 KiB\n",
+      "    conn.execute(\"INSERT INTO history VALUES (?, ?, ?, ?)\",\n",
+      "#3: d:\\programming\\python38\\lib\\codeop.py:136: 0.2 KiB\n",
+      "    codeob = compile(source, filename, symbol, self.flags, 1)\n",
+      "9 other: 0.7 KiB\n",
+      "Total allocated size: 71112.7 KiB\n"
+     ]
+    }
+   ],
+   "source": [
+    "tracemalloc.start()\n",
+    "\n",
+    "# func_lst()\n",
+    "x = [2**(n) for n in range(2**15)]\n",
+    "for i, k in enumerate(x):\n",
+    "    if k > 1.7e308:\n",
+    "        break\n",
+    "\n",
+    "snapshot = tracemalloc.take_snapshot()\n",
+    "display_top(snapshot)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "而使用迭代器解析的 `func_iter()` 的内存占用非常小，仅 200 余 KB。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Top 3 lines\n",
+      "#1: d:\\programming\\python38\\lib\\linecache.py:137: 92.0 KiB\n",
+      "    lines = fp.readlines()\n",
+      "#2: d:\\programming\\python38\\lib\\site-packages\\IPython\\core\\compilerop.py:101: 5.3 KiB\n",
+      "    return compile(source, filename, symbol, self.flags | PyCF_ONLY_AST, 1)\n",
+      "#3: d:\\programming\\python38\\lib\\json\\decoder.py:353: 1.5 KiB\n",
+      "    obj, end = self.scan_once(s, idx)\n",
+      "108 other: 25.1 KiB\n",
+      "Total allocated size: 123.8 KiB\n"
+     ]
+    }
+   ],
+   "source": [
+    "tracemalloc.start()\n",
+    "\n",
+    "# func_iter()\n",
+    "x = (2**(n) for n in range(2**15))\n",
+    "for i, k in enumerate(x):\n",
+    "    if k > 1.7e308:\n",
+    "        break\n",
+    "\n",
+    "snapshot = tracemalloc.take_snapshot()\n",
+    "display_top(snapshot)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "更多迭代器的内容，可以参考 `itertools` 标准库相关的章节。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 生成器\n",
+    "\n",
+    "生成器（generator）是一种创建迭代器的简便工具。它用 `yield` 关键字来代替 `return`，使生成器在每次被访问时都返回一个值，以此实现“依次序取出数据”的迭代器效果。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0-th:\th\n",
+      "1-th:\te\n",
+      "2-th:\tl\n",
+      "3-th:\tl\n",
+      "4-th:\to\n"
+     ]
+    }
+   ],
+   "source": [
+    "def fprinting(seq):\n",
+    "    for i, val in enumerate(seq):\n",
+    "        yield f\"{i}-th:\\t{val}\"\n",
+    "\n",
+    "for k in fprinting(\"hello\"):\n",
+    "    print(k)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "生成器解析（迭代器解析）在上文已经介绍过，可以减少内存使用。它可以直接作为序列参数传入函数（但不要忘记迭代器只能被遍历一次）；在下例中，生成器解析的结果被作为参数直接传给了 `sum()` 与 `str.join()` 函数。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0 + 1 + 4 + 9 + 16 = 30\n"
+     ]
+    }
+   ],
+   "source": [
+    "n = sum(k**2 for k in range(5))\n",
+    "s = ' + '.join(f\"{k**2}\" for k in range(5))\n",
+    "print(s, \"=\", n)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 装饰器\n",
+    "\n",
+    "装饰器（decorator）是 Python 中的一种简便语法，本质上也是一种函数。例如，我们定义了两个函数 `f` 与 `g` ，那么把函数 `f` 作为 `g` 的装饰器，相当于 `F = f(g)` 并返回 `F(x)` 。\n",
+    "\n",
+    "从上面的叙述中你可能已经注意到，装饰器以函数作为输入值；因此，它本质上是**函数的函数**。\n",
+    "\n",
+    "### 装饰器与外部函数\n",
+    "\n",
+    "装饰器的功能大多可以通过在已有函数的外部定义一个新函数来实现。但装饰器相比外部函数拥有以下优势：\n",
+    "\n",
+    "- 分离外部功能与核心函数，减少代码修改的工作量\n",
+    "- 更好的代码复用性\n",
+    "- 更好的可读性\n",
+    "\n",
+    "下面我们用一个例子来展示装饰器的这一优势。例如，我们现在定义了一个函数，将输入的字符串的空格去掉："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'ThisisPython.'"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def remove_space(s):\n",
+    "    return ''.join(s.split())\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "remove_space(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "现在我们想在该函数之外实现一些功能，例如：测试函数的运行时间。\n",
+    "\n",
+    "一种朴素的思维是，我们可以定义一个外部函数 `print_time`，用来接受与上例的 `remove_space` 函数相同的参数；在新函数内部实现 `remove_space` 函数，并在其之后打印运行时间。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Run in 6e-06 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'ThisisPython.'"
+      ]
+     },
+     "execution_count": 31,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 例：未使用装饰器\n",
+    "def print_time(s):\n",
+    "    def remove_space(s):\n",
+    "        return ''.join(s.split())\n",
+    "    # Timing\n",
+    "    start = timeit.default_timer()\n",
+    "    r = remove_space(s)\n",
+    "    end = timeit.default_timer()\n",
+    "    print(f\"Run in {end-start:.0g} sec.\")\n",
+    "    return r\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "print_time(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "这样写非常的直观。但是，一旦 `remove_space` 函数需要更改，问题就变得复杂了。例如，现在我们要添加一个参数，让用户决定用什么字符代替空格来连接文本，这时候就需要对上述代码的好几处额外进行更改："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Run in 6e-06 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'This.is.Python.'"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# 例：未使用装饰器，需要多处修改\n",
+    "def print_time(s, repl=''):          # 添加 repl 参数输入\n",
+    "    def remove_space(s, repl):\n",
+    "        return repl.join(s.split())\n",
+    "    # Timing\n",
+    "    start = timeit.default_timer()\n",
+    "    r = remove_space(s, repl)        # 添加 repl 参数\n",
+    "    end = timeit.default_timer()\n",
+    "    print(f\"Run in {end-start:.0g} sec.\")\n",
+    "    return r\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "print_time(s, '.')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 装饰器的创建"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "使用装饰器可以简化以上流程，避免这些额外的代码更改。装饰器可以接受函数作为参数输入，因此装饰器本身可以与函数分离设计，尽量降低代码的更改量："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 定义装饰器\n",
+    "def print_deco(func):\n",
+    "    def modified_func(*args, **kwarg):\n",
+    "        start = timeit.default_timer()\n",
+    "        r = func(*args, **kwarg)\n",
+    "        end = timeit.default_timer()\n",
+    "        print(f\"Run in {end-start:.0g} sec.\")\n",
+    "        return r \n",
+    "    return modified_func"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "由于装饰是函数的函数：传入一个函数 `func`，返回一个在 func 基础上重新定义的函数 `modified_func` 。在 Python 中，装饰器以一种简便的 `@` 符号，声明在函数定义之前："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Run in 6e-06 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'ThisisPython.'"
+      ]
+     },
+     "execution_count": 34,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "@print_deco    # 实质上重新定义了被装饰的函数\n",
+    "def remove_space(s):\n",
+    "    return ''.join(s.split())\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "remove_space(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "因此，对函数 `func` 使用装饰器 `@decorator`，实质上等同于以下调用：\n",
+    "\n",
+    "```python\n",
+    "decorator(func)(args)  # 注意它与函数嵌套调用 func2(func(s)) 之间的写法区别！\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Run in 5e-06 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'ThisisPython.'"
+      ]
+     },
+     "execution_count": 35,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def remove_space(s):    # 此处的函数未被重新定义\n",
+    "    return ''.join(s.split())\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "print_deco(remove_space)(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "如果要给函数添加参数，只需要在核心代码上修改。相比未使用装饰器的方案，这省去了逐层传参的步骤。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Run in 5e-06 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'This.is.Python.'"
+      ]
+     },
+     "execution_count": 36,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "@print_deco    # 实质上重新定义了被装饰的函数\n",
+    "def remove_space(s, repl=''):\n",
+    "    return repl.join(s.split())\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "remove_space(s, '.')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 装饰器的参数\n",
+    "\n",
+    "装饰器还可以接受参数。例如，在上例的基础上，我们添加执行次数作为一个可选参数（缺省时执行1次）。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 朴素的装饰器\n",
+    "def print_deco(n=1):\n",
+    "    def deco(func):\n",
+    "        def modified_func(*args, **kwarg):\n",
+    "            start = timeit.default_timer()\n",
+    "            for _ in range(n):\n",
+    "                r = func(*args, **kwarg)\n",
+    "            end = timeit.default_timer()\n",
+    "            print(f\"{n} Run in {end-start:.0g} sec.\")\n",
+    "            return r \n",
+    "        return modified_func\n",
+    "    return deco"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "在 `remove_space` 函数上应用上例中的装饰器，等价于：\n",
+    "\n",
+    "```python\n",
+    "def remove_space:\n",
+    "    ...\n",
+    "remove_space = print_deco(n)(remove_space)\n",
+    "```\n",
+    "\n",
+    "因此例中的 `deco` 必须接受一个函数，并返回一个重定义后的函数。这样定义的装饰器在使用时，必须写出括号。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 Run in 2e-05 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'ThisisPython.'"
+      ]
+     },
+     "execution_count": 38,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "@print_deco()  # 无参数时也必须有括号\n",
+    "def remove_space(s, repl=''):\n",
+    "    return repl.join(s.split())\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "remove_space(s)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "10 Run in 4e-05 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'ThisisPython.'"
+      ]
+     },
+     "execution_count": 39,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "@print_deco(10)\n",
+    "def remove_space(s, repl=''):\n",
+    "    return repl.join(s.split())\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "remove_space(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "注意到在空参数时，装饰器也添加了括号后缀 `@print_deco()` 以避免参数的传递错误。\n",
+    "\n",
+    "-----\n",
+    "\n",
+    "另一种带可选参数的装饰器的写法，是让不加括号时能正确使用装饰器，可以利用标准库 `functools` 中的 `partial` 命令；该命令的更多信息，请参考 `functools` 一节的内容。\n",
+    "\n",
+    "使用 `partial` 命令改写后的装饰器如下："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 装饰器的第一参数必须是函数\n",
+    "def print_deco(func=None, n=1):\n",
+    "    if func is None:\n",
+    "        return functools.partial(print_deco, n=n)\n",
+    "    def modified_func(*args, **kwarg):\n",
+    "        start = timeit.default_timer()\n",
+    "        for _ in range(n):\n",
+    "            r = func(*args, **kwarg)\n",
+    "        end = timeit.default_timer()\n",
+    "        print(f\"{n} Run in {end-start:.0g} sec.\")\n",
+    "        return r \n",
+    "    return modified_func"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "注意如上定义的装饰器在使用时，如果使用 `@print_deco` 而不是 `@print_deco()`："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 Run in 1e-05 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'ThisisPython.'"
+      ]
+     },
+     "execution_count": 41,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "@print_deco\n",
+    "def remove_space(s, repl=''):\n",
+    "    return repl.join(s.split())\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "remove_space(s)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1 Run in 8e-06 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'This.is.Python.'"
+      ]
+     },
+     "execution_count": 42,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "remove_space(s, '.')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "传入参数的装饰器，注意该参数只能以 `key=value` 的形式传入："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "10 Run in 3e-05 sec.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'ThisisPython.'"
+      ]
+     },
+     "execution_count": 43,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "@print_deco(n=10)\n",
+    "def remove_space(s, repl=''):\n",
+    "    return repl.join(s.split())\n",
+    "\n",
+    "s = \"This is\\tPython.\"\n",
+    "remove_space(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## lambda 函数\n",
+    "\n",
+    "`lambda` 称为匿名函数，它用来简洁地声明一个函数。比如下面的匿名函数 `f1` 与用 `def` 定义的函数 `f2` 作用相同："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "f1 = lambda x,y: x+y\n",
+    "def f2(x, y):\n",
+    "    return x+y\n",
+    "\n",
+    "f1(2,3) == f2(2,3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## filter 函数\n",
+    "\n",
+    "`filter` 称为过滤函数，将一个返回逻辑类型（True/False）的函数作为过滤器，用来过滤一个序列。序列中的经过函数能返回 True 的项会被保留下来，其余的项会被舍弃。\n",
+    "\n",
+    "最后，被保留的项会以一个迭代器的形式返回。使用时请谨记迭代器的特性：迭代器在创建后只能被遍历一次。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<filter at 0x18b1f9f1670>"
+      ]
+     },
+     "execution_count": 45,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "f = lambda x: x > 0\n",
+    "lst = range(-3, 3)\n",
+    "\n",
+    "filter(f, lst)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "你可以将迭代器转为列表，或者直接在循环中处理："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 2]\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = filter(f, lst)  # 新建迭代器\n",
+    "print(list(x))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1\n",
+      "2\n"
+     ]
+    }
+   ],
+   "source": [
+    "x = filter(f, lst)  # 新建迭代器  \n",
+    "for k in x:\n",
+    "    print(k)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## reduce 函数\\*\n",
+    "\n",
+    "`reduce` 缩减函数将一个接受两个参数、返回一个值的函数应用在一个序列上，并依次以类似“累加”计算的方式来遍历整个序列。我认为这并不是一个常用的函数。\n",
+    "\n",
+    "该函数在 Python 2 时代是一个可以直接调用的高级函数，但在 Python 3 版本需要从 functools 模块导入："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from functools import reduce"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "下面是一个 reduce 函数的例子："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "10\n"
+     ]
+    }
+   ],
+   "source": [
+    "# (((1+2)+3)+4) = 10.\n",
+    "\n",
+    "d = reduce(lambda x,y: x+y, range(5))\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## map 函数\\*\n",
+    "\n",
+    "`map` 映射函数将一个函数应用在一个序列的每一项上，并返回一个迭代器。由于这个功能可以用迭代器解析的方法实现，因此它并不是一个常用的高级函数。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1\n",
+      "2\n",
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = \"123\"\n",
+    "x = map(int, s)\n",
+    "\n",
+    "for k in x:\n",
+    "    print(k)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "它与迭代器解析的写法并没有显著的不同："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1\n",
+      "2\n",
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = \"123\"\n",
+    "x = (int(k) for k in s)\n",
+    "\n",
+    "for k in x:\n",
+    "    print(k)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.3"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

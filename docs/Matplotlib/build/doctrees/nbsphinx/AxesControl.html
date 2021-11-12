@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>图像控制 &mdash; Matplotlib  文档</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/Matplotlib/build/doctrees/nbsphinx/AxesControl.html"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+ 
+
+<link rel="stylesheet" type="text/css" href="/_config/static/DataTables/datatables.min.css"/>
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="../../../index.html" class="icon icon-home"> Matplotlib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="https://wklchris.github.io">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../BasicPlot.html">初识绘图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AxesControl.html">图像控制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PlotFunc.html">统计绘图函数</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Matplotlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>图像控制</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/build/doctrees/nbsphinx/AxesControl.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="图像控制">
+<h1>图像控制<a class="headerlink" href="#图像控制" title="永久链接至标题"></a></h1>
+<p>在介绍统计图像等绘图命令之前，本节先介绍图像控制的命令，包括：</p>
+<ul class="simple">
+<li><p>用 <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> 来设置默认参数</p></li>
+<li><p>子图的调整命令</p></li>
+<li><p>标题</p></li>
+<li><p>图例</p></li>
+<li><p>坐标轴控制</p>
+<ul>
+<li><p>坐标轴的取值区间、刻度</p></li>
+<li><p>坐标轴的总标签、刻度标签</p></li>
+<li><p>坐标轴网格线</p></li>
+</ul>
+</li>
+<li><p>双纵轴</p></li>
+<li><p>文字命令</p></li>
+<li><p>其他坐标系的绘制</p>
+<ul>
+<li><p>对数坐标系</p></li>
+<li><p>左手系</p></li>
+<li><p>极坐标</p></li>
+</ul>
+</li>
+</ul>
+<p>关于线型与颜色的控制，请参考上一章节的内容。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</pre></div>
+</div>
+</div>
+<section id="默认参数：mpl.rcParams">
+<h2>默认参数：mpl.rcParams<a class="headerlink" href="#默认参数：mpl.rcParams" title="永久链接至标题"></a></h2>
+<p>当使用 matplotlib 绘制多条曲线时，即使你没有指定每条曲线的颜色，matplotlib 也会自动用不同的颜色加以区分。这是因为 <code class="docutils literal notranslate"><span class="pre">matplotlib.rcParams</span></code> 这个字典变量的缺省值设置。我们在上一章已经介绍过，<code class="docutils literal notranslate"><span class="pre">'C0'</span></code>~<code class="docutils literal notranslate"><span class="pre">'C9'</span></code> 是 matplotlib 缺省的绘制颜色，我们可以查看当前的绘制颜色：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;lines.color&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;C0&#39;
+</pre></div></div>
+</div>
+<p>如果要更改默认参数的值，可以使用 <code class="docutils literal notranslate"><span class="pre">mpl.rc()</span></code> 命令（并可用 <code class="docutils literal notranslate"><span class="pre">mpl.rcdefaults()</span></code> 来重置）。但更多的情况下，我们只想在接下来的图像中变更默认值；这时请使用 <code class="docutils literal notranslate"><span class="pre">plt.rc()</span></code> 命令。下面是一个更改颜色循环的例子，借助了 <code class="docutils literal notranslate"><span class="pre">cycler</span></code> 库：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+
+<span class="n">color_cycle</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="s1">&#39;tab:green&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s2">&quot;axes&quot;</span><span class="p">,</span> <span class="n">prop_cycle</span><span class="o">=</span><span class="n">color_cycle</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Y</span><span class="p">[</span><span class="n">row</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Line </span><span class="si">{</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_5_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_5_0.png" />
+</div>
+</div>
+<p>上例绘制了 4 条曲线，不过用 <code class="docutils literal notranslate"><span class="pre">plt.rc</span></code> 设定色环时只设定了 3 种，因此 Line 4 与 Line 1 采用了相同的颜色。如果要在接下来的章节中重置为到初始的配置，可以执行 <code class="docutils literal notranslate"><span class="pre">plt.rcdefaults()</span></code> 命令。</p>
+<p>除了颜色，<code class="docutils literal notranslate"><span class="pre">rcParams</span></code> 还控制着众多的其他参数，就不在此赘述了。读者可以参考 <a class="reference external" href="https://matplotlib.org/3.1.1/api/matplotlib_configuration_api.html#matplotlib.rc">Matplotlib API (v3.1.1) - matplotlib.rc</a> 页面。</p>
+</section>
+<section id="通用的绘图流程：plt.subplots">
+<h2>通用的绘图流程：plt.subplots<a class="headerlink" href="#通用的绘图流程：plt.subplots" title="永久链接至标题"></a></h2>
+<p>在上一章中我们已经介绍了绘图的方法。通常有两种：</p>
+<ol class="arabic simple">
+<li><p>直接使用 <code class="docutils literal notranslate"><span class="pre">plt.plot()</span></code> 绘制。</p></li>
+<li><p>先声明 <code class="docutils literal notranslate"><span class="pre">f,</span> <span class="pre">ax</span> <span class="pre">=</span> <span class="pre">plt.subplots()</span></code> ，然后绘制。</p></li>
+</ol>
+<p>出于保存图像以及复用性的考虑，我<strong>推荐使用 subplots 方式</strong>。下面的内容也基本会以这种绘制为主。</p>
+<p>除了上一章介绍的调用方式： <code class="docutils literal notranslate"><span class="pre">plt.subplots(nrows,</span> <span class="pre">ncols,</span> <span class="pre">[sharex/sharey=False])</span></code>，这里再介绍几个会用的参数：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">figsize</span></code>：总图的宽与高。例如 <code class="docutils literal notranslate"><span class="pre">figsize=(12,6)</span></code> 表示宽 12 高 6，单位英寸。也可以传入 <code class="docutils literal notranslate"><span class="pre">plt.figaspect(x)</span></code> 来设置高宽比为 x。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subplot_kw</span></code>：这是一个传递参数，并不经常使用。在此提及是因为在绘制极坐标图像时会用到：<code class="docutils literal notranslate"><span class="pre">subplot_kw=dict(projection='polar')</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gridspec_kw</span></code>：一个控制各列高度之比或各行宽度之比的参数。例如 <code class="docutils literal notranslate"><span class="pre">gridspec_kw={'height_ratios':[1,</span> <span class="pre">2]}</span></code> 表示第二行子图的高度将是第一行子图的两倍。</p></li>
+</ul>
+<section id="子图的间距调整">
+<h3>子图的间距调整<a class="headerlink" href="#子图的间距调整" title="永久链接至标题"></a></h3>
+<p>对 <code class="docutils literal notranslate"><span class="pre">f,</span> <span class="pre">ax</span> <span class="pre">=</span> <span class="pre">plt.subplots()</span></code>，我们可以使用 <code class="docutils literal notranslate"><span class="pre">f.subplots_adjust</span></code> 来调整子图间距：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">left/right/bottom/top=0.125/0.9/0.1/0.9</span></code>：默认的四侧边距。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wspace=0.2</span></code>：列间距，单位是平均子图宽度的倍数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hspace=0.2</span></code>：行间距，单位是平均子图高度的倍数。</p></li>
+</ul>
+<p>在下文的“图例”一节的例子中，就使用了 <code class="docutils literal notranslate"><span class="pre">f.subplots_adjust(hspace=0.35)</span></code> 这样的命令来调节子图行间距。</p>
+</section>
+</section>
+<section id="图像标题：ax.set_title">
+<h2>图像标题：ax.set_title<a class="headerlink" href="#图像标题：ax.set_title" title="永久链接至标题"></a></h2>
+<p>图像标题使用 <code class="docutils literal notranslate"><span class="pre">ax.set_title()</span></code> 来设置（但如果直接使用 <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code> 绘图，那么请用 <code class="docutils literal notranslate"><span class="pre">plt.title()</span></code> 来设置标题。建议读者始终使用 <code class="docutils literal notranslate"><span class="pre">ax</span></code> 的方式进行绘图）。该命令支持的参数：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">loc</span></code>：标题的水平对齐方式。默认是 <code class="docutils literal notranslate"><span class="pre">'center'</span></code> 居中对齐，可用 <code class="docutils literal notranslate"><span class="pre">'left'</span> <span class="pre">/</span> <span class="pre">'right'</span></code> 来控制。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>： 控制标题与图像顶部的间距比例，比如例中的 <code class="docutils literal notranslate"><span class="pre">y=1.05</span></code>。<em>这个参数官方似乎没有介绍</em>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pad</span></code>：（本参数可能不如 <code class="docutils literal notranslate"><span class="pre">y</span></code> 参数直观）标题与图像顶部的间距，默认值是 <code class="docutils literal notranslate"><span class="pre">rcParams['axes.titlepad']</span></code>。</p></li>
+<li><p>其它参数可以用 <code class="docutils literal notranslate"><span class="pre">fontdict</span></code> 字典来控制，不过其键也能直接调用。可能用到的是 <code class="docutils literal notranslate"><span class="pre">`fontweight</span></code> &lt;<a class="reference external" href="https://matplotlib.org/3.1.1/api/text_api.html?highlight=fontweight#matplotlib.text.Text.set_fontweight">https://matplotlib.org/3.1.1/api/text_api.html?highlight=fontweight#matplotlib.text.Text.set_fontweight</a>&gt;`__ 与 <code class="docutils literal notranslate"><span class="pre">fontsize</span></code> （单位 pt）这两个键。</p></li>
+</ul>
+<p>来看一个 <code class="docutils literal notranslate"><span class="pre">ax.set_title()</span></code> 的例子：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;An ugly Y-shifted title&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;heavy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_11_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_11_0.png" />
+</div>
+</div>
+<p>对于 LaTeX 用户，标题中也可以展示 LaTeX 数学字符：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Title with LaTeX: $e^\pi + 1 = 0$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_13_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_13_0.png" />
+</div>
+</div>
+</section>
+<section id="坐标轴标题：ax.set_xlabel">
+<h2>坐标轴标题：ax.set_xlabel<a class="headerlink" href="#坐标轴标题：ax.set_xlabel" title="永久链接至标题"></a></h2>
+<p>函数 <code class="docutils literal notranslate"><span class="pre">ax.set_xlabel/set_ylabel</span></code> 与 <code class="docutils literal notranslate"><span class="pre">ax.set_title</span></code> 的用法类似，也可以用 <code class="docutils literal notranslate"><span class="pre">loc</span></code> 参数控制水平对齐；不过与图像的间距参数由 <code class="docutils literal notranslate"><span class="pre">labelpad</span></code> 代替了 <code class="docutils literal notranslate"><span class="pre">pad</span></code>：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">labelpad</span></code>：与图像的间距。对 <code class="docutils literal notranslate"><span class="pre">ax.set_xlabel</span></code> 是竖直间距，对 <code class="docutils literal notranslate"><span class="pre">ax.set_ylabel</span></code> 是水平间距。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rotation</span></code>：坐标轴标题文字的旋转角度。如果给 Y 轴标值设置 <code class="docutils literal notranslate"><span class="pre">rotation=0</span></code>，文字会变成正立的。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>：（仅对 <code class="docutils literal notranslate"><span class="pre">ax.set_xlabel</span></code> 有效）控制水平位置，0是图像最左侧，1是图像最右侧。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>：（仅对 <code class="docutils literal notranslate"><span class="pre">ax.set_ylabel</span></code> 有效）控制竖直位置，0是图下最下端，1是图像最顶端。</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">.5</span><span class="p">))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+<span class="n">axarr</span> <span class="o">=</span> <span class="n">axarr</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axarr</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_15_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_15_0.png" />
+</div>
+</div>
+</section>
+<section id="图例：ax.legend-/-f.legend">
+<h2>图例：ax.legend / f.legend<a class="headerlink" href="#图例：ax.legend-/-f.legend" title="永久链接至标题"></a></h2>
+<p>在 <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> 的介绍中，我们其实已经展示了图例的用法，即在绘图命令中添加 <code class="docutils literal notranslate"><span class="pre">label</span></code> 参数，然后在绘制的最后使用 <code class="docutils literal notranslate"><span class="pre">ax.legend</span></code> 命令。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$y=\sin</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$y=\cos</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_17_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_17_0.png" />
+</div>
+</div>
+<p>图例的实用参数很多，包括：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ncol</span></code>：图例分为几列。以及列间距 <code class="docutils literal notranslate"><span class="pre">columnspacing=2.0</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>：图例标题。默认 None 因此不显示。可以设置标题字体 <code class="docutils literal notranslate"><span class="pre">title_fontsize</span></code>。</p></li>
+<li><p>图例的位置</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">loc</span></code>：图例可以用 <code class="docutils literal notranslate"><span class="pre">loc</span></code> 参数手动指定，默认是自动选择（即赋值为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">'best'</span></code>）。指定的方式可以用数字 0-10，或者英文组合：即 <code class="docutils literal notranslate"><span class="pre">upper/lower</span></code> 与 <code class="docutils literal notranslate"><span class="pre">left/right</span></code> 以及 <code class="docutils literal notranslate"><span class="pre">center</span></code> 的方位组合，有 <code class="docutils literal notranslate"><span class="pre">'upper</span> <span class="pre">right'</span></code>，<code class="docutils literal notranslate"><span class="pre">'lower</span> <span class="pre">center'</span></code>，<code class="docutils literal notranslate"><span class="pre">'center</span> <span class="pre">left'</span></code> 等共9种。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bbox_to_anchor</span></code>：传递一个类似 <code class="docutils literal notranslate"><span class="pre">(x_ratio,</span> <span class="pre">y_ratio)</span></code> 的比例值来指定图例的放置位置。负值可以将图例放置在图像外侧。</p></li>
+</ul>
+</li>
+<li><p>图例样式控制</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">frameon</span></code>：图例是否显示边框 <code class="docutils literal notranslate"><span class="pre">True/False</span></code>。此外还可设置底色 <code class="docutils literal notranslate"><span class="pre">facecolor</span></code> 与边框色 <code class="docutils literal notranslate"><span class="pre">edgecolor</span></code>，颜色生效的前提是显示边框。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpoints</span></code>：图例中绘制几个点。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markerscale</span></code>：图例中的点样式比例。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markerfirst=False</span></code>：图例是否从点还是线开始绘制。</p></li>
+</ul>
+</li>
+<li><p>图例尺寸与间距控制</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">borderpad=0.4</span></code>：内侧边距，单位是字号大小的倍数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">labelspacing=0.5</span></code>：图例的项间距，单位同上。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">handletextpad=0.8</span></code>：图例的样式与文字间距，单位同上。以及 <code class="docutils literal notranslate"><span class="pre">handlelength=2.0</span></code> 指定样式的长度。</p></li>
+</ul>
+</li>
+</ul>
+<p>下面是一些例子：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig_titles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Legend facecolored on upper center&quot;</span><span class="p">,</span> <span class="s2">&quot;Legend with two markers&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Legend outside the figure frame&quot;</span><span class="p">,</span> <span class="s2">&quot;Legend with title&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Legend without frame&quot;</span><span class="p">,</span> <span class="s2">&quot;Legend with longer handles&quot;</span>
+<span class="p">]</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.35</span><span class="p">)</span>
+<span class="n">axarr</span> <span class="o">=</span> <span class="n">axarr</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fig_titles</span><span class="p">,</span> <span class="n">axarr</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$y=\sin</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$y=\cos</span><span class="si">{x}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper center&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;lightgreen&quot;</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">numpoints</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.18</span><span class="p">))</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Legend Title&quot;</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handlelength</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">labelspacing</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_19_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_19_0.png" />
+</div>
+</div>
+<p>最后，需要指出 <code class="docutils literal notranslate"><span class="pre">f.legend</span></code> 这个命令也是存在的，它能够画出当前 Figure 对象中所有带 label 的 Axes 对象的图例。我在日常使用中很少使用它，但我认为它的主要价值在于<strong>能够轻松处理双纵轴图像的图例</strong>。下例命令会将图例放置在顶部中央的外侧：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>但是，如果要将它的图例放置在图像内侧，需要配合另外两个参数。其中，<code class="docutils literal notranslate"><span class="pre">bbox_to_anchor</span></code> 的值要根据放置的位置变动，而 <code class="docutils literal notranslate"><span class="pre">bbox_transform</span> <span class="pre">=</span> <span class="pre">ax.transAxes</span></code> 无须变动。比如，要将图例放置在内侧的顶部中央：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">bbox_transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>关于 <code class="docutils literal notranslate"><span class="pre">f.legend</span></code> 的例子，读者可以参考下文中双纵轴绘图一节的内容。</p>
+</section>
+<section id="坐标轴区间：ax.axis-/-set_xlim">
+<h2>坐标轴区间：ax.axis / set_xlim<a class="headerlink" href="#坐标轴区间：ax.axis-/-set_xlim" title="永久链接至标题"></a></h2>
+<p>设置坐标轴区间有两种命令：</p>
+<ol class="arabic simple">
+<li><p>通过 <code class="docutils literal notranslate"><span class="pre">ax.axis</span></code> 同时控制两个轴，也可以配合 <code class="docutils literal notranslate"><span class="pre">xmax/xmin/ymax/ymin</span></code> 参数控制每个轴的单侧。</p></li>
+<li><p>通过 <code class="docutils literal notranslate"><span class="pre">ax.set_xlim/set_ylim</span></code> 来控制一个轴的两侧。</p></li>
+</ol>
+<p>这两种方式都非常直截，例子如下：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">fig_titles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Default&quot;</span><span class="p">,</span> <span class="s2">&quot;All lims by ax.axis&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Xmax by ax.axis&quot;</span><span class="p">,</span> <span class="s2">&quot;Only xlims with ax.set_xlim&quot;</span>
+<span class="p">]</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">axarr</span> <span class="o">=</span> <span class="n">axarr</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fig_titles</span><span class="p">,</span> <span class="n">axarr</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># axarr[0]: Default</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_22_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_22_0.png" />
+</div>
+</div>
+</section>
+<section id="坐标轴刻度">
+<h2>坐标轴刻度<a class="headerlink" href="#坐标轴刻度" title="永久链接至标题"></a></h2>
+<p>坐标轴的刻度控制分为两个方面：</p>
+<ul class="simple">
+<li><p>一个是<strong>坐标轴的刻度值</strong></p></li>
+<li><p>另一个是<strong>坐标轴的刻度标签</strong>。一般情形下，刻度标签都是与刻度值保持一致。</p></li>
+</ul>
+<p>如无特殊说明，文中的刻度值指主刻度值。</p>
+<section id="坐标轴刻度值：ax.xaxis.set_major_locator-/-ax.set_xticks">
+<h3>坐标轴刻度值：ax.xaxis.set_major_locator / ax.set_xticks<a class="headerlink" href="#坐标轴刻度值：ax.xaxis.set_major_locator-/-ax.set_xticks" title="永久链接至标题"></a></h3>
+<p>最常用的方法应该是通过 <code class="docutils literal notranslate"><span class="pre">ax.xaxis.set_major_locator</span></code> 控制主刻度值的位置，也就是我们常说的最小刻度值。我们经常需要加载两个函数：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MultipleLocator(x)</span></code>：帮助在 x 的整数倍处设置刻度</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FormatStrFormatter(formatstr)</span></code>：以 formatstr 的形式设置刻度标签的格式</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="p">(</span><span class="n">MultipleLocator</span><span class="p">,</span> <span class="n">FormatStrFormatter</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1"># 仅在 0.1 的整数倍处设置刻度，并将刻度标签保留2位小数</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%0.2f</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_25_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_25_0.png" />
+</div>
+</div>
+<p>另一种方法是直接用 <code class="docutils literal notranslate"><span class="pre">ax.set_xticks</span></code> （或者等效的 <code class="docutils literal notranslate"><span class="pre">ax.xaxis.set_ticks</span></code>）来直接传递各个刻度处的值，请参考下面的刻度标签一节。</p>
+</section>
+<section id="坐标轴刻度标签：ax.set_xticklabels">
+<h3>坐标轴刻度标签：ax.set_xticklabels<a class="headerlink" href="#坐标轴刻度标签：ax.set_xticklabels" title="永久链接至标题"></a></h3>
+<p>下面是一个综合的例子，直接将给定的值设置为刻度：</p>
+<ul class="simple">
+<li><p>图 1 是默认刻度，刻度数量是横 6 竖 5</p></li>
+<li><p>图 2~4 将横竖刻度数量均改为 11 个，且赋了已给定的值。此外：</p>
+<ul>
+<li><p>图 3 将 X 轴刻度标签格式设置为保留 2 位小数，并截去了一半图像。这一步使用了 <code class="docutils literal notranslate"><span class="pre">ax.xaxis.set_major_formatter</span></code> 函数。</p></li>
+<li><p>图 4 将 X 轴刻度标签改变成了英文字母，且移除了所有的 Y 轴标签。</p></li>
+</ul>
+</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FormatStrFormatter</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">fig_titles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Default&quot;</span><span class="p">,</span> <span class="s2">&quot;Giving tick values&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tick values with X-axis format, truncated&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Giving tick labels&quot;</span>
+<span class="p">]</span>
+<span class="n">xticknum</span><span class="p">,</span> <span class="n">yticknum</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span>
+<span class="n">xtickvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xticknum</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ytickvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">yticknum</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">axarr</span> <span class="o">=</span> <span class="n">axarr</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">axarr</span><span class="p">)):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axarr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">fig_titles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xtickvalues</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ytickvalues</span><span class="p">)</span>
+
+<span class="n">axarr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%0.2f</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmax</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="n">axarr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">[:(</span><span class="n">xticknum</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_28_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_28_0.png" />
+</div>
+</div>
+</section>
+<section id="坐标轴次要刻度：ax.xaxis.set_minor_locator">
+<h3>坐标轴次要刻度：ax.xaxis.set_minor_locator<a class="headerlink" href="#坐标轴次要刻度：ax.xaxis.set_minor_locator" title="永久链接至标题"></a></h3>
+<p>可以使用 <code class="docutils literal notranslate"><span class="pre">AutoMinorLocator</span></code> 让 matplotlib 自行设置次要刻度，或者仿照上文的主刻度使用 <code class="docutils literal notranslate"><span class="pre">MultipleLocator</span></code> 函数。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">AutoMinorLocator</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_30_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_30_0.png" />
+</div>
+</div>
+</section>
+<section id="坐标轴刻度的绘图样式：ax.tickparams">
+<h3>坐标轴刻度的绘图样式：ax.tickparams<a class="headerlink" href="#坐标轴刻度的绘图样式：ax.tickparams" title="永久链接至标题"></a></h3>
+<p>刻度的绘图样式控制使用 <code class="docutils literal notranslate"><span class="pre">ax.tickparams</span></code> 命令：</p>
+<ul class="simple">
+<li><p>选取</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">which</span></code>：用 <code class="docutils literal notranslate"><span class="pre">both</span></code> 选中所有刻度，或者用 <code class="docutils literal notranslate"><span class="pre">major</span></code> 选中主刻度，或者用 <code class="docutils literal notranslate"><span class="pre">minor</span></code> 选中次要刻度。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">axis</span></code>：例如用 <code class="docutils literal notranslate"><span class="pre">axis='x'</span></code> 来选择 x 轴的刻度。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pad</span></code>：刻度线与刻度标签的间距</p></li>
+<li><p>刻度线</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">width/length</span></code>：刻度线的宽度与长度，单位是 pt。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>：刻度线的颜色</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">direction</span></code>：刻度线的朝向，可以设置为 <code class="docutils literal notranslate"><span class="pre">'in'</span></code>，<code class="docutils literal notranslate"><span class="pre">'out'</span></code> 或 <code class="docutils literal notranslate"><span class="pre">'both'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bottom/top/left/right</span></code>：是否在对应方向的框线上画出刻度线，<code class="docutils literal notranslate"><span class="pre">True/False</span></code>。</p></li>
+</ul>
+</li>
+<li><p>刻度标签</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">labelcolor</span></code>：标签颜色。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">labelsize</span></code>：标签字号，单位 pt；或者传入表示字号的字符串，比如 <code class="docutils literal notranslate"><span class="pre">'large'</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">labelrotation</span></code>：标签旋转角度。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">labelbottom/labeltop/...</span></code>：（类似 <code class="docutils literal notranslate"><span class="pre">bottom/top/...</span></code>）是否在对应的方向显示刻度标签，<code class="docutils literal notranslate"><span class="pre">True/False</span></code>。</p></li>
+</ul>
+</li>
+<li><p>刻度网格（网格格式也可以通过 <code class="docutils literal notranslate"><span class="pre">ax.grid</span></code> 直接控制）</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid_color</span></code>：网格线颜色。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid_linewidth/grid_linestyle</span></code>：网格线的线宽/线型。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid_alpha</span></code>：网格线的透明度，0为完全透明，1为完全不透明。</p></li>
+</ul>
+</li>
+</ul>
+<p>借用次要刻度一节的例子：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_32_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_32_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="坐标轴刻度网格：ax.grid">
+<h2>坐标轴刻度网格：ax.grid<a class="headerlink" href="#坐标轴刻度网格：ax.grid" title="永久链接至标题"></a></h2>
+<p>与绘图命令类似，<code class="docutils literal notranslate"><span class="pre">linestyle(ls)</span></code>，<code class="docutils literal notranslate"><span class="pre">linewidth(lw)</span></code>，<code class="docutils literal notranslate"><span class="pre">color</span></code> 与 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> 参数均可以在 <code class="docutils literal notranslate"><span class="pre">ax.grid</span></code> 中使用：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.7&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_34_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_34_0.png" />
+</div>
+</div>
+<p>除了用 <code class="docutils literal notranslate"><span class="pre">axis='x'/'y'</span></code> 来控制，也可以用 <code class="docutils literal notranslate"><span class="pre">which='major'/'minor'/'both'</span></code> 来控制。关于这点，读者可以参考上文中 <code class="docutils literal notranslate"><span class="pre">ax.tick_params</span></code> 部分的内容。以下是一个例子：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">AutoMinorLocator</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_36_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_36_0.png" />
+</div>
+</div>
+</section>
+<section id="坐标轴的高级控制">
+<h2>坐标轴的高级控制<a class="headerlink" href="#坐标轴的高级控制" title="永久链接至标题"></a></h2>
+<section id="坐标轴/框的显示：ax.set_axis_off-/-set_frame_on">
+<h3>坐标轴/框的显示：ax.set_axis_off / set_frame_on<a class="headerlink" href="#坐标轴/框的显示：ax.set_axis_off-/-set_frame_on" title="永久链接至标题"></a></h3>
+<p>这里展示三种方法来改变坐标轴元素的显示与隐藏：</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ax.set_axis_off()</span></code>：隐藏所有 axes，即 frame 与 tick 均不显示。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ax.set_frame_on(False)</span></code>：仅隐藏 frame. 如果要隐藏 frame 的某几条边，参考下文中坐标轴骨架 <code class="docutils literal notranslate"><span class="pre">ax.spines</span></code> 部分的内容。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ax.xaxis.set_visible(False)</span></code>：仅隐藏单个轴的 ticks.</p></li>
+</ol>
+<p>以下是例子。坐标轴的背景颜色使用 <code class="docutils literal notranslate"><span class="pre">ax.set_facecolor</span></code> 更改。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">fig_titles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Default&quot;</span><span class="p">,</span> <span class="s2">&quot;No axes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;No frame&quot;</span><span class="p">,</span> <span class="s2">&quot;Colored but no Y ticks&quot;</span>
+<span class="p">]</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">axarr</span> <span class="o">=</span> <span class="n">axarr</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fig_titles</span><span class="p">,</span> <span class="n">axarr</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># axarr[0]: Default</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_frame_on</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;lightgreen&quot;</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_38_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_38_0.png" />
+</div>
+</div>
+</section>
+<section id="坐标轴骨架：ax.spines">
+<h3>坐标轴骨架：ax.spines<a class="headerlink" href="#坐标轴骨架：ax.spines" title="永久链接至标题"></a></h3>
+<p>通过设置坐标轴框架的显隐，可以更好地绘制符合“数学审美”的图像，即画出 X 轴与 Y 轴，而不是一个外接框。</p>
+<p>下面的例子通过 <code class="docutils literal notranslate"><span class="pre">ax.spines[...].set_visible</span></code> 来控制四面边框的显隐，并用 <code class="docutils literal notranslate"><span class="pre">ax.spines[...].set_position</span></code> 的方式移动边框的位置，以此模仿正常的坐标轴的效果：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_40_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_40_0.png" />
+</div>
+</div>
+<p>其中 <code class="docutils literal notranslate"><span class="pre">MultipleLocator</span></code> 的使用在前文已经介绍过。不过相比真正严格的绘图，上例仍显不足：</p>
+<ul class="simple">
+<li><p>坐标轴没有箭头</p></li>
+<li><p>刻度、坐标轴、图像之间相互重叠了</p></li>
+</ul>
+<p>毕竟本例只是一个粗糙的例子。我会在之后寻找是否有更好的解决方案。</p>
+</section>
+<section id="双纵轴：ax.twinx">
+<h3>双纵轴：ax.twinx<a class="headerlink" href="#双纵轴：ax.twinx" title="永久链接至标题"></a></h3>
+<p>双纵轴本质上是两个共享 x 轴图像的叠加绘制。</p>
+<p>注意，由于双纵轴使用了两个 <code class="docutils literal notranslate"><span class="pre">Axes</span></code> 对象，所以绘制图例时，使用 <code class="docutils literal notranslate"><span class="pre">f.legend</span></code> 而不是 <code class="docutils literal notranslate"><span class="pre">ax.legend</span></code>。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">label_fs</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">ax_color</span><span class="p">,</span> <span class="n">ax_twin_color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">ax_color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ax&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="n">ax_color</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">label_fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y1&#39;</span><span class="p">)</span>
+
+<span class="n">ax_twin</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">ax_twin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">ax_twin_color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ax twin&#39;</span><span class="p">)</span>
+<span class="n">ax_twin</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="n">ax_twin_color</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">label_fs</span><span class="p">)</span>
+<span class="n">ax_twin</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y2&#39;</span><span class="p">)</span>
+
+<span class="n">f</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">bbox_transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_43_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_43_0.png" />
+</div>
+</div>
+<p>类似的，也可以用 <code class="docutils literal notranslate"><span class="pre">ax.twiny</span></code> 绘制双横轴；不过我尚未遇到需要双横轴的场合。</p>
+</section>
+</section>
+<section id="添加文字：ax.text-/-annotate">
+<h2>添加文字：ax.text / annotate<a class="headerlink" href="#添加文字：ax.text-/-annotate" title="永久链接至标题"></a></h2>
+<p>最简单的是 <code class="docutils literal notranslate"><span class="pre">ax.text</span></code>，直接输出文字：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1"># 单独使用字号控制命令</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Hmm&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Two lines </span><span class="se">\n</span><span class="s1"> text &#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+         <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;r&#39;</span><span class="p">})</span>
+
+<span class="c1"># 用 bbox 参数控制背景框</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;With box&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_46_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_46_0.png" />
+</div>
+</div>
+<p>其次是 <code class="docutils literal notranslate"><span class="pre">annotate</span></code>，这个参数比较复杂，细节读者可以参考文档。一些可能用到的箭头：<code class="docutils literal notranslate"><span class="pre">'-'</span> <span class="pre">/</span> <span class="pre">'-&gt;'</span> <span class="pre">/</span> <span class="pre">'-|&gt;'</span> <span class="pre">/</span> <span class="pre">'|-|'</span> <span class="pre">/</span> <span class="pre">'&lt;-&gt;'</span></code> 等。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;A text&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset pixels&#39;</span><span class="p">,</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">))</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Another&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">),</span>
+             <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset pixels&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+             <span class="c1"># 指定圆弧半径，负值表示顺时针画弧</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-|&gt;&#39;</span><span class="p">,</span>
+                             <span class="n">connectionstyle</span><span class="o">=</span><span class="s1">&#39;arc3, rad=-0.3&#39;</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_48_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_48_0.png" />
+</div>
+</div>
+</section>
+<section id="其他坐标系">
+<h2>其他坐标系<a class="headerlink" href="#其他坐标系" title="永久链接至标题"></a></h2>
+<p>除了正常的、等刻度坐标系，我们可能还需要用到其他坐标系：</p>
+<ul class="simple">
+<li><p>对数坐标系</p></li>
+</ul>
+<p>另外，除了正常的右手系，我们还可能用到：</p>
+<ul class="simple">
+<li><p>左手坐标系</p></li>
+<li><p>极坐标系</p></li>
+</ul>
+<section id="对数坐标系：ax.loglog-/-semilogx-/-semilogy">
+<h3>对数坐标系：ax.loglog / semilogx / semilogy<a class="headerlink" href="#对数坐标系：ax.loglog-/-semilogx-/-semilogy" title="永久链接至标题"></a></h3>
+<p>本节介绍：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">loglog</span></code>：双轴均为对数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">semilogx/semilogy</span></code>：半对数</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;semilogy&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;semilogx&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">basex</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;loglog base 2 on x-axis&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;loglog invisible&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_51_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_51_0.png" />
+</div>
+</div>
+</section>
+<section id="左手坐标系：ax.invert_xaxis">
+<h3>左手坐标系：ax.invert_xaxis<a class="headerlink" href="#左手坐标系：ax.invert_xaxis" title="永久链接至标题"></a></h3>
+<p>实质上是在绘图之后，用 <code class="docutils literal notranslate"><span class="pre">ax.invert_xaxis</span></code> 翻转了 X 坐标轴。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Left-handed Coordinate System&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_53_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_53_0.png" />
+</div>
+</div>
+</section>
+<section id="极坐标系：subplot_kw-参数">
+<h3>极坐标系：subplot_kw 参数<a class="headerlink" href="#极坐标系：subplot_kw-参数" title="永久链接至标题"></a></h3>
+<p>极坐标系的绘制只需向 <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> 命令传递一个 <code class="docutils literal notranslate"><span class="pre">subplot_kw</span></code> 参数：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 或者传入：dict(polar=True)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;polar&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_55_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_55_0.png" />
+</div>
+</div>
+<p>其他可以参考<a class="reference external" href="https://matplotlib.org/3.1.1/api/projections_api.html?highlight=set_rticks#matplotlib.projections.polar.PolarAxes.set_rlabel_position">官方文档 Polar Axes</a>，这里介绍几个可能用到的：</p>
+<ul class="simple">
+<li><p>角度（xaxis）</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_thetalim/set_thetamax/set_thetamin</span></code>：设置角度范围。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_theta_direction</span></code>：设置角旋转方式。1 （或 <code class="docutils literal notranslate"><span class="pre">clockwise</span></code>）是逆时针，-1 （或 <code class="docutils literal notranslate"><span class="pre">counterclockwise</span></code>）是顺时针。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_theta_zero_location</span></code>：设置零角度的位置，参数 <code class="docutils literal notranslate"><span class="pre">loc='N'</span></code> 表示在正上方、<code class="docutils literal notranslate"><span class="pre">offset=</span></code> 表示相对于 <code class="docutils literal notranslate"><span class="pre">loc</span></code> 的逆时针角度值。</p></li>
+</ul>
+</li>
+<li><p>半径（yaxis）</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_rlabel_position</span></code>：设置半径标签的位置，传入角度值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_rlim/set_rmax/set_rmin</span></code>：设置半径范围。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_rticks</span></code>：设置半径标签。</p></li>
+</ul>
+</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">r</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;polar&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_theta_zero_location</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_rmax</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_rlabel_position</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/build_doctrees_nbsphinx_AxesControl_57_0.png" src="../../../_images/build_doctrees_nbsphinx_AxesControl_57_0.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<script>
+  require.config({
+     paths: {
+        "jquery": "/_static/jquery",
+        "datatables": "/_config/static/DataTables/datatables.min"
+     }
+  });
+  requirejs( ["datatables"], function () {
+     $('#tableofblogs').DataTable( {
+        language: {
+           url: "/_config/static/DataTables/zh_CN.json" 
+        } 
+     } );
+  } );
+</script>
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>
