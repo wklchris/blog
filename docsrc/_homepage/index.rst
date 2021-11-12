@@ -16,6 +16,7 @@
 .. toctree::
    :maxdepth: 1
    :caption: 目录:
+   :hidden:
 
    About.rst
    404.rst
