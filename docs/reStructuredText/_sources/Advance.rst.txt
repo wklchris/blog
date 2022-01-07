@@ -253,9 +253,7 @@ Sphinx 中启用 MathJax 的方式是在 conf.py 中加载 `sphinx.ext.mathjax`_
     #    }
     # }
     mathjax3_config = {
-        'TeX': {
-            'tags': "AMS"
-        }
+        'tex': {'tags': 'AMS', 'useLabelIds': True},
     }
 
 单行公式引用

@@ -1,6 +1,6 @@
 {
     "_homepage": {
-        "date_modified": "2021-11-11",
+        "date_modified": "2022-01-06",
         "date_online": "2020-08-10",
         "date_online_previous": "2017-01-07"
     },
@@ -96,8 +96,8 @@
             "series": "Misc",
             "series_num": "1",
             "date_init": "2018-10-15",
-            "date_modified": "2020-09-20",
-            "date_build": "2021-11-11",
+            "date_modified": "2022-01-06",
+            "date_build": "2022-01-06",
             "abstract": "本文介绍 reStructuredText，一种最初用于创建 Python 技术文档的标记语言。"
         }
     },
