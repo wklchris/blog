@@ -156,6 +156,49 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
    具体的解释请参考 `FFmpeg 官方文档 <https://ffmpeg.org/ffmpeg.html>`_ 中关于 ``-ss`` 参数的说明。
 
 
+分辨率缩放
+-------------
+
+.. note::
+   
+   分辨率缩放总是会编码视频，请注意这一点。
+
+分辨率缩放也是一个常见的需求，这需要使用到 FFmpeg 提供的视频过滤器（或称视频滤镜，video filter），也即 ``-vf`` 参数。由于过滤器的使用过于复杂，在此也不会详细介绍；这里只是针对过滤器中的缩放器（scaler）功能进行说明。缩放器还有许多复杂的用法详情也可以参考官方文档的 `Video filter - Scaler <https://ffmpeg.org/ffmpeg-all.html#scale-1>`_ 章节。
+
+例如，我们要将一个高分辨率视频从 1440p 缩放，那么我们可以使用参数：
+
+.. code-block:: shell
+    
+    # 输出到1280x720的例子
+    ## 直接指定宽1280、高720。选择以下任意一种写法即可
+    scale=w=1280:h=720
+    scale=1280:720
+    scale=1280x720
+    ## 可以用-1表示按原视频宽高比自动计算
+    scale=1280:-1
+    scale=-1:720
+    ## 也可以使用倍率的写法，用iw、ih代表输入视频的宽和高
+    scale=iw/2:ih/2
+    
+    # 输出到方形720x720的例子。
+    ## 可以用ow、oh代表变换后输出视频的宽和高
+    scale=iw/2:ow
+
+这些参数中，使用冒号作为分隔符、等号作为键值对的连接符。
+
+除了分辨率，我们有时候也会用 ``flags`` 参数指定缩放算法（参见官方文档 `Scaler Options <https://ffmpeg.org/ffmpeg-scaler.html#Scaler-Options>`_\ ）。关于视频缩放算法的选择（与图片可能不同），可以参考 StackExchange 上的这一篇回答 `Which resize algorithm to choose for videos? <https://superuser.com/a/375726/1061571>`_ ；简单地说， **该回答建议在降分辨率时使用 Lanczos 或 spline，在升分辨率时使用 bicubic 或 Lanczos** 。
+
+一些分辨率缩放的命令示例：
+
+.. code-block:: shell
+    
+    # 使用默认de  bicubic 算法缩放到高720并保持原宽高比，并用默认编码格式（H.264）编码
+    ffmpeg -i video.mp4 -vf scale=-1:720 out.mp4
+
+    # 指定使用 Lanczos 算法缩放到原视频的宽高的各一半，并用 H.265 格式以默认质量编码
+    ffmpeg -i video.mp4 -vf scale=iw/2:ih/2:flags=lanczos -c:v libx265 -c:a copy out.mp4
+
+
 添加字幕
 -----------
 
@@ -212,7 +255,7 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 
 .. note::
    
-   以上命令第一行中的操作需要 **不低于 6.0 版本** 的 Powershell（目前 Windows 10 自带的仍在 5.x 版本），读者可以前往 Powershell 的 Github 开发仓库页面 `选择版本进行下载 <https://github.com/PowerShell/PowerShell#get-powershell>`_\ 。这是因为低于 Powershell 6.0 的版本会在写入文本文件时包含 BOM，而包含 BOM 的文本文件并不能正确地被 FFmpeg 所识别；而从 6.0 版本开始，Powershell 新增并默认使用了 ``-Encoding utf8NoBOM`` 选项。
+   以上命令第一行中的操作需要 **不低于 6.0 版本** 的 Powershell（Windows 10/11 自带的是 5.x 版本），读者可以前往 Powershell 的 Github 开发仓库页面 `选择版本进行下载 <https://github.com/PowerShell/PowerShell#get-powershell>`_\ 。这是因为低于 Powershell 6.0 的版本会在写入文本文件时包含 BOM，而包含 BOM 的文本文件并不能正确地被 FFmpeg 所识别；而从 6.0 版本开始，Powershell 新增并默认使用了 ``-Encoding utf8NoBOM`` 选项。
 
    用户可以输入 ``get-host | select-object Version`` 来查看当前运行的 Powershell 版本。
       
@@ -268,19 +311,24 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
      ffmpeg -i video.mkv out1.mkv -c:s dvdsub out2.mkv
 
 压制
-----
+-------
 
-视频的压制主要有 CRF（Constant Rate Factor，恒定率系数）与二压（2Pass）两种常用的方法： 
+.. note:: 
+   
+   在大多数压制场合，CRF都是更受欢迎的，也是保持画面质量的一选。如果要严格限制文件大小，那么就使用二压；如果要严格限制视频码率，才会考虑使用定限码率压制（或者二压）。
 
-- **在编码器 libx264 中（265/vp9编码器中的情形并不同）** ，CRF（Constant Rate Factor）指定一个 0~51 的数值作为视频质量标准值（FFmpeg 默认 23，常用范围是 17~28）。CRF 的数值越小，恒定率系数越好，压缩率也越低。恒定律系数的视频码率是根据画面动态调整的，与恒定码率（CBR）恰好是对立的。
+
+视频的压制主要有 CRF（Constant Rate Factor，恒定率系数）与二压（2Pass）两种常用的方法，以及定限码率压制这种相对不常用的方法（不太推荐）： 
+
+- **在编码器 libx264/libx265 中（vp9等其他编码器中的情形并不同）** ，CRF（Constant Rate Factor）指定一个 0~51 的数值作为视频质量标准值（FFmpeg 中，libx264 默认 23，常用范围是 17~28；libx265 默认 28）。CRF 的数值越小，恒定率系数越好，压缩率也越低。恒定律系数的视频码率是根据画面动态调整的，与恒定码率（CBR）恰好是对立的。
   
   * CRF 为 0 表示无损，51 表示 FFmpeg 所能达到的最差效果。
-  * 如果设置一个小于默认值 23 的值，那么输出视频的画面会（从视觉观感上）保留较好的效果，但同时文件的体积也较大；如果设置一个大于 23 的值，那么输出的视频会被压缩。
-  * CRF 在 17 左右时，输出的视频损失就非常小了，因此选择比 17 更小的 CRF 意义不大；类似地，CRF 如果低于 28，其效果相比于原视频可能就会出现明显的损失，因此通常也不建议选择大于 28 的数值，
+  * 如果设置一个小于默认值 23 的值，那么输出视频的画面会（从视觉观感上）保留较好的效果，但同时文件的体积也较大；如果设置一个大于 23 的值，那么输出的视频大小会被压缩，但会在画面观感上有一定损失。
+  * 对于 H.264 编码，CRF 在 17 左右时，输出的视频损失就非常小了，因此选择比 17 更小的 CRF 意义不大；类似地，CRF 如果低于 28，其效果相比于原视频可能就会出现明显的损失，因此通常也不建议选择大于 28 的数值，
 
 - 二压（2Pass）是需要生成固定大小文件时的压制方法，顾名思义，需要编码两次（因此较慢）。用户可能需要自行计算视频码率限值。
+- 定限码率（Limited bitrate）压制是仅在网络上传有严苛要求时才使用的方法，并不是画面质量的第一选择。
 
-在大多数场合，CRF都是更受欢迎的。二压的使用场合主要有两种：一种是压制后文件的大小被严格限制时，另一种是压制后文件的码率被严格限制时。
 
 恒定率系数（CRF）
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -299,6 +347,10 @@ CRF 的压制中还有一个参数，称为预案 ``-preset`` 。较慢的预案
 二压（2Pass）
 ~~~~~~~~~~~~~
 
+.. note::
+
+   通常只在强制要求文件大小时使用二压。
+
 设想一个二压的应用场景（本例取自* `FFmpeg
 Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟（600秒）长的视频压制到200MB，并保持音频码率在
 128 kbps。
@@ -312,18 +364,52 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
 在上式的 2602 kbit/s 的基础上留一定余量，设置为 2600 kbit/s：
 
 .. code:: shell
-
-   ffmpeg -y -i video.mp4 -c:v libx264 -b:v 2600k -pass 1 -an -f mp4 NUL ^
+   
+   # 对于 H.264 二压，使用 -pass 参数。请注意首行行尾的续行。
+   ffmpeg -y -i video.mp4 -c:v libx264 -b:v 2600k -pass 1 -an -f null NUL && `
    ffmpeg -i video.mp4 -c:v libx264 -b:v 2600k -pass 2 -c:a aac -b:a 128k out.mp4
+   
+   # 对于 H.265 二压，则应使用 -x265-params 参数。同样，请注意首行行尾的续行。
+   ffmpeg -y -i video.mp4 -c:v libx265 -b:v 2600k -x265-params pass=1 -an -f null NUL && `
+   ffmpeg -i video.mp4 -c:v libx265 -b:v 2600k -pass 2 -c:a aac -b:a 128k out.mp4
 
 大部分参数比较好理解，需要说明的是这几个参数： 
 
 - ``-y`` 是一个全局参数，表示覆盖文件时不询问。
-- ``NUL`` 表示二压的第一步不输出，而行尾的 ``^`` 表示续行。在 Linux 系统上，请使用 ``/dev/null \`` 代替 ``NUL ^``\ 。
+- ``NUL`` 表示二压的第一步不输出，而行尾的符号表示续行。
+  
+  - 如果使用 CMD 而不是 Powershell，请使用 ``^`` 代替首行行尾的续行符。
+  - 在 Linux 系统上，请使用 ``/dev/null`` 代替 ``NUL``，并使用 ``\`` 代替首行行尾的续行符。
+  
 - ``-an`` 表示忽略音频流。同理还有 ``-vn/sn/dn``\ 。
 
 
-添加元数据（如章节)
+定限码率压制
+~~~~~~~~~~~~~~
+
+定限码率压制并不考虑文件大小，而是只限制文件码率；这多见于网络上传视频（或者流媒体传输受到网络条件限制）的场合（参考 `FFmpeg - Limiting the output bitrate <https://trac.ffmpeg.org/wiki/Limiting%20the%20output%20bitrate>`_\ ）。以 libx264/libx265 编码器为例，有以下几种码率限制参数：
+
+- ``-b:v`` 目标平均码率，也即希望得到的输出文件的平均码率（单位 bit/s）。该参数也在二压中被使用。
+  
+  值得说明的是，输出视频的码率总是大于指定的平均码率的。这是由于容器本身还需要记录元数据等内容（可能占用数百 KB），因此我们总是需要对传入码率参数进行调低。这个码率超出问题在压制短时长视频压制时比较明显，请特别注意。
+
+- ``-maxrate`` 最大码率，需要与 ``-bufsize`` 参数同时使用。
+- ``-minrate`` 最小码率。这个较少使用。
+
+只给定平均码率 ``-b:v`` 是一种比较粗糙的码率控制方法。正如上面所说，它会使得输出文件的码率总是略高于指定值。
+
+.. code:: shell
+
+   ffmpeg -i input -c:v libx264 -b:v 8M output.mp4
+   
+相对的，利用最大码率参数 ``-maxrate`` 与缓冲区参数 ``-bufsize`` 可以更严格地控制码率上限。它会完成一段缓冲区大小就检验一次码率是否符合要求，因此在缓冲区设置上也存在一些技巧。通常，我们将缓冲区设置为与码率值相同。你也可以增大缓冲区，直到发现码率输出开始大幅度高于或低于目标值的临界点，然后以略低于该临界点的值作为缓冲区大小；当然，这需要更多的时间去尝试。
+
+.. code:: shell
+
+   ffmpeg -i input -c:v libx264 -b:v 8M -maxrate 8M -bufsize 8M output.mp4
+
+
+添加章节信息
 --------------------
 
 FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用的大概是章节（chapter）跳转的元数据，它得到了许多主流播放器的支持（例如 MPV）。
@@ -343,6 +429,14 @@ FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用�
     #chapter ends at 0:01:00
     END=60000
     title=chapter \#1
+    
+    [CHAPTER]
+    TIMEBASE=1/1000
+    START=60000
+    #chapter ends at 0:02:00
+    END=120000
+    title=chapter \#2
+    
     [STREAM]
     title=multi\
     line
@@ -364,6 +458,37 @@ FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用�
     ffmpeg -i video.mp4 -i FFMETA.ini -map_metadata 1 -c copy out.mp4
 
 其中的 ``1`` 表示将第二个（因为从0开始索引）输入文件，即第二个 ``-i`` 之后的参数值 ``FFMETA.ini`` 映射为元数据。
+
+
+更正色彩空间*
+--------------------
+
+以我们最常用的 BT.709 色彩空间为例，许多视频播放器必须检测到色彩空间的元数据信息为 BT.709 才能正常地播放，否则可能引起偏色等问题。如果一个视频在播放时发生了色彩异常（通常发生于在不同设备、屏幕上播放时），那么我们需要检查视频的色彩空间信息并进行修正。
+
+要检查一个视频的现有色彩空间信息，可以使用 FFmpeg 安装时附带的 ``ffprobe`` 工具：
+
+.. code-block:: shell
+   
+    ffprobe -v quiet -show_streams -select_streams v:0 -i video.mp4 | select-string "color"
+
+以上是 Windows 平台 Powershell 的示例，在 Mac/Linux 平台可以将 ``select-string`` 换为 ``grep`` 命令。上述命令会返回类似的输出结果：
+
+.. code-block:: shell
+    
+    color_range=tv
+    color_space=bt709
+    color_transfer=unknown
+    color_primaries=bt709
+
+以普通的 SDR 视频为例，上述就是一个正常的输出（因为 ``color_transfer`` 默认跟随了其他两项设置；如果是 HDR 视频，则该参数取值可能不同）。其中， ``color_range`` 也可能是 tv/limited 或者 pc/full。一般而言，只要视频中的 ``color_space`` 与 ``color_primaries`` 已赋值（即不是 unknown），那么视频在播放时就能够正常地还原色彩。
+
+如果发现上述值有较多 unknown，可以在重新编码视频的过程中指定正确的色彩空间。下例对视频用 H.265 进行了重编码并指定 BT.709 色彩空间，建议指定一个 CRF 值或者码率（此处为 8Mb/s）：
+
+.. code-block:: shell
+    
+    ffmpeg -i "video.mp4" -colorspace bt709 -color_trc bt709 -color_primaries bt709 -c:v libx265 -b:v 8M -c:a copy "colorspace.mp4"
+
+关于更多色彩空间的参数信息，可以参考 FFmpeg 官方文档的 `setparams <https://ffmpeg.org/ffmpeg-all.html#setparams-1>`_ 这一节。
 
 
 显卡硬件加速*

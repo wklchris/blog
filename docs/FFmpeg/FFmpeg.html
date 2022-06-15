@@ -78,28 +78,31 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">截取视频</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">添加字幕</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id8">内挂字幕</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">内嵌字幕</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">分辨率缩放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">添加字幕</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">内挂字幕</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">内嵌字幕</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">合并视频</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">替换或删除视频数据流</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id13">删除流</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">替换流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">合并视频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">替换或删除视频数据流</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id14">删除流</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">替换流</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id15">压制</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id16">压制</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#crf">恒定率系数（CRF）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pass">二压（2Pass）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">定限码率压制</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id16">添加元数据（如章节)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id17">显卡硬件加速*</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id18">硬件支持</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id19">FFmpeg 支持</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">硬件加速命令</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id21">硬件加速下的质量控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">添加章节信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id19">更正色彩空间*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id20">显卡硬件加速*</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id21">硬件支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">FFmpeg 支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">硬件加速命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">硬件加速下的质量控制</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#fonts-conf">附录：fonts.conf</a></li>
@@ -272,7 +275,42 @@ ffmpeg -i video.mp4 -ss <span class="m">00</span>:02:00 -to <span class="m">00</
 </div>
 </section>
 <section id="id7">
-<h2>添加字幕<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<h2>分辨率缩放<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>分辨率缩放总是会编码视频，请注意这一点。</p>
+</div>
+<p>分辨率缩放也是一个常见的需求，这需要使用到 FFmpeg 提供的视频过滤器（或称视频滤镜，video filter），也即 <code class="docutils literal notranslate"><span class="pre">-vf</span></code> 参数。由于过滤器的使用过于复杂，在此也不会详细介绍；这里只是针对过滤器中的缩放器（scaler）功能进行说明。缩放器还有许多复杂的用法详情也可以参考官方文档的 <a class="reference external" href="https://ffmpeg.org/ffmpeg-all.html#scale-1">Video filter - Scaler</a> 章节。</p>
+<p>例如，我们要将一个高分辨率视频从 1440p 缩放，那么我们可以使用参数：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 输出到1280x720的例子</span>
+<span class="c1">## 直接指定宽1280、高720。选择以下任意一种写法即可</span>
+<span class="nv">scale</span><span class="o">=</span><span class="nv">w</span><span class="o">=</span><span class="m">1280</span>:h<span class="o">=</span><span class="m">720</span>
+<span class="nv">scale</span><span class="o">=</span><span class="m">1280</span>:720
+<span class="nv">scale</span><span class="o">=</span>1280x720
+<span class="c1">## 可以用-1表示按原视频宽高比自动计算</span>
+<span class="nv">scale</span><span class="o">=</span><span class="m">1280</span>:-1
+<span class="nv">scale</span><span class="o">=</span>-1:720
+<span class="c1">## 也可以使用倍率的写法，用iw、ih代表输入视频的宽和高</span>
+<span class="nv">scale</span><span class="o">=</span>iw/2:ih/2
+
+<span class="c1"># 输出到方形720x720的例子。</span>
+<span class="c1">## 可以用ow、oh代表变换后输出视频的宽和高</span>
+<span class="nv">scale</span><span class="o">=</span>iw/2:ow
+</pre></div>
+</div>
+<p>这些参数中，使用冒号作为分隔符、等号作为键值对的连接符。</p>
+<p>除了分辨率，我们有时候也会用 <code class="docutils literal notranslate"><span class="pre">flags</span></code> 参数指定缩放算法（参见官方文档 <a class="reference external" href="https://ffmpeg.org/ffmpeg-scaler.html#Scaler-Options">Scaler Options</a>）。关于视频缩放算法的选择（与图片可能不同），可以参考 StackExchange 上的这一篇回答 <a class="reference external" href="https://superuser.com/a/375726/1061571">Which resize algorithm to choose for videos?</a> ；简单地说， <strong>该回答建议在降分辨率时使用 Lanczos 或 spline，在升分辨率时使用 bicubic 或 Lanczos</strong> 。</p>
+<p>一些分辨率缩放的命令示例：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用默认de  bicubic 算法缩放到高720并保持原宽高比，并用默认编码格式（H.264）编码</span>
+ffmpeg -i video.mp4 -vf <span class="nv">scale</span><span class="o">=</span>-1:720 out.mp4
+
+<span class="c1"># 指定使用 Lanczos 算法缩放到原视频的宽高的各一半，并用 H.265 格式以默认质量编码</span>
+ffmpeg -i video.mp4 -vf <span class="nv">scale</span><span class="o">=</span>iw/2:ih/2:flags<span class="o">=</span>lanczos -c:v libx265 -c:a copy out.mp4
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h2>添加字幕<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
 <p>FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中。</p>
 <p>一些注意事项：</p>
 <ul class="simple">
@@ -284,8 +322,8 @@ ffmpeg -i video.mp4 -ss <span class="m">00</span>:02:00 -to <span class="m">00</
 </ul>
 </li>
 </ul>
-<section id="id8">
-<h3>内挂字幕<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<section id="id9">
+<h3>内挂字幕<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p>内挂字幕是一种相对于外挂字幕的称呼。外挂字幕是指将字幕存放在一个独立的字幕文件中，在播放视频时，通过视频播放器来加载这个字幕文件。而内挂字幕，是将这样一个独立的“字幕文件”，封装在了视频文件内部作为独立的字幕数据流。这样既能按需开启或关闭字幕，也免去了字幕文件丢失、匹配等烦恼。</p>
 <p>内挂字幕的本质是将字幕文件单独作为字幕流封装，因此不需要对视频流进行编码。因此，将字幕文件内挂到指定的视频一般非常快：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -i input.mp4 -i input.srt -c:v copy -c:a copy -c:s ass output.mkv
@@ -293,8 +331,8 @@ ffmpeg -i video.mp4 -ss <span class="m">00</span>:02:00 -to <span class="m">00</
 </div>
 <p>在封装时，一般需要选择 <code class="docutils literal notranslate"><span class="pre">-c:s</span> <span class="pre">ass</span></code> 这个字幕转码器。上例中使用了早年间非常流行的内挂字幕容器 mkv，实际上 mp4 容器也可以进行内挂操作。</p>
 </section>
-<section id="id9">
-<h3>内嵌字幕<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<section id="id10">
+<h3>内嵌字幕<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
 <p>内嵌字幕（或称硬字幕）是指将字幕与原视频图像混叠的一种字幕，它直接嵌入到图像中，因此无法关闭，也无法调整字幕的大小、字体等样式。内嵌字幕的本质是将字幕作为图像输出，因此需要对视频流进行编码，往往速度慢：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -i input.mp4 -vf <span class="nv">subtitles</span><span class="o">=</span>input.srt output.mp4
 </pre></div>
@@ -305,8 +343,8 @@ ffmpeg -i video.mp4 -ss <span class="m">00</span>:02:00 -to <span class="m">00</
 </div>
 </section>
 </section>
-<section id="id10">
-<h2>合并视频<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<section id="id11">
+<h2>合并视频<a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
 <p>最简单的视频合并方法，是将所有待合并的视频文件路径，依次列在一个 txt 文件中，然后让 FFmpeg 读取它。</p>
 <p>假设我们已经将所有待合并的 mp4 文件放在当前文件夹中，并且按照合并的顺序进行了命名。那么，用户可以在该文件夹中用 Shift + 鼠标右键打开 PowerShell 控制台，然后依次输入以下命令：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls eg-*.mp4 <span class="p">|</span> % Name <span class="p">|</span> foreach <span class="o">{</span><span class="s2">&quot;file &#39;&quot;</span> + <span class="nv">$_</span> + <span class="s2">&quot;&#39;&quot;</span><span class="o">}</span> &gt; mylist.txt
@@ -315,7 +353,7 @@ ffmpeg -f concat -i mylist.txt -c copy output.mp4
 </div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>以上命令第一行中的操作需要 <strong>不低于 6.0 版本</strong> 的 Powershell（目前 Windows 10 自带的仍在 5.x 版本），读者可以前往 Powershell 的 Github 开发仓库页面 <a class="reference external" href="https://github.com/PowerShell/PowerShell#get-powershell">选择版本进行下载</a>。这是因为低于 Powershell 6.0 的版本会在写入文本文件时包含 BOM，而包含 BOM 的文本文件并不能正确地被 FFmpeg 所识别；而从 6.0 版本开始，Powershell 新增并默认使用了 <code class="docutils literal notranslate"><span class="pre">-Encoding</span> <span class="pre">utf8NoBOM</span></code> 选项。</p>
+<p>以上命令第一行中的操作需要 <strong>不低于 6.0 版本</strong> 的 Powershell（Windows 10/11 自带的是 5.x 版本），读者可以前往 Powershell 的 Github 开发仓库页面 <a class="reference external" href="https://github.com/PowerShell/PowerShell#get-powershell">选择版本进行下载</a>。这是因为低于 Powershell 6.0 的版本会在写入文本文件时包含 BOM，而包含 BOM 的文本文件并不能正确地被 FFmpeg 所识别；而从 6.0 版本开始，Powershell 新增并默认使用了 <code class="docutils literal notranslate"><span class="pre">-Encoding</span> <span class="pre">utf8NoBOM</span></code> 选项。</p>
 <p>用户可以输入 <code class="docutils literal notranslate"><span class="pre">get-host</span> <span class="pre">|</span> <span class="pre">select-object</span> <span class="pre">Version</span></code> 来查看当前运行的 Powershell 版本。</p>
 </div>
 <p>如果用户对于通配符 <code class="docutils literal notranslate"><span class="pre">*</span></code> 语法有所了解，应当可以理解上例中 <code class="docutils literal notranslate"><span class="pre">eg-*.mp4</span></code> 通配了所有以 <code class="docutils literal notranslate"><span class="pre">eg-</span></code> 开头、以扩展名 mp4 结尾的文件，比如 <code class="docutils literal notranslate"><span class="pre">eg-01.mp4</span></code>, <code class="docutils literal notranslate"><span class="pre">eg=02.mp4</span></code>……Powershell 的管道（pipeline）操作符 <code class="docutils literal notranslate"><span class="pre">|</span></code> 选择了输出结果的 Name 字段（即文件名），然后将其逐行添加前缀与后缀，最后写入到一个 txt 文件（本例命名为 mylist.txt）中：</p>
@@ -326,19 +364,19 @@ file &#39;eg-02.mp4&#39;
 </div>
 <p>当然，如果视频文件数量不多，用户也可以自行创建这样一个 <code class="docutils literal notranslate"><span class="pre">mylist.txt</span></code> 文件。在执行完第二行的 ffmpeg 指令进行视频合并后，用户可以删除文件夹中的 <code class="docutils literal notranslate"><span class="pre">mylist.txt</span></code> 文件。</p>
 </section>
-<section id="id12">
-<h2>替换或删除视频数据流<a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
-<p>除了格式转换中提到的提取流的操作，删除或替换也是常见的选择。</p>
 <section id="id13">
-<h3>删除流<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h2>替换或删除视频数据流<a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
+<p>除了格式转换中提到的提取流的操作，删除或替换也是常见的选择。</p>
+<section id="id14">
+<h3>删除流<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
 <p>利用 <code class="docutils literal notranslate"><span class="pre">-vn/-an/sn/-dn</span></code> 参数可以跳过视频/音频/字幕/数据流，比如一段没有音频流的视频：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -i video.mp4 -c:v copy -an NoAudio.mp4
 </pre></div>
 </div>
 <p>上例中的 <code class="docutils literal notranslate"><span class="pre">-c:v</span></code> 是传递视频编解码器， <code class="docutils literal notranslate"><span class="pre">copy</span></code> 表示不进行编解码操作而是直接拷贝。</p>
 </section>
-<section id="id14">
-<h3>替换流<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<section id="id15">
+<h3>替换流<a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
 <p>替换流的常用场景是将一段音频替换原视频中的音频流：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -map <span class="m">0</span>:v:0 -map <span class="m">1</span>:a:0 out.mp4
 <span class="c1"># 或者省略第二冒号</span>
@@ -358,20 +396,24 @@ ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -map <span class="m">0</span>:v -map 
 </ul>
 </section>
 </section>
-<section id="id15">
-<h2>压制<a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
-<p>视频的压制主要有 CRF（Constant Rate Factor，恒定率系数）与二压（2Pass）两种常用的方法：</p>
+<section id="id16">
+<h2>压制<a class="headerlink" href="#id16" title="永久链接至标题"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>在大多数压制场合，CRF都是更受欢迎的，也是保持画面质量的一选。如果要严格限制文件大小，那么就使用二压；如果要严格限制视频码率，才会考虑使用定限码率压制（或者二压）。</p>
+</div>
+<p>视频的压制主要有 CRF（Constant Rate Factor，恒定率系数）与二压（2Pass）两种常用的方法，以及定限码率压制这种相对不常用的方法（不太推荐）：</p>
 <ul class="simple">
-<li><p><strong>在编码器 libx264 中（265/vp9编码器中的情形并不同）</strong> ，CRF（Constant Rate Factor）指定一个 0~51 的数值作为视频质量标准值（FFmpeg 默认 23，常用范围是 17~28）。CRF 的数值越小，恒定率系数越好，压缩率也越低。恒定律系数的视频码率是根据画面动态调整的，与恒定码率（CBR）恰好是对立的。</p>
+<li><p><strong>在编码器 libx264/libx265 中（vp9等其他编码器中的情形并不同）</strong> ，CRF（Constant Rate Factor）指定一个 0~51 的数值作为视频质量标准值（FFmpeg 中，libx264 默认 23，常用范围是 17~28；libx265 默认 28）。CRF 的数值越小，恒定率系数越好，压缩率也越低。恒定律系数的视频码率是根据画面动态调整的，与恒定码率（CBR）恰好是对立的。</p>
 <ul>
 <li><p>CRF 为 0 表示无损，51 表示 FFmpeg 所能达到的最差效果。</p></li>
-<li><p>如果设置一个小于默认值 23 的值，那么输出视频的画面会（从视觉观感上）保留较好的效果，但同时文件的体积也较大；如果设置一个大于 23 的值，那么输出的视频会被压缩。</p></li>
-<li><p>CRF 在 17 左右时，输出的视频损失就非常小了，因此选择比 17 更小的 CRF 意义不大；类似地，CRF 如果低于 28，其效果相比于原视频可能就会出现明显的损失，因此通常也不建议选择大于 28 的数值，</p></li>
+<li><p>如果设置一个小于默认值 23 的值，那么输出视频的画面会（从视觉观感上）保留较好的效果，但同时文件的体积也较大；如果设置一个大于 23 的值，那么输出的视频大小会被压缩，但会在画面观感上有一定损失。</p></li>
+<li><p>对于 H.264 编码，CRF 在 17 左右时，输出的视频损失就非常小了，因此选择比 17 更小的 CRF 意义不大；类似地，CRF 如果低于 28，其效果相比于原视频可能就会出现明显的损失，因此通常也不建议选择大于 28 的数值，</p></li>
 </ul>
 </li>
 <li><p>二压（2Pass）是需要生成固定大小文件时的压制方法，顾名思义，需要编码两次（因此较慢）。用户可能需要自行计算视频码率限值。</p></li>
+<li><p>定限码率（Limited bitrate）压制是仅在网络上传有严苛要求时才使用的方法，并不是画面质量的第一选择。</p></li>
 </ul>
-<p>在大多数场合，CRF都是更受欢迎的。二压的使用场合主要有两种：一种是压制后文件的大小被严格限制时，另一种是压制后文件的码率被严格限制时。</p>
 <section id="crf">
 <h3>恒定率系数（CRF）<a class="headerlink" href="#crf" title="永久链接至标题"></a></h3>
 <p>CRF 的压制中还有一个参数，称为预案 <code class="docutils literal notranslate"><span class="pre">-preset</span></code> 。较慢的预案能够更好地发挥压制的效果，按压制后质量从低到高分为 <code class="docutils literal notranslate"><span class="pre">ultrafast</span></code> , <code class="docutils literal notranslate"><span class="pre">superfast</span></code> , <code class="docutils literal notranslate"><span class="pre">veryfast</span></code> , <code class="docutils literal notranslate"><span class="pre">faster</span></code> , <code class="docutils literal notranslate"><span class="pre">fast</span></code> , <code class="docutils literal notranslate"><span class="pre">medium</span></code> , <code class="docutils literal notranslate"><span class="pre">slow</span></code> , <code class="docutils literal notranslate"><span class="pre">slower</span></code> , <code class="docutils literal notranslate"><span class="pre">veryslow</span></code> 这9种。预案越慢，压缩效果（指视频质量与文件体积之比）越好，或者说同等视频质量下输出文件的体积越小。</p>
@@ -383,6 +425,10 @@ ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -map <span class="m">0</span>:v -map 
 </section>
 <section id="pass">
 <h3>二压（2Pass）<a class="headerlink" href="#pass" title="永久链接至标题"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>通常只在强制要求文件大小时使用二压。</p>
+</div>
 <p>设想一个二压的应用场景（本例取自* <a class="reference external" href="https://trac.ffmpeg.org/wiki/Encode/H.264">FFmpeg
 Wiki</a> ）：需要将一个10分钟（600秒）长的视频压制到200MB，并保持音频码率在
 128 kbps。</p>
@@ -390,20 +436,49 @@ Wiki</a> ）：需要将一个10分钟（600秒）长的视频压制到200MB，�
 <div class="math notranslate nohighlight">
 \[\frac{200 \times 8192}{600} - 128 \approx 2730 - 128 = 2602 \,\mathrm{kbit/s}.\]</div>
 <p>在上式的 2602 kbit/s 的基础上留一定余量，设置为 2600 kbit/s：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -y -i video.mp4 -c:v libx264 -b:v 2600k -pass <span class="m">1</span> -an -f mp4 NUL ^
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 对于 H.264 二压，使用 -pass 参数。请注意首行行尾的续行。</span>
+ffmpeg -y -i video.mp4 -c:v libx264 -b:v 2600k -pass <span class="m">1</span> -an -f null NUL <span class="o">&amp;&amp;</span> <span class="sb">`</span>
 ffmpeg -i video.mp4 -c:v libx264 -b:v 2600k -pass <span class="m">2</span> -c:a aac -b:a 128k out.mp4
+
+<span class="c1"># 对于 H.265 二压，则应使用 -x265-params 参数。同样，请注意首行行尾的续行。</span>
+ffmpeg -y -i video.mp4 -c:v libx265 -b:v 2600k -x265-params <span class="nv">pass</span><span class="o">=</span><span class="m">1</span> -an -f null NUL <span class="o">&amp;&amp;</span> <span class="sb">`</span>
+ffmpeg -i video.mp4 -c:v libx265 -b:v 2600k -pass <span class="m">2</span> -c:a aac -b:a 128k out.mp4
 </pre></div>
 </div>
 <p>大部分参数比较好理解，需要说明的是这几个参数：</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">-y</span></code> 是一个全局参数，表示覆盖文件时不询问。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">NUL</span></code> 表示二压的第一步不输出，而行尾的 <code class="docutils literal notranslate"><span class="pre">^</span></code> 表示续行。在 Linux 系统上，请使用 <code class="docutils literal notranslate"><span class="pre">/dev/null</span> <span class="pre">\</span></code> 代替 <code class="docutils literal notranslate"><span class="pre">NUL</span> <span class="pre">^</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NUL</span></code> 表示二压的第一步不输出，而行尾的符号表示续行。</p>
+<ul>
+<li><p>如果使用 CMD 而不是 Powershell，请使用 <code class="docutils literal notranslate"><span class="pre">^</span></code> 代替首行行尾的续行符。</p></li>
+<li><p>在 Linux 系统上，请使用 <code class="docutils literal notranslate"><span class="pre">/dev/null</span></code> 代替 <code class="docutils literal notranslate"><span class="pre">NUL</span></code>，并使用 <code class="docutils literal notranslate"><span class="pre">\</span></code> 代替首行行尾的续行符。</p></li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-an</span></code> 表示忽略音频流。同理还有 <code class="docutils literal notranslate"><span class="pre">-vn/sn/dn</span></code>。</p></li>
 </ul>
 </section>
+<section id="id17">
+<h3>定限码率压制<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
+<p>定限码率压制并不考虑文件大小，而是只限制文件码率；这多见于网络上传视频（或者流媒体传输受到网络条件限制）的场合（参考 <a class="reference external" href="https://trac.ffmpeg.org/wiki/Limiting%20the%20output%20bitrate">FFmpeg - Limiting the output bitrate</a>）。以 libx264/libx265 编码器为例，有以下几种码率限制参数：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">-b:v</span></code> 目标平均码率，也即希望得到的输出文件的平均码率（单位 bit/s）。该参数也在二压中被使用。</p>
+<p>值得说明的是，输出视频的码率总是大于指定的平均码率的。这是由于容器本身还需要记录元数据等内容（可能占用数百 KB），因此我们总是需要对传入码率参数进行调低。这个码率超出问题在压制短时长视频压制时比较明显，请特别注意。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-maxrate</span></code> 最大码率，需要与 <code class="docutils literal notranslate"><span class="pre">-bufsize</span></code> 参数同时使用。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-minrate</span></code> 最小码率。这个较少使用。</p></li>
+</ul>
+<p>只给定平均码率 <code class="docutils literal notranslate"><span class="pre">-b:v</span></code> 是一种比较粗糙的码率控制方法。正如上面所说，它会使得输出文件的码率总是略高于指定值。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -i input -c:v libx264 -b:v 8M output.mp4
+</pre></div>
+</div>
+<p>相对的，利用最大码率参数 <code class="docutils literal notranslate"><span class="pre">-maxrate</span></code> 与缓冲区参数 <code class="docutils literal notranslate"><span class="pre">-bufsize</span></code> 可以更严格地控制码率上限。它会完成一段缓冲区大小就检验一次码率是否符合要求，因此在缓冲区设置上也存在一些技巧。通常，我们将缓冲区设置为与码率值相同。你也可以增大缓冲区，直到发现码率输出开始大幅度高于或低于目标值的临界点，然后以略低于该临界点的值作为缓冲区大小；当然，这需要更多的时间去尝试。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -i input -c:v libx264 -b:v 8M -maxrate 8M -bufsize 8M output.mp4
+</pre></div>
+</div>
 </section>
-<section id="id16">
-<h2>添加元数据（如章节)<a class="headerlink" href="#id16" title="永久链接至标题"></a></h2>
+</section>
+<section id="id18">
+<h2>添加章节信息<a class="headerlink" href="#id18" title="永久链接至标题"></a></h2>
 <p>FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用的大概是章节（chapter）跳转的元数据，它得到了许多主流播放器的支持（例如 MPV）。</p>
 <p>元数据需要存放在一个外部文件中，并遵循类似 <code class="docutils literal notranslate"><span class="pre">ini</span></code> 文件的格式。下面是官方文档 <a class="reference external" href="https://ffmpeg.org/ffmpeg-formats.html#Metadata-1">Metadata - FFmpeg</a> 页面给出的例子：</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1">;FFMETADATA1</span>
@@ -417,6 +492,14 @@ ffmpeg -i video.mp4 -c:v libx264 -b:v 2600k -pass <span class="m">2</span> -c:a 
 <span class="c1">#chapter ends at 0:01:00</span>
 <span class="na">END</span><span class="o">=</span><span class="s">60000</span>
 <span class="na">title</span><span class="o">=</span><span class="s">chapter \#1</span>
+
+<span class="k">[CHAPTER]</span>
+<span class="na">TIMEBASE</span><span class="o">=</span><span class="s">1/1000</span>
+<span class="na">START</span><span class="o">=</span><span class="s">60000</span>
+<span class="c1">#chapter ends at 0:02:00</span>
+<span class="na">END</span><span class="o">=</span><span class="s">120000</span>
+<span class="na">title</span><span class="o">=</span><span class="s">chapter \#2</span>
+
 <span class="k">[STREAM]</span>
 <span class="na">title</span><span class="o">=</span><span class="s">multi\</span>
 <span class="na">line</span>
@@ -440,11 +523,32 @@ ffmpeg -i video.mp4 -c:v libx264 -b:v 2600k -pass <span class="m">2</span> -c:a 
 </div>
 <p>其中的 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示将第二个（因为从0开始索引）输入文件，即第二个 <code class="docutils literal notranslate"><span class="pre">-i</span></code> 之后的参数值 <code class="docutils literal notranslate"><span class="pre">FFMETA.ini</span></code> 映射为元数据。</p>
 </section>
-<section id="id17">
-<h2>显卡硬件加速*<a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
+<section id="id19">
+<h2>更正色彩空间*<a class="headerlink" href="#id19" title="永久链接至标题"></a></h2>
+<p>以我们最常用的 BT.709 色彩空间为例，许多视频播放器必须检测到色彩空间的元数据信息为 BT.709 才能正常地播放，否则可能引起偏色等问题。如果一个视频在播放时发生了色彩异常（通常发生于在不同设备、屏幕上播放时），那么我们需要检查视频的色彩空间信息并进行修正。</p>
+<p>要检查一个视频的现有色彩空间信息，可以使用 FFmpeg 安装时附带的 <code class="docutils literal notranslate"><span class="pre">ffprobe</span></code> 工具：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffprobe -v quiet -show_streams -select_streams v:0 -i video.mp4 <span class="p">|</span> <span class="k">select</span>-string <span class="s2">&quot;color&quot;</span>
+</pre></div>
+</div>
+<p>以上是 Windows 平台 Powershell 的示例，在 Mac/Linux 平台可以将 <code class="docutils literal notranslate"><span class="pre">select-string</span></code> 换为 <code class="docutils literal notranslate"><span class="pre">grep</span></code> 命令。上述命令会返回类似的输出结果：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">color_range</span><span class="o">=</span>tv
+<span class="nv">color_space</span><span class="o">=</span>bt709
+<span class="nv">color_transfer</span><span class="o">=</span>unknown
+<span class="nv">color_primaries</span><span class="o">=</span>bt709
+</pre></div>
+</div>
+<p>以普通的 SDR 视频为例，上述就是一个正常的输出（因为 <code class="docutils literal notranslate"><span class="pre">color_transfer</span></code> 默认跟随了其他两项设置；如果是 HDR 视频，则该参数取值可能不同）。其中， <code class="docutils literal notranslate"><span class="pre">color_range</span></code> 也可能是 tv/limited 或者 pc/full。一般而言，只要视频中的 <code class="docutils literal notranslate"><span class="pre">color_space</span></code> 与 <code class="docutils literal notranslate"><span class="pre">color_primaries</span></code> 已赋值（即不是 unknown），那么视频在播放时就能够正常地还原色彩。</p>
+<p>如果发现上述值有较多 unknown，可以在重新编码视频的过程中指定正确的色彩空间。下例对视频用 H.265 进行了重编码并指定 BT.709 色彩空间，建议指定一个 CRF 值或者码率（此处为 8Mb/s）：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -i <span class="s2">&quot;video.mp4&quot;</span> -colorspace bt709 -color_trc bt709 -color_primaries bt709 -c:v libx265 -b:v 8M -c:a copy <span class="s2">&quot;colorspace.mp4&quot;</span>
+</pre></div>
+</div>
+<p>关于更多色彩空间的参数信息，可以参考 FFmpeg 官方文档的 <a class="reference external" href="https://ffmpeg.org/ffmpeg-all.html#setparams-1">setparams</a> 这一节。</p>
+</section>
+<section id="id20">
+<h2>显卡硬件加速*<a class="headerlink" href="#id20" title="永久链接至标题"></a></h2>
 <p>FFmpeg 支持显卡硬件加速；本节主要以 Nvidia 的显卡与 H.264 编码方式为例展示一些用法。</p>
-<section id="id18">
-<h3>硬件支持<a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
+<section id="id21">
+<h3>硬件支持<a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
 <p>关于用户当前的显卡支持哪些编码格式的硬件加速，可以参考 Nvidia 给出的一张表格： <a class="reference external" href="https://developer.nvidia.com/video-encode-decode-gpu-support-matrix">Video Encode and Decode GPU Support Matrix</a>。简要来说，大概是：</p>
 <ul class="simple">
 <li><p>大多 Maxwell 一代显卡（GTX 745/850/850M/960M 及同代更高型号）支持完整的 H.264 编码硬件加速</p></li>
@@ -453,8 +557,8 @@ ffmpeg -i video.mp4 -c:v libx264 -b:v 2600k -pass <span class="m">2</span> -c:a 
 <li><p>较新的显卡对于其他主流的编码格式，如 VP9 等，也有硬件加速支持</p></li>
 </ul>
 </section>
-<section id="id19">
-<h3>FFmpeg 支持<a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<section id="id22">
+<h3>FFmpeg 支持<a class="headerlink" href="#id22" title="永久链接至标题"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>由于 FFmpeg 存在众多的编译版本，用户正使用的不一定包含了硬件加速功能。但官方提供的预编译版本均涵盖了该功能，本文也不再对如何在编译时引入硬件加速支持进行介绍。</p>
@@ -474,8 +578,8 @@ DEV.L. hevc                 H.265 / HEVC <span class="o">(</span>High Efficiency
 <li><p>关于该编码器的详细帮助，可以参考 <code class="docutils literal notranslate"><span class="pre">ffmpeg</span> <span class="pre">-h</span> <span class="pre">encoder=h264_nvenc</span></code> 命令给出的参数列表。</p></li>
 </ul>
 </section>
-<section id="id20">
-<h3>硬件加速命令<a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
+<section id="id23">
+<h3>硬件加速命令<a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
 <p>硬件加速有混合模式（CPU 与 GPU 共同工作）与独占模式（完全 GPU 工作）两种。</p>
 <p>混合模式直接指定编码器为支持硬件加速的编码器即可，比如 <code class="docutils literal notranslate"><span class="pre">h264_nvenc</span></code>：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># CPU+GPU 混合模式</span>
@@ -489,8 +593,8 @@ ffmpeg -hwaccel cuda -hwaccel_output_format cuda -i video.mp4 -c:v h264_nvenc -c
 </div>
 <p>上述命令会自动以 2000 kbps（即 2Mbps）左右的总文件比特率（视频、音频多轨综合，因此单独看视频码率可能会略高于 2M ）来压缩视频。</p>
 </section>
-<section id="id21">
-<h3>硬件加速下的质量控制<a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
+<section id="id24">
+<h3>硬件加速下的质量控制<a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
 <p>由于 <code class="docutils literal notranslate"><span class="pre">h264_nvenc</span></code> 编码器不支持 CRF 参数，我个人的习惯是通过 <code class="docutils literal notranslate"><span class="pre">-rc</span></code> 参数来设置 <code class="docutils literal notranslate"><span class="pre">vbr_hq</span></code> 可变码率模式，并手动指定 <code class="docutils literal notranslate"><span class="pre">-b:v</span></code> 视频码率的数值。例如下述命令使用可变码率模式，并将视频设置在 2Mbps 附近：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -hwaccel cuda -hwaccel_output_format cuda -i video.mp4 -c:v h264_nvenc -rc vbr_hq -b:v 2M -c:a copy out.mp4
 </pre></div>
