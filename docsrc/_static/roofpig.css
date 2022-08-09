@@ -1,0 +1,24 @@
+/** roofpig: JS lib for Rubik animation **/
+div.roofpig {
+    width: 210px;
+    max-width: 500px;
+    margin: 5px auto;
+    font-family: inherit !important;
+    border: none !important;
+}
+div.roof-algtext { text-align: center; }
+div.roofpig-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/** For same line roofpig**/
+div.roofpig.inline {
+    display: inline-block;
+    margin: 10px 15px;  /** 15px between them**/
+}
+div.roofpig-inline-container {
+    margin: 5px auto;
+    text-align: center;
+}
