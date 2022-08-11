@@ -7,7 +7,7 @@ CFOP 方法
 
    * 本文中所有给公式情形的命名大都源于本人的习惯，并不一定是被大众接受的名称。这其中可能还包含了围棋术语。
    * 本文中所有公式的括号（即手法组）都源于本人的复原习惯，请不必拘泥。
-   * 淡绿色背景的公式表示对于此情形 *我个人比较推荐* 的公式。
+   * 淡绿色背景的公式表示对于此情形 *我个人比较推荐* 的公式。CFOP 几乎每种情形都有非常多种解法，每个公式都有非常多的变体可以替代；本文只列出我学习的或者推荐的解法。
    * 推荐的魔方复原计时练习站点：csTimer_ .
 
 
@@ -78,7 +78,9 @@ F2L 核心思路
 OLL 的十字公式（两步 OLL）
 ------------------------------
 
-两步 OLL（2 Look OLL）是从层先向标准 OLL 过渡的一种方法。它将顶面还原分为两步：第一步，在顶面搭建十字；第二步，按照 OLL 公式中对带有十字情形的还原方法来还原顶面。
+两步 OLL（2-Look OLL）是从层先向标准 OLL 过渡的一种方法；如果有信心，可以跳过本节，直接记忆所有的标准 OLL 公式。
+
+两步 OLL 将顶面还原分为两步：第一步，在顶面搭建十字；第二步，按照 OLL 公式中对带有十字情形的还原方法来还原顶面。
 
 顶面十字
 ^^^^^^^^^^^^^
@@ -112,7 +114,7 @@ OLL 的十字公式（两步 OLL）
     </div>
 
 
-7 个十字 OLL 公式
+带十字的 OLL
 ^^^^^^^^^^^^^^^^^^^
 
 在拼出顶面十字之后，顶面其实只有 7 种情形：两种小鱼（OLL 26、27），两种十字（OLL 21、22），两种由字（OLL 23、24），以及一种梅花七（OLL 25）。
@@ -133,7 +135,7 @@ OLL 的十字公式（两步 OLL）
     <div class="roofpig-inline-container">
       <div class="roofpig inline recommend" data-config="alg=R U2 R' U' R U R' U' R U' R'|colored=u|flags=showalg">OLL 21：双对称十字</div>
       <div class="roofpig inline" data-config="alg=R U R' U R U' R' U R U2 R'|colored=u|flags=showalg">OLL 21：双对称十字（变体）</div>
-      <div class="roofpig inline recommend" data-config="alg=R U2 R2' U' R2 U' R2' U2 R|colored=u|flags=showalg">OLL 22：单对称十字</div>
+      <div class="roofpig inline recommend" data-config="alg=R U2 R2' U' R2 U' R2' U2 R|colored=u|flags=showalg|algdisplay=2p">OLL 22：单对称十字</div>
     </div>
 
 两种“由”字型，即顶面只有一侧的两个角块朝向不正确。一种是这两个角块的顶色朝向同一个侧面，那么让它们朝向后侧，然后做 ``R2D'(RU2R')D(RU2R)``\ （这可能是这 7 个 OLL 公式里比较难记的一个）。或者，让这两个顶色朝向前侧，然后做镜像变体公式 ``R2D(R'U2R)D'(R'U2R')``。
@@ -166,12 +168,80 @@ OLL 的十字公式（两步 OLL）
 PLL 的基础棱角公式（两步 PLL）
 ---------------------------------
 
+两步 PLL（2-Look PLL）是一种从层先法向标准 PLL 过渡的一种方法；如果有信心，可以跳过本节，直接记忆所有的标准 PLL 公式。
 
-完整的 PLL
+两步 PLL 的思路与两步 OLL 相似，将顶面复原后的顶层复原任务分为了两步：第一步，复原角块位置；第二步，复原棱块位置。由于 PLL 不存在朝向问题（保持顶色朝上的情况下，如果将块还原到对应位置，则块的朝向也必然正确），因此两步 PLL 需要记忆的公式甚至比两步 OLL 更少。
+
+
+复原顶层角块
+^^^^^^^^^^^^^^^^
+
+先来看第一步，角块位置还原。顶层四个角块的位置只有两种排列情况：第一种是同面交换，第二种是对角交换。
+
+1. 同面交换（Headlight）：如果前、后、左、右（F、B、L、R）四个面观察时，有一个面的两个角块朝向该面的颜色相同，那么说明这两个角块的位置是正确的，而另外两个角块需要交换位置。这样两个颜色相同的角块就像汽车的前照灯一样，因此该型也叫“头灯”。需要说明，这样的面只有可能有一个或者四个；如果有四个，表示整个顶面的角块位置已经正确。
+   
+   将 **位置正确的两个角块（头灯） 放在左面**\ （下例中的两个带蓝色的角块），然后做公式 ``(RUR'U')(R'FR2U')(R'U'RU)R'F'``。
+   
+   .. raw:: html
+
+      <div class="roofpig recommend" data-config="alg=R U R' U' R' F R2 U' R' U' R U R' F'|colored=U*/mc U-|flags=showalg|algdisplay=2p">同面交换公式（PLL T）</div>
+   
+   该公式实质上是一个标准 PLL 公式（PLL T），它交换了右前与后两个角块的位置（以及左侧与右侧两个棱块的位置）。
+
+2. 对角交换（Diagonal）：如果从以上四个侧面观察该面的两个角块时，每个面的两个角块朝向该面的颜色都不同，那么说明需要交换四个角块中任意一组对角的位置。从任意方位起手均可，做对角交换公式 ``F(RU'R'U')(RUR')F'(RUR'U')(R'FRF')``。
+
+   .. raw:: html
+
+      <div class="roofpig recommend" data-config="alg=F R U' R' U' R U R' F' R U R' U' R' F R F'|colored=U*/mc U-|flags=showalg|algdisplay=2p">对角交换公式（PLL Y）</div>
+
+   你可以从任意一个面起手做该公式；但我更推荐让左前方角块（ULF）的 F 面颜色对准到该色所在的面（上例中的黄红蓝角块），以避免公式之后多余的顶面旋转。该公式实际上是一个标准 PLL 公式（PLL Y），它交换了右前方与左后方这两个角块的位置（以及左侧与后侧两个棱块的位置）。
+
+最后，由于标准 PLL 公式中有多个公式都可能实现角块交换的效果，因此这两个公式并不是唯一的。
+
+
+复原顶层棱块
+^^^^^^^^^^^^^^
+
+完成顶层的角块复原后，我们就可以进行两步 PLL 的第二步，也即整个魔方复原的最后一步，顶层棱块复原。顶层的棱块排列只有 4 种。
+
+* 双对棱（PLL H）： 我推荐只包含 ``M'``\ （可用左手无名指接中指拨动下后侧棱块来做）与 ``U`` 手法的公式 ``M2'UM2'U2M2'UM2'``。如果感觉转动中轴不顺手，可以用 ``r2'R2`` 替代。
+
+  .. raw:: html
+     
+      <div class="roofpig-inline-container">
+        <div class="roofpig inline recommend" data-config="alg=M2' U M2' U2 M2' U M2'|flags=showalg|algdisplay=2p">PLL H：双对棱</div>
+        <div class="roofpig inline" data-config="alg=r2' R2 U r2' R2 U2 r2' R2 U r2' R2|flags=showalg|algdisplay=2p">变体：rR 中轴</div>
+      </div>  
+
+* 三棱换（PLL Ua \& Ub）： 逆时针三棱即在层先法中学习过的公式 ``(RU'RU)(RURU')(R'U'R2)```，顺时针三棱则是简单地反转该公式，即 ``R2U(RUR'U')R'U'(R'UR')``。
+
+  .. raw:: html
+     
+      <div class="roofpig-inline-container">
+        <div class="roofpig inline recommend" data-config="alg=R U' R U R U R U' R' U' R2|flags=showalg|algdisplay=2p">PLL Ua：逆时针三棱换</div>
+        <div class="roofpig inline recommend" data-config="alg=R2 U R U R' U' R' U' R' U R'|flags=showalg|algdisplay=2p">PLL Ub：顺时针三棱换</div>
+      </div>  
+
+* 双邻棱（PLL Z）：将需要交换的一组棱放在前面与右面，然后做公式 ``(M2'UM2'U)(M'U2M2'U2)M'U2``。这个公式同样也只包含 ``M'`` 与 ``U`` 手法；如果用 ``rR'`` 手法代替中轴 ``M'``\ ，那么可以得到下面的 rR 中轴变体公式。此外，这里还给出一种只转动右顶（RU）两个面、但步骤稍长的变体公式 ``(RUR'U)(R'U'R'U)(RU'R'U')(R2'UR)U2``。
+  
+  .. raw:: html
+     
+     <div class="roofpig-inline-container">
+       <div class="roofpig inline recommend" data-config="alg=M2' U M2' U M' U2 M2' U2 M' U2|flags=showalg|algdisplay=2p">PLL Z：双邻棱</div>
+       <div class="roofpig inline" data-config="alg=r2 R2' U r2 R2' U r R' U2 r2 R2' U2 r R' U2|flags=showalg|algdisplay=2p">变体：rR 中轴</div>
+       <div class="roofpig inline" data-config="alg=R U R' U R' U' R' U R U' R' U' R2' U R U2|flags=showalg|algdisplay=2p">变体：RU 公式</div>
+     </div> 
+
+至此，你已经学会了如何还原顶层的棱块排列了，整个魔方被你复原了！在稍加练习后，你会发现这种 CF + 两步 O + 两步P 的方法要明显快于层先法。比较熟练的爱好者使用它可以在 30 秒内完成魔方复原。
+
+如果你不满足于此，那么请接着向下阅读，学习完整的 CFOP 吧！
+
+
+标准 PLL
 -------------
 
 
-完整的 OLL
+标准 OLL
 -------------
 
 

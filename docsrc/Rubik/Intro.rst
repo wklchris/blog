@@ -33,3 +33,21 @@
 
 * Feliks Zemdegs（菲尼克斯·曾姆丹格斯，1995-），澳大利亚魔方选手，被誉为史上最优秀、最有天赋的魔方选手，在国内人称“菲神”。他 14 岁首次参加正式比赛时便夺冠，从 2010 年（15 岁）开始就在 3\~7 阶速拧以及三阶单拧上创造世界纪录，在随后的生涯中破世界纪录超过 120 次。他在 2010 年 1 月打破三阶速拧世界纪录，成为历史上首个五次平均 sub 10 的选手。此后的单次最佳 sub 7、6 以及五次平均 sub 7 也均由他先达成。
 * Max Park（马克斯·帕克，2001-），美国魔方选手，打破世界纪录多达 60 余次，被认为是继 Feliks 之后的最强选手。他患有自闭症，但被家人发现在魔方上有很高的天赋。Max 从 2017 年（16 岁）左右破纪录开始引起大家的注意，擅长的项目几乎与 Feliks 相同。他在 2018 年成为了史上首个三阶单拧五次平均 sub 10 的选手。
+
+
+参考资料
+-------------
+
+本文的参考资料包括：
+
+* `世界魔方协会（WCA）官网 <https://www.worldcubeassociation.org>`_
+* Speedsolving 网站
+  
+  * `Speedsolving - PLL <https://www.speedsolving.com/wiki/index.php/PLL>`_
+
+* jperm 网站
+  
+  * `jperm - 2-Look PLL <https://jperm.net/algs/2look/pll>`_
+  * `jperm - 2-Look OLL <https://jperm.net/algs/2lookoll>`_
+
+* Gan 魔方说明书 - Gan's CFOP
