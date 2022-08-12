@@ -36,7 +36,7 @@ CSS 支持
 
 在此附上本文对 roofpig 库使用的 CSS：
 
-.. literalinclude:: ../_static/roofpig.css
+.. literalinclude:: _static/roofpig.css
    :linenos:
    :language: css
 
