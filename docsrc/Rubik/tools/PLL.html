@@ -1,0 +1,195 @@
+<table border="1" class="dataframe roofpig-table">
+  <colgroup>
+    <col class="id_str" />
+    <col class="name" />
+    <col class="group" />
+    <col class="solution" />
+    <col class="comment" />
+  </colgroup>
+  <thead>
+    <tr style="text-align: center;">
+      <th>编号</th>
+      <th>名称</th>
+      <th>分组</th>
+      <th>公式</th>
+      <th>注解</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PLL 1<br />(Ua)</td>
+      <td>逆时针三棱</td>
+      <td>三棱</td>
+      <td><div class="roofpig" data-config="alg=R U' R U R U R U' R' U' R2|algdisplay=2p"></div></td>
+      <td>（层先、两步PLL公式）<br /><b>(RU'RU)(RURU')(R'U'R2)</b></td>
+    </tr>
+    <tr>
+      <td>PLL 2<br />(Ub)</td>
+      <td>顺时针三棱</td>
+      <td>三棱</td>
+      <td><div class="roofpig" data-config="alg=R2 U R U R' U' R' U' R' U R'|algdisplay=2p"></div></td>
+      <td>（两步PLL公式）<br /><b>R2U(RUR'U')R'U'(R'UR')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 3<br />(H)</td>
+      <td>双对棱</td>
+      <td>四棱</td>
+      <td><div class="roofpig" data-config="alg=M2' U M2' U2 M2' U M2'|algdisplay=2p"></div></td>
+      <td>（两步PLL公式）<br /><b>M2'UM2'U2M2'UM2'</b></td>
+    </tr>
+    <tr>
+      <td>PLL 4<br />(Z)</td>
+      <td>双邻棱</td>
+      <td>四棱</td>
+      <td><div class="roofpig" data-config="alg=M2' U M2' U M' U2 M2' U2 M' U2|algdisplay=2p"></div></td>
+      <td>（两步PLL公式）<br /><b>(M2'UM2'U)(M'U2M2'U2)M'U2</b></td>
+    </tr>
+    <tr>
+      <td>PLL 4<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U R' U R' U' R' U R U' R' U' R2' U R U2|algdisplay=2p"></div></td>
+      <td>RU变体。<br /><b>(RUR'U)(R'U'R'U)(RU'R'U')(R2'UR)U2</b></td>
+    </tr>
+    <tr>
+      <td>PLL 5<br />(Aa)</td>
+      <td>顺时针三角</td>
+      <td>三角</td>
+      <td><div class="roofpig" data-config="alg=x' R2 D2 R' U' R D2 R' U R'|algdisplay=2p"></div></td>
+      <td>（层先公式）<br /><b>x'R2D2(R'U'R)D2(R'UR')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 6<br />(Ab)</td>
+      <td>逆时针三角</td>
+      <td>三角</td>
+      <td><div class="roofpig" data-config="alg=x' R U' R D2 R' U R D2 R2'|algdisplay=2p"></div></td>
+      <td><br /><b>x'(RU'R)D2(R'UR)D2R2'</b></td>
+    </tr>
+    <tr>
+      <td>PLL 7<br />(E)</td>
+      <td>双邻角</td>
+      <td>四角</td>
+      <td><div class="roofpig" data-config="alg=x' R U' R' D R U R' D' R U R' D R U' R' D'|algdisplay=2p"></div></td>
+      <td><br /><b>x'(RU'R'D)(RUR'D')(RUR'D)(RU'R'D')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 7<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=x' R U' R' D R U R' u2 R' U R D R' U' R|algdisplay=2p"></div></td>
+      <td><br /><b>x'(RU'R'D)(RUR')u2(R'URD)(R'U'R)</b></td>
+    </tr>
+    <tr>
+      <td>PLL 8<br />(T)</td>
+      <td>T型棱角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=R U R' U' R' F R2 U' R' U' R U R' F'|algdisplay=2p"></div></td>
+      <td>（两步PLL公式）<br /><b>(RUR'U')(R'F)(R2U'R'U')(RUR'F')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 9<br />(F)</td>
+      <td>F型棱角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R|algdisplay=2p"></div></td>
+      <td><br /><b>(R'U'F')(RUR'U')(R'F)(R2U'R'U')(RUR'UR)</b></td>
+    </tr>
+    <tr>
+      <td>PLL 10<br />(V)</td>
+      <td>邻面棱角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=R' U R' U' y' R' F' R2 U' R' U R' F R F|algdisplay=2p"></div></td>
+      <td><br /><b>(R'UR'U')y'(R'F'R2U')(R'UR'FRF)</b></td>
+    </tr>
+    <tr>
+      <td>PLL 11<br />(Y)</td>
+      <td>筝型</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=F R U' R' U' R U R' F' R U R' U' R' F R F'|algdisplay=2p"></div></td>
+      <td><br /><b>F(RU'R'U')(RUR'F')(RUR'U')(R'FRF')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 12<br />(Ja)</td>
+      <td>邻棱顺交邻角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=L' U R' z R2 U R' U' R2 U D R'|algdisplay=2p"></div></td>
+      <td><br /><b>(L'UR')z(R2UR'U')(R2UDR')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 13<br />(Jb)</td>
+      <td>邻棱逆交邻角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=R U R' F' R U R' U' R' F R2 U' R' U'|algdisplay=2p"></div></td>
+      <td><br /><b>(RUR'F')(RUR'U')(R'F)(R2U'R'U')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 14<br />(Rb)</td>
+      <td>邻棱逆对邻角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=R' U2 R U2' R' F R U R' U' R' F' R2 U'|algdisplay=2p"></div></td>
+      <td><br /><b>(R'U2)(RU2')(R'FRUR'U')(R'F'R2U')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 15<br />(Ra)</td>
+      <td>邻棱顺对邻角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=R U' R' U' R U R D R' U' R D' R' U2 R' U'|algdisplay=2p"></div></td>
+      <td><br /><b>(RU'R'U')(RURD)(R'U'RD')(R'U2R'U')</b></td>
+    </tr>
+    <tr>
+      <td>PLL 16<br />(Gc)</td>
+      <td>逆角顺棱</td>
+      <td>三棱三角</td>
+      <td><div class="roofpig" data-config="alg=R2' F2 R U2' R U2 R' F R U R' U' R' F R2|algdisplay=2p"></div></td>
+      <td><br /><b>R2'F2(RU2'RU2)R'F(RUR'U')(R'FR2)</b><br />观察：正确两块朝F靠左，R面角块的侧面颜色相同</td>
+    </tr>
+    <tr>
+      <td>PLL 17<br />(Gd)</td>
+      <td>顺角逆棱</td>
+      <td>三棱三角</td>
+      <td><div class="roofpig" data-config="alg=R U R' y' R2 u' R U' R' U R' u R2|algdisplay=2p"></div></td>
+      <td><br /><b>(RUR')y'(R2u'RU')(R'UR'uR2)</b><br />观察：正确两块朝F靠左，B面角块的侧面颜色相同</td>
+    </tr>
+    <tr>
+      <td>PLL 18<br />(Ga)</td>
+      <td>顺角逆棱镜像</td>
+      <td>三棱三角</td>
+      <td><div class="roofpig" data-config="alg=R2 u R' U R' U' R u' R2' y' R' U R|algdisplay=2p"></div></td>
+      <td>逆做Gd。<br /><b>(R2uR')(UR'U'Ru')R2'y'(R'UR)</b><br />观察：正确两块朝F靠右，L面角块的侧面颜色相同</td>
+    </tr>
+    <tr>
+      <td>PLL 19<br />(Gb)</td>
+      <td>逆角顺棱镜像</td>
+      <td>三棱三角</td>
+      <td><div class="roofpig" data-config="alg=F' U' F R2 u R' U R U' R u' R2|algdisplay=2p"></div></td>
+      <td><br /><b>(F'U'F)(R2u)(R'URU'R)u'R2</b><br />观察：正确两块朝F靠右，B面角块的侧面颜色相同</td>
+    </tr>
+    <tr>
+      <td>PLL 20<br />(Nb)</td>
+      <td>对棱对角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=z D' R U' R2 D R' U D' R U' R2 D R' U R|algdisplay=2p"></div></td>
+      <td><br /><b>z(D'RU')(R2DR'U)(D'RU')(R2DR'UR)</b></td>
+    </tr>
+    <tr>
+      <td>PLL 20<br />(变体1)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R' U R U' R' F' U' F R U R' F R' F' R U' R|algdisplay=2p"></div></td>
+      <td><br /><b>(R'URU')(R'F'U')(FRUR'F)(R'F'RU'R)</b></td>
+    </tr>
+    <tr>
+      <td>PLL 20<br />(变体2)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R' U R' F R F' R U' R' F' U F R U R' U' R|algdisplay=2p"></div></td>
+      <td><br /><b>(R'UR'F)(RF'RU')(R'F'UF)(RUR'U'R)</b></td>
+    </tr>
+    <tr>
+      <td>PLL 21<br />(Na)</td>
+      <td>对棱对角镜像</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig" data-config="alg=z U R' D R2 U' R U D' R' D R2 U' R D' R'|algdisplay=2p"></div></td>
+      <td><br /><b>z(UR'D)(R2U'RUD')(R'DR2U')(RD')R'</b></td>
+    </tr>
+  </tbody>
+</table>

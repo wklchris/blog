@@ -30,3 +30,19 @@ div.roofpig-inline-container {
 div.roofpig.recommend {
     background-color: #C9F6C8;
 }
+
+/** For tables that display a lot roofpig**/
+table div.roofpig {
+    max-width: 180px; /* Smaller roofpig in tables*/
+}
+
+table.roofpig-table {
+    width: 100%;
+    margin-left: auto;
+    border-collapse: collapse;
+}
+table.roofpig-table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 5px;
+}

@@ -95,7 +95,7 @@ OLL 的十字公式（两步 OLL）
       <div class="roofpig inline recommend" data-config="alg=f R U R' U' f'|colored=U*/e */m|setupmoves=F U R U' R' F'|flags=showalg">顶面逆十字变体</div>
     </div>
 
-只观察顶面的棱块，我们会发现顶面十字公式的作用也十分明显：它变更了前（UF，图中黄红）、右（UR，图中黄绿）以及后（UB，图中黄橙）三个顶面棱块的位置与朝向。实质上， **十字公式翻转了前、后棱块的朝向**\ ，被翻转朝向的棱块会放在右、前两面。类似地， **逆十字公式翻转了右、前棱块的朝向**，被翻转朝向的棱块会被放在前、后两面（变体则是旋转 180 度的情形）。
+只观察顶面的棱块，我们会发现顶面十字公式的作用也十分明显：它变更了前（UF，图中黄红）、右（UR，图中黄绿）以及后（UB，图中黄橙）三个顶面棱块的位置与朝向。实质上，\ **十字公式翻转了前、后棱块的朝向**\ ，被翻转朝向的棱块会放在右、前两面。类似地，\ **逆十字公式翻转了右、前棱块的朝向**，被翻转朝向的棱块会被放在前、后两面（变体则是旋转 180 度的情形）。
 
 明白了这一点后，我们就知道应该如何应用顶面十字公式了：
 
@@ -128,39 +128,43 @@ OLL 的十字公式（两步 OLL）
       <div class="roofpig inline recommend" data-config="alg=R U2 R' U' R U' R'|colored=u|flags=showalg">OLL 26：反小鱼</div>
     </div>
 
-两种十字型，即顶面所有的角块朝向都不正确。一种是角块的顶色朝向分布在两个侧面的（2+2），需要将这两个侧面放在前后两面，然后做 ``RU2(R'U'RU)R'U'(RU'R')``；或者将它们放在左右两面，然后做变体 ``RU(R'URU')R'U(RU2R')``\ （我觉得这个变体不太顺手）。另一种十字型是角块的顶色朝向分布在三个侧面（1+1+2），旋转顶层使有 2 个顶色的那一面朝左，然后做 ``RU2(R2'U'R2U')(R2'U2R)``。
+两种十字型，即顶面所有的角块朝向都不正确。一种是角块的顶色朝向分布在两个侧面的（2+2），需要将这两个侧面放在前后两面，然后做 ``RU2(R'U'RU)R'U'(RU'R')``\ ；或者将它们放在左右两面，然后做变体 ``RU(R'URU')R'U(RU2R')``\ （我觉得这个变体不太顺手）。另一种十字型是角块的顶色朝向分布在三个侧面（1+1+2），旋转顶层使有 2 个顶色的那一面朝左，然后做 ``RU2(R2'U'R2U')(R2'U2R)``。
 
 .. raw:: html
 
     <div class="roofpig-inline-container">
       <div class="roofpig inline recommend" data-config="alg=R U2 R' U' R U R' U' R U' R'|colored=u|flags=showalg">OLL 21：双对称十字</div>
-      <div class="roofpig inline" data-config="alg=R U R' U R U' R' U R U2 R'|colored=u|flags=showalg">OLL 21：双对称十字（变体）</div>
+      <div class="roofpig inline" data-config="alg=R U R' U R U' R' U R U2 R'|colored=u|flags=showalg">双对称十字（变体）</div>
       <div class="roofpig inline recommend" data-config="alg=R U2 R2' U' R2 U' R2' U2 R|colored=u|flags=showalg|algdisplay=2p">OLL 22：单对称十字</div>
     </div>
 
-两种“由”字型，即顶面只有一侧的两个角块朝向不正确。一种是这两个角块的顶色朝向同一个侧面，那么让它们朝向后侧，然后做 ``R2D'(RU2R')D(RU2R)``\ （这可能是这 7 个 OLL 公式里比较难记的一个）。或者，让这两个顶色朝向前侧，然后做镜像变体公式 ``R2D(R'U2R)D'(R'U2R')``。
+两种“由”字型，即顶面只有一侧的两个角块朝向不正确。一种由字是这两个角块的顶色朝向同一个侧面（也即“由”字一竖出头的方向），那么让“由”字的竖朝向后侧，然后做 ``R2D'(RU2R')D(RU2R)``\ （这可能是这 7 个 OLL 公式里比较难记的一个）。或者，让这两个顶色朝向前侧，然后做镜像变体公式 ``R2D(R'U2R)D'(R'U2R')``。
 
-另一种是这两个角块的顶色朝向两个不同的侧面，那么旋转顶层使两个朝向正确的角块位于右侧，然后做 ``(rUR'U')r'(FRF')``；不过我个人有时候会使用变体 ``(rUR'U')(L'U)(RU')x'``，优点是不用中途更换握持魔方的姿态，缺点是做完以后需要一个翻转魔方的动作。
+另一种由字是这两个角块的顶色朝向两个不同的侧面，那么旋转顶层使“由”字的竖指向左侧，然后做 ``(rUR'U')r'(FRF')``；不过我个人有时候会对手法微调，使用 ``(rUR'U')(L'U)(RU')x'``，优点是不用中途更换握持魔方的姿态，缺点是做完以后需要一个翻转魔方的动作。另一种方法是让“由”字的竖指向前面，然后做不需要 ``r`` 手法的变体 ``x'(RUR'D)(RU'R'D')``。
 
 .. raw:: html
 
     <div class="roofpig-inline-container">
       <div class="roofpig inline recommend" data-config="alg=R2 D' R U2 R' D R U2 R|colored=u|flags=showalg">OLL 23：同向由字</div>
-      <div class="roofpig inline" data-config="alg=R2 D R' U2 R D' R' U2 R'|colored=u|flags=showalg">OLL 23：同向由字（镜像变体）</div>
+      <div class="roofpig inline" data-config="alg=R2 D R' U2 R D' R' U2 R'|colored=u|flags=showalg">同向由字（镜像变体）</div>
     </div>
 
 .. raw:: html
 
     <div class="roofpig-inline-container">
       <div class="roofpig inline recommend" data-config="alg=r U R' U' r' F R F'|colored=u|flags=showalg">OLL 24：对向由字</div>
-      <div class="roofpig inline" data-config="alg=r U R' U' L' U R U' x'|colored=u|flags=showalg">OLL 24：对向由字（变体）</div>
+      <div class="roofpig inline" data-config="alg=r U R' U' L' U R U' x'|colored=u|flags=showalg">对向由字（微调）</div>
+      <div class="roofpig inline" data-config="alg=x' R U R' D R U' R' D'|colored=u|flags=showalg">对向由字（无r变体）</div>
     </div>
 
-最后是梅花七型，即顶面只有两个呈对角关系的角块朝向不正确。旋转顶层，直到右下角的角块顶色朝前，然后做 ``F'(rUR' U')(r'FR)``。
+最后是梅花七型，即顶面只有两个呈对角关系的角块朝向不正确。旋转顶层，直到右前角的角块顶色朝前，然后做 ``F'(rUR' U')(r'FR)``。如果不喜欢 ``r`` 手法，可以旋转到右前角块的顶色朝右，然后用 ``x'(RU'R'D)(RUR'D')`` 来做。
 
 .. raw:: html
-
-    <div class="roofpig recommend" data-config="alg=F' r U R' U' r' F R|colored=u|flags=showalg">OLL 25：梅花七</div>
+    
+    <div class="roofpig-inline-container">
+      <div class="roofpig inline recommend" data-config="alg=F' r U R' U' r' F R|colored=u|flags=showalg">OLL 25：梅花七</div>
+      <div class="roofpig inline" data-config="alg=x' R U' R' D R U R' D'|colored=u|flags=showalg">梅花七（无r变体）</div>
+    </div>
 
 至此，你以及可以用两步 OLL 来完成顶面的复原了！这种方法相比层先法中复原顶面的方法的优势，主要在于归纳了顶面十字的快速搭建方法，并通过 7 个公式加快了复杂情形的解决速度（尤其是由字、梅花七）。
 
@@ -180,21 +184,21 @@ PLL 的基础棱角公式（两步 PLL）
 
 1. 同面交换（Headlight）：如果前、后、左、右（F、B、L、R）四个面观察时，有一个面的两个角块朝向该面的颜色相同，那么说明这两个角块的位置是正确的，而另外两个角块需要交换位置。这样两个颜色相同的角块就像汽车的前照灯一样，因此该型也叫“头灯”。需要说明，这样的面只有可能有一个或者四个；如果有四个，表示整个顶面的角块位置已经正确。
    
-   将 **位置正确的两个角块（头灯） 放在左面**\ （下例中的两个带蓝色的角块），然后做公式 ``(RUR'U')(R'FR2U')(R'U'RU)R'F'``。
+   将\ **位置正确的两个角块（头灯） 放在左面**\ （下例中的两个带蓝色的角块），然后做公式 ``(RUR'U')(R'F)(R2U'R'U')(RUR'F')``。
    
    .. raw:: html
 
-      <div class="roofpig recommend" data-config="alg=R U R' U' R' F R2 U' R' U' R U R' F'|colored=U*/mc U-|flags=showalg|algdisplay=2p">同面交换公式（PLL T）</div>
+      <div class="roofpig recommend" data-config="alg=R U R' U' R' F R2 U' R' U' R U R' F'|colored=U*/mc U-|flags=showalg|algdisplay=2p">同面交换公式（PLL 8）</div>
    
-   该公式实质上是一个标准 PLL 公式（PLL T），它交换了右前与后两个角块的位置（以及左侧与右侧两个棱块的位置）。
+   该公式实质上是一个标准 PLL 公式（PLL 8），它交换了右前与后两个角块的位置（以及左侧与右侧两个棱块的位置）。
 
 2. 对角交换（Diagonal）：如果从以上四个侧面观察该面的两个角块时，每个面的两个角块朝向该面的颜色都不同，那么说明需要交换四个角块中任意一组对角的位置。从任意方位起手均可，做对角交换公式 ``F(RU'R'U')(RUR')F'(RUR'U')(R'FRF')``。
 
    .. raw:: html
 
-      <div class="roofpig recommend" data-config="alg=F R U' R' U' R U R' F' R U R' U' R' F R F'|colored=U*/mc U-|flags=showalg|algdisplay=2p">对角交换公式（PLL Y）</div>
+      <div class="roofpig recommend" data-config="alg=F R U' R' U' R U R' F' R U R' U' R' F R F'|colored=U*/mc U-|flags=showalg|algdisplay=2p">对角交换公式（PLL 11）</div>
 
-   你可以从任意一个面起手做该公式；但我更推荐让左前方角块（ULF）的 F 面颜色对准到该色所在的面（上例中的黄红蓝角块），以避免公式之后多余的顶面旋转。该公式实际上是一个标准 PLL 公式（PLL Y），它交换了右前方与左后方这两个角块的位置（以及左侧与后侧两个棱块的位置）。
+   你可以从任意一个面起手做该公式；但我更推荐让左前方角块（ULF）的 F 面颜色对准到该色所在的面（上例中的黄红蓝角块），以避免公式之后多余的顶面旋转。该公式实际上是一个标准 PLL 公式（PLL 11），它交换了右前方与左后方这两个角块的位置（以及左侧与后侧两个棱块的位置）。
 
 最后，由于标准 PLL 公式中有多个公式都可能实现角块交换的效果，因此这两个公式并不是唯一的。
 
@@ -204,30 +208,30 @@ PLL 的基础棱角公式（两步 PLL）
 
 完成顶层的角块复原后，我们就可以进行两步 PLL 的第二步，也即整个魔方复原的最后一步，顶层棱块复原。顶层的棱块排列只有 4 种。
 
-* 双对棱（PLL H）： 我推荐只包含 ``M'``\ （可用左手无名指接中指拨动下后侧棱块来做）与 ``U`` 手法的公式 ``M2'UM2'U2M2'UM2'``。如果感觉转动中轴不顺手，可以用 ``r2'R2`` 替代。
+* 三棱换（PLL 1 \& 2）： 逆时针三棱即在层先法中学习过的公式 ``(RU'RU)(RURU')(R'U'R2)``\ ，顺时针三棱则是简单地反转该公式，即 ``R2U(RUR'U')R'U'(R'UR')``。
 
   .. raw:: html
      
       <div class="roofpig-inline-container">
-        <div class="roofpig inline recommend" data-config="alg=M2' U M2' U2 M2' U M2'|flags=showalg|algdisplay=2p">PLL H：双对棱</div>
+        <div class="roofpig inline recommend" data-config="alg=R U' R U R U R U' R' U' R2|flags=showalg|algdisplay=2p">PLL 1：逆时针三棱换</div>
+        <div class="roofpig inline recommend" data-config="alg=R2 U R U R' U' R' U' R' U R'|flags=showalg|algdisplay=2p">PLL 2：顺时针三棱换</div>
+      </div>  
+
+* 双对棱（PLL 3）： 我推荐只包含 ``M'``\ （可用左手无名指接中指拨动下后侧棱块来做）与 ``U`` 手法的公式 ``M2'UM2'U2M2'UM2'``。如果感觉转动中轴不顺手，可以用 ``r2'R2`` 替代。
+
+  .. raw:: html
+     
+      <div class="roofpig-inline-container">
+        <div class="roofpig inline recommend" data-config="alg=M2' U M2' U2 M2' U M2'|flags=showalg|algdisplay=2p">PLL 3：双对棱</div>
         <div class="roofpig inline" data-config="alg=r2' R2 U r2' R2 U2 r2' R2 U r2' R2|flags=showalg|algdisplay=2p">变体：rR 中轴</div>
       </div>  
 
-* 三棱换（PLL Ua \& Ub）： 逆时针三棱即在层先法中学习过的公式 ``(RU'RU)(RURU')(R'U'R2)```，顺时针三棱则是简单地反转该公式，即 ``R2U(RUR'U')R'U'(R'UR')``。
-
-  .. raw:: html
-     
-      <div class="roofpig-inline-container">
-        <div class="roofpig inline recommend" data-config="alg=R U' R U R U R U' R' U' R2|flags=showalg|algdisplay=2p">PLL Ua：逆时针三棱换</div>
-        <div class="roofpig inline recommend" data-config="alg=R2 U R U R' U' R' U' R' U R'|flags=showalg|algdisplay=2p">PLL Ub：顺时针三棱换</div>
-      </div>  
-
-* 双邻棱（PLL Z）：将需要交换的一组棱放在前面与右面，然后做公式 ``(M2'UM2'U)(M'U2M2'U2)M'U2``。这个公式同样也只包含 ``M'`` 与 ``U`` 手法；如果用 ``rR'`` 手法代替中轴 ``M'``\ ，那么可以得到下面的 rR 中轴变体公式。此外，这里还给出一种只转动右顶（RU）两个面、但步骤稍长的变体公式 ``(RUR'U)(R'U'R'U)(RU'R'U')(R2'UR)U2``。
+* 双邻棱（PLL 4）：将需要交换的一组棱放在前面与右面，然后做公式 ``(M2'UM2'U)(M'U2M2'U2)M'U2``。这个公式同样也只包含 ``M'`` 与 ``U`` 手法；如果用 ``rR'`` 手法代替中轴 ``M'``\ ，那么可以得到下面的 rR 中轴变体公式。此外，这里还给出一种只转动右顶（RU）两个面、但步骤稍长的变体公式 ``(RUR'U)(R'U'R'U)(RU'R'U')(R2'UR)U2``。
   
   .. raw:: html
      
      <div class="roofpig-inline-container">
-       <div class="roofpig inline recommend" data-config="alg=M2' U M2' U M' U2 M2' U2 M' U2|flags=showalg|algdisplay=2p">PLL Z：双邻棱</div>
+       <div class="roofpig inline recommend" data-config="alg=M2' U M2' U M' U2 M2' U2 M' U2|flags=showalg|algdisplay=2p">PLL 4：双邻棱</div>
        <div class="roofpig inline" data-config="alg=r2 R2' U r2 R2' U r R' U2 r2 R2' U2 r R' U2|flags=showalg|algdisplay=2p">变体：rR 中轴</div>
        <div class="roofpig inline" data-config="alg=R U R' U R' U' R' U R U' R' U' R2' U R U2|flags=showalg|algdisplay=2p">变体：RU 公式</div>
      </div> 
@@ -240,6 +244,10 @@ PLL 的基础棱角公式（两步 PLL）
 标准 PLL
 -------------
 
+本节给出了针对标准 PLL 的所有 21 种情形的 *我正/曾使用过或觉得顺手的* 公式，其中也包括了上面在两步 PLL 中的 6 个公式。
+
+.. raw:: html
+   :file: tools/PLL.html
 
 标准 OLL
 -------------
