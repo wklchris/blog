@@ -1,6 +1,6 @@
 {
     "_homepage": {
-        "date_modified": "2022-06-14",
+        "date_modified": "2022-08-12",
         "date_online": "2020-08-10",
         "date_online_previous": "2017-01-07"
     },
@@ -16,7 +16,7 @@
             "series_num": "1",
             "date_init": "2017-07-11",
             "date_modified": "2022-06-14",
-            "date_build": "2022-06-14",
+            "date_build": "2022-08-12",
             "abstract": "本文介绍了命令行视频编辑软件 FFmpeg。"
         },
         "Git": {
@@ -28,8 +28,8 @@
             "series": "CLI",
             "series_num": "2",
             "date_init": "2018-04-07",
-            "date_modified": "2020-09-20",
-            "date_build": "2021-11-11",
+            "date_modified": "2022-08-12",
+            "date_build": "2022-08-12",
             "abstract": "本文介绍了 Git，一个流行的版本控制系统。"
         },
         "Matplotlib": {
@@ -44,7 +44,7 @@
             "series_num": "4",
             "date_init": "2017-06-10",
             "date_modified": "2020-01-12",
-            "date_build": "2021-11-11",
+            "date_build": "2022-08-12",
             "abstract": "本文介绍了 Python 最广为使用的科学绘图库 Matplotlib"
         },
         "Python": {
@@ -56,7 +56,7 @@
             "series_num": "1",
             "date_init": "2017-02-22",
             "date_modified": "2020-09-18",
-            "date_build": "2021-11-11",
+            "date_build": "2022-08-12",
             "abstract": "本文介绍了编程语言 Python，一种易于上手的高效语言。"
         },
         "R": {
@@ -68,8 +68,21 @@
             "series_num": "1",
             "date_init": "2017-01-16",
             "date_modified": "2020-09-18",
-            "date_build": "2021-11-11",
+            "date_build": "2022-08-12",
             "abstract": "本文介绍统计语言 R 的基础使用。"
+        },
+        "Rubik": {
+            "category": "Misc",
+            "keywords": [
+                "rubik",
+                "magic cube"
+            ],
+            "series": "Misc",
+            "series_num": "1",
+            "date_init": "2022-08-09",
+            "date_modified": "2022-08-12",
+            "date_build": "2022-08-12",
+            "abstract": "本文介绍了魔方的复原方法（主要是三阶 CFOP）。"
         },
         "Sphinx": {
             "category": "Misc",
@@ -83,7 +96,7 @@
             "series_num": "2",
             "date_init": "2020-09-20",
             "date_modified": "2020-09-21",
-            "date_build": "2021-11-11",
+            "date_build": "2022-08-12",
             "abstract": "本文介绍 Spinx，一个文档或文档网站生成器。"
         },
         "reStructuredText": {
@@ -96,8 +109,8 @@
             "series": "Misc",
             "series_num": "1",
             "date_init": "2018-10-15",
-            "date_modified": "2022-01-06",
-            "date_build": "2022-01-06",
+            "date_modified": "2022-08-12",
+            "date_build": "2022-08-12",
             "abstract": "本文介绍 reStructuredText，一种最初用于创建 Python 技术文档的标记语言。"
         }
     },
@@ -107,6 +120,7 @@
             "Git"
         ],
         "Misc": [
+            "Rubik",
             "Sphinx",
             "reStructuredText"
         ],
@@ -135,6 +149,9 @@
         "git": [
             "Git"
         ],
+        "magic cube": [
+            "Rubik"
+        ],
         "matplotlib": [
             "Matplotlib"
         ],
@@ -151,6 +168,9 @@
         "rst": [
             "Sphinx",
             "reStructuredText"
+        ],
+        "rubik": [
+            "Rubik"
         ],
         "sphinx": [
             "Sphinx",
@@ -172,6 +192,7 @@
             "Git"
         ],
         "Misc": [
+            "Rubik",
             "reStructuredText"
         ],
         "Python": [

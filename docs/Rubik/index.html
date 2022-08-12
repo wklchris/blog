@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="Misc" name="category" />
+<meta content="rubik,magic cube" name="keywords" />
+<meta content="Misc" name="series" />
+<meta content="1" name="series_num" />
+<meta content="2022-08-09" name="date_init" />
+<meta content="2022-08-12" name="date_modified" />
+<meta content="本文介绍了魔方的复原方法（主要是三阶 CFOP）。" name="abstract" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>魔方复原 &mdash; Rubik  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" href="_static/roofpig.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/Rubik/index.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/roofpig_and_three.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="引言" href="Intro.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="#" class="icon icon-home"> Rubik
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic.html">魔方的基础知识</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CFOP.html">CFOP 方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Appendix.html">附录：向网页中插入魔方动画</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Rubik</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>魔方复原</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="id1">
+<h1>魔方复原<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>魔方的复原，尤其是三阶魔方的复原，并没有想象中的复杂。</p>
+<p>如果只是不追求速度地复原魔方，层先法通过 7 步和记忆 5 个公式就能复原任意被打乱的魔方；对于竞速爱好者，CFOP 方法提供了一个 4 步（需记忆约 120 个公式）的快速复原流程。</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#id2">比赛与记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#id4">著名魔方选手</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#id5">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Basic.html">魔方的基础知识</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Basic.html#id2">认识魔方的块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Basic.html#id3">主流的复原方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Basic.html#id4">魔方的转动记号</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Basic.html#id5">魔方的转动手法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CFOP.html">CFOP 方法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CFOP.html#id1">底面十字</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CFOP.html#f2l">F2L 核心思路</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CFOP.html#oll-oll">OLL 的十字公式（两步 OLL）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CFOP.html#pll-pll">PLL 的基础棱角公式（两步 PLL）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CFOP.html#pll">标准 PLL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CFOP.html#id5">标准 OLL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CFOP.html#id6">部分巧妙 F2L 公式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CFOP.html#id7">完整的 F2L 公式</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Appendix.html">附录：向网页中插入魔方动画</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Appendix.html#css">CSS 支持</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>本文档最后构建于 2022-08-12。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Intro.html" class="btn btn-neutral float-right" title="引言" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

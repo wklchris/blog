@@ -30,7 +30,7 @@
     <link rel="prev" title="FFmpeg 引言" href="Intro.html" />
  
 
-<link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
 
 <meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
 <script>
@@ -301,7 +301,7 @@ ffmpeg -i video.mp4 -ss <span class="m">00</span>:02:00 -to <span class="m">00</
 <p>这些参数中，使用冒号作为分隔符、等号作为键值对的连接符。</p>
 <p>除了分辨率，我们有时候也会用 <code class="docutils literal notranslate"><span class="pre">flags</span></code> 参数指定缩放算法（参见官方文档 <a class="reference external" href="https://ffmpeg.org/ffmpeg-scaler.html#Scaler-Options">Scaler Options</a>）。关于视频缩放算法的选择（与图片可能不同），可以参考 StackExchange 上的这一篇回答 <a class="reference external" href="https://superuser.com/a/375726/1061571">Which resize algorithm to choose for videos?</a> ；简单地说， <strong>该回答建议在降分辨率时使用 Lanczos 或 spline，在升分辨率时使用 bicubic 或 Lanczos</strong> 。</p>
 <p>一些分辨率缩放的命令示例：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用默认de  bicubic 算法缩放到高720并保持原宽高比，并用默认编码格式（H.264）编码</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用默认的  bicubic 算法缩放到高720并保持原宽高比，并用默认编码格式（H.264）编码</span>
 ffmpeg -i video.mp4 -vf <span class="nv">scale</span><span class="o">=</span>-1:720 out.mp4
 
 <span class="c1"># 指定使用 Lanczos 算法缩放到原视频的宽高的各一半，并用 H.265 格式以默认质量编码</span>
@@ -707,22 +707,6 @@ ffmpeg -hwaccel cuda -hwaccel_output_format cuda -i video.mp4 -c:v h264_nvenc -c
       });
   </script>
  
-
-<script>
-  require.config({
-     paths: {
-        "jquery": "_static/jquery",
-        "datatables": "_config/static/DataTables/datatables.min"
-     }
-  });
-  requirejs( ["datatables"], function () {
-     $('#tableofblogs').DataTable( {
-        language: {
-           url: "_config/static/DataTables/zh_CN.json" 
-        } 
-     } );
-  } );
-</script>
 
 <div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
 <script>

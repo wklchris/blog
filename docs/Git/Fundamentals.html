@@ -29,7 +29,7 @@
     <link rel="prev" title="Git 准备工作" href="Preparation.html" />
  
 
-<link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
 
 <meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
 <script>
@@ -352,7 +352,7 @@ B/**/*.pdf  <span class="c1"># 忽略文件夹 B 及其子文件夹中的 pdf �
 </pre></div>
 </div>
 <p>提交后，控制台终端会显示该次提交的 SHA-1 校验、提交到的分支（关于分支的内容会在下文介绍）、修改的文件数量，以及修改的行数量。</p>
-<p>最后，git 还提供了一种将工作区内所有文件直接暂存然后提交的选项 <cite>-a</cite> ：</p>
+<p>最后，git 还提供了一种将工作区内所有被修改的文件（不包括新文件）直接暂存然后提交的选项 <cite>-a</cite> ：</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git commit -a -m <span class="s2">&quot;Input text here.&quot;</span>
 </pre></div>
 </div>
@@ -544,11 +544,19 @@ $ git log refA refB --not refC
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>特别地，此方法也适用于某文件在之前已经 commit 到了远程仓库（比如 Github），现在想将其从远程仓库中移除的情形。</p>
+<p>请注意：尽管放弃追踪不会删除本地的文件，但由于它将这些文件从远程移除了，其他用户在对这个仓库使用 git pull 时，他们会失去这些被放弃追踪的文件！</p>
 </div>
 <p>放弃追踪（untrack）文件：即让 git 放弃记录某一文件的修改状态，但仍保留该文件在磁盘。这一情形通常是你在添加 <cite>.gitignore</cite> 前就进行了 <cite>add</cite> 的误操作.这是你需要 <cite>--cached</cite> 选项：</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git rm --cached &lt;filename&gt;
 </pre></div>
 </div>
+<p>如果你不记得哪些文件推送到了远程但现在又不需要了，可以使用下面的方法（即移除所有文件的追踪，然后重新 commit 所有发生修改的文件）。这个方法来自于 <a class="reference external" href="https://stackoverflow.com/a/19095988/6663890">这篇 SO 的回答</a> 。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git rm -r --cached .
+$ git add .
+$ git commit -am <span class="s2">&quot;Remove ignored files.&quot;</span>
+</pre></div>
+</div>
+<p>我建议将其定义为一个别名，我使用了 <code class="docutils literal notranslate"><span class="pre">rmignored</span></code>；可参考上文中我的定义。</p>
 </section>
 <section id="mv">
 <h3>移动或重命名文件：mv<a class="headerlink" href="#mv" title="永久链接至标题"></a></h3>
@@ -706,6 +714,7 @@ $ git config --gloabl alias.last <span class="s1">&#39;log -1 HEAD&#39;</span>
 </div>
 <p>我个人在日常使用中，还将日志命令设置了别名：</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git config --global alias.lg <span class="s2">&quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset:%C(ul yellow)%d%Creset %s (%Cgreen%cr%Creset, %C(bold blue)%an%Creset)&#39; --abbrev-commit&quot;</span>
+$ git config --global alias.rmignored <span class="s2">&quot;rm -r --cached . &amp;&amp; git add .&quot;</span>
 </pre></div>
 </div>
 <p>这样使用 <cite>git lg</cite> 的显示效果比原生的 <cite>git log</cite> 显示舒服得多。</p>
@@ -828,22 +837,6 @@ Dropped stash@<span class="o">{</span><span class="m">0</span><span class="o">}<
       });
   </script>
  
-
-<script>
-  require.config({
-     paths: {
-        "jquery": "_static/jquery",
-        "datatables": "_config/static/DataTables/datatables.min"
-     }
-  });
-  requirejs( ["datatables"], function () {
-     $('#tableofblogs').DataTable( {
-        language: {
-           url: "_config/static/DataTables/zh_CN.json" 
-        } 
-     } );
-  } );
-</script>
 
 <div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
 <script>

@@ -3,146 +3,166 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wklchris.github.io/blog/FFmpeg/FFmpeg.html</loc>
-    <lastmod>2022-06-14</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/FFmpeg/index.html</loc>
-    <lastmod>2022-06-14</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/FFmpeg/Intro.html</loc>
-    <lastmod>2022-06-14</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Branch.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Conflict.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Fundamentals.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/index.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Intro.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Preparation.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Matplotlib/AxesControl.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Matplotlib/BasicPlot.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Matplotlib/index.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Matplotlib/PlotFunc.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Python/ControlFlow.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Python/FileIO.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Python/Functions.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Python/Fundamentals.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Python/index.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Python/Intro.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Python/VariableTypes.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/R/CreateFunctions.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/R/DataStructure.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/R/DescriptiveStatistics.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/R/index.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/R/ManageData.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/R/PlottingBasic.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/R/PlottingGGplot2.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/R/ReadData.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Rubik/Appendix.html</loc>
+    <lastmod>2022-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Rubik/Basic.html</loc>
+    <lastmod>2022-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Rubik/CFOP.html</loc>
+    <lastmod>2022-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Rubik/index.html</loc>
+    <lastmod>2022-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Rubik/Intro.html</loc>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Sphinx/index.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Sphinx/Jinja.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Sphinx/ThemeDevelopment.html</loc>
-    <lastmod>2021-11-11</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/reStructuredText/Advance.html</loc>
-    <lastmod>2022-01-06</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/reStructuredText/Fundamentals.html</loc>
-    <lastmod>2022-01-06</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/reStructuredText/index.html</loc>
-    <lastmod>2022-01-06</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/reStructuredText/Intro.html</loc>
-    <lastmod>2022-01-06</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/</loc>
-    <lastmod>2022-06-14</lastmod>
+    <lastmod>2022-08-12</lastmod>
   </url>
 </urlset>

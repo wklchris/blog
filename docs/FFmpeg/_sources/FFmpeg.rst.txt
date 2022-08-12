@@ -192,7 +192,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 
 .. code-block:: shell
     
-    # 使用默认de  bicubic 算法缩放到高720并保持原宽高比，并用默认编码格式（H.264）编码
+    # 使用默认的  bicubic 算法缩放到高720并保持原宽高比，并用默认编码格式（H.264）编码
     ffmpeg -i video.mp4 -vf scale=-1:720 out.mp4
 
     # 指定使用 Lanczos 算法缩放到原视频的宽高的各一半，并用 H.265 格式以默认质量编码

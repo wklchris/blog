@@ -7,6 +7,7 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/homepage_style.css" type="text/css" />
+      <link rel="stylesheet" href="_static/DataTables/datatables.min.css" type="text/css" />
     <link rel="canonical" href="https://wklchris.github.io/blog/search.html"/>
     
   <!--[if lt IE 9]>
@@ -19,6 +20,7 @@
         <script src="_static/doctools.js"></script>
         <script src="_static/translations.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/load_datatable.js"></script>
     <script src="_static/js/theme.js"></script>
     <script src="_static/searchtools.js"></script>
     <script src="_static/language_data.js"></script>
@@ -26,7 +28,7 @@
     <link rel="search" title="搜索" href="#" />
  
 
-<link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
 
 <meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
 <script>
@@ -137,22 +139,6 @@
   <script id="searchindexloader"></script>
   
  
-
-<script>
-  require.config({
-     paths: {
-        "jquery": "_static/jquery",
-        "datatables": "_config/static/DataTables/datatables.min"
-     }
-  });
-  requirejs( ["datatables"], function () {
-     $('#tableofblogs').DataTable( {
-        language: {
-           url: "_config/static/DataTables/zh_CN.json" 
-        } 
-     } );
-  } );
-</script>
 
 <div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
 <script>

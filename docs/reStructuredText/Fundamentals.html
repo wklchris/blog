@@ -31,7 +31,7 @@
     <link rel="prev" title="引言" href="Intro.html" />
  
 
-<link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
 
 <meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
 <script>
@@ -468,8 +468,8 @@ def3
 <li><p>空白表格：用反斜线 <code class="docutils literal notranslate"><span class="pre">\</span></code> 标记空白表格。</p></li>
 </ul>
 <p>简单表的例子：</p>
-<table class="docutils align-center" id="id19">
-<caption><span class="caption-number">表 1 </span><span class="caption-text">Caption of a Simple Table</span><a class="headerlink" href="#id19" title="永久链接至表格"></a></caption>
+<table class="docutils align-center" id="table-simple-eg">
+<caption><span class="caption-number">表 1 </span><span class="caption-text">Caption of a Simple Table</span><a class="headerlink" href="#table-simple-eg" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 21%" />
 <col style="width: 79%" />
@@ -612,8 +612,8 @@ span rows.</p></td>
 </pre></div>
 </div>
 <p>上例的CSV表将输出以下结果：</p>
-<table class="colwidths-given docutils align-center" id="id20" style="width: 60%">
-<caption><span class="caption-number">表 2 </span><span class="caption-text">CSV Table Caption</span><a class="headerlink" href="#id20" title="永久链接至表格"></a></caption>
+<table class="colwidths-given docutils align-center" id="id19" style="width: 60%">
+<caption><span class="caption-number">表 2 </span><span class="caption-text">CSV Table Caption</span><a class="headerlink" href="#id19" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 43%" />
 <col style="width: 29%" />
@@ -669,10 +669,10 @@ span rows.</p></td>
 </pre></div>
 </div>
 <p>最后，给出一个 <code class="docutils literal notranslate"><span class="pre">figure</span></code> 指令的例子。</p>
-<figure class="align-center" id="id21">
+<figure class="align-center" id="id20">
 <a class="reference internal image-reference" href="_images/eg.png"><img alt="An adorable ginger cat." src="_images/eg.png" style="width: 240px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 1 </span><span class="caption-text">我不允许有人没见过我家的可爱小橘！</span><a class="headerlink" href="#id21" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 1 </span><span class="caption-text">我不允许有人没见过我家的可爱小橘！</span><a class="headerlink" href="#id20" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">figure</span><span class="p">::</span> eg.png
@@ -702,24 +702,23 @@ For details, see <span class="na">:ref:</span><span class="nv">`custom-section-l
 </div>
 <p>以上 <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> 引用语法也适用于：</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">figure</span></code> 图片。引用时将显示该图片的标题。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">table</span></code> 表格。只有显示地放在 <code class="docutils literal notranslate"><span class="pre">table</span></code> 指令内部的表格可以这样进行引用。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">figure</span></code> 图片的内部 <code class="docutils literal notranslate"><span class="pre">:name:</span></code> 字段。引用时将显示该图片的标题，见下例。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">table</span></code> 表格的内部 <code class="docutils literal notranslate"><span class="pre">:name:</span></code> 字段。只有显示地放在 <code class="docutils literal notranslate"><span class="pre">table</span></code> 指令内部的表格可以这样进行引用。</p></li>
 </ul>
 <p>在 Sphinx 中有另一种引用方式，即使用序号的 <code class="docutils literal notranslate"><span class="pre">numref</span></code> 角色引用。可以输出如 <code class="docutils literal notranslate"><span class="pre">Fig.</span> <span class="pre">1.1</span></code> 这样的链接。</p>
 <ul class="simple">
 <li><p>序号引用需要在文档的 conf.py 中设置 <code class="docutils literal notranslate"><span class="pre">numfig=True</span></code> 。用户还可以用 <code class="docutils literal notranslate"><span class="pre">numfig_format</span></code> 字典来自定义序号引用的格式，参考 <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-numfig_format">Sphinx: numfig_format</a>。</p></li>
 <li><p>序号引用允许一种自定义的链接文本格式。用户可以用 <code class="docutils literal notranslate"><span class="pre">{number}</span></code> 来指代序号，用 <code class="docutils literal notranslate"><span class="pre">{name}</span></code> 来指代标题。</p></li>
 </ul>
-<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="cp">.. custom-label:</span>
-
-<span class="p">..</span> <span class="ow">figure</span><span class="p">::</span> img.jpg
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">figure</span><span class="p">::</span> img.jpg
+   <span class="nc">:name:</span> custom-label
 
    Figure caption.
 
 A figure number link <span class="na">:numref:</span><span class="nv">`custom-label`</span> and a customized numbered link <span class="na">:numref:</span><span class="nv">`Fig {number}: {name} &lt;custom-label&gt;`</span>.
 </pre></div>
 </div>
-<p>用 <code class="docutils literal notranslate"><span class="pre">numref</span></code> 角色引用上文中的简单表的例子：数字引用 <code class="xref std std-numref docutils literal notranslate"><span class="pre">table-simple-eg</span></code> 与自定义引用 <code class="xref std std-numref docutils literal notranslate"><span class="pre">表</span> <span class="pre">{number}:</span> <span class="pre">{name}</span></code> 。</p>
+<p>用 <code class="docutils literal notranslate"><span class="pre">numref</span></code> 角色引用上文中的简单表的例子：数字引用 <a class="reference internal" href="#table-simple-eg"><span class="std std-numref">表 1</span></a> 与自定义引用 <a class="reference internal" href="#table-simple-eg"><span class="std std-numref">表 1: Caption of a Simple Table</span></a> 。</p>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>数字引用 <span class="na">:numref:</span><span class="nv">`table-simple-eg`</span> 与自定义引用 <span class="na">:numref:</span><span class="nv">`表 {number}: {name} &lt;table-simple-eg&gt;`</span> 。
 </pre></div>
 </div>
@@ -793,22 +792,6 @@ A figure number link <span class="na">:numref:</span><span class="nv">`custom-la
       });
   </script>
  
-
-<script>
-  require.config({
-     paths: {
-        "jquery": "_static/jquery",
-        "datatables": "_config/static/DataTables/datatables.min"
-     }
-  });
-  requirejs( ["datatables"], function () {
-     $('#tableofblogs').DataTable( {
-        language: {
-           url: "_config/static/DataTables/zh_CN.json" 
-        } 
-     } );
-  } );
-</script>
 
 <div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
 <script>

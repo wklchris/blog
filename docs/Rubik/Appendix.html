@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>附录：向网页中插入魔方动画 &mdash; Rubik  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" href="_static/roofpig.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/Rubik/Appendix.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/roofpig_and_three.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="CFOP 方法" href="CFOP.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> Rubik
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic.html">魔方的基础知识</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CFOP.html">CFOP 方法</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">附录：向网页中插入魔方动画</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#css">CSS 支持</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rubik</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>附录：向网页中插入魔方动画</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Appendix.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="id1">
+<h1>附录：向网页中插入魔方动画<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>本文中的魔方动画使用了 <a class="reference external" href="https://github.com/larspetrus/Roofpig">Roofpig</a> 这个 Javascript 库。网站 <a class="reference external" href="https://ruwix.com/widget/3d/">Ruwix</a> 提供了一个 <strong>在线的 roofpig 预览页面</strong>，可以输入不同的参数来预览动画效果。</p>
+<p>如同本文一样，向 Sphinx 站点中加入该动画的方法是：</p>
+<ol class="arabic">
+<li><p>从 Roofpig 仓库中下载 <code class="docutils literal notranslate"><span class="pre">roofpig_and_three.min.js</span></code> 文件，并放入 Sphinx 项目的路径中（如果在 <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> 中定义了 <code class="docutils literal notranslate"><span class="pre">html_static_path</span></code>，请放在这个定义的路径中）。</p></li>
+<li><p>在 <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> 文件中，更新 <code class="docutils literal notranslate"><span class="pre">html_js_files</span></code> 变量：</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">html_js_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;roofpig_and_three.min.js&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>在 reStructuredText 文中添加 HTML 块，以支持魔方动画。例如：</p>
+<div class="highlight-restructuredtext notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">raw</span><span class="p">::</span> html
+
+   &lt;div class=&quot;roofpig&quot; data-config=&quot;alg=M2 E2 S2 | flags=showalg&quot;&gt;&lt;/div&gt;
+</pre></div>
+</div>
+</li>
+<li><p>向网站添加对 roofpig 类的 CSS 样式支持。类似上文，可以添加一个新的 CSS 文件并更新 <code class="docutils literal notranslate"><span class="pre">html_css_files</span></code> 变量，或者直接在现有的 CSS 文件上添加样式。这部分可以参考下文的 CSS 支持这一小节。</p></li>
+<li><p>编译 reST 文件为网页。可以在本地建立 HTTP 服务器来检查 Javascript 魔方动画是否正确。</p></li>
+</ol>
+<p>上述代码的预期结果：</p>
+<div class="roofpig" data-config="alg=M2 E2 S2 | flags=showalg"></div><section id="css">
+<h2>CSS 支持<a class="headerlink" href="#css" title="永久链接至标题"></a></h2>
+<p>如有需要，可以更新网站的 CSS（或单独写一个新的 CSS 文件），添加对 roofpig 的样式支持。</p>
+<p>在此附上本文对 roofpig 库使用的 CSS：</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c">/** roofpig: JS lib for Rubik animation **/</span>
+<span class="linenos"> 2</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span> <span class="p">{</span>
+<span class="linenos"> 3</span>    <span class="k">width</span><span class="p">:</span> <span class="mi">210</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos"> 4</span>    <span class="k">max-width</span><span class="p">:</span> <span class="mi">500</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos"> 5</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="kc">auto</span><span class="p">;</span>
+<span class="linenos"> 6</span>    <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">24</span><span class="kt">px</span><span class="p">;</span> <span class="c">/* Same as after-paragraph space */</span>
+<span class="linenos"> 7</span>    <span class="k">font-family</span><span class="p">:</span> <span class="kc">inherit</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="linenos"> 8</span>    <span class="k">border</span><span class="p">:</span> <span class="kc">none</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="linenos"> 9</span>    <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
+<span class="linenos">10</span>    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+<span class="linenos">11</span><span class="p">}</span>
+<span class="linenos">12</span><span class="nt">div</span><span class="p">.</span><span class="nc">roof-algtext</span><span class="o">,</span> <span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-algtext</span> <span class="p">{</span> <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span> <span class="p">}</span>
+<span class="linenos">13</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-count</span> <span class="p">{</span>
+<span class="linenos">14</span>    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+<span class="linenos">15</span>    <span class="k">justify-content</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+<span class="linenos">16</span>    <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+<span class="linenos">17</span><span class="p">}</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c">/** For same line roofpig**/</span>
+<span class="linenos">20</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">inline</span> <span class="p">{</span>
+<span class="linenos">21</span>    <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
+<span class="linenos">22</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">15</span><span class="kt">px</span> <span class="mi">24</span><span class="kt">px</span><span class="p">;</span>  <span class="c">/* 15px between them horinzontally */</span>
+<span class="linenos">23</span><span class="p">}</span>
+<span class="linenos">24</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-inline-container</span> <span class="p">{</span>
+<span class="linenos">25</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="kc">auto</span><span class="p">;</span>
+<span class="linenos">26</span>    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+<span class="linenos">27</span><span class="p">}</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="c">/** For recommended roofpig**/</span>
+<span class="linenos">30</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">recommend</span> <span class="p">{</span>
+<span class="linenos">31</span>    <span class="k">background-color</span><span class="p">:</span> <span class="mh">#C9F6C8</span><span class="p">;</span>
+<span class="linenos">32</span><span class="p">}</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span><span class="c">/** For tables that display a lot roofpig**/</span>
+<span class="linenos">35</span><span class="nt">table</span> <span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span> <span class="p">{</span>
+<span class="linenos">36</span>    <span class="k">max-width</span><span class="p">:</span> <span class="mi">180</span><span class="kt">px</span><span class="p">;</span> <span class="c">/* Smaller roofpig in tables*/</span>
+<span class="linenos">37</span><span class="p">}</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span> <span class="p">{</span>
+<span class="linenos">40</span>    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="linenos">41</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="kc">auto</span><span class="p">;</span>
+<span class="linenos">42</span>    <span class="k">border-collapse</span><span class="p">:</span> <span class="kc">collapse</span><span class="p">;</span>
+<span class="linenos">43</span><span class="p">}</span>
+<span class="linenos">44</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span> <span class="nt">td</span> <span class="p">{</span>
+<span class="linenos">45</span>    <span class="k">vertical-align</span><span class="p">:</span> <span class="kc">middle</span><span class="p">;</span>
+<span class="linenos">46</span>    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+<span class="linenos">47</span>    <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos">48</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CFOP.html" class="btn btn-neutral float-left" title="CFOP 方法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>
