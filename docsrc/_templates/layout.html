@@ -16,7 +16,7 @@
 {%- block extrahead %}
 {{ super() }}
 
-<link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
 
 <meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
 <script>
@@ -28,22 +28,6 @@
 
 {% block footer %}
 {{ super() }}
-
-<script>
-  require.config({
-     paths: {
-        "jquery": "_static/jquery",
-        "datatables": "_config/static/DataTables/datatables.min"
-     }
-  });
-  requirejs( ["datatables"], function () {
-     $('#tableofblogs').DataTable( {
-        language: {
-           url: "_config/static/DataTables/zh_CN.json" 
-        } 
-     } );
-  } );
-</script>
 
 <div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
 <script>
