@@ -229,7 +229,7 @@ diff 命令提供了众多的参数，我时而会用到的有：
 
 提交后，控制台终端会显示该次提交的 SHA-1 校验、提交到的分支（关于分支的内容会在下文介绍）、修改的文件数量，以及修改的行数量。
 
-最后，git 还提供了一种将工作区内所有文件直接暂存然后提交的选项 `-a` ：
+最后，git 还提供了一种将工作区内所有被修改的文件（不包括新文件）直接暂存然后提交的选项 `-a` ：
 
 .. code-block:: sh
    
@@ -444,6 +444,8 @@ Git 可以管理文件的删除、追踪、移动与重命名。
 .. attention::
    
    特别地，此方法也适用于某文件在之前已经 commit 到了远程仓库（比如 Github），现在想将其从远程仓库中移除的情形。
+   
+   请注意：尽管放弃追踪不会删除本地的文件，但由于它将这些文件从远程移除了，其他用户在对这个仓库使用 git pull 时，他们会失去这些被放弃追踪的文件！
 
 放弃追踪（untrack）文件：即让 git 放弃记录某一文件的修改状态，但仍保留该文件在磁盘。这一情形通常是你在添加 `.gitignore` 前就进行了 `add` 的误操作.这是你需要 `--cached` 选项：
 
@@ -451,6 +453,15 @@ Git 可以管理文件的删除、追踪、移动与重命名。
    
    $ git rm --cached <filename>
 
+如果你不记得哪些文件推送到了远程但现在又不需要了，可以使用下面的方法（即移除所有文件的追踪，然后重新 commit 所有发生修改的文件）。这个方法来自于 `这篇 SO 的回答 <https://stackoverflow.com/a/19095988/6663890>`_ 。
+
+.. code-block:: sh
+    
+   $ git rm -r --cached .
+   $ git add .
+   $ git commit -am "Remove ignored files." 
+
+我建议将其定义为一个别名，我使用了 ``rmignored``\ ；可参考上文中我的定义。
 
 移动或重命名文件：mv
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -681,6 +692,7 @@ Git 可以管理文件的删除、追踪、移动与重命名。
 .. code-block:: sh
    
    $ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset:%C(ul yellow)%d%Creset %s (%Cgreen%cr%Creset, %C(bold blue)%an%Creset)' --abbrev-commit"
+   $ git config --global alias.rmignored "rm -r --cached . && git add ."
 
 这样使用 `git lg` 的显示效果比原生的 `git log` 显示舒服得多。
 

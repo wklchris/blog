@@ -361,9 +361,8 @@ reStructuredText 中允许插入图片与表格内容。
 
 简单表的例子：
 
-.. _table-simple-eg:
-
 .. table:: Caption of a Simple Table
+    :name: table-simple-eg
     :align: center    
 
     =======     =======
@@ -561,8 +560,8 @@ reStructuredText 交叉引用上的功能远强于 Markdown，这也是我选择
 
 以上 ``:ref:`` 引用语法也适用于：
 
-- ``figure`` 图片。引用时将显示该图片的标题。
-- ``table`` 表格。只有显示地放在 ``table`` 指令内部的表格可以这样进行引用。
+- ``figure`` 图片的内部 ``:name:`` 字段。引用时将显示该图片的标题，见下例。
+- ``table`` 表格的内部 ``:name:`` 字段。只有显示地放在 ``table`` 指令内部的表格可以这样进行引用。
 
 在 Sphinx 中有另一种引用方式，即使用序号的 ``numref`` 角色引用。可以输出如 ``Fig. 1.1`` 这样的链接。
 
@@ -571,9 +570,9 @@ reStructuredText 交叉引用上的功能远强于 Markdown，这也是我选择
 
 .. code-block:: reST
 
-    .. custom-label:
 
     .. figure:: img.jpg
+       :name: custom-label
        
        Figure caption.
     
