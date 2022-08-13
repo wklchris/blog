@@ -7,7 +7,8 @@ cfop = pd.read_csv(os.path.join(DIR, "CFOP-method.csv"))
 # Process roofpig
 def solution_parser(rubik_solution):
     """Remove parens and insert spaces to solution strings."""
-    alg = rubik_solution.replace("(", '').replace(")",'')
+    alg = rubik_solution.replace("(", '').replace(")", '')
+    alg = alg.replace("[", '').replace("]", '')
     alg = ' '.join(alg).replace(" 2", "2").replace(" '", "'")
     return alg
 
@@ -22,23 +23,27 @@ def alg_to_roofpig(alg, div_text="", dataconfig_paras=dict()):
 
 def process_html(df, type_filter, add_colgroup=True):
     df = df[df["type"] == type_filter]
-    df.fillna('', inplace=True)
+    df = df.fillna('')
 
     html_linebreak = "<br />"
     # Integrate cols: type, id, and alias
     df["id_str"] = df["type"] + ' ' + df["id"].astype(str)
     df.insert(0, "id_str", df.pop("id_str"))
     df.loc[df["alias"] != '', "id_str"] = df.loc[df["alias"] != '', "id_str"] + html_linebreak + "(" + df.loc[df["alias"] != '', "alias"] + ")"
-    # Integrate cols: comment with solution & observe
-    df["comment"] = df["comment"] + html_linebreak + "<b>" + df["solution"] + "</b>"
-    df.loc[df["observe"] != '', 'comment'] = df.loc[df["observe"] != '', 'comment'] + html_linebreak + "观察：" + df.loc[df["observe"] != '', 'observe']
+    
+    # Integrate cols: comment & solution, tech, observe
+    df.loc[df["comment"] != '', 'comment'] = "<p>" + df.loc[df["comment"] != '', 'comment'] + "</p>"
+    df["comment"] = df["comment"] + '<p class="roofpig-algo">' + df["solution"] + "</p>"
+
+    df.loc[df["observe"] != '', 'comment'] = df.loc[df["observe"] != '', 'comment'] + "<p>" + "观察：" + df.loc[df["observe"] != '', 'observe'] + "</p>"
+    df.loc[df["tech"] != '', 'comment'] = df.loc[df["tech"] != '', 'comment'] + "<p>" + "手法：" + df.loc[df["tech"] != '', 'tech'] + "</p>"
 
     # Convert solution column to roofpig HTML codes
     df["solution"] = df["solution"].apply(
         lambda x: alg_to_roofpig(solution_parser(x))
     )
 
-    df = df.drop(columns=["type", "id", "alias", "observe"])
+    df = df.drop(columns=["type", "id", "alias", "tech", "observe"])
     df_en_colnames = df.columns
     df.rename(columns={
         "id_str": "编号",
@@ -58,7 +63,7 @@ def process_html(df, type_filter, add_colgroup=True):
 
     # Add <colgroup>
     if add_colgroup:
-        colgroups = [f'    <col class="{col}" />' for col in df_en_colnames]
+        colgroups = [f'    <col class="rftable_{col}" />' for col in df_en_colnames]
         colgroup_labels = "\n".join(colgroups)
         colgroup_str = "\n".join(["  <colgroup>", colgroup_labels, "  </colgroup>"])
         ## Add it to the second line of the HTML, right after <table>
