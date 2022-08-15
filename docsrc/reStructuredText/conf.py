@@ -26,10 +26,9 @@ highlight_language = 'none'
 numfig = True
 
 mathjax3_config = {
-  'TeX': {
-     'equationNumbers': { 'autoNumber': "AMS" }
-   }
+   'tex': {'tags': 'ams'}
 }
+
 
 rst_prolog = """
 .. math::

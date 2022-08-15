@@ -4,7 +4,7 @@
    :series: Misc
    :series_num: 1
    :date_init: 2018-10-15
-   :date_modified: 2022-08-12
+   :date_modified: 2022-08-15
    :abstract: 本文介绍 reStructuredText，一种最初用于创建 Python 技术文档的标记语言。
 
 reStructuredText 简介
