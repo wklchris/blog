@@ -12,16 +12,17 @@ def solution_parser(rubik_solution):
     alg = ' '.join(alg).replace(" 2", "2").replace(" '", "'")
     return alg
 
-def alg_to_roofpig(alg, div_text="", dataconfig_paras=dict()):
+def alg_to_roofpig(alg, div_text="", dataconfig_paras=dict(), add_classes=[]):
     paras = {"flags": "", "algdisplay": "2p"}
     paras.update(dataconfig_paras)
     paras_str = '|'.join([k + "=" + v for k, v in paras.items() if v])
     
     dataconfig_str = f"alg={alg}|{paras_str}"
-    div_str = f'<div class="roofpig" data-config="{dataconfig_str}">{div_text}</div>'
+    class_str = ''.join([f" {c}" for c in add_classes])
+    div_str = f'<div class="roofpig{class_str}" data-config="{dataconfig_str}">{div_text}</div>'
     return div_str
 
-def process_html(df, type_filter, add_colgroup=True):
+def process_html(df, type_filter, recommend_primary_algo=True, add_colgroup=True):
     df = df[df["type"] == type_filter]
     df = df.fillna('')
 
@@ -39,19 +40,26 @@ def process_html(df, type_filter, add_colgroup=True):
     df.loc[df["tech"] != '', 'comment'] = df.loc[df["tech"] != '', 'comment'] + "<p>" + "手法：" + df.loc[df["tech"] != '', 'tech'] + "</p>"
 
     # Convert solution column to roofpig HTML codes
-    df["solution"] = df["solution"].apply(
-        lambda x: alg_to_roofpig(solution_parser(x))
-    )
+    ## If recommend, add "recommend" class to standard algos, 
+    def _algo_convert(x, **kwargs):
+        return alg_to_roofpig(solution_parser(x), **kwargs)
+    
+    if not recommend_primary_algo:
+        df["solution"] = df["solution"].apply(_algo_convert)
+    else:
+        variant_algos = df.alias.str.contains("变体")
+        df.loc[~variant_algos, "solution"] = df.loc[~variant_algos, "solution"].apply(_algo_convert, add_classes=["recommend"])
+        df.loc[variant_algos, "solution"] = df.loc[variant_algos, "solution"].apply(_algo_convert)
 
-    df = df.drop(columns=["type", "id", "alias", "tech", "observe"])
-    df_en_colnames = df.columns
-    df.rename(columns={
+    df_col_dict = {
         "id_str": "编号",
         "name": "名称",
         "group": "分组",
         "solution": "公式",
         "comment": "注解"
-    }, inplace=True)
+    }
+    df = df[[col for col in df_col_dict.keys()]]
+    df.rename(columns=df_col_dict, inplace=True)
 
     html = df.to_html(
         classes="roofpig-table",
@@ -61,9 +69,10 @@ def process_html(df, type_filter, add_colgroup=True):
         index=False
     )
 
-    # Add <colgroup>
+    # Post-process
+    ## Add <colgroup>
     if add_colgroup:
-        colgroups = [f'    <col class="rftable_{col}" />' for col in df_en_colnames]
+        colgroups = [f'    <col class="rftable_{col}" />' for col in df_col_dict.keys()]
         colgroup_labels = "\n".join(colgroups)
         colgroup_str = "\n".join(["  <colgroup>", colgroup_labels, "  </colgroup>"])
         ## Add it to the second line of the HTML, right after <table>
