@@ -22,7 +22,7 @@ def alg_to_roofpig(alg, div_text="", dataconfig_paras=dict(), add_classes=[]):
     div_str = f'<div class="roofpig{class_str}" data-config="{dataconfig_str}">{div_text}</div>'
     return div_str
 
-def process_html(df, type_filter, recommend_primary_algo=True, add_colgroup=True):
+def process_html(df, type_filter, recommend_primary_algo=True, add_colgroup=True, dataconfig_dict=dict()):
     df = df[df["type"] == type_filter]
     df = df.fillna('')
 
@@ -42,7 +42,7 @@ def process_html(df, type_filter, recommend_primary_algo=True, add_colgroup=True
     # Convert solution column to roofpig HTML codes
     ## If recommend, add "recommend" class to standard algos, 
     def _algo_convert(x, **kwargs):
-        return alg_to_roofpig(solution_parser(x), **kwargs)
+        return alg_to_roofpig(solution_parser(x), dataconfig_paras=dataconfig_dict, **kwargs)
     
     if not recommend_primary_algo:
         df["solution"] = df["solution"].apply(_algo_convert)
@@ -83,8 +83,18 @@ def process_html(df, type_filter, recommend_primary_algo=True, add_colgroup=True
 
 # Main
 
-cfop_filter = 'PLL'
-html_str = process_html(cfop, cfop_filter[:5])
+def main(cfop_filter, dataconfig=dict()):
+    html_str = process_html(cfop, cfop_filter, dataconfig_dict=dataconfig)
+    with open(os.path.join(DIR, cfop_filter + '.html'), 'w', encoding="utf-8") as f:
+        f.write(html_str)
 
-with open(os.path.join(DIR, cfop_filter + '.html'), 'w', encoding="utf-8") as f:
-    f.write(html_str)
+
+cfop_filters = {
+    'PLL': dict(),
+    'OLL': {"dataconfig": {"colored": "u"}}
+}
+
+for filter, arg_dict in cfop_filters.items():
+    dc = arg_dict.get("dataconfig", dict()) 
+    main(filter, dataconfig=dc)
+    print(f'Type "{filter}" updated.')
