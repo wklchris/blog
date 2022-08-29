@@ -23,3 +23,13 @@ templates_path = ['../_templates']
 html_static_path = ['_static']
 html_css_files = ['homepage_style.css', "DataTables/datatables.min.css"]
 html_js_files = ['load_datatable.js']
+
+rst_prolog = """
+.. _wklchris: https://github.com/wklchris
+.. _wklchris/blog: https://github.com/wklchris/blog
+.. _wklchris.github.io: https://wklchris.github.io
+.. _Simrofy: https://github.com/wklchris/sphinx-simrofy-theme
+.. _wklchris/simrofy: https://github.com/wklchris/sphinx-simrofy-theme
+.. _snowkylin.github.io: https://snowkylin.github.io
+.. _Sphinx: https://www.sphinx-doc.org
+"""
