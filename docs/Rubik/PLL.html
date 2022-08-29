@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>完整 PLL &mdash; 魔方  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+      <link rel="stylesheet" href="_static/roofpig.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/Rubik/PLL.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/roofpig_and_three.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="完整 OLL" href="OLL.html" />
+    <link rel="prev" title="CFOP 简介：两步法" href="CFOP.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+            <a href="index.html" class="icon icon-home"> 魔方
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic.html">魔方的基础知识</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CFOP.html">CFOP 简介：两步法</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">完整 PLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OLL.html">完整 OLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="F2L.html">完整 F2L</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Appendix.html">附录：向网页中插入魔方动画</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">魔方</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>完整 PLL</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PLL.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="pll">
+<h1>完整 PLL<a class="headerlink" href="#pll" title="永久链接至标题"></a></h1>
+<div class="danger admonition">
+<p class="admonition-title">手法基础最优先！</p>
+<p>在学习 CFOP 公式前，请掌握最基础的指法（比如食指中指 U2 轮指、左手无名指做 D 与 D'）以及一些必要手法习惯（比如尽可能地从前手位起手、减少公式中不必要的换手位动作）。一些手法可能初做比较怪异，例如前手位（而不是下手位）的 RUR'U'，但我强烈推荐你学习它们。</p>
+<p>在每条公式的<strong>肌肉记忆固定之前确保手法习惯的正确</strong>，这一点万分重要的！</p>
+</div>
+<p>本节给出了针对标准 PLL 的所有 21 种情形的 <em>我正/曾使用过或觉得顺手的</em> 公式，其中也包括了上面在两步 PLL 中的 6 个公式。</p>
+<div class="attention admonition">
+<p class="admonition-title">实用的 PLL 站点</p>
+<ul class="simple">
+<li><p>计时器： <a class="reference external" href="https://cstimer.net/">csTimer</a>（电脑端），DCTimer（手机端）</p></li>
+<li><p><strong>PLL 训练器</strong>（强烈推荐）：打开 <a class="reference external" href="https://jperm.net/algs/pll">Jperm.net: pll</a> 并点击 Trainer。你可以筛选需要训练的 PLL 情形（可以通过在 PLL 页面单击公式的图形将其标记为”学习中“（黄色）或者”已学习“（绿色）。在手机上则可以用 DCTimer 训练。</p></li>
+<li><p>公式查询：</p>
+<ul>
+<li><p><a class="reference external" href="http://algdb.net/puzzle/333/pll">AlgDB: pll</a>：可能是最多魔友使用的公式查询站点。</p></li>
+<li><p><a class="reference external" href="https://jperm.net/algs/pll">Jperm.net: pll</a>：JPerm 出过非常多的公式与手法教学，但请注意他有部分公式是左手流的。</p></li>
+<li><p><a class="reference external" href="https://www.speedsolving.com/wiki/index.php/pll">Speedsolving Wiki: pll</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">方括号标记的字母是什么意思（AUF）？</p>
+<p>在 PLL 公式中可能会看到带有方括号的记号，比如 <code class="docutils literal notranslate"><span class="pre">[U]</span></code>，这表示这一步只是在转动顶层。这是由于 PLL 公式的起手不依赖于侧面中心块的颜色，因此复原顶层后（或者在起手前）顶层可能还需要转动；这种转动称为 <strong>顶层调整</strong>（Adjustment to Upper Face，AUF）。在顶层与中心块没有对齐的情况下，这个方括号标记的手法可能会被省略，或者用其他的顶层转动的操作（比如 <code class="docutils literal notranslate"><span class="pre">[U2]</span></code>）代替——取决于具体的起手情况。</p>
+<p>例如，在 PLL Z 双邻棱交换公式中最后需要做一个 <code class="docutils literal notranslate"><span class="pre">[U2]</span></code>。以红绿棱、黄蓝棱交换时顶层的红绿红一面朝前为例，标准公式这仅限于红绿红对准红色面（也就是F面中心块是红色）的情形。如果在起始时，红绿红是与橙色面对齐的，那么最后这个 <code class="docutils literal notranslate"><span class="pre">U2</span></code> 就可以省略；如果起手时与绿色面对齐，那么需要用 <code class="docutils literal notranslate"><span class="pre">U'</span></code> 代替 <code class="docutils literal notranslate"><span class="pre">U2</span></code>。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=M2' U M2' U M' U2 M2' U2 M' U2|flags=showalg|algdisplay=2p">PLL Z：红绿红对齐红色面，AUF=U2</div>
+  <div class="roofpig inline" data-config="alg=M2' U M2' U M' U2 M2' U2 M'|setupmoves=y2|flags=showalg|algdisplay=2p">红绿红对齐橙色面时，无AUF</div>
+  <div class="roofpig inline" data-config="alg=M2' U M2' U M' U2 M2' U2 M' U'|setupmoves=y|flags=showalg|algdisplay=2p">红绿红对齐绿色面时，AUF=U'</div>
+</div><p>因此，专业的选手可能会对一种 PLL 情形记忆多向的复原公式，以省略各种不同起手情况下 AUF 所需要的时间。但在 PLL 学习过程中，这并不是必须的；你完全可以用 AUF 甚至魔方转体来找到公式要求的起手位置。</p>
+</div>
+<p>以下是完整的 PLL 公式表，总计有 21 种情形（绝大部分公式都可以从<strong>前手位</strong>起手！）。在交流中，我们往往使用 PLL 的符号名称（例如 PLL Na/Nb，统称为 PLL N 或 N Perm），而不是用 PLL 序号。</p>
+<table border="1" class="dataframe roofpig-table">
+  <colgroup>
+    <col class="rftable_id_str" />
+    <col class="rftable_name" />
+    <col class="rftable_group" />
+    <col class="rftable_solution" />
+    <col class="rftable_comment" />
+  </colgroup>
+  <thead>
+    <tr style="text-align: center;">
+      <th>编号</th>
+      <th>名称</th>
+      <th>分组</th>
+      <th>公式</th>
+      <th>注解</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PLL 1<br />(Ua)</td>
+      <td>逆时针三棱</td>
+      <td>三棱</td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R U R U R U' R' U' R2|algdisplay=2p"></div></td>
+      <td><p>（层先、两步PLL公式）</p><p class="roofpig-algo">(RU'RU)(RURU')(R'U'R2)</p></td>
+    </tr>
+    <tr>
+      <td>PLL 1<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=M2' U M U2 M' U M2'|algdisplay=2p"></div></td>
+      <td><p>常规公式的M版本。优势是步数非常短，但逆拨M手法需要练习。理论上熟练后的该变体的速度会比原公式更快。</p><p class="roofpig-algo">M2'UMU2M'UM2'</p><p>手法：M2'用左手无名指食指轮指拨，M用中指从BD棱推中轴到BF棱反拨（魔方中轴不要调得太紧）。握持魔方时注意双手大拇指同时固定中层与下层（因为他们不参与公式），而右手用无名指与小指握住背后，中指悬空等候U2轮指。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 2<br />(Ub)</td>
+      <td>顺时针三棱</td>
+      <td>三棱</td>
+      <td><div class="roofpig recommend" data-config="alg=R2 U R U R' U' R' U' R' U R'|algdisplay=2p"></div></td>
+      <td><p>（两步PLL公式）</p><p class="roofpig-algo">R2U(RUR'U')R'U'(R'UR')</p></td>
+    </tr>
+    <tr>
+      <td>PLL 2<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=M2' U' M U2 M' U' M2|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">M2'U'MU2M'U'M2</p><p>手法：本变体中的两个U'最好用右手食指指背从UFR角块向URB反拨，尤其是第一个U'。可以在左手做M2'时让右手食指就位。握持手法类似Ua变体，同样腾空右手中指等候U2轮指。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 3<br />(H)</td>
+      <td>双对棱</td>
+      <td>四棱</td>
+      <td><div class="roofpig recommend" data-config="alg=M2' U M2' U2 M2' U M2'|algdisplay=2p"></div></td>
+      <td><p>（两步PLL公式）</p><p class="roofpig-algo">M2'UM2'U2M2'UM2'</p><p>手法：不喜欢转M2'可以用r2R2'代替</p></td>
+    </tr>
+    <tr>
+      <td>PLL 4<br />(Z)</td>
+      <td>双邻棱</td>
+      <td>四棱</td>
+      <td><div class="roofpig recommend" data-config="alg=M2' U M2' U M' U2 M2' U2 M' U2|algdisplay=2p"></div></td>
+      <td><p>（两步PLL公式）</p><p class="roofpig-algo">(M2'UM2'U)(M'U2M2'U2)M'[U2]</p></td>
+    </tr>
+    <tr>
+      <td>PLL 4<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=U R' U' R U' R U R U' R' U R U R2 U' R' U|algdisplay=2p"></div></td>
+      <td><p>RU变体，对不喜欢转M'的人用这个可能比主公式更快。</p><p class="roofpig-algo">[U](R'U'RU')(RURU')(R'UR)(UR2U'R'[U])</p></td>
+    </tr>
+    <tr>
+      <td>PLL 5<br />(Aa)</td>
+      <td>顺时针三角</td>
+      <td>三角</td>
+      <td><div class="roofpig recommend" data-config="alg=x' R2 D2' R' U' R D2' R' U R'|algdisplay=2p"></div></td>
+      <td><p>（层先公式）</p><p class="roofpig-algo">x'R2D2'(R'U'R)D2'(R'UR')</p><p>手法：大拇指放在RD棱块处起手R2，然后右手无名指、食指做D2'。最后一组(R'UR')时调整右手，拇指上滑到URB角块B面做。如果左手无名指、小指能做D2，那么可以用左手代替。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 6<br />(Ab)</td>
+      <td>逆时针三角</td>
+      <td>三角</td>
+      <td><div class="roofpig recommend" data-config="alg=x' R U' R D2 R' U R D2 R2'|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">x'(RU'R)D2(R'UR)D2R2'</p><p>手法：大拇指放在RD棱块、中指放在RU棱块处（无名指悬空）起手R，接U’后无名指落在URB角块，再接R后与中指共做D2'。如果左手无名指、小指能做D2，那么可以用左手代替。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 7<br />(E)</td>
+      <td>双邻角</td>
+      <td>四角</td>
+      <td><div class="roofpig recommend" data-config="alg=x' R U' R' D R U R' D' R U R' D R U' R' D'|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">x'(RU'R'D)(RUR'D')(RUR'D)(RU'R'D')</p><p>手法：所有D'均由左手无名指反拨完成。这个公式对手法要求不低，不准确的话很容易卡面。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 7<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=x' R U' R' D R U R' u2' R' U R D R' U' R|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">x'(RU'R'D)(RUR')u2'(R'URD)(R'U'R)</p><p>手法：如果D'反拨很不理想，用这个可能比主公式更快。左手做u2'时调整右手姿态，使u2'结束后右手大拇指能按在RU棱块上。但这个公式在学会D'反拨后会显著慢于原公式。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 8<br />(T)</td>
+      <td>T型棱角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U' R' F R2 U' R' U' R U R' F'|algdisplay=2p"></div></td>
+      <td><p>（两步PLL公式）</p><p class="roofpig-algo">(RUR'U')(R'F)(R2U'R'U')(RUR'F')</p><p>手法：注意这个公式可以用右手从前手位RUR'U'起手，不需要更换到上手。整个公式中右手位不需要变动，其中F可用右手中指拨动来免去食指复位。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 9<br />(F)</td>
+      <td>F型棱角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">(R'U'F')(RUR'U')(R'F)(R2U'R'U')(RUR'UR)</p><p>手法：最后一个U能否用右手中指轮指对该公式的速度有不小的影响。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 10<br />(V)</td>
+      <td>邻面棱角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=R' U R U' R' f' U' R U2 R' U' R U' R' f R|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">(R'URU')(R'f')(U'RU2R'U'RU')(R'fR)</p><p>手法：我一般右手拇指从上手位起步。如果要从前手位起步且不换手的话，第一个U需要用右手从UFR角块往UFL角块推，而f'需要用右手食指或中指从UF棱块向左推。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 10<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R' U R' U' y R' F' R2 U' R' U R' F R F|algdisplay=2p"></div></td>
+      <td><p>其实这不是PLL V变体，而是原公式来着…但又要转体又有一堆F是真的难受。</p><p class="roofpig-algo">(R'UR'U')y(R'F'R2U')(R'UR'FRF)</p></td>
+    </tr>
+    <tr>
+      <td>PLL 11<br />(Y)</td>
+      <td>筝型</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=F R U' R' U' R U R' F' R U R' U' R' F R F'|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">F(RU'R'U')(RUR'F')(RUR'U')(R'FRF')</p></td>
+    </tr>
+    <tr>
+      <td>PLL 12<br />(Ja)</td>
+      <td>邻棱顺交邻角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=l2' U l F' R U2' r' U r U2'|algdisplay=2p"></div></td>
+      <td><p>该变体公式无需换手。它的另一个好处是起手方位与Jb公式的特征类似，都是三个同色块在L面。</p><p class="roofpig-algo">(l2'U)(lF'R)U2'(r'Ur)U2'</p><p>手法：前手位起手，左手拇指悬空，用左手无名指、中指依次从B面下方往回推来实现左侧两层的旋转l2'，并在结束后将左手拇指放在上手位，捏合住左侧两层以准备接右手F'（可以用左手小指抵住，防止做F'时中层旋转）。接下来在U'之前微调拇指位置，用右手拇指推做U'；之后的U2'则用左手轮指。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 12<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=L' U R' z R2 U R' U' R2 U D R'|algdisplay=2p"></div></td>
+      <td><p>该变体也可以不做z翻转完全正立着做，或者把L'UR'也放在z翻转之后做。</p><p class="roofpig-algo">(L'UR')z(R2UR'U')(R2UDR')</p></td>
+    </tr>
+    <tr>
+      <td>PLL 13<br />(Jb)</td>
+      <td>邻棱逆交邻角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' F' R U R' U' R' F R2 U' R' U'|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">(RUR'F')(RUR'U')(R'F)(R2U'R'[U'])</p><p>手法：这个公式也可以前手起手，其中第一个U用左手食指推，便于右手食指在随后的F'时不离开稳固魔方F面的指位。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 14<br />(Rb)</td>
+      <td>邻棱逆对邻角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=R' U2 R U2' R' F R U R' U' R' F' R2 U'|algdisplay=2p"></div></td>
+      <td><p>这个公式朝向稍微特殊一点，头灯在前面而不在左面。</p><p class="roofpig-algo">(R'U2)(RU2')(R'FRUR'U')(R'F'R2[U'])</p><p>手法：这个公式用上手位起手（右手拇指在顶面）。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 14<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R' U2 R' D' R U' R' D R U R U' R' U' R U'|algdisplay=2p"></div></td>
+      <td><p>RUD流公式，以防你不喜欢主公式中的F。最后连着几个U'稍微有点累。</p><p class="roofpig-algo">(R'U2R'D')(RU'R'D)(RURU')(R'U'R)[U']</p><p>手法：同样用上手位起手，第一个D'用左手无名指反拨。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 15<br />(Ra)</td>
+      <td>邻棱顺对邻角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' U' R U R D R' U' R D' R' U2 R' U'|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U')(RURD)(R'U'RD')(R'U2R'[U'])</p><p>观察：L面一组同色角块（头灯），F面紧靠头灯的棱角是同色。与T的区别是，L面的棱块颜色并不是头灯颜色的对色。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 16<br />(Gc)</td>
+      <td>逆角顺棱</td>
+      <td>三棱三角</td>
+      <td><div class="roofpig recommend" data-config="alg=R2' U' R U' R U R' U R2 U D' R U' R' D U'|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">(R2'U'RU')(RUR'U)R2(UD')(RU'R')D[U']</p><p>观察：头灯在左侧，并色两块在背后（且为头灯对色）。</p><p>手法：前手位起手，其中RUR'U的最后一个U用右手食指推。公式里的UD'或者DU'可以用单手的食指与无名指同时推动。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 16<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R2 u' R U' R U R' u R2 f R' f'|algdisplay=2p"></div></td>
+      <td><p>虽然我个人不喜欢最后的fR'f'，但该公式却是做Gc时很流行的公式。</p><p class="roofpig-algo">R2u'(RU'R)U(R'uR2)(fR'f')</p><p>手法：最后的(fR'f')在R'时将右手大拇指提前放在FR棱块上，便于接f'。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 16<br />(镜像变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R2' F2 R U2 R U2' R' F R U R' U' R' F R2|algdisplay=2p"></div></td>
+      <td><p>旋转180镜像的情形。</p><p class="roofpig-algo">R2'F2(RU2RU2')R'F(RUR'U')(R'FR2)</p><p>观察：并色两块对齐左前角时，R面角块的侧面颜色相同。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 17<br />(Gd)</td>
+      <td>顺角逆棱</td>
+      <td>三棱三角</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U' D R2 U' R U' R' U R' U R2 D' U|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">(RUR'U'D)(R2U'RU')(R'UR'UR2)D'[U]</p><p>观察：头灯在左侧，并色两块在右面靠前的位置。</p><p>手法：前手位起手，第一个U可以用左手食指推。 R2U'RU'中的R都主要用右手食指拨动（而不是握住整个R面用手腕转动），保证这组手法结束时右手拇指仍处于顶面。后面的R'UR'U中的第二个U可以用右手食指推。同样，公式里的U'D或者D'U可以用单手的食指与无名指同时推动。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 17<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U R' y' R2 u' R U' R' U R' u R2|algdisplay=2p"></div></td>
+      <td><p>可能是更流行的公式，但需要一次转体。</p><p class="roofpig-algo">(RUR')y'(R2u'RU')(R'UR'uR2)</p><p>观察：并色两块对齐左前角时，B面角块的侧面颜色相同。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 18<br />(Ga)</td>
+      <td>顺角逆棱镜像</td>
+      <td>三棱三角</td>
+      <td><div class="roofpig recommend" data-config="alg=R2 U R' U R' U' R U' R2 U' D R' U R D' U|algdisplay=2p"></div></td>
+      <td><p class="roofpig-algo">(R2UR'U)(R'U'RU')R2(U'D)(R'UR)D'[U]</p><p>观察：头灯在左侧，并色两块在前面（且为头灯对色）。</p><p>手法：前手位起手，第一个U用左手食指推。同样，公式里的U'D或者D'U可以用单手的食指与无名指同时推动。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 18<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R2 u R' U R' U' R u' R2' y' R' U R|algdisplay=2p"></div></td>
+      <td><p>实质上是逆做了Gd变体。</p><p class="roofpig-algo">(R2uR')(UR'U'Ru')R2'y'(R'UR)</p><p>观察：并色两块对齐右前角时，L面角块的侧面颜色相同。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 19<br />(Gb)</td>
+      <td>逆角顺棱镜像</td>
+      <td>三棱三角</td>
+      <td><div class="roofpig recommend" data-config="alg=R' d' F R2 u R' U R U' R u' R2'|algdisplay=2p"></div></td>
+      <td><p>我认为这是PLL G里最友好的一个公式了。</p><p class="roofpig-algo">(R'd'F)(R2u)(R'URU')(Ru'R2')</p><p>观察：头灯在左侧，并色两块在右面靠后的位置。</p><p>手法：左手拇指与食指握在顶层，然后用左手中指反拨做d'。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 19<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=F' U' F R2 u R' U R U' R u' R2|algdisplay=2p"></div></td>
+      <td><p>旋转90度的变体。</p><p class="roofpig-algo">(F'U'F)(R2u)(R'URU'R)u'R2</p><p>观察：并色两块对齐右前角时，B面角块的侧面颜色相同。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 20<br />(Nb)</td>
+      <td>对棱对角</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=R' U R U' R' F' U' F R U R' F R' F' R U' R|algdisplay=2p"></div></td>
+      <td><p>最后的F'手法稍有不顺手。与变体1后半部分略有不同，只能说哪个更顺手就用哪个。</p><p class="roofpig-algo">(R'URU')(R'F'U'F)(RUR'F)(R'F'RU'R)</p><p>手法：前手位起手，右手食指推第一个U（或左手食指）以及第一个F'。左手食指推RURF'中的U。最后一组手法RF'RU'R稍微困难一点，用左手食指F'接左手中指U'。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 20<br />(变体1)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R' U R U' R' F' U' F R U R' U' R U' f R f'|algdisplay=2p"></div></td>
+      <td><p>这个是最后的f手法不太顺手。可以在此变体与主公式之间权衡。</p><p class="roofpig-algo">(R'URU')(R'F'U'F)(RUR'U')RU'(fRf')</p><p>手法：前手位起手，右手食指推第一个U（或左手食指）以及第一个F'。最后的fRf'用右手食指做f，然后左手食指做f'。</p></td>
+    </tr>
+    <tr>
+      <td>PLL 20<br />(变体2)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=z D' R U' R2 D R' U D' R U' R2 D R' U R|algdisplay=2p"></div></td>
+      <td><p>传统的z转体RUD流公式，也即不转体时的LUR流。</p><p class="roofpig-algo">z(D'RU')(R2DR'U)(D'RU')(R2DR'U[R])</p></td>
+    </tr>
+    <tr>
+      <td>PLL 21<br />(Na)</td>
+      <td>对棱对角镜像</td>
+      <td>两棱两角</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'|algdisplay=2p"></div></td>
+      <td><p>实质上是 RUR'U 接上非常顺手的 Jb 公式，后接 U2RU'R'。</p><p class="roofpig-algo">(RUR'U)(RUR'F')(RUR'U')(R'F)(R2U'R')U2(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td>PLL 21<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=z U R' D R2 U' R U D' R' D R2 U' R D' R'|algdisplay=2p"></div></td>
+      <td><p>传统的z转体RUD流公式，也即不转体时的LUR流。</p><p class="roofpig-algo">z(UR'D)(R2U'RUD')(R'DR2U')(RD')[R']</p></td>
+    </tr>
+  </tbody>
+</table><!-- Included in the BOTTOM of a RST file that includes roofpig tables -->
+<script>
+  // Highlight table rows that contains a recommended algorithm
+  $("div.roofpig.recommend").parents('tr').css("background-color", "#C9F6C8");
+</script>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CFOP.html" class="btn btn-neutral float-left" title="CFOP 简介：两步法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="OLL.html" class="btn btn-neutral float-right" title="完整 OLL" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

@@ -23,7 +23,7 @@
         <script src="_static/translations.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS"}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "tags": "ams"}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -246,20 +246,19 @@
 <span class="linenos">10</span><span class="n">numfig</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="linenos">11</span>
 <span class="linenos">12</span><span class="n">mathjax3_config</span> <span class="o">=</span> <span class="p">{</span>
-<span class="linenos">13</span>  <span class="s1">&#39;TeX&#39;</span><span class="p">:</span> <span class="p">{</span>
-<span class="linenos">14</span>     <span class="s1">&#39;equationNumbers&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s1">&#39;autoNumber&#39;</span><span class="p">:</span> <span class="s2">&quot;AMS&quot;</span> <span class="p">}</span>
-<span class="linenos">15</span>   <span class="p">}</span>
-<span class="linenos">16</span><span class="p">}</span>
-<span class="linenos">17</span>
-<span class="linenos">18</span><span class="n">rst_prolog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="linenos">19</span><span class="s2">.. math::</span>
-<span class="linenos">20</span>
-<span class="linenos">21</span><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">ud}{</span><span class="se">\\</span><span class="s2">mathop</span><span class="si">{}</span><span class="se">\\</span><span class="s2">negthinspace\mathrm</span><span class="si">{d}</span><span class="s2">}</span>
-<span class="linenos">22</span><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">pfrac}[2][x]{</span><span class="se">\\</span><span class="s2">frac{</span><span class="se">\\</span><span class="s2">partial #2}{</span><span class="se">\\</span><span class="s2">partial #1}}</span>
-<span class="linenos">23</span>
-<span class="linenos">24</span><span class="s2">.. |section-symbols| replace:: </span>
-<span class="linenos">25</span><span class="s2">   ! &quot; # $ % &amp; &#39; ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</span>
-<span class="linenos">26</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos">13</span>   <span class="s1">&#39;tex&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="s1">&#39;ams&#39;</span><span class="p">}</span>
+<span class="linenos">14</span><span class="p">}</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="n">rst_prolog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos">18</span><span class="s2">.. math::</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">ud}{</span><span class="se">\\</span><span class="s2">mathop</span><span class="si">{}</span><span class="se">\\</span><span class="s2">negthinspace\mathrm</span><span class="si">{d}</span><span class="s2">}</span>
+<span class="linenos">21</span><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">pfrac}[2][x]{</span><span class="se">\\</span><span class="s2">frac{</span><span class="se">\\</span><span class="s2">partial #2}{</span><span class="se">\\</span><span class="s2">partial #1}}</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="s2">.. |section-symbols| replace:: </span>
+<span class="linenos">24</span><span class="s2">   ! &quot; # $ % &amp; &#39; ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</span>
+<span class="linenos">25</span><span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -363,7 +362,7 @@ S(r) = \{ x \in \mathbb{R}^n \,|\, \|x\| \leq r \}
 <span class="c1">#    }</span>
 <span class="c1"># }</span>
 <span class="n">mathjax3_config</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;tex&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="s1">&#39;AMS&#39;</span><span class="p">,</span> <span class="s1">&#39;useLabelIds&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s1">&#39;tex&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="s1">&#39;ams&#39;</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -448,13 +447,12 @@ e &amp;\neq f &amp; \lim_\infty g &amp;= h
 <h4>自定义数学命令<a class="headerlink" href="#id12" title="永久链接至标题"></a></h4>
 <p>MathJax 允许自定义简单的 LaTeX 命令，即 LaTeX 中的 <code class="docutils literal notranslate"><span class="pre">\newcommand</span></code> 命令。参考 <a class="reference external" href="http://docs.mathjax.org/en/latest/input/tex/macros.html#defining-tex-macros">MathJax: Defining TeX Macros</a> 页面。</p>
 <p>在 Sphinx 中，由于 <code class="docutils literal notranslate"><span class="pre">rst_prolog</span></code> 变量的存在，我们可以直接在 conf.py 文件中更改该变量值，来在每一个文档文件的头部添加一个额外的数学环境，用于自定义数学命令：</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="hll"><span class="n">rst_prolog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-</span><span class="hll"><span class="s2">.. math::</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rst_prolog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="hll"><span class="s2">.. math::</span>
 </span><span class="hll">
 </span><span class="hll"><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">ud}{</span><span class="se">\\</span><span class="s2">mathop</span><span class="si">{}</span><span class="se">\\</span><span class="s2">negthinspace\mathrm</span><span class="si">{d}</span><span class="s2">}</span>
-</span><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">pfrac}[2][x]{</span><span class="se">\\</span><span class="s2">frac{</span><span class="se">\\</span><span class="s2">partial #2}{</span><span class="se">\\</span><span class="s2">partial #1}}</span>
-
+</span><span class="hll"><span class="s2">   </span><span class="se">\\</span><span class="s2">newcommand{</span><span class="se">\\</span><span class="s2">pfrac}[2][x]{</span><span class="se">\\</span><span class="s2">frac{</span><span class="se">\\</span><span class="s2">partial #2}{</span><span class="se">\\</span><span class="s2">partial #1}}</span>
+</span>
 <span class="s2">.. |section-symbols| replace:: </span>
 <span class="s2">   ! &quot; # $ % &amp; &#39; ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</span>
 <span class="s2">&quot;&quot;&quot;</span>
@@ -493,6 +491,15 @@ e &amp;\neq f &amp; \lim_\infty g &amp;= h
 <p>This is an optional title</p>
 <p>Warning mesage.</p>
 <p>Warning message paragraph 2.</p>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">在 Sphinx 中正确显示警示标题</p>
+<p>在 Sphinx 中，如果要正常地在警示框顶部显示标题（而不是将标题显示为框内的一个段落），你可能需要这样书写：</p>
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> 在 Sphinx 中正确显示警示标题
+   <span class="nc">:class:</span> hint
+</pre></div>
+</div>
+<p>而常规的写法 <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">hint::</span> <span class="pre">在</span> <span class="pre">Sphinx</span> <span class="pre">中正确显示警示标题</span></code> 在 Sphinx 中可能不会被识别。</p>
 </div>
 <p>reStructuredText 提供特殊支持的警示标记有以下 9 种：</p>
 <ul class="simple">

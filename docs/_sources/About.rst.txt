@@ -3,6 +3,9 @@
 
 本站的发展史。
 
+* 个人主站点 `wklchris.github.io`_ 在我的 Github 帐号下（wklchris_）的同名仓库开源。
+* 博客子站点（当前站点）在 `wklchris/blog`_ 仓库开源。
+
 更新日志
 ------------
 
@@ -10,7 +13,14 @@
 
 * 2022年
   
-  * 1月，在 Simrofy 主题上建立的新站点发布在 wklchris.github.io 域名。关停原测试用的 self-contained 域名。  
+  * 8月
+    
+    * 修复了一个博客站点基础模板 layout.html 的 JS 引用错误。
+    * 修复了在 MathJax 中引用 LaTeX 公式时，使用 ``\label`` 命令不显示编号的问题。
+    * 注意到了 Sphinx 定义的 admonition 命令（如 note）不能正常显示标题，必须通过 ``:class:`` 参数指定的特性。修改了与此相关的页面。
+    * 优化了网站 _static 路径的加载内容。
+  
+  * 1月，在我自己开发的 Simrofy_ 主题上完成了个人站点的重建，并更新到了原 wklchris.github.io 域名，\ **恭喜本站成功来到了 v2.0 时代！**\ 关停了之前测试用的 self-contained 域名。
 
 * 2021年
   
@@ -18,12 +28,12 @@
   * 9月底，收到学术参会邀请。尽管不清楚是否有机会向他人展示个人站点，但仍决定在参会前完成站点重建工作。开始从 self-contained 域名向原 io 站点迁移。
   * 上半年，主要在进行学位论文的工作，因此在站点这边没有太多进展。
     
-    * 继续 Simrofy 开发，尝试将早期版本发布到 Pypi。
+    * 继续 Simrofy_ 开发，尝试将早期版本发布到 Pypi。
     * 测试新站点情况，并确认已能够收到 Google Analytics 报告。
 
 * 2020年
   
-  * 9月，开始新站点的模板开发工作，即名为 `Simrofy <https://github.com/wklchris/sphinx-simrofy-theme>`_ 的网页模板。
+  * 9月，开始新站点的模板开发工作，即名为 Simrofy_ 的网页模板。
   * 8月底，提交了站点地图，等待 Google Search Console 的确认。
   * 8月中，正在添加站点到搜索引擎，等待 Google Search Console 的确认。
   * 8月初，结束功能性测试。在个人账户下创建了组织 self-contained，开始向其下的 self-contained.github.io 域名迁移旧博客。
@@ -46,7 +56,7 @@
 
 * 2018年
   
-  * 10月15日，发现了专用于生成技术文档网页的工具 `Sphinx <https://www.sphinx-doc.org>`_ 。由于头痛于 rst 写作，加上没有去探索好看的主题，所以我并没有深入研究。但我此时实质上已经放弃了 Gitbook。
+  * 10月15日，发现了专用于生成技术文档网页的工具 `Sphinx`_ 。由于头痛于 rst 写作，加上没有去探索好看的主题，所以我并没有深入研究。但我此时实质上已经放弃了 Gitbook。
   * 10月，发现了 `Gitbook <https://docs.gitbook.com/>`_ 工具，使用了一段时间，并无感。
   * 年中处于忙碌状态。
   * 1月15日，旧站点 wklchris.github.io 的最后一次博文更新，是为 D3.js 课程准备的 JavaScript 内容。
@@ -63,4 +73,6 @@
 
 * 2016年
 
-  * 在2016年下半年，注意到了好友 Snowkylin 的 github.io 站点。
+  * 在2016年下半年，注意到了好友 Snowkylin 的 github.io 站点：\ `snowkylin.github.io`_ 。
+
+

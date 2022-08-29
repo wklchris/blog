@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CFOP 方法 &mdash; Rubik  文档</title>
+  <title>CFOP 简介：两步法 &mdash; 魔方  文档</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -27,7 +27,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="附录：向网页中插入魔方动画" href="Appendix.html" />
+    <link rel="next" title="完整 PLL" href="PLL.html" />
     <link rel="prev" title="魔方的基础知识" href="Basic.html" />
  
 
@@ -48,7 +48,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-            <a href="index.html" class="icon icon-home"> Rubik
+            <a href="index.html" class="icon icon-home"> 魔方
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -72,9 +72,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Basic.html">魔方的基础知识</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CFOP 方法</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CFOP 简介：两步法</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">底面十字</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#f2l">F2L 核心思路</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#f2l-f2l">F2L 核心思路（直觉 F2L）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oll-oll">OLL 的十字公式（两步 OLL）</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">顶面十字</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#oll">带十字的 OLL</a></li>
@@ -85,12 +85,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#id4">复原顶层棱块</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#pll">标准 PLL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">标准 OLL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">部分巧妙 F2L 公式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">完整的 F2L 公式</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="PLL.html">完整 PLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OLL.html">完整 OLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="F2L.html">完整 F2L</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Appendix.html">附录：向网页中插入魔方动画</a></li>
 </ul>
 
@@ -100,7 +99,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Rubik</a>
+          <a href="index.html">魔方</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -108,7 +107,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>CFOP 方法</li>
+      <li>CFOP 简介：两步法</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/CFOP.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -143,7 +142,7 @@
 }
 </style>
 <section id="cfop">
-<h1>CFOP 方法<a class="headerlink" href="#cfop" title="永久链接至标题"></a></h1>
+<h1>CFOP 简介：两步法<a class="headerlink" href="#cfop" title="永久链接至标题"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>如无特殊说明，本文中的魔方在复原过程中，均以白色面为底面、黄色面为顶面。</p>
@@ -165,24 +164,36 @@
 <p>CFOP 方法通过以上四步完成魔方的复原。理论上它包含了 119 个需要记忆的公式，不过一般认为 F2L 部分的公式不需要全部记忆。对于惧怕记忆公式的学习者来说，好消息是即使只学习到了 F2L 的思路，前两层的速度也会极大提升；如果能背下 OLL 在顶面十字完成后的 7 个公式（即两步 OLL），速度又会有一定提升；如果能背下 PLL 的公式 2 个两棱两角公式、2 个三角公式与 4 个棱换公式（即两步 PLL，以上公式中有 2 个在层先法中已经学习过），速度又会有一定提升。</p>
 <p>因此，我个人建议的 CFOP 学习顺序如下：</p>
 <ul class="simple">
+<li><p>本章节</p>
+<ul>
 <li><p>底面十字</p></li>
-<li><p>F2L 的核心思路</p></li>
+<li><p>F2L 的核心思路（直觉 F2L）</p></li>
 <li><p>OLL 的十字公式（两步 OLL）</p></li>
 <li><p>PLL 的基础棱角公式（两步 PLL）</p></li>
+</ul>
+</li>
+<li><p>其余章节</p>
+<ul>
 <li><p>剩下的 PLL 公式</p></li>
 <li><p>剩下的 OLL 公式</p></li>
 <li><p>记忆 F2L 中比自己思考出的步骤更巧妙的那些公式</p></li>
 <li><p>剩下的 F2L 公式</p></li>
 <li><p>寻找 FOP 公式的非标准方法（非标），比较它们与标准公式的优缺点</p></li>
+</ul>
+</li>
+<li><p>进阶内容</p>
+<ul>
 <li><p>精进底面十字</p></li>
 <li><p>不断练习直到达到极限</p></li>
 <li><p>考虑 <em>是否有必要</em> 学习更高阶的步骤或方法，比如 XCROSS、WV、ZBLL、COLL 等。</p></li>
+</ul>
+</li>
 </ul>
 <p>在下文中，我也会大致按照此顺序对 CFOP 进行介绍。但不同的是，我会将一些我认为有价值的非标公式与标准公式一起介绍，不再新设非标章节。</p>
 <section id="id1">
 <h2>底面十字<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p>底面十字是魔方解法中的一个重要基础。以白色为底面，那么底面十字就是指将白红、白绿、白橙、白蓝这四个棱块还原到到正确的位置与朝向。下面是一个例子（可以用鼠标拖拽来移动视角）。为清晰起见，下例中只保留了中心块与底面棱块的颜色。</p>
-<div class="roofpig" data-config="alg=L U L R' F' l' D' x'|colored=D*/e */m|flags=showalg">底面十字示例</div><p>底面十字是 CFOP 复原法的最基础、最先进行步骤，但并不意味着它是最简单的。专业的魔方选手往往可以在 1 秒中只能做好底面十字（并使底面朝下，便于衔接 CFOP 中的第二步 F2L），这需要专注于思考四个底面棱块的移动方式，并在复位一个棱块的同时尽量兼顾其他棱块，从而减少所需的拧动次数。</p>
+<div class="roofpig" data-config="alg=L U L R' F' l' D' x'|colored=D*/e */m|flags=showalg">底面十字示例</div><p>底面十字是 CFOP 复原法的最基础、最先进行步骤，但并不意味着它是最简单的。专业的魔方选手往往可以在 1 秒中之内做好底面十字（并使底面朝下，便于衔接 CFOP 中的第二步 F2L），这需要专注于思考四个底面棱块的移动方式，并在复位一个棱块的同时尽量兼顾其他棱块，从而减少所需的拧动次数。</p>
 <p>一些方法论：</p>
 <ul class="simple">
 <li><p>熟记各面中心块的相对位置。只要底面十字的四个棱块被还原为相对位置正确的情况，那么通过旋转底层就能还原它们的绝对位置。</p></li>
@@ -198,8 +209,9 @@
   <div class="roofpig inline" data-config="alg=R  D  L2 D2 F  L2|colored=D*/e */m|flags=showalg">示例3：完整的十字示例</div>
 </div><p>更多的学习方法，可以参考其他选手撰写的十字教程（例如张砷镓《十字天书》）。也可以慢放比赛录像，根据打乱公式来学习比赛选手的底面十字思路。</p>
 </section>
-<section id="f2l">
-<h2>F2L 核心思路<a class="headerlink" href="#f2l" title="永久链接至标题"></a></h2>
+<section id="f2l-f2l">
+<h2>F2L 核心思路（直觉 F2L）<a class="headerlink" href="#f2l-f2l" title="永久链接至标题"></a></h2>
+<p>&#64;&#64;&#64;</p>
 </section>
 <section id="oll-oll">
 <h2>OLL 的十字公式（两步 OLL）<a class="headerlink" href="#oll-oll" title="永久链接至标题"></a></h2>
@@ -293,215 +305,8 @@
 </div></li>
 </ul>
 <p>至此，你已经学会了如何还原顶层的棱块排列了，整个魔方被你复原了！在稍加练习后，你会发现这种 CF + 两步 O + 两步P 的方法要明显快于层先法。比较熟练的爱好者使用它可以在 30 秒内完成魔方复原。</p>
-<p>如果你不满足于此，那么请接着向下阅读，学习完整的 CFOP 吧！</p>
+<p>如果你不满足于此，那么请接着向下阅读标准的 PLL、OLL 与 F2L 内容，学习完整的 CFOP 吧！</p>
 </section>
-</section>
-<section id="pll">
-<h2>标准 PLL<a class="headerlink" href="#pll" title="永久链接至标题"></a></h2>
-<p>本节给出了针对标准 PLL 的所有 21 种情形的 <em>我正/曾使用过或觉得顺手的</em> 公式，其中也包括了上面在两步 PLL 中的 6 个公式。</p>
-<table border="1" class="dataframe roofpig-table">
-  <colgroup>
-    <col class="id_str" />
-    <col class="name" />
-    <col class="group" />
-    <col class="solution" />
-    <col class="comment" />
-  </colgroup>
-  <thead>
-    <tr style="text-align: center;">
-      <th>编号</th>
-      <th>名称</th>
-      <th>分组</th>
-      <th>公式</th>
-      <th>注解</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>PLL 1<br />(Ua)</td>
-      <td>逆时针三棱</td>
-      <td>三棱</td>
-      <td><div class="roofpig" data-config="alg=R U' R U R U R U' R' U' R2|algdisplay=2p"></div></td>
-      <td>（层先、两步PLL公式）<br /><b>(RU'RU)(RURU')(R'U'R2)</b></td>
-    </tr>
-    <tr>
-      <td>PLL 2<br />(Ub)</td>
-      <td>顺时针三棱</td>
-      <td>三棱</td>
-      <td><div class="roofpig" data-config="alg=R2 U R U R' U' R' U' R' U R'|algdisplay=2p"></div></td>
-      <td>（两步PLL公式）<br /><b>R2U(RUR'U')R'U'(R'UR')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 3<br />(H)</td>
-      <td>双对棱</td>
-      <td>四棱</td>
-      <td><div class="roofpig" data-config="alg=M2' U M2' U2 M2' U M2'|algdisplay=2p"></div></td>
-      <td>（两步PLL公式）<br /><b>M2'UM2'U2M2'UM2'</b></td>
-    </tr>
-    <tr>
-      <td>PLL 4<br />(Z)</td>
-      <td>双邻棱</td>
-      <td>四棱</td>
-      <td><div class="roofpig" data-config="alg=M2' U M2' U M' U2 M2' U2 M' U2|algdisplay=2p"></div></td>
-      <td>（两步PLL公式）<br /><b>(M2'UM2'U)(M'U2M2'U2)M'U2</b></td>
-    </tr>
-    <tr>
-      <td>PLL 4<br />(变体)</td>
-      <td></td>
-      <td></td>
-      <td><div class="roofpig" data-config="alg=R U R' U R' U' R' U R U' R' U' R2' U R U2|algdisplay=2p"></div></td>
-      <td>RU变体。<br /><b>(RUR'U)(R'U'R'U)(RU'R'U')(R2'UR)U2</b></td>
-    </tr>
-    <tr>
-      <td>PLL 5<br />(Aa)</td>
-      <td>顺时针三角</td>
-      <td>三角</td>
-      <td><div class="roofpig" data-config="alg=x' R2 D2 R' U' R D2 R' U R'|algdisplay=2p"></div></td>
-      <td>（层先公式）<br /><b>x'R2D2(R'U'R)D2(R'UR')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 6<br />(Ab)</td>
-      <td>逆时针三角</td>
-      <td>三角</td>
-      <td><div class="roofpig" data-config="alg=x' R U' R D2 R' U R D2 R2'|algdisplay=2p"></div></td>
-      <td><br /><b>x'(RU'R)D2(R'UR)D2R2'</b></td>
-    </tr>
-    <tr>
-      <td>PLL 7<br />(E)</td>
-      <td>双邻角</td>
-      <td>四角</td>
-      <td><div class="roofpig" data-config="alg=x' R U' R' D R U R' D' R U R' D R U' R' D'|algdisplay=2p"></div></td>
-      <td><br /><b>x'(RU'R'D)(RUR'D')(RUR'D)(RU'R'D')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 7<br />(变体)</td>
-      <td></td>
-      <td></td>
-      <td><div class="roofpig" data-config="alg=x' R U' R' D R U R' u2 R' U R D R' U' R|algdisplay=2p"></div></td>
-      <td><br /><b>x'(RU'R'D)(RUR')u2(R'URD)(R'U'R)</b></td>
-    </tr>
-    <tr>
-      <td>PLL 8<br />(T)</td>
-      <td>T型棱角</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=R U R' U' R' F R2 U' R' U' R U R' F'|algdisplay=2p"></div></td>
-      <td>（两步PLL公式）<br /><b>(RUR'U')(R'F)(R2U'R'U')(RUR'F')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 9<br />(F)</td>
-      <td>F型棱角</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R|algdisplay=2p"></div></td>
-      <td><br /><b>(R'U'F')(RUR'U')(R'F)(R2U'R'U')(RUR'UR)</b></td>
-    </tr>
-    <tr>
-      <td>PLL 10<br />(V)</td>
-      <td>邻面棱角</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=R' U R' U' y R' F' R2 U' R' U R' F R F|algdisplay=2p"></div></td>
-      <td><br /><b>(R'UR'U')y(R'F'R2U')(R'UR'FRF)</b></td>
-    </tr>
-    <tr>
-      <td>PLL 11<br />(Y)</td>
-      <td>筝型</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=F R U' R' U' R U R' F' R U R' U' R' F R F'|algdisplay=2p"></div></td>
-      <td><br /><b>F(RU'R'U')(RUR'F')(RUR'U')(R'FRF')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 12<br />(Ja)</td>
-      <td>邻棱顺交邻角</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=L' U R' z R2 U R' U' R2 U D R'|algdisplay=2p"></div></td>
-      <td><br /><b>(L'UR')z(R2UR'U')(R2UDR')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 13<br />(Jb)</td>
-      <td>邻棱逆交邻角</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=R U R' F' R U R' U' R' F R2 U' R' U'|algdisplay=2p"></div></td>
-      <td><br /><b>(RUR'F')(RUR'U')(R'F)(R2U'R'U')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 14<br />(Rb)</td>
-      <td>邻棱逆对邻角</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=R' U2 R U2' R' F R U R' U' R' F' R2 U'|algdisplay=2p"></div></td>
-      <td><br /><b>(R'U2)(RU2')(R'FRUR'U')(R'F'R2U')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 15<br />(Ra)</td>
-      <td>邻棱顺对邻角</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=R U' R' U' R U R D R' U' R D' R' U2 R' U'|algdisplay=2p"></div></td>
-      <td><br /><b>(RU'R'U')(RURD)(R'U'RD')(R'U2R'U')</b></td>
-    </tr>
-    <tr>
-      <td>PLL 16<br />(Gc)</td>
-      <td>逆角顺棱</td>
-      <td>三棱三角</td>
-      <td><div class="roofpig" data-config="alg=R2' F2 R U2' R U2 R' F R U R' U' R' F R2|algdisplay=2p"></div></td>
-      <td><br /><b>R2'F2(RU2'RU2)R'F(RUR'U')(R'FR2)</b><br />观察：正确两块朝F靠左，R面角块的侧面颜色相同</td>
-    </tr>
-    <tr>
-      <td>PLL 17<br />(Gd)</td>
-      <td>顺角逆棱</td>
-      <td>三棱三角</td>
-      <td><div class="roofpig" data-config="alg=R U R' y' R2 u' R U' R' U R' u R2|algdisplay=2p"></div></td>
-      <td><br /><b>(RUR')y'(R2u'RU')(R'UR'uR2)</b><br />观察：正确两块朝F靠左，B面角块的侧面颜色相同</td>
-    </tr>
-    <tr>
-      <td>PLL 18<br />(Ga)</td>
-      <td>顺角逆棱镜像</td>
-      <td>三棱三角</td>
-      <td><div class="roofpig" data-config="alg=R2 u R' U R' U' R u' R2' y' R' U R|algdisplay=2p"></div></td>
-      <td>逆做Gd。<br /><b>(R2uR')(UR'U'Ru')R2'y'(R'UR)</b><br />观察：正确两块朝F靠右，L面角块的侧面颜色相同</td>
-    </tr>
-    <tr>
-      <td>PLL 19<br />(Gb)</td>
-      <td>逆角顺棱镜像</td>
-      <td>三棱三角</td>
-      <td><div class="roofpig" data-config="alg=F' U' F R2 u R' U R U' R u' R2|algdisplay=2p"></div></td>
-      <td><br /><b>(F'U'F)(R2u)(R'URU'R)u'R2</b><br />观察：正确两块朝F靠右，B面角块的侧面颜色相同</td>
-    </tr>
-    <tr>
-      <td>PLL 20<br />(Nb)</td>
-      <td>对棱对角</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=z D' R U' R2 D R' U D' R U' R2 D R' U R|algdisplay=2p"></div></td>
-      <td><br /><b>z(D'RU')(R2DR'U)(D'RU')(R2DR'UR)</b></td>
-    </tr>
-    <tr>
-      <td>PLL 20<br />(变体1)</td>
-      <td></td>
-      <td></td>
-      <td><div class="roofpig" data-config="alg=R' U R U' R' F' U' F R U R' F R' F' R U' R|algdisplay=2p"></div></td>
-      <td><br /><b>(R'URU')(R'F'U')(FRUR'F)(R'F'RU'R)</b></td>
-    </tr>
-    <tr>
-      <td>PLL 20<br />(变体2)</td>
-      <td></td>
-      <td></td>
-      <td><div class="roofpig" data-config="alg=R' U R' F R F' R U' R' F' U F R U R' U' R|algdisplay=2p"></div></td>
-      <td><br /><b>(R'UR'F)(RF'RU')(R'F'UF)(RUR'U'R)</b></td>
-    </tr>
-    <tr>
-      <td>PLL 21<br />(Na)</td>
-      <td>对棱对角镜像</td>
-      <td>两棱两角</td>
-      <td><div class="roofpig" data-config="alg=z U R' D R2 U' R U D' R' D R2 U' R D' R'|algdisplay=2p"></div></td>
-      <td><br /><b>z(UR'D)(R2U'RUD')(R'DR2U')(RD')R'</b></td>
-    </tr>
-  </tbody>
-</table></section>
-<section id="id5">
-<h2>标准 OLL<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
-</section>
-<section id="id6">
-<h2>部分巧妙 F2L 公式<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
-</section>
-<section id="id7">
-<h2>完整的 F2L 公式<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
 </section>
 </section>
 
@@ -510,7 +315,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="Basic.html" class="btn btn-neutral float-left" title="魔方的基础知识" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="Appendix.html" class="btn btn-neutral float-right" title="附录：向网页中插入魔方动画" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="PLL.html" class="btn btn-neutral float-right" title="完整 PLL" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

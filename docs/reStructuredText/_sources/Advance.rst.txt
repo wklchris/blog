@@ -253,7 +253,7 @@ Sphinx 中启用 MathJax 的方式是在 conf.py 中加载 `sphinx.ext.mathjax`_
     #    }
     # }
     mathjax3_config = {
-        'tex': {'tags': 'AMS', 'useLabelIds': True},
+        'tex': {'tags': 'ams'}
     }
 
 单行公式引用
@@ -415,6 +415,19 @@ MathJax 允许自定义简单的 LaTeX 命令，即 LaTeX 中的 ``\newcommand``
     Warning mesage.
 
     Warning message paragraph 2.
+
+.. admonition:: 在 Sphinx 中正确显示警示标题
+   :class: hint 
+
+   在 Sphinx 中，如果要正常地在警示框顶部显示标题（而不是将标题显示为框内的一个段落），你可能需要这样书写：
+   
+   .. code-block:: reST
+      
+      .. admonition:: 在 Sphinx 中正确显示警示标题
+         :class: hint 
+   
+   而常规的写法 ``.. hint:: 在 Sphinx 中正确显示警示标题`` 在 Sphinx 中可能不会被识别。
+
 
 reStructuredText 提供特殊支持的警示标记有以下 9 种：
 

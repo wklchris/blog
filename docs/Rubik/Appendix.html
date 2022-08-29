@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>附录：向网页中插入魔方动画 &mdash; Rubik  文档</title>
+  <title>附录：向网页中插入魔方动画 &mdash; 魔方  文档</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -27,7 +27,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="prev" title="CFOP 方法" href="CFOP.html" />
+    <link rel="prev" title="完整 F2L" href="F2L.html" />
  
 
 <!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
@@ -47,7 +47,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-            <a href="index.html" class="icon icon-home"> Rubik
+            <a href="index.html" class="icon icon-home"> 魔方
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -71,7 +71,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Basic.html">魔方的基础知识</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CFOP.html">CFOP 方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CFOP.html">CFOP 简介：两步法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLL.html">完整 PLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OLL.html">完整 OLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="F2L.html">完整 F2L</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">附录：向网页中插入魔方动画</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#css">CSS 支持</a></li>
 </ul>
@@ -84,7 +87,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Rubik</a>
+          <a href="index.html">魔方</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -169,37 +172,47 @@
 <span class="linenos">15</span>    <span class="k">justify-content</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
 <span class="linenos">16</span>    <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
 <span class="linenos">17</span><span class="p">}</span>
-<span class="linenos">18</span>
-<span class="linenos">19</span><span class="c">/** For same line roofpig**/</span>
-<span class="linenos">20</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">inline</span> <span class="p">{</span>
-<span class="linenos">21</span>    <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
-<span class="linenos">22</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">15</span><span class="kt">px</span> <span class="mi">24</span><span class="kt">px</span><span class="p">;</span>  <span class="c">/* 15px between them horinzontally */</span>
-<span class="linenos">23</span><span class="p">}</span>
-<span class="linenos">24</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-inline-container</span> <span class="p">{</span>
-<span class="linenos">25</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="kc">auto</span><span class="p">;</span>
-<span class="linenos">26</span>    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-<span class="linenos">27</span><span class="p">}</span>
-<span class="linenos">28</span>
-<span class="linenos">29</span><span class="c">/** For recommended roofpig**/</span>
-<span class="linenos">30</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">recommend</span> <span class="p">{</span>
-<span class="linenos">31</span>    <span class="k">background-color</span><span class="p">:</span> <span class="mh">#C9F6C8</span><span class="p">;</span>
-<span class="linenos">32</span><span class="p">}</span>
-<span class="linenos">33</span>
-<span class="linenos">34</span><span class="c">/** For tables that display a lot roofpig**/</span>
-<span class="linenos">35</span><span class="nt">table</span> <span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span> <span class="p">{</span>
-<span class="linenos">36</span>    <span class="k">max-width</span><span class="p">:</span> <span class="mi">180</span><span class="kt">px</span><span class="p">;</span> <span class="c">/* Smaller roofpig in tables*/</span>
-<span class="linenos">37</span><span class="p">}</span>
-<span class="linenos">38</span>
-<span class="linenos">39</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span> <span class="p">{</span>
-<span class="linenos">40</span>    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-<span class="linenos">41</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="kc">auto</span><span class="p">;</span>
-<span class="linenos">42</span>    <span class="k">border-collapse</span><span class="p">:</span> <span class="kc">collapse</span><span class="p">;</span>
-<span class="linenos">43</span><span class="p">}</span>
-<span class="linenos">44</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span> <span class="nt">td</span> <span class="p">{</span>
-<span class="linenos">45</span>    <span class="k">vertical-align</span><span class="p">:</span> <span class="kc">middle</span><span class="p">;</span>
-<span class="linenos">46</span>    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-<span class="linenos">47</span>    <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
-<span class="linenos">48</span><span class="p">}</span>
+<span class="linenos">18</span><span class="nt">p</span><span class="p">.</span><span class="nc">roofpig-algo</span> <span class="p">{</span> <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span> <span class="p">}</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="c">/** For same line roofpig**/</span>
+<span class="linenos">21</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">inline</span> <span class="p">{</span>
+<span class="linenos">22</span>    <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
+<span class="linenos">23</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">15</span><span class="kt">px</span> <span class="mi">24</span><span class="kt">px</span><span class="p">;</span>  <span class="c">/* 15px between them horinzontally */</span>
+<span class="linenos">24</span><span class="p">}</span>
+<span class="linenos">25</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-inline-container</span> <span class="p">{</span>
+<span class="linenos">26</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="kc">auto</span><span class="p">;</span>
+<span class="linenos">27</span>    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+<span class="linenos">28</span><span class="p">}</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="c">/** For recommended roofpig**/</span>
+<span class="linenos">31</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">recommend</span> <span class="p">{</span>
+<span class="linenos">32</span>    <span class="k">background-color</span><span class="p">:</span> <span class="mh">#C9F6C8</span><span class="p">;</span>
+<span class="linenos">33</span><span class="p">}</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="c">/** For tables that display a lot roofpig**/</span>
+<span class="linenos">36</span><span class="nt">table</span> <span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span> <span class="p">{</span>
+<span class="linenos">37</span>    <span class="k">max-width</span><span class="p">:</span> <span class="mi">180</span><span class="kt">px</span><span class="p">;</span> <span class="c">/* Smaller roofpig in tables*/</span>
+<span class="linenos">38</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos">39</span><span class="p">}</span>
+<span class="linenos">40</span>
+<span class="linenos">41</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span> <span class="p">{</span>
+<span class="linenos">42</span>    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="linenos">43</span>    <span class="k">margin</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="kc">auto</span><span class="p">;</span>
+<span class="linenos">44</span>    <span class="k">border-collapse</span><span class="p">:</span> <span class="kc">collapse</span><span class="p">;</span>
+<span class="linenos">45</span><span class="p">}</span>
+<span class="linenos">46</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span> <span class="nt">td</span> <span class="p">{</span>
+<span class="linenos">47</span>    <span class="k">vertical-align</span><span class="p">:</span> <span class="kc">middle</span><span class="p">;</span>
+<span class="linenos">48</span>    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+<span class="linenos">49</span>    <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos">50</span><span class="p">}</span>
+<span class="linenos">51</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span> <span class="nt">p</span> <span class="p">{</span>
+<span class="linenos">52</span>    <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos">53</span><span class="p">}</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="c">/** Control table column widths**/</span>
+<span class="linenos">56</span><span class="p">.</span><span class="nc">rftable_id_str</span><span class="o">,</span> <span class="p">.</span><span class="nc">rftable_name</span><span class="o">,</span> <span class="p">.</span><span class="nc">rftable_group</span> <span class="p">{</span>
+<span class="linenos">57</span>    <span class="k">width</span><span class="p">:</span> <span class="mi">10</span><span class="kt">%</span><span class="p">;</span>
+<span class="linenos">58</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -209,7 +222,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="CFOP.html" class="btn btn-neutral float-left" title="CFOP 方法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="F2L.html" class="btn btn-neutral float-left" title="完整 F2L" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>
