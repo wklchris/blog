@@ -40,6 +40,27 @@
 
 以下是完整的 PLL 公式表，总计有 21 种情形（绝大部分公式都可以从\ **前手位**\ 起手！）。在交流中，我们往往使用 PLL 的符号名称（例如 PLL Na/Nb，统称为 PLL N 或 N Perm），而不是用 PLL 序号。
 
+* 两步 PLL 中的公式（7 种）：
+
+  * 三棱换 `PLL Ua/Ub <#PLL-1>`_
+  * 对棱四棱换 `PLL H <#PLL-3>`_
+  * 邻棱四棱换 `PLL Z <#PLL-4>`_
+  * 三角换 `PLL Aa/Ab <#PLL-5>`_
+  * 四角换 `PLL E <#PLL-7>`_
+
+* 两棱两角换（10 种）：
+  
+  * T 型 `PLL T <#PLL-8>`_
+  * F 型 `PLL F <#PLL-9>`_
+  * 邻面棱角 `PLL V <#PLL-10>`_
+  * 筝型 `PLL Y <#PLL-11>`_
+  * 邻棱交邻角 `PLL Ja/Jb <#PLL-12>`_
+  * 邻棱对邻角 `PLL Ra/Rb <#PLL-14>`_
+  * 对棱对角 `PLL Na/Nb <#PLL-20>`_
+
+* 三棱三角换（4 种）：\ `PLL Ga/Gb/Gc/Gd <#PLL-16>`_
+
+
 .. raw:: html
    :file: tools/PLL.html
 

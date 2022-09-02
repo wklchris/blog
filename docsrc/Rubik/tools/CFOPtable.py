@@ -28,7 +28,11 @@ def process_html(df, type_filter, recommend_primary_algo=True, add_colgroup=True
 
     html_linebreak = "<br />"
     # Integrate cols: type, id, and alias
-    df["id_str"] = df["type"] + ' ' + df["id"].astype(str)
+    df["id_str"] = df["type"] + '-' + df["id"].astype(str)
+    ## Add span id to main algo row
+    main_algos = ~df.alias.str.contains("变体")
+    df.loc[main_algos, "id_str"] = '<span id="' + df.loc[main_algos, "id_str"] + '">' + df.loc[main_algos, "id_str"] + "</span>"
+
     df.insert(0, "id_str", df.pop("id_str"))
     df.loc[df["alias"] != '', "id_str"] = df.loc[df["alias"] != '', "id_str"] + html_linebreak + "(" + df.loc[df["alias"] != '', "alias"] + ")"
     
