@@ -95,7 +95,8 @@ def main(cfop_filter, dataconfig=dict()):
 
 cfop_filters = {
     'PLL': dict(),
-    'OLL': {"dataconfig": {"colored": "u"}}
+    'OLL': {"dataconfig": {"colored": "u"}},
+    'F2L': {"dataconfig": {"colored": "u-"}}
 }
 
 for filter, arg_dict in cfop_filters.items():
