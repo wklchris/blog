@@ -19,6 +19,9 @@
      
      * :algdb:`oll`\ ：可能是最多魔友使用的公式查询站点。
      * :jperm:`oll`\ ：JPerm 出过非常多的公式与手法教学，但请注意他有部分公式是左手流的。
+
+       * JPerm 的视频（第二版，2020 年 9 月）：\ `JPerm 使用的 OLL 手法 (Youtube)`_
+
      * :speedsolving:`oll`
 
 以下是完整的 OLL 公式表，总计有 57 种情形（跟 PLL 一样，绝大部分公式也都用前手位起手）。注意，该表不是按照 OLL 序号排列的，而是\ **根据顶面图案进行了分组**\ 、并按我个人建议的学习顺序进行了排序。OLL 公式虽多，但大部分比较简单且它们之间有许多相似之处。我个人的学习顺序是：
@@ -36,3 +39,6 @@
 
 .. raw:: html
    :file: tools/roofpig_styler.html
+
+
+.. _`JPerm 使用的 OLL 手法 (Youtube)`: https://www.youtube.com/watch?v=vU6HsK3hvQs

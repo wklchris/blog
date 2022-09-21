@@ -19,6 +19,9 @@
      
      * :algdb:`pll`\ ：可能是最多魔友使用的公式查询站点。
      * :jperm:`pll`\ ：JPerm 出过非常多的公式与手法教学，但请注意他有部分公式是左手流的。
+       
+       * JPerm 的视频（第二版，2021 年 5 月）：\ `JPerm 使用的 PLL 手法 (Youtube)`_
+     
      * :speedsolving:`pll`
 
 .. admonition:: 方括号标记的字母是什么意思（AUF）？
@@ -67,3 +70,6 @@
 
 .. raw:: html
    :file: tools/roofpig_styler.html
+
+
+.. _`JPerm 使用的 PLL 手法 (Youtube)`: https://www.youtube.com/watch?v=9r_HqG4zSbk
