@@ -4,7 +4,7 @@
    :series: JavaScript
    :series_num: 1
    :date_init: 2018-01-15
-   :date_modified: 2022-09-21
+   :date_modified: 2022-09-28
    :abstract: 本文简要地介绍了 JavaScript 语法（基于 ES 6）。
 
 JavaScript

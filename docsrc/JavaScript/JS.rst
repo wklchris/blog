@@ -175,23 +175,6 @@ JavaScript 并不在数字之下再细分整数与小数，它们在内部实际
     1 - 5;   // -4
     2 * 3;   // 6
     7 / 2;   // 3.5
-    
-    0b110;   // 6 (二进制输入)
-    0o17;    // 15 (八进制输入)
-    0x1f;    // 31 (十六进制输入)
-    1.02e4;  // 10200 (科学记数法输入)
-
-JavaScript 支持复合赋值运算（例如 ``+=``\ ）以及自加一/自减一运算（例如 ``++``\ ）：
-
-.. code-block:: javascript
-
-    let x = 0;
-    x += 2; 
-    console.log(x);  // 2
-    x *= 3;
-    console.log(x);  // 6
-    x++;
-    console.log(x);  // 7
 
 JavaScript 还支持求余、乘方这两种数字运算。
 
@@ -215,6 +198,19 @@ JavaScript 的标准库 Math，定义了 :math:`e, \pi` 之类的数学常数，
     Math.log(Math.E);       // 1
     Math.tan(Math.PI / 4);  // 0.9999999999999999
 
+JavaScript 支持复合赋值运算（例如 ``+=``\ ）以及自加一/自减一运算（例如 ``++``\ ）：
+
+.. code-block:: javascript
+
+    let x = 0;
+    x += 2; 
+    console.log(x);  // 2
+    x *= 3;
+    console.log(x);  // 6
+    x++;
+    console.log(x);  // 7
+
+
 要将其他类型转换为数字，使用 ``parseInt()/parseFloat()`` 或者用 ``Number()`` 执行强制转换：
 
 .. code-block:: javascript
@@ -226,6 +222,18 @@ JavaScript 的标准库 Math，定义了 :math:`e, \pi` 之类的数学常数，
     // 注意在类型转换中存在的风险！
     parseFloat("134e-2");   // 1.34 (符合预期)
     parseInt("134e-2");     // 134  (不符合预期)
+
+Javascript 支持数字中的合法标记，比如数字进制。通过使用不同的前缀，可以使用二进制 ``0b``\ 、八进制 ``0o``\ 、十六进制 ``0x`` 字面值；用小写字母 ``e`` 则可以表示科学记数法下的数字。此外，在用 ``toString()`` 或 ``parseInt()`` 在数字与字符串间转换时，也可以指定字符串中使用的进制：
+
+.. code-block:: javascript
+
+    0b110;   // 6 (二进制输入)
+    0o17;    // 15 (八进制输入)
+    0x1f;    // 31 (十六进制输入)
+    1.02e4;  // 10200 (科学记数法输入)
+    
+    (0o10).toString(2);   // '1000' (八进制数转为二进制字符串)
+    parseInt("1000", 2);  // 8 (将二进制字符串转为十进制数)
 
 最后，介绍三种特殊的数字结果：正无穷 ``Infinity``\ 、负无穷 ``-Infinity``\ 、非数 ``NaN``\ （Not a Number）。他们可以用 ``isNaN()`` 或 ``isFinite()`` 函数来检测。
 
@@ -348,11 +356,12 @@ JavaScript 中的对象类型是一种类似键值对的结构，可以类比为
         x: 1,
         name: "chris"
     };
+    // 要获取键 key 的值，d.key 或者 d["key"] 两种写法是等价的
     console.log(d.name === d["name"]);   // true
     console.log(d["x"]);   // 1
     console.log(d["id"]);  // undefined
 
-在我看来，这是一种很奇怪的行为。上例中变量 ``x`` 的值并没有被用作字典 ``d`` 的键，而是 ``x`` 这个字母被用作了字典的键。因此，\ **我更推荐在声明字典的键时加上引号**\ ，以避免理解上的问题。如果要确实使用变量的值作为字典的键，可以使用 ES6 支持的解析语法：
+在我看来，允许在声明时不向键值添加引号是一种很奇怪的行为。上例中变量 ``x`` 的值并没有被用作字典 ``d`` 的键，而是 ``x`` 这个字母被用作了字典的键。因此，\ **我更推荐在声明字典的键时加上引号**\ ，以避免理解上的问题。如果要确实使用变量的值作为字典的键，可以使用 ES6 支持的解析语法：
 
 .. code-block:: javascript
     
@@ -363,6 +372,27 @@ JavaScript 中的对象类型是一种类似键值对的结构，可以类比为
     };
     console.log(d["x"]);   // undefined
     console.log(d["id"]);  // 1
+
+字典的其他用法。我个人并不推荐 ``Object.assign(x,y)``\ ，而是建议使用剩余展开式语法 ``{...x, ...y}``\ 。
+
+.. code-block:: javascript
+    
+
+    let x = Object.fromEntries([["a", 1], ["b", 2]]);  // (ES2019)
+    let y = {"b": -1, "c": 3};
+
+    // 请注意，Object.assign 也会同时更新 x 的值！
+    let z1 = Object.assign(x, y);
+    console.log(z1);    // {a: 1, b: -1, c: 3}
+    console.log(x);     // {a: 1, b: -1, c: 3} (变量 x 也被更新)
+    // 因此，我推荐使用 {...} 展开
+    let z2 = {...x, ...y};
+    console.log(z2);    // {a: 1, b: -1, c: 3} (变量 x 不受影响)
+    
+    // 利用 Object 类的方法函数
+    Object.keys(x);     // ['a', 'b', 'c']
+    Object.values(x);   // [1, -1, 3]
+    Object.entries(x);  // [['a', 1], ['b', -1], ['c', 3]]
 
 -----
 
@@ -430,6 +460,24 @@ Javascript 对象支持一些与类十分相似的操作。你可以定义一个
     m.set("key3", "val3");
     m.get("key4");  // undefined
     m.delete("key3");
+
+在使用字符串以外的类型作为哈希的键时，需要特别小心！你必须 **精确地引用（内存中的）同一个对象**，而不能创建一个“看起来相同”的字面值并期望得到 ``undefined`` 以外的结果。
+
+.. code-block:: javascript
+
+    let m = new Map();
+    const map_key = [0, 1];
+    m.set(map_key, "abc");
+
+    console.log(m.get(map_key));  // 'abc'
+    console.log(m.get([0, 1]));   // undefined
+    
+    // 仍然推荐使用字符串作为键，以便使用字面值
+    const strKey = map_key.join('');
+    m.set(strKey, "def");
+    
+    console.log(m.get(strKey));  // 'def'
+    console.log(m.get("01"));    // 'def'
 
 
 函数
@@ -572,15 +620,16 @@ JavaScript 在循环中也可以使用 ``break`` 关键字终止循环，或者 
 
     在早期的 JavaScript 中我们使用 For/in 循环遍历字典的键，但现在已不推荐。在 ES2017 或更新的版本中，请使用 For/of 循环配合 ``Object.entries()`` 代替。
 
-For/of 则是在 ES6 中引入的 For 循环语句的另一种常用形式，它可以依次访问一个\ **可迭代对象**\ 中的所有值。可迭代对象包括数组、哈希以及集合。
+For/of 则是在 ES6 中引入的 For 循环语句的另一种常用形式，它可以依次访问一个\ **可迭代对象**\ 中的所有值。可迭代对象包括数组、字符串、哈希以及集合。
 
 .. code-block:: javascript
 
     let a = [1, 3, 5, 7];
+    let c = "abcdefg";
     let m = new Map([["a", 1], ["b", 4]]);
     let s = new Set([1, 2, 5, 7]);
     
-    for (const iterObj of [a, m, s]) {
+    for (const iterObj of [a, c, m, s]) {
         for (const data of iterObj) {
            console.log(data);
         }
