@@ -344,8 +344,8 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 
      ffmpeg -i video.mkv out1.mkv -c:s dvdsub out2.mkv
 
-压制
--------
+压制与码率
+-------------
 
 .. note:: 
    
@@ -442,6 +442,30 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
 
    ffmpeg -i input -c:v libx264 -b:v 8M -maxrate 8M -bufsize 8M output.mp4
 
+.. admonition:: 码率选择：如何兼顾质量与文件体积？
+   :class: important
+
+   很难对“合适”的码率作出一个精确的定义。在这里，我只简单引用一下 `Youtube 码率建议表 <https://support.google.com/youtube/answer/1722171?hl=en#zippy=%2Cbitrate>`_\ 供大家参考：
+   
+   * 表中码率的推荐值基于 H.264 编码。
+   * 表中推荐高帧率视频使用同规格低帧率 1.5 倍的码率，而 HDR 使用 SDR 1.25 倍的码率。 
+
+   ============= ======= ================== =================== 
+   规格           帧率     推荐码率（SDR）      推荐码率（HDR）        
+   ============= ======= ================== =================== 
+   8K            24~30   80 - 160 Mbps      100 - 200 Mbps   
+   \             48~60   120 - 240 Mbps     150 - 300 Mbps
+   4K (2160p)    24~30   35 - 45 Mbps       44 - 56 Mbps
+   \             48~60   53 - 68 Mbps       66 - 85 Mbps      
+   2K (1440p)    24~30   16 Mbps            20 Mbps
+   \             48~60   24 Mbps            30 Mbps    
+   1080p         24~30   8 Mbps             10 Mbps
+   \             48~60   12 Mbps            15 Mbps           
+   720p          24~30   5 Mbps             6.5 Mbps
+   \             48~60   7.5 Mbps           9.5 Mbps               
+   ============= ======= ================== ===================
+   
+   Youtube 的音频码率推荐则为单声道 128 Kbps、环绕声 384 Kbps 以及 5.1 声道 512 Kbps. 
 
 添加章节信息
 --------------------
