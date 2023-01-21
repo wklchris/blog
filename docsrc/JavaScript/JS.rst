@@ -274,15 +274,22 @@ Javascript 支持数字中的合法标记，比如数字进制。通过使用不
 
 字符串可以使用单引号或双引号包围，内部的引号可以用单个反斜线 ``\`` 转义。字符串是不可修改的。JavaScript 字符串的常用方法：
 
+.. note::
+
+    字符串的 ``slice()``\ （ES6）在 ``substring()`` 基础上支持负数参数，因此完全取代了后者。
+
 .. code-block:: javascript
     
     let s = 'abcdeabc';
     s[1];              // 访问第2个字符。如果在 ES5 之前，使用 s.charAt(1)
-    s.substring(2, 3); // 返回[2,3)下标之间的子字符串
-    s.substring(3);    // 返回从3到末尾的子字符串
+    s.slice(2, -2);    // 返回从第2（包含）到倒数第2（不包含）下标之间的子字符串
+    s.slice(3);        // 返回从3到末尾的子字符串
     s.toUpperCase();   // 将字符串s变为全大写
     s.toLowerCase();   // 将字符串s变为全小写
+    s.includes('de');  // 检查字符串中是否含有子串
     s.indexOf("abc");  // 搜索"abc"首次在s中出现的位置。若无，返回 -1
+    s.startswith('a'); // 检查字符串是否以子串开头
+    s.endswith('bc');  // 检查字符串是否以子串结尾
 
 另一个重要的字符串特性是模板字符串，类似 Bash/Powershell 中的模板字符串或者 Python 中的 f-string 特性。Javascript 中的模板字符串使用重音号（键盘上数字1左侧的键）而不是引号，并用 ``${...}`` 来包围需要解析的内容。
 
@@ -306,33 +313,64 @@ Javascript 支持数字中的合法标记，比如数字进制。通过使用不
     console.log(arr[1]);       // 3
     console.log(arr.length);   // 4
 
-在给超出当前数组索引范围的位置赋值时，JavaScript 会自动扩展数组长度到那个位置，并在扩展区域填充 ``undefined``。用 For/of 循环语句遍历时，循环步数将与数组长度一致。
+.. note::
+
+    在给超出当前数组索引范围的位置赋值时，JavaScript 会自动扩展数组长度到那个位置，并在扩展区域填充 ``undefined``。用 For/of 循环语句遍历时，循环步数将与数组长度一致。
+
+    .. code-block:: javascript
+
+        let arr = [1, 2];
+        console.log(arr.length);  // 2
+        arr[10] = -1;
+        console.log(arr.length);  // 11 (最大索引下标加一)
+        console.log(arr[9]);      // undefined
+
+生成或操作数组时的一些常用技巧，利用展开语法 ``...``\ 、\ ``map/filter`` 方法，以及匿名箭头函数：
 
 .. code-block:: javascript
 
-    let arr = [1, 2];
-    console.log(arr.length);  // 2
-    arr[10] = -1;
-    console.log(arr.length);  // 11 (最大索引下标加一)
-    console.log(arr[9]);      // undefined
+    Array(3);  // 长度为3的空数组
+    Array.from(Array(3).keys());  // [0, 1, 2]
+    
+    // Array.map 映射可以接受单参数（数组值）
+    [0, 1, 2].map(x => x**2);   // [0, 1, 4]
+    // ...或者双参数（值与下标）
+    ["a", "b", "c"].map((
+        x, i) => `Arr[${i}]=${x}`
+    );  // ['Arr[0]=a', 'Arr[1]=b', 'Arr[2]=c']
+    
+    // 较复杂的 map 嵌套生成
+    [3, 4].map(x => [10, 20].map(y => x+y)); // [[13, 23], [14, 24]]
+    ['A','B'].map(x => [1, 2].map(
+        y => [x,y].join(''))
+    ).flat();    // ['A1', 'A2', 'B1', 'B2']
+    
+    // Array.filter 过滤
+    ["a", "bcd", "ef"].filter(x => x.length > 1); // ['bcd', 'ef']
+    
 
 Javascript 数组的常用方法：
 
 .. code-block:: javascript
     
     let arr = ['a', 'b', 'c'];
-    arr.length;      // 数组长
-    arr.slice(0,3);  // 数组[0,3)下标之间的子数组切片
-    arr.concat(1, arr2);// 返回一个组合了数组 arr, 元素 1 与 数组 arr2 的新数组
-    arr.push(3, 4);  // 向数组尾添加两个元素 3 和 4
-    arr.pop();       // 从数组尾返回元素并将其删除
-    arr.shift();     // 从数组头返回元素并将其删除
-    arr.unshift(2);  // 向数组头添加元素 2
+    arr.length;             // 数组长
+    arr.slice(0,2);         // 数组[0,2)下标之间的子数组切片
+    arr.slice(-2);          // 数组的倒数第二个元素的数组切片
+    arr.concat(1, arr2);    // 返回一个组合了数组 arr, 元素 1 与 数组 arr2 的新数组
+    arr.push(3, 4);         // 向数组尾添加两个元素 3 和 4
+    arr.pop();              // 从数组尾返回元素并将其删除
+    arr.shift();            // 从数组头返回元素并将其删除
+    arr.unshift(2);         // 向数组头添加元素 2
     arr.splice(1, 2, "a");  // 从下标1处pop两个元素，再插入元素 "a"
-    arr.sort();      // 将数组排序（默认升序） 
-    arr.indexOf(12); // 搜索数字元素12首次出现的位置
-    arr.join(".");   // 用点号依次连接数组元素，返回字符串
-    arr.reverse();   // 反转数组
+    arr.sort();             // 将数组排序（默认升序）
+    arr.includes(7);        // 检查数组中是否含有元素
+    arr.indexOf(12);        // 搜索数字元素12首次出现的位置
+    arr.join(".");          // 用点号依次连接数组元素，返回字符串
+    arr.reverse();          // 反转数组
+
+    arr = [0, [1, 2], 3];
+    arr.flat();             // 数组展平：[0, 1, 2, 3]
 
 最后，如果利用展开语法 ``...`` （类似 Python 中的 ``*`` 展开），可以简化许多代码。例如，合并两个数组：
 
@@ -361,7 +399,7 @@ JavaScript 中的对象类型是一种类似键值对的结构，可以类比为
     console.log(d["x"]);   // 1
     console.log(d["id"]);  // undefined
 
-在我看来，允许在声明时不向键值添加引号是一种很奇怪的行为。上例中变量 ``x`` 的值并没有被用作字典 ``d`` 的键，而是 ``x`` 这个字母被用作了字典的键。因此，\ **我更推荐在声明字典的键时加上引号**\ ，以避免理解上的问题。如果要确实使用变量的值作为字典的键，可以使用 ES6 支持的解析语法：
+在我看来，允许在声明时不向键值添加引号是一种很奇怪的行为，特别是当键名与某个变量名相同时。上例中变量 ``x`` 的值并没有被用作字典 ``d`` 的键，而是 ``x`` 这个字母被用作了字典的键。因此，\ **我更推荐在声明字典的键时加上引号**\ ，以避免理解上的问题。如果要确实使用变量的值作为字典的键，可以使用 ES6 支持的解析语法：
 
 .. code-block:: javascript
     
@@ -393,6 +431,9 @@ JavaScript 中的对象类型是一种类似键值对的结构，可以类比为
     Object.keys(x);     // ['a', 'b', 'c']
     Object.values(x);   // [1, -1, 3]
     Object.entries(x);  // [['a', 1], ['b', -1], ['c', 3]]
+    
+    // 其他
+    console.log("a" in x);  // true (检查字典中是否含有键)
 
 -----
 
@@ -514,18 +555,17 @@ Javascript 对象支持一些与类十分相似的操作。你可以定义一个
 
 .. code-block:: javascript
     
+    // 两种匿名函数写法等价
     function (x, y) { return x + y; }
     (x, y) => x + y;
-
-    s => Math.abs(s);
-    (x, y, z) => {
-       
-       return 
-    };
     
-    // 两种写法等价，但箭头式语法更加简洁
-    let sumD = function (x, y) { return x + y; };
-    let sumE = (x, y) => x + y;
+    function (x) { return Math.abs(x); }
+    x => Math.abs(x);
+    
+    // 体会以下几种声明函数的方式
+    function sumD(x, y) { return x + y; }
+    let sumE = function (x, y) { return x + y; };
+    let sumF = (x, y) => x + y;
 
 
 
