@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>四阶复原：Yau方法 &mdash; 魔方  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+      <link rel="stylesheet" href="_static/roofpig.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/Rubik/4x4.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/roofpig_and_three.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="附录：向网页中插入魔方动画" href="Appendix.html" />
+    <link rel="prev" title="完整 F2L" href="F2L.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            魔方
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic.html">魔方的基础知识</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CFOP.html">CFOP 简介：两步法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLL.html">完整 PLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OLL.html">完整 OLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="F2L.html">完整 F2L</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">四阶复原：Yau方法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">八棱（323 法）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">互锁棱块</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#oll">OLL 特况</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pll">PLL 特况</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Appendix.html">附录：向网页中插入魔方动画</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">魔方</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">四阶复原：Yau方法</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/4x4.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="yau">
+<h1>四阶复原：Yau方法<a class="headerlink" href="#yau" title="此标题的永久链接"></a></h1>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>学习四阶前请至少学会一种三阶的复原法。我个人推荐在学习完 CFOP 后再学习四阶，否则单次还原时间可能较长，练习起来比较痛苦。同时，CFOP 对观察能力提出了一定的要求，这也是在高阶这种块数量更多的魔方中比较重要的。</p>
+<p>在以上前提下，我个人认为可以直接学习四阶广为使用的高级复原法，Yau 方法。因此，本文只介绍 Yau 方法，不涉及四阶入门复原法或其他复原法。</p>
+</div>
+<p>四阶魔方（56 块）拥有比三阶魔方（26 块）更多的块，在复原上显然也更复杂一些。对于四阶魔方，我们通常这样定义它的块：</p>
+<ul class="simple">
+<li><p>中心：指每个面中央 2x2 的四个块，它们是可以被旋转与打散的。</p></li>
+<li><p>棱：指每两个相邻面间所夹的两个块，它们也是可以被打散的。</p></li>
+<li><p>角：指每三个相邻面所夹的唯一一个块。</p></li>
+</ul>
+<p>因此，四阶大致可以视为一个中心块、棱块“膨胀”了的三阶魔方，即同样包含 6 个中心（每个由 4 小块组成）、12 个棱（每个由 2 小块组成），以及 8 个角块。假如我们能够做到以下几点：</p>
+<ul class="simple">
+<li><p>还原中心：将所有中心还原成单色，且保证正确的相对位置关系（顶黄底白前红后橙左蓝右绿）。</p></li>
+<li><p>还原棱：将所有棱块正确地拼合。</p></li>
+</ul>
+<p>那么，这个四阶魔方也基本上变成了一个大号的“三阶”，这也是高阶魔方中重要的<strong>降阶</strong>思想。但是，我们需要意识到，它仍然是有别于三阶的：</p>
+<ul class="simple">
+<li><p>降阶为三阶后的高阶魔方拥有三阶中不可能出现的特殊情况，比如两个棱交换位置。</p></li>
+<li><p>三阶中的部分公式在高阶上会变得不顺手，特别是需要转动中层 <code class="docutils literal notranslate"><span class="pre">M</span></code> 或者多层（比如 <code class="docutils literal notranslate"><span class="pre">d</span></code>）的情况。因此，许多魔友会特别为高阶学习主要只转动 RUF 的公式。</p></li>
+</ul>
+<hr class="docutils" />
+<p>本章将介绍的 Yau 方法也是基于降阶法的指导思想，它分为以下几步：</p>
+<ol class="arabic simple">
+<li><p>双中心：复原底面与顶面中心块</p></li>
+<li><p>底三棱：拼合底面的任意三个棱块</p></li>
+<li><p>全中心：复原剩下四个面的中心块</p></li>
+<li><p>底十字：拼合底面最后一个棱块，完成底面十字</p></li>
+<li><p>八棱：复原剩下的所有棱块，一般使用 323 拼棱法</p></li>
+<li><p>三阶法：按照三阶还原前两层</p></li>
+<li><p>OLL 特况：复原顶面，并处理可能出现的 OLL 特况（单棱翻）</p></li>
+<li><p>PLL 特况：复原顶层，并处理可能出现的 PLL 特况（对棱换）</p></li>
+</ol>
+<section id="id1">
+<h2>八棱（323 法）<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<p>八棱可以使用拼底面十字最后一个棱相同的思想。不同的是，中层有四个棱块位，因此在错开中层中心块时，可以最多同时“链式”地拼接三个棱。</p>
+<section id="id2">
+<h3>互锁棱块<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<p>在八棱拼接时，有时我们会遇到两个颜色组成相同的、未拼好的棱块（我称它们为“互锁”），这会导致拼棱的链条在此处中断。如果只有一对互锁棱块，那么我们可以使用以下公式的任意一个：</p>
+<ul class="simple">
+<li><p><strong>同色朝前，中层</strong>：<code class="docutils literal notranslate"><span class="pre">Uw'(RUR'FR'F'R)Uw</span></code>，这也是最常用的互锁解法</p></li>
+<li><p>同色朝上，顶层 FB 位：<code class="docutils literal notranslate"><span class="pre">(Rw'F)R'F'(RU'RU)RwR'</span></code>，实质没有区别</p></li>
+<li><p>异色朝上，顶层 FR 位：<code class="docutils literal notranslate"><span class="pre">Rw2D(Rw'U2Rw)D'(Rw'U2Rw')</span></code>，实际上是 OLL-23 由字型公式把 R 转动都改为 Rw 得到的</p></li>
+<li><p>同色朝上，顶层 FR 位：<code class="docutils literal notranslate"><span class="pre">(RwU2RwD)(Rw'U2Rw)D'Rw2'</span></code>，逆做上述异色 FR 情况的公式</p></li>
+</ul>
+<p>如果同时有两对互锁棱块，除了对它们分别使用上面的公式，还有一种更高效的思路。它利用了互锁棱块在异色朝前时，做 <code class="docutils literal notranslate"><span class="pre">Uw</span></code> 或 <code class="docutils literal notranslate"><span class="pre">Uw'</span></code> 两个方向均能拼合一个棱的特点，将第二对互锁棱穿插在这两个方向中完成拼合。下面是一个例子，先在 <code class="docutils literal notranslate"><span class="pre">Uw</span></code> 方向拼合一个棱，并将另一对互锁棱其中之一入槽替换，此时还剩下三个棱未完成；接着做 <code class="docutils literal notranslate"><span class="pre">Uw2'</span></code> 在拼合一个棱，并在入槽替换时实现复原中心后拼合剩下的两棱。请仔细体会这一点。</p>
+<p>&#64;&#64;&#64;</p>
+</section>
+</section>
+<section id="oll">
+<h2>OLL 特况<a class="headerlink" href="#oll" title="此标题的永久链接"></a></h2>
+<p>四阶两种特况中的第一种是在还原前两层后，发现顶面十字只有奇数个棱顶色朝上，这说明我们需要单独翻转其中一个顶面棱的朝向。这种情形称为 OLL 特况（OLL Parity），简称 O 特。</p>
+<p>用以下 O 特公式可以翻转顶面靠前的那一个棱的朝向：</p>
+<p><code class="docutils literal notranslate"><span class="pre">RwU2x(RwU2RwU2')(Rw'U2'LwU2Rw'U2')(RwU2Rw'U2Rw')</span></code></p>
+<p>这里的字母 <code class="docutils literal notranslate"><span class="pre">w</span></code> 表示它之前的操作是双层一起转动（比如 <code class="docutils literal notranslate"><span class="pre">Rw</span></code> 表示转动四阶魔方右侧的一半），类似于三阶的小写字母记号。这个公式很长，记忆重点是：</p>
+<ul class="simple">
+<li><p>“三上三下再上再下”</p></li>
+<li><p>在“三上”的第二次上前，插入一个 <code class="docutils literal notranslate"><span class="pre">x</span></code>（向上转体）</p></li>
+<li><p>在“三下”的第二次下是转动左侧两层</p></li>
+</ul>
+</section>
+<section id="pll">
+<h2>PLL 特况<a class="headerlink" href="#pll" title="此标题的永久链接"></a></h2>
+<p>四阶两种特况中的第二种特况是在还原顶面后，发现顶层有两个棱需要单独交换位置。这种情况称为 PLL 特况（PLL Parity），简称 P 特。</p>
+<p>用以下 P 特公式可以交换顶层中靠前、靠后这两个棱的位置，而不影响其他块的状态：</p>
+<p><code class="docutils literal notranslate"><span class="pre">(Rw2R2'U2')(Rw2R2'Uw2')(Rw2R2'Uw2')[U2]</span></code></p>
+<p>其中 <code class="docutils literal notranslate"><span class="pre">Rw2R2'</span></code> 实质上等同于单独转动中间靠右的层。不过在高阶魔方中这一操作比在三阶上做 <code class="docutils literal notranslate"><span class="pre">M</span></code> 的手法难度高的多，因此很少直接单独转动这个层。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="F2L.html" class="btn btn-neutral float-left" title="完整 F2L" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="Appendix.html" class="btn btn-neutral float-right" title="附录：向网页中插入魔方动画" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

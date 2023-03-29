@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>完整 OLL &mdash; 魔方  文档</title>
@@ -16,13 +16,13 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="_static/translations.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/jquery.js"></script>
         <script src="_static/roofpig_and_three.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -48,11 +48,15 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-            <a href="index.html" class="icon icon-home"> 魔方
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            魔方
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -67,7 +71,7 @@
    </a>
 </div>
 
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <p class="caption" role="heading"><span class="caption-text">目录</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
@@ -76,6 +80,7 @@
 <li class="toctree-l1"><a class="reference internal" href="PLL.html">完整 PLL</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">完整 OLL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="F2L.html">完整 F2L</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4x4.html">四阶复原：Yau方法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Appendix.html">附录：向网页中插入魔方动画</a></li>
 </ul>
 
@@ -83,17 +88,17 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">魔方</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+          <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>完整 OLL</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">完整 OLL</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/OLL.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -103,32 +108,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="oll">
-<h1>完整 OLL<a class="headerlink" href="#oll" title="永久链接至标题"></a></h1>
+  <section id="oll">
+<h1>完整 OLL<a class="headerlink" href="#oll" title="此标题的永久链接"></a></h1>
 <div class="danger admonition">
 <p class="admonition-title">手法基础最优先！</p>
 <p>在学习 CFOP 公式前，请掌握最基础的指法（比如食指中指 U2 轮指、左手无名指做 D 与 D'）以及一些必要手法习惯（比如尽可能地从前手位起手、减少公式中不必要的换手位动作）。一些手法可能初做比较怪异，例如前手位（而不是下手位）的 RUR'U'，但我强烈推荐你学习它们。</p>
@@ -143,7 +124,11 @@
 <li><p>公式查询：</p>
 <ul>
 <li><p><a class="reference external" href="http://algdb.net/puzzle/333/oll">AlgDB: oll</a>：可能是最多魔友使用的公式查询站点。</p></li>
-<li><p><a class="reference external" href="https://jperm.net/algs/oll">Jperm.net: oll</a>：JPerm 出过非常多的公式与手法教学，但请注意他有部分公式是左手流的。</p></li>
+<li><p><a class="reference external" href="https://jperm.net/algs/oll">Jperm.net: oll</a>：JPerm 出过非常多的公式与手法教学，但请注意他有部分公式是左手流的。</p>
+<ul>
+<li><p>JPerm 的视频（第二版，2020 年 9 月）：<a class="reference external" href="https://www.youtube.com/watch?v=vU6HsK3hvQs">JPerm 使用的 OLL 手法 (Youtube)</a></p></li>
+</ul>
+</li>
 <li><p><a class="reference external" href="https://www.speedsolving.com/wiki/index.php/oll">Speedsolving Wiki: oll</a></p></li>
 </ul>
 </li>
@@ -151,12 +136,12 @@
 </div>
 <p>以下是完整的 OLL 公式表，总计有 57 种情形（跟 PLL 一样，绝大部分公式也都用前手位起手）。注意，该表不是按照 OLL 序号排列的，而是<strong>根据顶面图案进行了分组</strong>、并按我个人建议的学习顺序进行了排序。OLL 公式虽多，但大部分比较简单且它们之间有许多相似之处。我个人的学习顺序是：</p>
 <ul class="simple">
-<li><p>复习两步OLL公式（即十字型）</p></li>
-<li><p>学习翻两棱型、方四、T 型，以及稍微复杂点的 P 型</p></li>
-<li><p>学习 W 型、C 型，以及相似的 I 型与大 L 型（马型）</p></li>
-<li><p>学习大、小 Z 型（闪电型，曲四曲五）与小 L 型（弯三）</p></li>
-<li><p>学习变小鱼型（点弯三、点方四），以及别扭型（点曲四）</p></li>
-<li><p>最后学习困难的点型</p></li>
+<li><p>复习两步OLL公式（即<a class="reference external" href="#OLL-21">十字型</a>）</p></li>
+<li><p>学习<a class="reference external" href="#OLL-28">翻两棱型</a>、<a class="reference external" href="#OLL-5">方四</a>、 <a class="reference external" href="#OLL-33">T 型</a>，以及稍微复杂点的 <a class="reference external" href="#OLL-32">P 型</a></p></li>
+<li><p>学习 <a class="reference external" href="#OLL-36">W 型</a>、 <a class="reference external" href="#OLL-34">C 型</a>，以及形状相近的 <a class="reference external" href="#OLL-52">I 型</a>与<a class="reference external" href="#OLL-13">大 L 型（马步型）</a></p></li>
+<li><p>学习小、大两种 Z 型（即闪电型，<a class="reference external" href="#OLL-7">曲四</a>与<a class="reference external" href="#OLL-40">曲五</a>）以及<a class="reference external" href="#OLL-48">小 L 型（弯三）</a></p></li>
+<li><p>学习变小鱼型（<a class="reference external" href="#OLL-9">点弯三</a>、<a class="reference external" href="#OLL-37">点方四</a>），以及<a class="reference external" href="#OLL-29">别扭型（点曲四）</a></p></li>
+<li><p>最后学习最为复杂的<a class="reference external" href="#OLL-1">点型</a></p></li>
 </ul>
 <table border="1" class="dataframe roofpig-table">
   <colgroup>
@@ -177,441 +162,455 @@
   </thead>
   <tbody>
     <tr>
-      <td>OLL 21<br />(Cross)</td>
+      <td><span id="OLL-21">OLL-21</span><br />(Cross)</td>
       <td>双头灯十字</td>
       <td>十字型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U R U' R' U R U2' R'|algdisplay=2p|colored=u"></div></td>
       <td><p>（两步OLL公式）</p><p class="roofpig-algo">RU(R'URU')R'U(RU2'R')</p><p>手法：前手位起手，前两个U可以用右手中指食指轮指；如果不顺手，第一个U可以用左手食指推，第二个右手食指正常做。 </p></td>
     </tr>
     <tr>
-      <td>OLL 21<br />(变体)</td>
+      <td>OLL-21<br />(变体)</td>
       <td></td>
       <td></td>
       <td><div class="roofpig" data-config="alg=R U2 R' U' R U R' U' R U' R'|algdisplay=2p|colored=u"></div></td>
       <td><p>旋转90度的变体，我觉得不如主公式顺手。</p><p class="roofpig-algo">RU2(R'U'RU)R'U'(RU'R')</p></td>
     </tr>
     <tr>
-      <td>OLL 22<br />(Bruno)</td>
+      <td><span id="OLL-22">OLL-22</span><br />(Bruno)</td>
       <td>单头灯十字</td>
       <td>十字型</td>
       <td><div class="roofpig recommend" data-config="alg=R U2' R2' U' R2 U' R2' U2' R|algdisplay=2p|colored=u"></div></td>
       <td><p>（两步OLL公式）</p><p class="roofpig-algo">RU2'(R2'U'R2U')(R2'U2'R)</p><p>手法：所有的U都用左手完成。</p></td>
     </tr>
     <tr>
-      <td>OLL 23<br />(Headlight)</td>
+      <td><span id="OLL-23">OLL-23</span><br />(Headlight)</td>
       <td>头灯由字</td>
       <td>十字型</td>
       <td><div class="roofpig recommend" data-config="alg=R2 D R' U2 R D' R' U2 R'|algdisplay=2p|colored=u"></div></td>
       <td><p>（两步OLL公式）</p><p class="roofpig-algo">R2D(R'U2R)D'(R'U2R')</p><p>手法：建议D'用左手无名指反拨，以便同时调整右手在R面的姿态。</p></td>
     </tr>
     <tr>
-      <td>OLL 23<br />(镜像变体)</td>
+      <td>OLL-23<br />(镜像变体)</td>
       <td></td>
       <td></td>
       <td><div class="roofpig" data-config="alg=R2 D' R U2 R' D R U2 R|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(R2D')(RU2R')D(RU2R)</p></td>
     </tr>
     <tr>
-      <td>OLL 24<br />(Hammerhead)</td>
+      <td><span id="OLL-24">OLL-24</span><br />(Hammerhead)</td>
       <td>侧向由字</td>
       <td>十字型</td>
       <td><div class="roofpig recommend" data-config="alg=r U R' U' r' F R F'|algdisplay=2p|colored=u"></div></td>
       <td><p>（两步OLL公式）</p><p class="roofpig-algo">(rUR'U')(r'FRF')</p><p>手法：前手位起手，最后一个F'用左手食指拨。</p></td>
     </tr>
     <tr>
-      <td>OLL 24<br />(变体)</td>
+      <td>OLL-24<br />(变体)</td>
       <td></td>
       <td></td>
       <td><div class="roofpig" data-config="alg=x' R U R' D R U' R' D' x|algdisplay=2p|colored=u"></div></td>
       <td><p>旋转90度的变体，非常顺手。缺点是要转体换手，优点是做完后可以观察到背面的PLL形态。</p><p class="roofpig-algo">x'(RUR'D)(RU'R'D')x</p><p>手法：公式中D'可以用左手无名指反拨。</p></td>
     </tr>
     <tr>
-      <td>OLL 25<br />(Bowtie)</td>
+      <td><span id="OLL-25">OLL-25</span><br />(Bowtie)</td>
       <td>梅花七</td>
       <td>十字型</td>
       <td><div class="roofpig recommend" data-config="alg=F' r U R'   U' r' F R|algdisplay=2p|colored=u"></div></td>
-      <td><p>（两步OLL公式）</p><p class="roofpig-algo">F'(rUR' U')(r'FR)</p></td>
+      <td><p>（两步OLL公式）</p><p class="roofpig-algo">F'(rUR' U')(r'FR)</p><p>手法：前手位起手，F'与U都用左手食指做。</p></td>
     </tr>
     <tr>
-      <td>OLL 25<br />(镜像变体)</td>
+      <td>OLL-25<br />(镜像变体)</td>
       <td></td>
       <td></td>
       <td><div class="roofpig" data-config="alg=x' R U' R' D R U R' D' x|algdisplay=2p|colored=u"></div></td>
       <td><p>无r变体，很顺手。缺点是要转体换手，优点是做完后可以观察到背面的PLL形态。</p><p class="roofpig-algo">x'(RU'R'D)(RUR'D')x</p><p>手法：公式中D'可以用左手无名指反拨。</p></td>
     </tr>
     <tr>
-      <td>OLL 26<br />(Anti-Sune)</td>
+      <td><span id="OLL-26">OLL-26</span><br />(Anti-Sune)</td>
       <td>逆小鱼</td>
       <td>十字型</td>
       <td><div class="roofpig recommend" data-config="alg=R U2 R' U' R U' R'|algdisplay=2p|colored=u"></div></td>
       <td><p>（层先、两步OLL公式）</p><p class="roofpig-algo">RU2R'U'RU'R'</p><p>手法：U2不顺手的话也可以用左手做U2'。</p></td>
     </tr>
     <tr>
-      <td>OLL 27<br />(Sune)</td>
+      <td><span id="OLL-27">OLL-27</span><br />(Sune)</td>
       <td>小鱼</td>
       <td>十字型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U R U2' R'|algdisplay=2p|colored=u"></div></td>
       <td><p>（层先、两步OLL公式）</p><p class="roofpig-algo">RUR'URU2'R'</p><p>手法：第2个U用右手中指，做它前面的R'的同时中指从URB角块的U面滑到B面。</p></td>
     </tr>
     <tr>
-      <td>OLL 28<br />(Arrow)</td>
+      <td><span id="OLL-28">OLL-28</span><br />(Arrow)</td>
       <td>箭头</td>
       <td>翻两棱</td>
       <td><div class="roofpig recommend" data-config="alg=r U R' U' R r' U R U' R'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(rUR'U')R(r'URU'R')</p><p>手法：前手位起手。第一个U我习惯用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 29<br />(H)</td>
+      <td><span id="OLL-57">OLL-57</span><br />(H)</td>
       <td>H型</td>
       <td>翻两棱</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U' M' U R U' r'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(RUR'U')M'(URU'r')</p><p>手法：同样用左手食指推第一个U。建议用左手无名指拨M'，实在不行用rR'代替。</p></td>
     </tr>
     <tr>
-      <td>OLL 5<br />(Lefty-Square)</td>
+      <td><span id="OLL-5">OLL-5</span><br />(Lefty-Square)</td>
       <td>左方块</td>
       <td>方四型</td>
       <td><div class="roofpig recommend" data-config="alg=r' U2 R U R' U r|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">(r'U2)(RUR'U)r</p><p>手法：RU中的U用左手食指推。</p></td>
+      <td><p class="roofpig-algo">(r'U2)(RUR'U)r</p><p>手法：上手位起手，RU中的U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 6<br />(Righty-Square)</td>
+      <td><span id="OLL-6">OLL-6</span><br />(Righty-Square)</td>
       <td>右方块</td>
       <td>方四型</td>
       <td><div class="roofpig recommend" data-config="alg=r U2 R' U' R U' r'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(rU2)(R'U'RU')r'</p></td>
     </tr>
     <tr>
-      <td>OLL 33<br />(Key)</td>
+      <td><span id="OLL-33">OLL-33</span><br />(Key)</td>
       <td>侧向T</td>
       <td>T型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U' R' F R F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(RUR'U')(R'FRF')</p><p>手法：第一个F用右手中指轮指，最后一个F'用右手拇指或左手食指均可。</p></td>
     </tr>
     <tr>
-      <td>OLL 45<br />(T)</td>
+      <td><span id="OLL-45">OLL-45</span><br />(T)</td>
       <td>头灯T</td>
       <td>T型</td>
       <td><div class="roofpig recommend" data-config="alg=F R U R' U' F'|algdisplay=2p|colored=u"></div></td>
       <td><p>（两步OLL公式）顺做顶面十字时，实际会直接复原顶面的情形。</p><p class="roofpig-algo">F(RUR'U')F'</p><p>手法：下手位起手，F面操作均用右手完成。</p></td>
     </tr>
     <tr>
-      <td>OLL 31<br />(Couch)</td>
+      <td><span id="OLL-31">OLL-31</span><br />(Couch)</td>
       <td>侧向刀五</td>
       <td>P型</td>
       <td><div class="roofpig recommend" data-config="alg=R' U' F U R U' R' F' R|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(R'U'F)(URU'R')F'R</p><p>手法：U用左手食指推，F'正常用右手拇指做。</p></td>
     </tr>
     <tr>
-      <td>OLL 32<br />(Anti-Couch)</td>
+      <td><span id="OLL-32">OLL-32</span><br />(Anti-Couch)</td>
       <td>逆侧向刀五</td>
       <td>P型</td>
       <td><div class="roofpig recommend" data-config="alg=R U B' U' R' U R B R'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">RUB'(U'R'U)(RBR')</p><p>手法：左手食指推第一个U，接右手拇指下按B'。</p></td>
     </tr>
     <tr>
-      <td>OLL 43<br />(Anti-P)</td>
+      <td><span id="OLL-43">OLL-43</span><br />(Anti-P)</td>
       <td>逆头灯刀五</td>
       <td>P型</td>
       <td><div class="roofpig recommend" data-config="alg=R' U' F' U F R|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">R'U'F'UFR</p><p>手法：左手食指推U。</p></td>
+      <td><p class="roofpig-algo">R'U'F'UFR</p><p>手法：可以用右手食指推F'，然后左手食指推U；或者用右手拇指直接连续做F'U。</p></td>
     </tr>
     <tr>
-      <td>OLL 44<br />(P)</td>
+      <td><span id="OLL-44">OLL-44</span><br />(P)</td>
       <td>头灯刀五</td>
       <td>P型</td>
       <td><div class="roofpig recommend" data-config="alg=f R U R' U' f'|algdisplay=2p|colored=u"></div></td>
-      <td><p>（两步OLL公式）逆做顶面十字时，实际会直接复原顶面的情形。</p><p class="roofpig-algo">f(RUR'U')f'</p></td>
+      <td><p>（两步OLL公式）逆做顶面十字时，实际会直接复原顶面的情形。</p><p class="roofpig-algo">f(RUR'U')f'</p><p>手法：下手位起手。</p></td>
     </tr>
     <tr>
-      <td>OLL 44<br />(镜像变体)</td>
+      <td>OLL-44<br />(镜像变体)</td>
       <td></td>
       <td></td>
       <td><div class="roofpig" data-config="alg=F U R U' R' F'|algdisplay=2p|colored=u"></div></td>
       <td><p>相当于逆做OLL 45。</p><p class="roofpig-algo">F(URU'R')F'</p><p>手法：下手位起手。</p></td>
     </tr>
     <tr>
-      <td>OLL 36<br />(Wario)</td>
+      <td><span id="OLL-36">OLL-36</span><br />(Wario)</td>
       <td>逆弯五</td>
       <td>W型</td>
       <td><div class="roofpig recommend" data-config="alg=R' U' R U' R' U R U l U' R' U x|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(R'U'RU')(R'URU)(lU'R'U)x</p></td>
     </tr>
     <tr>
-      <td>OLL 37<br />(Mario)</td>
+      <td><span id="OLL-37">OLL-37</span><br />(Mario)</td>
       <td>弯五</td>
       <td>W型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U R U' R' U' R' F R F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(RUR'U)(RU'R'U')(R'FRF')</p><p>手法：F'可以考虑用左手食指。</p></td>
     </tr>
     <tr>
-      <td>OLL 34<br />(C-T)</td>
+      <td><span id="OLL-34">OLL-34</span><br />(C-T)</td>
       <td>侧向C</td>
       <td>C型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R2' U' R' F R U R U' F'|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">(RUR2'U')(R'FRU)RU'F'</p><p>手法：用左手食指推第一个U。做第一组手法中最后一个U'的同时，右手从下手位换到前手位。最后一个F'正好可以用右手无名指拨。</p></td>
+      <td><p class="roofpig-algo">(RUR2'U')(R'FRU)RU'F'</p><p>手法：用左手食指推第一个U。做第一组手法中最后一个U'的同时，右手从下手位换到前手位做R'，后面的F可以考虑用右手中指。最后一个F'正好可以用右手无名指拨。</p></td>
     </tr>
     <tr>
-      <td>OLL 46<br />(C-Headlight)</td>
+      <td><span id="OLL-46">OLL-46</span><br />(C-Headlight)</td>
       <td>头灯C</td>
       <td>C型</td>
       <td><div class="roofpig recommend" data-config="alg=R' U' R' F R F' U R|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">R'U'(R'FRF')UR</p><p>手法：上手位起手，其中F'用左手食指拨。</p></td>
     </tr>
     <tr>
-      <td>OLL 51<br />(Bottlecap)</td>
+      <td><span id="OLL-51">OLL-51</span><br />(Bottlecap)</td>
       <td>单头灯直三</td>
       <td>I型</td>
       <td><div class="roofpig recommend" data-config="alg=f R U R' U' R U R' U' f'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">f(RUR'U')(RUR'U')f'</p></td>
     </tr>
     <tr>
-      <td>OLL 52<br />(Rice-Cooker)</td>
+      <td><span id="OLL-52">OLL-52</span><br />(Rice-Cooker)</td>
       <td>单面直三</td>
       <td>I型</td>
-      <td><div class="roofpig recommend" data-config="alg=R' U' R U' R' U y' R' U R B|algdisplay=2p|colored=u"></div></td>
+      <td><div class="roofpig recommend" data-config="alg=R' F' U' F U' R U R' U R|algdisplay=2p|colored=u"></div></td>
+      <td><p class="roofpig-algo">(R'F'U'F)U'(RUR'UR)</p><p>手法：第一个F'用右手食指推。</p></td>
+    </tr>
+    <tr>
+      <td>OLL-52<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R' U' R U' R' U y' R' U R B|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(R'U'RU'R'U)y'(R'UR)B</p></td>
     </tr>
     <tr>
-      <td>OLL 55<br />(Highway)</td>
+      <td><span id="OLL-55">OLL-55</span><br />(Highway)</td>
       <td>双面直三</td>
       <td>I型</td>
       <td><div class="roofpig recommend" data-config="alg=R' F R U R U' R2' F' R2 U' R' U R U R'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(R'FRU)(RU'R2'F')R2U'R'(URUR')</p><p>手法：最后一个U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 56<br />(Streetlights)</td>
+      <td><span id="OLL-56">OLL-56</span><br />(Streetlights)</td>
       <td>双头灯直三</td>
       <td>I型</td>
       <td><div class="roofpig recommend" data-config="alg=r' U' r U' R' U R U' R' U R r' U r|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(r'U'r)(U'R'UR)(U'R'UR)(r'Ur)</p></td>
     </tr>
     <tr>
-      <td>OLL 13<br />(Gun)</td>
+      <td><span id="OLL-13">OLL-13</span><br />(Gun)</td>
       <td>L双块</td>
       <td>大L型</td>
       <td><div class="roofpig recommend" data-config="alg=r U' r' U' r U r' F' U F|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(rU'r')(U'rUr')(F'UF)</p><p>手法：最后的F'UF中的F面用左手做，或者换成y'(R'UR)。</p></td>
     </tr>
     <tr>
-      <td>OLL 14<br />(Anti-Gun)</td>
+      <td><span id="OLL-14">OLL-14</span><br />(Anti-Gun)</td>
       <td>反L双块</td>
       <td>大L型</td>
       <td><div class="roofpig recommend" data-config="alg=R' F R U R' F' R F U' F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(R'FR)(UR'F'R)(FU'F')</p><p>观察：UR'F'R中的F'用右手食指推。本组做完以后将右手从前手位调整为下手位。之后的的FUF'中的F转均用右手。</p></td>
     </tr>
     <tr>
-      <td>OLL 15<br />(Squeegee)</td>
+      <td><span id="OLL-15">OLL-15</span><br />(Squeegee)</td>
       <td>反L单块</td>
       <td>大L型</td>
       <td><div class="roofpig recommend" data-config="alg=r' U' r R' U' R U r' U r|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(r'U'r)(R'U'RU)(r'Ur)</p><p>观察：将L角放在右侧，并向L角方向旋转r起手。</p><p>手法：R'U'RU中的U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 16<br />(Anti-Squeegee)</td>
+      <td><span id="OLL-16">OLL-16</span><br />(Anti-Squeegee)</td>
       <td>L单块</td>
       <td>大L型</td>
       <td><div class="roofpig recommend" data-config="alg=r U r' R U R' U' r U' r'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(rUr')(RUR'U')(rU'r')</p><p>观察：将L角放在右侧，并向L角方向旋转r起手。</p></td>
     </tr>
     <tr>
-      <td>OLL 7<br />(Wide-Sune)</td>
+      <td><span id="OLL-7">OLL-7</span><br />(Wide-Sune)</td>
       <td>双并左曲四</td>
       <td>小Z型</td>
       <td><div class="roofpig recommend" data-config="alg=r U R' U R U2' r'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">rU(R'URU2')r'</p><p>手法：前手位起手，第一个U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 8<br />(Left-Wide-Sune)</td>
+      <td><span id="OLL-8">OLL-8</span><br />(Left-Wide-Sune)</td>
       <td>双并右曲四</td>
       <td>小Z型</td>
       <td><div class="roofpig recommend" data-config="alg=r' U' R U' R' U2 r|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">r'U'(RU'R'U2)r</p><p>手法：上手位起手。</p></td>
     </tr>
     <tr>
-      <td>OLL 11<br />(Downstairs)</td>
+      <td><span id="OLL-11">OLL-11</span><br />(Downstairs)</td>
       <td>单并右曲四</td>
       <td>小Z型</td>
       <td><div class="roofpig recommend" data-config="alg=r' R2 U R' U R U2' R' U M'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">r'(R2UR'UR)U2'(R'UM')</p><p>手法：做R2时调整右手食指位置接U，然后中指轮指接下来的第二个U。</p></td>
     </tr>
     <tr>
-      <td>OLL 12<br />(Upstairs)</td>
+      <td><span id="OLL-12">OLL-12</span><br />(Upstairs)</td>
       <td>单并左曲四</td>
       <td>小Z型</td>
-      <td><div class="roofpig recommend" data-config="alg=M' R' U' R U' R' U2 R U' r R2'|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">M'(R'U'RU'R'U2RU')rR2'</p><p>手法：第一个M'也可以换成r'U2。</p></td>
+      <td><div class="roofpig recommend" data-config="alg=M' R' U' R U' R' U2 R U' R r'|algdisplay=2p|colored=u"></div></td>
+      <td><p class="roofpig-algo">M'(R'U'RU'R'U2RU')Rr'</p><p>手法：最开始的M'R'也可以换成rR2'。</p></td>
     </tr>
     <tr>
-      <td>OLL 40<br />(Anti-Fung)</td>
+      <td><span id="OLL-40">OLL-40</span><br />(Anti-Fung)</td>
       <td>右曲五</td>
       <td>大Z型</td>
       <td><div class="roofpig recommend" data-config="alg=R' F R U R' U' F' U R|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(R'F)(RUR'U')F'UR</p><p>手法：最后一个U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 39<br />(Fung)</td>
+      <td><span id="OLL-39">OLL-39</span><br />(Fung)</td>
       <td>左曲五</td>
       <td>大Z型</td>
       <td><div class="roofpig recommend" data-config="alg=L F' L' U' L U F U' L'|algdisplay=2p|colored=u"></div></td>
-      <td><p>左手流，OLL 40的对称做法。</p><p class="roofpig-algo">(LF')(L'U'LU)FU'L'</p><p>手法：最后的F'用左手食指推，U用右手大拇指拨。</p></td>
+      <td><p>左手流，OLL 40的对称做法。</p><p class="roofpig-algo">(LF')(L'U'LU)FU'L'</p><p>手法：可以用左手食指推最后的F'，再用右手大拇指拨U；或者左手拇指推F接推U'，再用左手小拇指下压做L'。</p></td>
     </tr>
     <tr>
-      <td>OLL 48<br />(Breakneck)</td>
+      <td><span id="OLL-48">OLL-48</span><br />(Breakneck)</td>
       <td>单头灯左弯三</td>
       <td>小L型</td>
       <td><div class="roofpig recommend" data-config="alg=F R U R' U' R U R' U' F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">F(RUR'U')(RUR'U')F'</p><p>手法：下手位起手。</p></td>
     </tr>
     <tr>
-      <td>OLL 47<br />(Anti-Breakneck)</td>
+      <td><span id="OLL-47">OLL-47</span><br />(Anti-Breakneck)</td>
       <td>单头灯右弯三</td>
       <td>小L型</td>
       <td><div class="roofpig recommend" data-config="alg=B' R' U' R U R' U' R U B|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">B'(R'U'RU)(R'U'RU)B</p><p>手法：B'用右手拇指下压，所有U转用左手食指完成。</p></td>
     </tr>
     <tr>
-      <td>OLL 47<br />(变体)</td>
+      <td>OLL-47<br />(变体)</td>
       <td></td>
       <td></td>
       <td><div class="roofpig" data-config="alg=F' L' U' L U L' U' L U F|algdisplay=2p|colored=u"></div></td>
       <td><p>左手流，OLL 48的对称做法。</p><p class="roofpig-algo">F'(L'U'LU)(L'U'LU)F</p><p>手法： </p></td>
     </tr>
     <tr>
-      <td>OLL 54<br />(Anti-Frying-Pan)</td>
+      <td><span id="OLL-54">OLL-54</span><br />(Anti-Frying-Pan)</td>
       <td>双头灯右弯三</td>
       <td>小L型</td>
       <td><div class="roofpig recommend" data-config="alg=r U R' U R U' R' U R U2' r'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(rUR'U)(RU'R'U)(RU2'r')</p><p>手法：R'U'RU中的U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 53<br />(Frying-Pan)</td>
+      <td><span id="OLL-53">OLL-53</span><br />(Frying-Pan)</td>
       <td>双头灯左弯三</td>
       <td>小L型</td>
       <td><div class="roofpig recommend" data-config="alg=r' U' R U' R' U R U' R' U2 r|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(r'U'RU')(R'URU')(R'U2r)</p></td>
     </tr>
     <tr>
-      <td>OLL 49<br />(Squeezy)</td>
+      <td><span id="OLL-49">OLL-49</span><br />(Squeezy)</td>
       <td>单面左弯三</td>
       <td>小L型</td>
       <td><div class="roofpig recommend" data-config="alg=r U' r2' U r2 U r2' U' r|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">rU'r2'Ur2Ur2'U'r</p></td>
+      <td><p class="roofpig-algo">rU'r2'Ur2Ur2'U'r</p><p>手法：前手位起手。两个U'均用左手食指拨，两个U则依次用右手食指推、勾。</p></td>
     </tr>
     <tr>
-      <td>OLL 50<br />(Anti-squeezy)</td>
+      <td><span id="OLL-50">OLL-50</span><br />(Anti-squeezy)</td>
       <td>单面右弯三</td>
       <td>小L型</td>
       <td><div class="roofpig recommend" data-config="alg=r' U r2 U' r2' U' r2 U r'|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">r'Ur2U'r2'U'r2Ur'</p></td>
+      <td><p class="roofpig-algo">r'Ur2U'r2'U'r2Ur'</p><p>手法：前手位起手。两个U依次用右手食指推、勾，两个U'则均用左手食指拨。</p></td>
     </tr>
     <tr>
-      <td>OLL 9<br />(Kite)</td>
+      <td><span id="OLL-9">OLL-9</span><br />(Kite)</td>
       <td>点弯三</td>
       <td>变小鱼型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U' R' F R2 U R' U' F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(RUR'U')R'F(R2UR'U')F'</p><p>手法：两个U都可以用右手正常做，也可以左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 10<br />(Anti-Kite)</td>
+      <td><span id="OLL-10">OLL-10</span><br />(Anti-Kite)</td>
       <td>逆点弯三</td>
       <td>变小鱼型</td>
-      <td><div class="roofpig recommend" data-config="alg=R U R' U' R' F R F' R U2' R'|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">(RUR'U')(R'FRF')(RU2'R')</p><p>手法：第一个U用左手食指推。</p></td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U R' F R F' R U2' R'|algdisplay=2p|colored=u"></div></td>
+      <td><p class="roofpig-algo">(RUR'U)(R'FRF')(RU2'R')</p><p>手法：第一个U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 35<br />(Fish-Salad)</td>
+      <td><span id="OLL-35">OLL-35</span><br />(Fish-Salad)</td>
       <td>碎色点方四</td>
       <td>变小鱼型</td>
-      <td><div class="roofpig recommend" data-config="alg=R U2' R2' F R F' R U2' R|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">(RU2')(R2'FRF')(RU2'R)</p></td>
+      <td><div class="roofpig recommend" data-config="alg=R U2' R2' F R F' R U2' R'|algdisplay=2p|colored=u"></div></td>
+      <td><p class="roofpig-algo">(RU2')(R2'FRF')(RU2'R')</p></td>
     </tr>
     <tr>
-      <td>OLL 37<br />(Mounted-Fish)</td>
+      <td><span id="OLL-37">OLL-37</span><br />(Mounted-Fish)</td>
       <td>并色点方四</td>
       <td>变小鱼型</td>
       <td><div class="roofpig recommend" data-config="alg=F R U' R' U' R U R' F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">F(RU'R'U')(RUR'F')</p><p>手法：下手位起手。</p></td>
     </tr>
     <tr>
-      <td>OLL 29<br />(Chameleon)</td>
+      <td><span id="OLL-29">OLL-29</span><br />(Chameleon)</td>
       <td>并色右点曲四</td>
       <td>别扭型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U' R U' R' F' U' F R U R'|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">(RUR'U')(RU'R')(F'U'F)(RUR')</p><p>手法：下手位起手，F'用右手食指推。</p></td>
+      <td><p class="roofpig-algo">(RUR'U')(RU'R')(F'U'F)(RUR')</p><p>观察：把单点放在右前，并色在前。</p><p>手法：下手位起手，F'用右手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 30<br />(Anti-Chameleon)</td>
+      <td><span id="OLL-30">OLL-30</span><br />(Anti-Chameleon)</td>
       <td>并色左点曲四</td>
       <td>别扭型</td>
       <td><div class="roofpig recommend" data-config="alg=F U R U2 R' U' R U2 R' U' F'|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">FU(RU2R'U')(RU2R'U')F'</p><p>手法：下手位起手，第一个U用左手食指推。</p></td>
+      <td><p class="roofpig-algo">FU(RU2R'U')(RU2R'U')F'</p><p>观察：把单点放在右前，并色在右。</p><p>手法：下手位起手，第一个U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 41<br />(Dalmation)</td>
+      <td><span id="OLL-41">OLL-41</span><br />(Dalmation)</td>
       <td>头灯左点曲四</td>
       <td>别扭型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U R U2' R' F R U R' U' F'|algdisplay=2p|colored=u"></div></td>
-      <td><p class="roofpig-algo">(RUR'URU2')R'F(RUR'U')F'</p><p>手法：做R'F的R'时将右手调整到下手位，便于接F。</p></td>
+      <td><p>小鱼型公式接一个T型OLL。</p><p class="roofpig-algo">(RUR'URU2')R'F(RUR'U')F'</p><p>观察：把单点放在右前，头灯在后。</p><p>手法：做R'F的R'时将右手调整到下手位，便于接F。</p></td>
     </tr>
     <tr>
-      <td>OLL 42<br />(Anti-Dalmation)</td>
+      <td><span id="OLL-42">OLL-42</span><br />(Anti-Dalmation)</td>
       <td>头灯右点曲四</td>
       <td>别扭型</td>
-      <td><div class="roofpig recommend" data-config="alg=R' U' R U' R' U2' R F R U R' U' F'|algdisplay=2p|colored=u"></div></td>
+      <td><div class="roofpig recommend" data-config="alg=F R' F' R U2 R' U' R2 U' R2' U2' R|algdisplay=2p|colored=u"></div></td>
+      <td><p>逆做R'FRF'，后半段是一个十字OLL。</p><p class="roofpig-algo">(FR'F'R)U2(R'U'R2U')(R2'U2'R)</p><p>观察：把单点放在右前，头灯在左。</p><p>手法：前手位起手，F'用左手食指拨。</p></td>
+    </tr>
+    <tr>
+      <td>OLL-42<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R' U' R U' R' U2' R F R U R' U' F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(R'U'RU'R'U2')RF(RUR'U')F'</p><p>手法：做U2'时将右手调整到后手位，便于接RF。</p></td>
     </tr>
     <tr>
-      <td>OLL 1<br />(Runway)</td>
+      <td><span id="OLL-1">OLL-1</span><br />(Runway)</td>
       <td>双面点型</td>
       <td>点型</td>
       <td><div class="roofpig recommend" data-config="alg=R U2' R2' F R F' U2' R' F R F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(RU2')(R2'FRF')U2'(R'FRF')</p><p>手法：最后一个F'用右手拇指或左手食指，视个人喜好。</p></td>
     </tr>
     <tr>
-      <td>OLL 2<br />(Zamboni)</td>
+      <td><span id="OLL-2">OLL-2</span><br />(Zamboni)</td>
       <td>单面点型</td>
       <td>点型</td>
       <td><div class="roofpig recommend" data-config="alg=F R U R' U' F' f R U R' U' f'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">F(RUR'U')F'f(RUR'U')f'</p><p>手法：下手位起手。</p></td>
     </tr>
     <tr>
-      <td>OLL 3<br />(Anti-Mouse)</td>
+      <td><span id="OLL-3">OLL-3</span><br />(Anti-Mouse)</td>
       <td>逆小尖</td>
       <td>点型</td>
       <td><div class="roofpig recommend" data-config="alg=f R U R' U' f' U' F R U R' U' F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">f(RUR'U')f'U'F(RUR'U')F'</p><p>手法：下手位起手。U‘的时候右手调整到下手位，便于接F。</p></td>
     </tr>
     <tr>
-      <td>OLL 4<br />(Mouse)</td>
+      <td><span id="OLL-4">OLL-4</span><br />(Mouse)</td>
       <td>顺小尖</td>
       <td>点型</td>
       <td><div class="roofpig recommend" data-config="alg=f R U R' U' f' U F R U R' U' F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">f(RUR'U')f'UF(RUR'U')F'</p><p>手法：下手位起手。中间的U用左手食指推。</p></td>
     </tr>
     <tr>
-      <td>OLL 17<br />(Diagonal)</td>
+      <td><span id="OLL-17">OLL-17</span><br />(Diagonal)</td>
       <td>连尖</td>
       <td>点型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U R' F R F' U2 R' F R F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(RUR'U)(R'FRF')U2(R'FRF')</p><p>手法：两个F'都可以用左手食指做。</p></td>
     </tr>
     <tr>
-      <td>OLL 18<br />(Crown)</td>
+      <td><span id="OLL-18">OLL-18</span><br />(Crown)</td>
       <td>单面虎口</td>
       <td>点型</td>
       <td><div class="roofpig recommend" data-config="alg=R U2' R2' F R F' U2 M' U R U' r'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">RU2'(R2'FRF')U2M'(URU'r')</p><p>手法：F'用左手食指做，之后调整左手位做M'。</p></td>
     </tr>
     <tr>
-      <td>OLL 19<br />(Bunny)</td>
+      <td><span id="OLL-19">OLL-19</span><br />(Bunny)</td>
       <td>并色虎口</td>
       <td>点型</td>
       <td><div class="roofpig recommend" data-config="alg=r' R U R U R' U' M' R' F R F'|algdisplay=2p|colored=u"></div></td>
       <td><p class="roofpig-algo">(r'RU)(RUR'U')M'(R'FRF')</p><p>手法：RUR'U'中的U用左手食指做。最后的F'可以考虑用左手食指。</p></td>
     </tr>
     <tr>
-      <td>OLL 20<br />(X)</td>
+      <td><span id="OLL-20">OLL-20</span><br />(X)</td>
       <td>X型</td>
       <td>点型</td>
       <td><div class="roofpig recommend" data-config="alg=r' R U R U R' U' M2' U R U' r'|algdisplay=2p|colored=u"></div></td>
@@ -628,7 +627,7 @@
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="PLL.html" class="btn btn-neutral float-left" title="完整 PLL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="F2L.html" class="btn btn-neutral float-right" title="完整 F2L" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
@@ -639,9 +638,9 @@
     <p>&#169; 版权所有 wklchris.</p>
   </div>
 
-  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
-    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
    
 
 </footer>

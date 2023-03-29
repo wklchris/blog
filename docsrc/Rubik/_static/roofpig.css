@@ -9,7 +9,12 @@ div.roofpig {
     overflow: hidden;
     text-align: center;
 }
-div.roof-algtext, div.roofpig-algtext { text-align: center; }
+div.roofpig-algtext {
+    text-align: center;
+    height: min-content !important;
+    padding-left: 2pt;
+    padding-right: 2pt;
+}
 div.roofpig-count {
     display: flex;
     justify-content: center;
@@ -21,6 +26,7 @@ p.roofpig-algo { font-weight: bold; }
 div.roofpig.inline {
     display: inline-block;
     margin: 10px 15px 24px;  /* 15px between them horinzontally */
+    vertical-align: middle;
 }
 div.roofpig-inline-container {
     margin: 5px auto;

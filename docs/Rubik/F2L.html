@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>完整 F2L &mdash; 魔方  文档</title>
@@ -16,18 +16,18 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="_static/translations.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/jquery.js"></script>
         <script src="_static/roofpig_and_three.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="附录：向网页中插入魔方动画" href="Appendix.html" />
+    <link rel="next" title="四阶复原：Yau方法" href="4x4.html" />
     <link rel="prev" title="完整 OLL" href="OLL.html" />
  
 
@@ -48,11 +48,15 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-            <a href="index.html" class="icon icon-home"> 魔方
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            魔方
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -67,7 +71,7 @@
    </a>
 </div>
 
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <p class="caption" role="heading"><span class="caption-text">目录</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
@@ -80,6 +84,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id2">实用非标</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="4x4.html">四阶复原：Yau方法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Appendix.html">附录：向网页中插入魔方动画</a></li>
 </ul>
 
@@ -87,17 +92,17 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">魔方</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+          <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>完整 F2L</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">完整 F2L</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/F2L.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -107,32 +112,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="f2l">
-<h1>完整 F2L<a class="headerlink" href="#f2l" title="永久链接至标题"></a></h1>
+  <section id="f2l">
+<h1>完整 F2L<a class="headerlink" href="#f2l" title="此标题的永久链接"></a></h1>
 <div class="danger admonition">
 <p class="admonition-title">手法基础最优先！</p>
 <p>在学习 CFOP 公式前，请掌握最基础的指法（比如食指中指 U2 轮指、左手无名指做 D 与 D'）以及一些必要手法习惯（比如尽可能地从前手位起手、减少公式中不必要的换手位动作）。一些手法可能初做比较怪异，例如前手位（而不是下手位）的 RUR'U'，但我强烈推荐你学习它们。</p>
@@ -142,21 +123,370 @@
 <p>标准 F2L 公式不多，但有许多十分重要的非标准情形（一般是利用空槽简化手法），因此学习的压力也不算太小。此外，F2L 可能是最考验魔友观察功底的一步。不是说背下 F2L 的公式，就会比直觉 F2L 的速度有显著提升；这也是许多魔友感受到挫败的一点，所以就更应该把 F2L 放在学习的最后一步，在长期的巩固与练习中寻求提升。</p>
 <p>最后，F2L 最重要不是对单个槽能把公式做得多快，而是<strong>观察速度以及四槽之间的连贯衔接</strong>。这与练习 PLL 与 OLL 的差异还是很大的，希望读者能够谨记这一点。</p>
 <section id="id1">
-<h2>F2L 的标准情形<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
-<p>&#64;&#64;&#64;</p>
-</section>
+<h2>F2L 的标准情形<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<p>以下是完整的 OLL 公式表，总计有 41 种情形。</p>
+<p>在本表中，我用角块、棱块朝上的颜色以及棱块的位置来描述每一种倾向。例如，“角前后棱右”表示角块朝上的颜色与前面（F 面）相同，棱块位于后面（B 面），且朝上的颜色与右面（R 面）相同。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>一些学习 F2L 之前的注意点：</p>
+<ol class="arabic simple">
+<li><p>比起记忆 F2L 公式，更推荐自己推断直觉 F2L 公式。</p></li>
+<li><p>将自己推断的直觉 F2L 公式与标准 F2L 公式对比，对每一种情况使用这二者中更顺手的。</p></li>
+<li><p>如果不计起手时的转体，任何正确的 F2L 公式的转体都不会超过一次。如果你自己推断的某个直觉 F2L 公式使用了超过一次的转体，请从下面的标准 F2L 中学习正确的做法！</p></li>
+</ol>
+</div>
+<table border="1" class="dataframe roofpig-table">
+  <colgroup>
+    <col class="rftable_id_str" />
+    <col class="rftable_name" />
+    <col class="rftable_group" />
+    <col class="rftable_solution" />
+    <col class="rftable_comment" />
+  </colgroup>
+  <thead>
+    <tr style="text-align: center;">
+      <th>编号</th>
+      <th>名称</th>
+      <th>分组</th>
+      <th>公式</th>
+      <th>注解</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span id="F2L-31">F2L-31</span></td>
+      <td>右并</td>
+      <td>标准型</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-34">F2L-34</span></td>
+      <td>左并</td>
+      <td>标准型</td>
+      <td><div class="roofpig recommend" data-config="alg=y' U' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'U'(R'UR)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-40">F2L-40</span></td>
+      <td>右散</td>
+      <td>标准型</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-25">F2L-25</span></td>
+      <td>左散</td>
+      <td>标准型</td>
+      <td><div class="roofpig recommend" data-config="alg=y' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'(R'U'R)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-24">F2L-24</span></td>
+      <td>角前前棱右</td>
+      <td>棱角异色</td>
+      <td><div class="roofpig recommend" data-config="alg=y' U R' U R U' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'U(R'URU')(R'U'R)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-26">F2L-26</span></td>
+      <td>角前后棱右</td>
+      <td>棱角异色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U' R' U y' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RU'R'U)y'(R'U'R)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-27">F2L-27</span></td>
+      <td>角前右棱右</td>
+      <td>棱角异色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U2' R' U y' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RU2'R'U)y'(R'U'R)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-38">F2L-38</span></td>
+      <td>角右前棱前</td>
+      <td>棱角异色</td>
+      <td><div class="roofpig recommend" data-config="alg=R' U2' R2 U R2' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">R'U2'R2UR2'UR</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-39">F2L-39</span></td>
+      <td>角右左棱前</td>
+      <td>棱角异色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U R' U R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RUR'U)(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-41">F2L-41</span></td>
+      <td>角右右棱前</td>
+      <td>棱角异色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U' R' U R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RU'R'U)(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-28">F2L-28</span></td>
+      <td>角前前棱前</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=y' R' U R U2' y R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'(R'UR)U2'y(RUR')</p></td>
+    </tr>
+    <tr>
+      <td>F2L-28<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U R' U2 R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p>无需转体的变体公式。</p><p class="roofpig-algo">(RUR')U2(RU'R'U)(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-29">F2L-29</span></td>
+      <td>角前左棱前</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U2' R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RU2'R')U2(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-30">F2L-30</span></td>
+      <td>角前后棱前</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(U'RUR')U2(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-35">F2L-35</span></td>
+      <td>角右左棱右</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=d R' U' R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p>注意 d 与 y'U 实质是一样的。</p><p class="roofpig-algo">d(R'U'R)U2'(R'UR)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-36">F2L-36</span></td>
+      <td>角右后棱右</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=d R' U2 R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p>注意 d 与 y'U 实质是一样的。</p><p class="roofpig-algo">d(R'U2R)U2'(R'UR)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-37">F2L-37</span></td>
+      <td>角右右棱右</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' U2 y' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U2)y'(R'U'R)</p></td>
+    </tr>
+    <tr>
+      <td>F2L-37<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=U F R U R' U' F' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p>无需转体的变体公式。</p><p class="roofpig-algo">UF(RUR'U')F'(URU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-18">F2L-18</span></td>
+      <td>角顶前棱前</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U' R' U' R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(RU'R'U')(RU'R'U)(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-19">F2L-19</span></td>
+      <td>角顶左棱前</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=U2 R U R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U2(RUR'U)(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td>F2L-19<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U' R' U2 R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R')U2(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-20">F2L-20</span></td>
+      <td>角顶后棱前</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U2' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(RU2'R')U(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-21">F2L-21</span></td>
+      <td>角顶右棱前</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=R U2 R' U' R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU2R')U'(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-14">F2L-14</span></td>
+      <td>角顶前棱右</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=y' R' U2 R U R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'(R'U2R)U(R'U'R)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-15">F2L-15</span></td>
+      <td>角顶左棱右</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=y' U' R' U2 R U' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'U'(R'U2R)U'(R'UR)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-16">F2L-16</span></td>
+      <td>角顶后棱右</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=y' U2 R' U' R U' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'U2(R'U'R)U'(R'UR)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-17">F2L-17</span></td>
+      <td>角顶右棱右</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=F U R U' R' F' R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">F(URU'R')F'(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-2">F2L-2</span></td>
+      <td>正角棱右</td>
+      <td>角块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U' R' U' F' U F|algdisplay=2p|colored=u-"></div></td>
+      <td><p>（层先法公式）</p><p class="roofpig-algo">U(RU'R')U'(F'UF)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-3">F2L-3</span></td>
+      <td>正角棱前</td>
+      <td>角块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R' F' R U R U' R' F|algdisplay=2p|colored=u-"></div></td>
+      <td><p>（层先法公式）</p><p class="roofpig-algo">R'F'RU(RU'R')F</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-6">F2L-6</span></td>
+      <td>顶角棱右</td>
+      <td>角块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=y' R' U' R U R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'(R'U'RU)(R'U'R)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-7">F2L-7</span></td>
+      <td>顶角棱前</td>
+      <td>角块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U)(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-10">F2L-10</span></td>
+      <td>右角棱右</td>
+      <td>角块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=y' R' U R U' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'(R'URU')(R'UR)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-11">F2L-11</span></td>
+      <td>右角棱前</td>
+      <td>角块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U' R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR'U')(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-12">F2L-12</span></td>
+      <td>顶角正棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U' R' U R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(URU'R')(URU'R')(URU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-13">F2L-13</span></td>
+      <td>顶角反棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' U y' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U)y'(R'UR)</p></td>
+    </tr>
+    <tr>
+      <td>F2L-13<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=U' R' F R F' R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p>无需转体的变体公式。</p><p class="roofpig-algo">U'(R'FRF')(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-22">F2L-22</span></td>
+      <td>前角正棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U' R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RU'R')U2(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-23">F2L-23</span></td>
+      <td>前角反棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U R' d R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RUR')d(R'U'R)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-32">F2L-32</span></td>
+      <td>右角正棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U R' U2 R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(RUR')U2(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-33">F2L-33</span></td>
+      <td>右角反棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U F' U' F U' R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(F'U'F)U'(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-1">F2L-1</span></td>
+      <td>正角反棱</td>
+      <td>棱角在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' d R' U2 R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R')d(R'U2R)U2'(R'UR)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-4">F2L-4</span></td>
+      <td>前角正棱</td>
+      <td>棱角在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U' R U2 R' U' R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR'U')RU2R'U'(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-8">F2L-8</span></td>
+      <td>右角正棱</td>
+      <td>棱角在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U2' R U' R' U R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR')U2'(RU'R'U)(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-5">F2L-5</span></td>
+      <td>前角反棱</td>
+      <td>棱角在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' F R U R' U' F' R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R')F(RUR'U')F'(RU'R')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-9">F2L-9</span></td>
+      <td>右角反棱</td>
+      <td>棱角在位</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U' R U' R' U2 y' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR'U')(RU'R')U2y'(R'U'R)</p></td>
+    </tr>
+  </tbody>
+</table></section>
 <section id="id2">
-<h2>实用非标<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2>实用非标<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p>&#64;&#64;&#64;</p>
+<!-- Included in the BOTTOM of a RST file that includes roofpig tables -->
+<script>
+  // Highlight table rows that contains a recommended algorithm
+  $("div.roofpig.recommend").parents('tr').css("background-color", "#C9F6C8");
+</script>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="OLL.html" class="btn btn-neutral float-left" title="完整 OLL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="Appendix.html" class="btn btn-neutral float-right" title="附录：向网页中插入魔方动画" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="4x4.html" class="btn btn-neutral float-right" title="四阶复原：Yau方法" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -165,9 +495,9 @@
     <p>&#169; 版权所有 wklchris.</p>
   </div>
 
-  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
-    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
    
 
 </footer>
