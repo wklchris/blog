@@ -32,4 +32,5 @@ rst_prolog = """
 .. _wklchris/simrofy: https://github.com/wklchris/sphinx-simrofy-theme
 .. _snowkylin.github.io: https://snowkylin.github.io
 .. _Sphinx: https://www.sphinx-doc.org
+.. _Roofpig: https://github.com/larspetrus/Roofpig
 """
