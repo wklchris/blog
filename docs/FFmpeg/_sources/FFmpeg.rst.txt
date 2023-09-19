@@ -156,12 +156,15 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
    具体的解释请参考 `FFmpeg 官方文档 <https://ffmpeg.org/ffmpeg.html>`_ 中关于 ``-ss`` 参数的说明。
 
 
-分辨率缩放
--------------
+分辨率改变：缩放与裁切
+-----------------------
 
 .. note::
    
-   分辨率缩放总是会编码视频，请注意这一点。
+   缩放与裁切总是会重编码视频，请注意这一点。
+
+分辨率缩放
+~~~~~~~~~~~~~
 
 分辨率缩放也是一个常见的需求，这需要使用到 FFmpeg 提供的视频过滤器（或称视频滤镜，video filter），也即 ``-vf`` 参数。由于过滤器的使用过于复杂，在此也不会详细介绍；这里只是针对过滤器中的缩放器（scaler）功能进行说明。缩放器还有许多复杂的用法详情也可以参考官方文档的 `Video filter - Scaler <https://ffmpeg.org/ffmpeg-all.html#scale-1>`_ 章节。
 
@@ -199,7 +202,38 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
     ffmpeg -i video.mp4 -vf scale=iw/2:ih/2:flags=lanczos -c:v libx265 -c:a copy out.mp4
 
 
-添加字幕
+裁切
+~~~~~~~~~
+
+裁切同样使用视频过滤器完成，使用 ``crop`` 字段：
+
+.. code-block:: shell
+    
+    # 从原视频距左上角横20、竖30的位置，向右下角裁切一个宽100、高200的矩形
+    crop=w=100:h=200:x=20:y=30
+    crop=100:200:20:30
+    # 在视频的正中央进行裁切
+    crop=100:200
+    # 也可以使用倍率的写法，用iw、ih代表输入视频的宽和高
+    ## 裁切视频的中间 3/5 宽度画面
+    crop=3/5*iw:ih:iw/5:0
+
+例子：
+
+.. code-block:: shell
+   
+   # 裁切 1/6 到 5/6 宽的画面范围，并用 x265 编码器以 CRF 30 的质量来编码
+   ffmpeg -i video.mp4 -c:v libx265 -crf 30 -vf "scale=2/3*iw:ih:iw/6:0" -c:a copy out.mp4
+
+FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常用于四周有黑色边框的情形：
+
+.. code-block:: shell
+
+   # 自动检测黑色边框来裁切
+   ffmpeg -i video.mp4 -vf "cropdetect" -c:a copy out.mp4
+
+
+字幕操作
 -----------
 
 FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中。
@@ -224,6 +258,31 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
    ffmpeg -i input.mp4 -i input.srt -c:v copy -c:a copy -c:s ass output.mkv
 
 在封装时，一般需要选择 ``-c:s ass`` 这个字幕转码器。上例中使用了早年间非常流行的内挂字幕容器 mkv，实际上 mp4 容器也可以进行内挂操作。
+
+要从有字幕流的视频文件中移除字幕，可以使用 ``-sn`` 参数；可以参考本文替换流与删除流部分的内容。
+
+
+内挂字幕的元数据操作
+^^^^^^^^^^^^^^^^^^^^
+
+FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包括字幕流（内挂字幕）。其中，比较常用的元数据可能是指定字幕的语言。下例向一个无字幕的视频文件中添加了一个 ass 字幕文件，并指定其语言为中文（语言码应遵循 ISO639-2 标准的三位代码，例如英文 eng、日文 jpn）：
+
+.. code:: shell
+
+   ffmpeg -i input.mp4 -i input.ass -c:v copy -c:a copy -c:s ass -metadata:s:s:0 language=chi output.mkv
+
+.. admonition:: 如何将内挂字幕设定为默认加载的字幕？
+   :class: important
+   
+   FFmpeg 支持使用 ``-disposition`` 参数将某个流设定为默认。例如 ``-disposition:s:0 default`` 表示将文件的第一个字幕流设置为默认（default）；要取消将该字幕流设置为默认，请将其值从 ``default`` 设置为 ``0``\ 。
+
+   一个常见的批处理操作是将文件夹内的所有字幕文件批量内挂到同名的视频文件中。下面以使用 Powershell 命令向 mkv 中内挂 ass 字幕为例，该命令在内挂字幕的同时将字幕语言标记为中文、并设置为默认字幕：
+
+   .. code:: powershell
+      
+      (Get-ChildItem *.mkv).Basename | ForEach-Object { ffmpeg -i "${_}.mkv" -i "${_}.ass" -y -c:v copy -c:a copy -c:s ass -metadata:s:s:0 language=chi -disposition:s:0 default "${_}-output.mkv"}
+   
+   上例的输出结果在 VLC 播放器中识别通过，播放时该字幕会自动启用；而不指定 `-disposition default` 的输出文件则需要手动启用内挂字幕。
 
 内嵌字幕
 ~~~~~~~~~~
@@ -271,7 +330,7 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 当然，如果视频文件数量不多，用户也可以自行创建这样一个 ``mylist.txt`` 文件。在执行完第二行的 ffmpeg 指令进行视频合并后，用户可以删除文件夹中的 ``mylist.txt`` 文件。
 
 
-替换或删除视频数据流
+替换或删除流
 ---------------------
 
 除了格式转换中提到的提取流的操作，删除或替换也是常见的选择。
@@ -285,7 +344,7 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 
    ffmpeg -i video.mp4 -c:v copy -an NoAudio.mp4
 
-上例中的 ``-c:v`` 是传递视频编解码器， ``copy`` 表示不进行编解码操作而是直接拷贝。
+上例中的 ``-c:v`` 是传递视频编解码器， ``copy`` 表示不进行编解码操作而是直接拷贝。因此，上述命令保留了原文件的视频、删除了音频，并将结果输出。
 
 替换流
 ~~~~~~~
@@ -298,7 +357,7 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
    # 或者省略第二冒号
    ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -map 0:v -map 1:a out.mp4
 
-这里输入了两个文件。视频流将直接复制。复制对象由 ``-map``手动指定了，其后的 ``0:v:0`` 表示指定第0个输入文件（即 video.mp4）的视频流，在处理后作为输出文件的第0个视频流（单个文件可以有多个视频流）。类似地，``-map 1:a:0`` 表示指定第1个输入文件（即 audio.mp3）的音频流，在处理后作为输出文件的第0个音频流。由于此例中输出的视频不存在多个同类流，因此第二个冒号可以省略。
+这里输入了两个文件。视频流将直接复制。复制对象由 ``-map`` 手动指定了，其后的 ``0:v:0`` 表示指定第0个输入文件（即 video.mp4）的视频流，在处理后作为输出文件的第0个视频流（单个文件可以有多个视频流）。类似地，``-map 1:a:0`` 表示指定第1个输入文件（即 audio.mp3）的音频流，在处理后作为输出文件的第0个音频流。由于此例中输出的视频不存在多个同类流，因此第二个冒号可以省略。
 
 不使用 ``-map`` 手动指定时，FFmpeg 会自动选择：
 
@@ -310,8 +369,8 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 
      ffmpeg -i video.mkv out1.mkv -c:s dvdsub out2.mkv
 
-压制
--------
+压制与码率
+-------------
 
 .. note:: 
    
@@ -351,7 +410,7 @@ CRF 的压制中还有一个参数，称为预案 ``-preset`` 。较慢的预案
 
    通常只在强制要求文件大小时使用二压。
 
-设想一个二压的应用场景（本例取自* `FFmpeg
+设想一个二压的应用场景（本例取自 `FFmpeg
 Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟（600秒）长的视频压制到200MB，并保持音频码率在
 128 kbps。
 
@@ -408,6 +467,30 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
 
    ffmpeg -i input -c:v libx264 -b:v 8M -maxrate 8M -bufsize 8M output.mp4
 
+.. admonition:: 码率选择：如何兼顾质量与文件体积？
+   :class: important
+
+   很难对“合适”的码率作出一个精确的定义。在这里，我只简单引用一下 `Youtube 码率建议表 <https://support.google.com/youtube/answer/1722171?hl=en#zippy=%2Cbitrate>`_\ 供大家参考：
+   
+   * 表中码率的推荐值基于 H.264 编码。
+   * 表中推荐高帧率视频使用同规格低帧率 1.5 倍的码率，而 HDR 使用 SDR 1.25 倍的码率。 
+
+   ============= ======= ================== =================== 
+   规格           帧率     推荐码率（SDR）      推荐码率（HDR）        
+   ============= ======= ================== =================== 
+   8K            24~30   80 - 160 Mbps      100 - 200 Mbps   
+   \             48~60   120 - 240 Mbps     150 - 300 Mbps
+   4K (2160p)    24~30   35 - 45 Mbps       44 - 56 Mbps
+   \             48~60   53 - 68 Mbps       66 - 85 Mbps      
+   2K (1440p)    24~30   16 Mbps            20 Mbps
+   \             48~60   24 Mbps            30 Mbps    
+   1080p         24~30   8 Mbps             10 Mbps
+   \             48~60   12 Mbps            15 Mbps           
+   720p          24~30   5 Mbps             6.5 Mbps
+   \             48~60   7.5 Mbps           9.5 Mbps               
+   ============= ======= ================== ===================
+   
+   Youtube 的音频码率推荐则为单声道 128 Kbps、环绕声 384 Kbps 以及 5.1 声道 512 Kbps. 
 
 添加章节信息
 --------------------

@@ -233,7 +233,7 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
    ffmpeg -i video.mp4 -vf "cropdetect" -c:a copy out.mp4
 
 
-添加字幕
+字幕操作
 -----------
 
 FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中。
@@ -258,6 +258,31 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
    ffmpeg -i input.mp4 -i input.srt -c:v copy -c:a copy -c:s ass output.mkv
 
 在封装时，一般需要选择 ``-c:s ass`` 这个字幕转码器。上例中使用了早年间非常流行的内挂字幕容器 mkv，实际上 mp4 容器也可以进行内挂操作。
+
+要从有字幕流的视频文件中移除字幕，可以使用 ``-sn`` 参数；可以参考本文替换流与删除流部分的内容。
+
+
+内挂字幕的元数据操作
+^^^^^^^^^^^^^^^^^^^^
+
+FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包括字幕流（内挂字幕）。其中，比较常用的元数据可能是指定字幕的语言。下例向一个无字幕的视频文件中添加了一个 ass 字幕文件，并指定其语言为中文（语言码应遵循 ISO639-2 标准的三位代码，例如英文 eng、日文 jpn）：
+
+.. code:: shell
+
+   ffmpeg -i input.mp4 -i input.ass -c:v copy -c:a copy -c:s ass -metadata:s:s:0 language=chi output.mkv
+
+.. admonition:: 如何将内挂字幕设定为默认加载的字幕？
+   :class: important
+   
+   FFmpeg 支持使用 ``-disposition`` 参数将某个流设定为默认。例如 ``-disposition:s:0 default`` 表示将文件的第一个字幕流设置为默认（default）；要取消将该字幕流设置为默认，请将其值从 ``default`` 设置为 ``0``\ 。
+
+   一个常见的批处理操作是将文件夹内的所有字幕文件批量内挂到同名的视频文件中。下面以使用 Powershell 命令向 mkv 中内挂 ass 字幕为例，该命令在内挂字幕的同时将字幕语言标记为中文、并设置为默认字幕：
+
+   .. code:: powershell
+      
+      (Get-ChildItem *.mkv).Basename | ForEach-Object { ffmpeg -i "${_}.mkv" -i "${_}.ass" -y -c:v copy -c:a copy -c:s ass -metadata:s:s:0 language=chi -disposition:s:0 default "${_}-output.mkv"}
+   
+   上例的输出结果在 VLC 播放器中识别通过，播放时该字幕会自动启用；而不指定 `-disposition default` 的输出文件则需要手动启用内挂字幕。
 
 内嵌字幕
 ~~~~~~~~~~
@@ -305,7 +330,7 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 当然，如果视频文件数量不多，用户也可以自行创建这样一个 ``mylist.txt`` 文件。在执行完第二行的 ffmpeg 指令进行视频合并后，用户可以删除文件夹中的 ``mylist.txt`` 文件。
 
 
-替换或删除视频数据流
+替换或删除流
 ---------------------
 
 除了格式转换中提到的提取流的操作，删除或替换也是常见的选择。
@@ -319,7 +344,7 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 
    ffmpeg -i video.mp4 -c:v copy -an NoAudio.mp4
 
-上例中的 ``-c:v`` 是传递视频编解码器， ``copy`` 表示不进行编解码操作而是直接拷贝。
+上例中的 ``-c:v`` 是传递视频编解码器， ``copy`` 表示不进行编解码操作而是直接拷贝。因此，上述命令保留了原文件的视频、删除了音频，并将结果输出。
 
 替换流
 ~~~~~~~
@@ -385,7 +410,7 @@ CRF 的压制中还有一个参数，称为预案 ``-preset`` 。较慢的预案
 
    通常只在强制要求文件大小时使用二压。
 
-设想一个二压的应用场景（本例取自* `FFmpeg
+设想一个二压的应用场景（本例取自 `FFmpeg
 Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟（600秒）长的视频压制到200MB，并保持音频码率在
 128 kbps。
 

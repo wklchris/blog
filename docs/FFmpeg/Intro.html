@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FFmpeg 引言 &mdash; FFmpeg 教程  文档</title>
@@ -14,10 +14,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="_static/translations.js"></script>
@@ -46,11 +47,15 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-            <a href="index.html" class="icon icon-home"> FFmpeg 教程
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            FFmpeg 教程
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -65,7 +70,7 @@
    </a>
 </div>
 
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <p class="caption" role="heading"><span class="caption-text">目录</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FFmpeg 引言</a><ul>
@@ -81,17 +86,17 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">FFmpeg 教程</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+          <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>FFmpeg 引言</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">FFmpeg 引言</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Intro.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -101,36 +106,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="ffmpeg">
-<h1>FFmpeg 引言<a class="headerlink" href="#ffmpeg" title="永久链接至标题"></a></h1>
+  <section id="ffmpeg">
+<h1>FFmpeg 引言<a class="headerlink" href="#ffmpeg" title="此标题的永久链接"></a></h1>
 <p>FFmpeg 是一个强大的命令行音视频工具，可以承担转码、混流、嵌挂字幕、剪辑等工作。</p>
 <p>本章介绍安装与一些视频的基本概念。</p>
 <section id="id1">
-<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<h2>安装<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
 <p><em>本小节的内容以 Windows 用户为例。</em></p>
 <p>前往官网提供 <a class="reference external" href="https://ffmpeg.zeranoe.com/builds/">官方的 Windows 版本 build</a> 进行下载。我一般在下载时选择 Version 有版本号、 Linking 为 Static 的版本进行下载。</p>
 <p>下载完成后，将内容解压到你的硬盘某处，例如：<code class="docutils literal notranslate"><span class="pre">C:\FFmpeg</span></code>。如果之前安装过独立的 FFmpeg，可以覆盖到老版本的文件夹。之后，将安装路径添加到系统的 Path 环境变量。</p>
@@ -145,7 +126,7 @@
 </ul>
 </section>
 <section id="id2">
-<h2>基本视频概念<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2>基本视频概念<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p>在介绍 FFmpeg 的工作命令之前，我们首先对视频文件内部的一些概念做一个通俗的说明。注意： <em>以下的说明可能存在不准确之处，仅作大致理解用</em> 。</p>
 <ul>
 <li><p>流（stream）：通常的视频文件中最易见的是视频流与音频流两个流。部分视频文件（多为 mkv 文件）还有字幕流，即内挂字幕。注意，有的视频将字幕嵌入到了视频流中（内嵌字幕），这类视频没有字幕流，也无法提取出字幕文件。至于数据流，本文不作介绍。</p>
@@ -160,7 +141,7 @@
 </ul>
 </section>
 <section id="codec-format">
-<span id="id3"></span><h2>常用的编码格式<a class="headerlink" href="#codec-format" title="永久链接至标题"></a></h2>
+<span id="id3"></span><h2>常用的编码格式<a class="headerlink" href="#codec-format" title="此标题的永久链接"></a></h2>
 <p>FFmpeg 支持基本所有的主流编码格式。</p>
 <p>常用的视频编码格式有：</p>
 <ul class="simple">
@@ -172,7 +153,7 @@
 <figure class="align-center" id="id4">
 <a class="reference external image-reference" href="http://www.compression.ru/video/codec_comparison/hevc_2017/MSU_HEVC_comparison_2017_P5_HQ_encoders.pdf"><img alt="_images/Compare.png" src="_images/Compare.png" style="width: 90%;" /></a>
 <figcaption>
-<p><span class="caption-text">AV1、x265、VP9 等主流编码器的平均压缩比。</span><a class="headerlink" href="#id4" title="永久链接至图片"></a></p>
+<p><span class="caption-text">AV1、x265、VP9 等主流编码器的平均压缩比。</span><a class="headerlink" href="#id4" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 <p>图源: CS MSU Graphics &amp; Media Lab, Video Group. MSU Codec Comparison 2017 Part V: High Quality Encoders. 2018. p19.（点击图片跳转）</p>
@@ -190,7 +171,7 @@
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="index.html" class="btn btn-neutral float-left" title="FFmpeg 教程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="FFmpeg.html" class="btn btn-neutral float-right" title="FFmpeg 实用命令" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
@@ -201,9 +182,9 @@
     <p>&#169; 版权所有 wklchris.</p>
   </div>
 
-  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
-    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
    
 
 </footer>
