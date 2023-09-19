@@ -15,15 +15,16 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/roofpig_and_three.min.js"></script>
+        <script src="_static/jquery.js?v=3d1d8b85"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7d86a446"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+        <script src="_static/jquery.js?v=3d1d8b85"></script>
+        <script src="_static/roofpig_and_three.min.js?v=824f3ec1"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -111,7 +112,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>附录：向网页中插入魔方动画<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<h1>附录：向网页中插入魔方动画<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
 <p>本文中的魔方动画使用了 <a class="reference external" href="https://github.com/larspetrus/Roofpig">Roofpig</a> 这个 Javascript 库。网站 <a class="reference external" href="https://ruwix.com/widget/3d/">Ruwix</a> 提供了一个 <strong>在线的 roofpig 预览页面</strong>，可以输入不同的参数来预览动画效果。</p>
 <p>如同本文一样，向 Sphinx 站点中加入该动画的方法是：</p>
 <ol class="arabic">
@@ -133,73 +134,73 @@
 </ol>
 <p>上述代码的预期结果：</p>
 <div class="roofpig" data-config="alg=M2 E2 S2 | flags=showalg"></div><section id="css">
-<h2>CSS 支持<a class="headerlink" href="#css" title="此标题的永久链接"></a></h2>
+<h2>CSS 支持<a class="headerlink" href="#css" title="Link to this heading"></a></h2>
 <p>如有需要，可以更新网站的 CSS（或单独写一个新的 CSS 文件），添加对 roofpig 的样式支持。</p>
 <p>在此附上本文对 roofpig 库使用的 CSS：</p>
-<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c">/** roofpig: JS lib for Rubik animation **/</span><span class="w"></span>
-<span class="linenos"> 2</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos"> 3</span><span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">210</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="linenos"> 4</span><span class="w">    </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="linenos"> 5</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span><span class="w"></span>
-<span class="linenos"> 6</span><span class="w">    </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="c">/* Same as after-paragraph space */</span><span class="w"></span>
-<span class="linenos"> 7</span><span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="kc">inherit</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
-<span class="linenos"> 8</span><span class="w">    </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
-<span class="linenos"> 9</span><span class="w">    </span><span class="k">overflow</span><span class="p">:</span><span class="w"> </span><span class="kc">hidden</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">10</span><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">11</span><span class="p">}</span><span class="w"></span>
-<span class="linenos">12</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-algtext</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">13</span><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">14</span><span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="n">min-content</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">15</span><span class="w">    </span><span class="k">padding-left</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">pt</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">16</span><span class="w">    </span><span class="k">padding-right</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">pt</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">17</span><span class="p">}</span><span class="w"></span>
-<span class="linenos">18</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-count</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">19</span><span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">20</span><span class="w">    </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">21</span><span class="w">    </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">22</span><span class="p">}</span><span class="w"></span>
-<span class="linenos">23</span><span class="nt">p</span><span class="p">.</span><span class="nc">roofpig-algo</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c">/** roofpig: JS lib for Rubik animation **/</span>
+<span class="linenos"> 2</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">210</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="c">/* Same as after-paragraph space */</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="kc">inherit</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="k">overflow</span><span class="p">:</span><span class="w"> </span><span class="kc">hidden</span><span class="p">;</span>
+<span class="linenos">10</span><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="linenos">11</span><span class="p">}</span>
+<span class="linenos">12</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-algtext</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">13</span><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="linenos">14</span><span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="n">min-content</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="linenos">15</span><span class="w">    </span><span class="k">padding-left</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">pt</span><span class="p">;</span>
+<span class="linenos">16</span><span class="w">    </span><span class="k">padding-right</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">pt</span><span class="p">;</span>
+<span class="linenos">17</span><span class="p">}</span>
+<span class="linenos">18</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-count</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">19</span><span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span>
+<span class="linenos">20</span><span class="w">    </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="linenos">21</span><span class="w">    </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="linenos">22</span><span class="p">}</span>
+<span class="linenos">23</span><span class="nt">p</span><span class="p">.</span><span class="nc">roofpig-algo</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="linenos">24</span>
-<span class="linenos">25</span><span class="c">/** For same line roofpig**/</span><span class="w"></span>
-<span class="linenos">26</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">inline</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">27</span><span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">28</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="w"> </span><span class="mi">15</span><span class="kt">px</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span><span class="w">  </span><span class="c">/* 15px between them horinzontally */</span><span class="w"></span>
-<span class="linenos">29</span><span class="w">    </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">middle</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">30</span><span class="p">}</span><span class="w"></span>
-<span class="linenos">31</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-inline-container</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">32</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">33</span><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">34</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">25</span><span class="c">/** For same line roofpig**/</span>
+<span class="linenos">26</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">inline</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">27</span><span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span>
+<span class="linenos">28</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="w"> </span><span class="mi">15</span><span class="kt">px</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span><span class="w">  </span><span class="c">/* 15px between them horinzontally */</span>
+<span class="linenos">29</span><span class="w">    </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">middle</span><span class="p">;</span>
+<span class="linenos">30</span><span class="p">}</span>
+<span class="linenos">31</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig-inline-container</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">32</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="linenos">33</span><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="linenos">34</span><span class="p">}</span>
 <span class="linenos">35</span>
-<span class="linenos">36</span><span class="c">/** For recommended roofpig**/</span><span class="w"></span>
-<span class="linenos">37</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">recommend</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">38</span><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#C9F6C8</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">39</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">36</span><span class="c">/** For recommended roofpig**/</span>
+<span class="linenos">37</span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="p">.</span><span class="nc">recommend</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">38</span><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#C9F6C8</span><span class="p">;</span>
+<span class="linenos">39</span><span class="p">}</span>
 <span class="linenos">40</span>
-<span class="linenos">41</span><span class="c">/** For tables that display a lot roofpig**/</span><span class="w"></span>
-<span class="linenos">42</span><span class="nt">table</span><span class="w"> </span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">43</span><span class="w">    </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="c">/* Smaller roofpig in tables*/</span><span class="w"></span>
-<span class="linenos">44</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">45</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">41</span><span class="c">/** For tables that display a lot roofpig**/</span>
+<span class="linenos">42</span><span class="nt">table</span><span class="w"> </span><span class="nt">div</span><span class="p">.</span><span class="nc">roofpig</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">43</span><span class="w">    </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="c">/* Smaller roofpig in tables*/</span>
+<span class="linenos">44</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="linenos">45</span><span class="p">}</span>
 <span class="linenos">46</span>
-<span class="linenos">47</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">48</span><span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">49</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">50</span><span class="w">    </span><span class="k">border-collapse</span><span class="p">:</span><span class="w"> </span><span class="kc">collapse</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">51</span><span class="p">}</span><span class="w"></span>
-<span class="linenos">52</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">53</span><span class="w">    </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">middle</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">54</span><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">55</span><span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">56</span><span class="p">}</span><span class="w"></span>
-<span class="linenos">57</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span><span class="w"> </span><span class="nt">p</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">58</span><span class="w">    </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">59</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">47</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">48</span><span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="linenos">49</span><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="linenos">50</span><span class="w">    </span><span class="k">border-collapse</span><span class="p">:</span><span class="w"> </span><span class="kc">collapse</span><span class="p">;</span>
+<span class="linenos">51</span><span class="p">}</span>
+<span class="linenos">52</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">53</span><span class="w">    </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">middle</span><span class="p">;</span>
+<span class="linenos">54</span><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="linenos">55</span><span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos">56</span><span class="p">}</span>
+<span class="linenos">57</span><span class="nt">table</span><span class="p">.</span><span class="nc">roofpig-table</span><span class="w"> </span><span class="nt">p</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">58</span><span class="w">    </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="linenos">59</span><span class="p">}</span>
 <span class="linenos">60</span>
-<span class="linenos">61</span><span class="c">/** Control table column widths**/</span><span class="w"></span>
-<span class="linenos">62</span><span class="p">.</span><span class="nc">rftable_id_str</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rftable_name</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rftable_group</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">63</span><span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">64</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">61</span><span class="c">/** Control table column widths**/</span>
+<span class="linenos">62</span><span class="p">.</span><span class="nc">rftable_id_str</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rftable_name</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rftable_group</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">63</span><span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">%</span><span class="p">;</span>
+<span class="linenos">64</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -215,7 +216,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 wklchris.</p>
+    <p>&#169; 版权所有 wklchris。</p>
   </div>
 
   利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 

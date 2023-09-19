@@ -15,15 +15,16 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/roofpig_and_three.min.js"></script>
+        <script src="_static/jquery.js?v=3d1d8b85"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7d86a446"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+        <script src="_static/jquery.js?v=3d1d8b85"></script>
+        <script src="_static/roofpig_and_three.min.js?v=824f3ec1"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -117,7 +118,7 @@
            <div itemprop="articleBody">
              
   <section id="yau">
-<h1>四阶复原：Yau方法<a class="headerlink" href="#yau" title="此标题的永久链接"></a></h1>
+<h1>四阶复原：Yau方法<a class="headerlink" href="#yau" title="Link to this heading"></a></h1>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>学习四阶前请至少学会一种三阶的复原法。我个人推荐在学习完 CFOP 后再学习四阶，否则单次还原时间可能较长，练习起来比较痛苦。同时，CFOP 对观察能力提出了一定的要求，这也是在高阶这种块数量更多的魔方中比较重要的。</p>
@@ -152,10 +153,10 @@
 <li><p>PLL 特况：复原顶层，并处理可能出现的 PLL 特况（对棱换）</p></li>
 </ol>
 <section id="id1">
-<h2>八棱（323 法）<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<h2>八棱（323 法）<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>八棱可以使用拼底面十字最后一个棱相同的思想。不同的是，中层有四个棱块位，因此在错开中层中心块时，可以最多同时“链式”地拼接三个棱。</p>
 <section id="id2">
-<h3>互锁棱块<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<h3>互锁棱块<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <p>在八棱拼接时，有时我们会遇到两个颜色组成相同的、未拼好的棱块（我称它们为“互锁”），这会导致拼棱的链条在此处中断。如果只有一对互锁棱块，那么我们可以使用以下公式的任意一个：</p>
 <ul class="simple">
 <li><p><strong>同色朝前，中层</strong>：<code class="docutils literal notranslate"><span class="pre">Uw'(RUR'FR'F'R)Uw</span></code>，这也是最常用的互锁解法</p></li>
@@ -168,7 +169,7 @@
 </section>
 </section>
 <section id="oll">
-<h2>OLL 特况<a class="headerlink" href="#oll" title="此标题的永久链接"></a></h2>
+<h2>OLL 特况<a class="headerlink" href="#oll" title="Link to this heading"></a></h2>
 <p>四阶两种特况中的第一种是在还原前两层后，发现顶面十字只有奇数个棱顶色朝上，这说明我们需要单独翻转其中一个顶面棱的朝向。这种情形称为 OLL 特况（OLL Parity），简称 O 特。</p>
 <p>用以下 O 特公式可以翻转顶面靠前的那一个棱的朝向：</p>
 <p><code class="docutils literal notranslate"><span class="pre">RwU2x(RwU2RwU2')(Rw'U2'LwU2Rw'U2')(RwU2Rw'U2Rw')</span></code></p>
@@ -180,7 +181,7 @@
 </ul>
 </section>
 <section id="pll">
-<h2>PLL 特况<a class="headerlink" href="#pll" title="此标题的永久链接"></a></h2>
+<h2>PLL 特况<a class="headerlink" href="#pll" title="Link to this heading"></a></h2>
 <p>四阶两种特况中的第二种特况是在还原顶面后，发现顶层有两个棱需要单独交换位置。这种情况称为 PLL 特况（PLL Parity），简称 P 特。</p>
 <p>用以下 P 特公式可以交换顶层中靠前、靠后这两个棱的位置，而不影响其他块的状态：</p>
 <p><code class="docutils literal notranslate"><span class="pre">(Rw2R2'U2')(Rw2R2'Uw2')(Rw2R2'Uw2')[U2]</span></code></p>
@@ -199,7 +200,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 wklchris.</p>
+    <p>&#169; 版权所有 wklchris。</p>
   </div>
 
   利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 

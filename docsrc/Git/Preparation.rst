@@ -28,10 +28,15 @@ Git 准备工作
    $ git config user.name
    wklchris
 
+
+其他配置
+---------------
+
 除了用户名与邮箱，我们还常常用 `git config` 命令来：
 
 * 配置别名（alias）命令，方便我们用更短的命令来实现复杂操作。
 * 配置全局的 `.gitignore_global` 文件，用来在所有仓库中忽略指定类型的文件。
+* 配置 HTTP/HTTPS 代理，例如： `git config https.proxy http://127.0.0.1:xxxx`
 
 
 查阅帮助

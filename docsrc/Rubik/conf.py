@@ -1,7 +1,11 @@
 author = "wklchris"
 copyright = "wklchris"
 exclude_patterns = ['_build', '**.ipynb_checkpoints']
-extensions = ['nbsphinx', 'sphinx_copybutton', 'sphinx.ext.mathjax', 'sphinx.ext.extlinks']
+extensions = [
+    'sphinx_copybutton',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.extlinks'
+]
 html_css_files = ['style.css', 'roofpig.css']
 html_js_files = ['jquery.js', 'roofpig_and_three.min.js']
 html_static_path = ['_static', '../_static']
