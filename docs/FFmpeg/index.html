@@ -7,7 +7,7 @@
 <meta content="CLI" name="series" />
 <meta content="1" name="series_num" />
 <meta content="2017-07-11" name="date_init" />
-<meta content="2023-09-20" name="date_modified" />
+<meta content="2023-09-28" name="date_modified" />
 <meta content="本文介绍了命令行视频编辑软件 FFmpeg。" name="abstract" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,15 +21,14 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7d86a446"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -81,6 +80,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">FFmpeg 引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FFmpeg.html">FFmpeg 实用命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Codecs.html">常用编码器与参数</a></li>
 </ul>
 
         </div>
@@ -108,7 +108,7 @@
            <div itemprop="articleBody">
              
   <section id="ffmpeg">
-<h1>FFmpeg 教程<a class="headerlink" href="#ffmpeg" title="此标题的永久链接"></a></h1>
+<h1>FFmpeg 教程<a class="headerlink" href="#ffmpeg" title="Link to this heading"></a></h1>
 <p>本文介绍命令行音视频处理工具 <a class="reference external" href="https://www.ffmpeg.org/">FFmpeg</a> ，以例为主。</p>
 <p>读者除了知道如何打开命令行窗口外，不需要特别的知识。</p>
 <div class="toctree-wrapper compound">
@@ -116,7 +116,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">FFmpeg 引言</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Intro.html#id1">安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Intro.html#id2">基本视频概念</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Intro.html#id3">基本视频概念</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Intro.html#codec-format">常用的编码格式</a></li>
 </ul>
 </li>
@@ -124,19 +124,26 @@
 <li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id1">格式转换</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id5">截取视频</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id7">分辨率改变：缩放与裁切</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id10">字幕操作</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id14">合并视频</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id16">替换或删除流</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id19">压制与码率</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id21">添加章节信息</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id22">更正色彩空间*</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id23">显卡硬件加速*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id10">更改帧率/速度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id11">字幕操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id15">合并视频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id17">替换或删除流</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#bitrate-control">压制与码率</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id23">添加章节信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id24">网络视频优化：快速播放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id25">更正色彩空间*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#id26">显卡硬件加速*</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FFmpeg.html#fonts-conf">附录：fonts.conf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Codecs.html">常用编码器与参数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Codecs.html#libx264-h-264">libx264（H.264 视频）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Codecs.html#libmp3lame-mp3">libmp3lame（MP3 音频）</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<p>本文档最后构建于 2023-09-20。</p>
+<p>本文档最后构建于 2023-09-28。</p>
 </section>
 
 
@@ -149,7 +156,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 wklchris.</p>
+    <p>&#169; 版权所有 wklchris。</p>
   </div>
 
   利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 

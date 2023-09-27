@@ -1,6 +1,6 @@
 {
     "_homepage": {
-        "date_modified": "2023-09-20",
+        "date_modified": "2023-09-28",
         "date_online": "2020-08-10",
         "date_online_previous": "2017-01-07"
     },
@@ -15,8 +15,8 @@
             "series": "CLI",
             "series_num": "1",
             "date_init": "2017-07-11",
-            "date_modified": "2023-09-20",
-            "date_build": "2023-09-20",
+            "date_modified": "2023-09-28",
+            "date_build": "2023-09-28",
             "abstract": "本文介绍了命令行视频编辑软件 FFmpeg。"
         },
         "Git": {

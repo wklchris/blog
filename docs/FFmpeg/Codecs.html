@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>常用编码器与参数 &mdash; FFmpeg 教程  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://wklchris.github.io/blog/FFmpeg/Codecs.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7d86a446"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="FFmpeg 实用命令" href="FFmpeg.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            FFmpeg 教程
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">FFmpeg 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FFmpeg.html">FFmpeg 实用命令</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">常用编码器与参数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#libx264-h-264">libx264（H.264 视频）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libmp3lame-mp3">libmp3lame（MP3 音频）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vbr">可变比特率（VBR）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cbr">固定比特率（CBR）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#abr">平均比特率（ABR）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">FFmpeg 教程</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">常用编码器与参数</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Codecs.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>常用编码器与参数<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>依赖于 FFmpeg 的默认操作是不可取的，因为我们不知道 FFmpeg 会在哪一个版本发布时更改其默认操作。除非不在意任何编码细节，否则请显式地指明编码器及其参数。这也是需要了解编码器参数的原因。</p>
+</div>
+<p>本章介绍一些常用编码器的参数使用方法。绝大部分的内容来自于 FFmpeg 的 trac 百科。</p>
+<section id="libx264-h-264">
+<h2>libx264（H.264 视频）<a class="headerlink" href="#libx264-h-264" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://trac.ffmpeg.org/wiki/Encode/H.264">H.264</a> 在很长的一段时间内都是最广泛使用的视频编码方式，其编码器 libx264（参考 <a class="reference external" href="https://trac.ffmpeg.org/wiki/libx264_002c-libx264rgb">libx264_002c-libx264rgb</a>）很可能是 FFmpeg 用户第一个接触的视频编码器。</p>
+<p>在输出 mp4 格式的文件时，如果需要对视频流编码但用户未指定编码器，FFmpeg 将自动调用 libx264 并以其默认参数进行编码。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 以下命令等于 ffmpeg -i input.mkv -c:v libx264 output.mp4</span>
+ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"> </span>output.mp4
+</pre></div>
+</div>
+<p>关于 <code class="docutils literal notranslate"><span class="pre">libx264</span></code> 的压制与码率详细使用，我们在前文 <a class="reference internal" href="FFmpeg.html#bitrate-control"><span class="std std-ref">压制与码率</span></a> 一节已有所提及。为了方便起见，这里对前文稍作小结，并加入了。</p>
+<ul>
+<li><p>恒定率系数（CRF）：crf 越小，画面质量越好，但文件体积越大。</p>
+<ul class="simple">
+<li><p>系数 <code class="docutils literal notranslate"><span class="pre">-crf</span></code>：对于常见的 8 bit 视频， <code class="docutils literal notranslate"><span class="pre">-crf</span></code> 参数可以从 0（无损）到 51（最差压缩）取值，而默认值是 23。一般地，我们只选择 17~28 之间的数值：从视觉观感上，17 已经很接近无压缩的结果，更小的 crf 值徒增文件体积罢了。对于 10 bit 视频， <code class="docutils literal notranslate"><span class="pre">-crf</span></code> 参数的取值是 0~63。</p></li>
+<li><p>预案 <code class="docutils literal notranslate"><span class="pre">-preset</span></code>：指导视频压制的质量。越慢的预案，压缩越好，即输出同等质量的视频所需的文件体积越小。预案从快到慢包括：ultrafast, superfast, veryfast, faster, fast, medium（默认）, slow, slower, veryslow。</p></li>
+<li><p>风格 <code class="docutils literal notranslate"><span class="pre">-tune</span></code>：告知输入视频的风格。风格包括：</p>
+<ul>
+<li><p>animation：动画。提升去块（deblocking）强度与参考帧数量。</p></li>
+<li><p>fastdecode：快速解码。禁用滤镜来加快解码。</p></li>
+<li><p>film：电影。降低去块强度。</p></li>
+<li><p>grain：颗粒。保留旧电影的颗粒感。</p></li>
+<li><p>stillimage：静止图像。适用于相片幻灯片或类似主题的内容。</p></li>
+<li><p>zerolatency：零延迟。适用于快速编码，或者低延迟流媒体内容。</p></li>
+</ul>
+</li>
+</ul>
+<p>一个 CRF 的例子：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>libx264<span class="w"> </span>-preset<span class="w"> </span>slow<span class="w"> </span>-tune<span class="w"> </span>film<span class="w"> </span>-crf<span class="w"> </span><span class="m">20</span><span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>out.mp4
+</pre></div>
+</div>
+</li>
+<li><p>定限码率压制：适用于强制要求码率的场合，比如直播。请参考 <a class="reference internal" href="FFmpeg.html#bitrate-constrained"><span class="std std-ref">定限码率压制</span></a> 一节的内容。</p></li>
+<li><p>二压（2Pass）：适用于强制要求文件大小的场合。请参考 <a class="reference internal" href="FFmpeg.html#pass"><span class="std std-ref">二压（2Pass）</span></a> 一节的内容。</p></li>
+</ul>
+</section>
+<section id="libmp3lame-mp3">
+<h2>libmp3lame（MP3 音频）<a class="headerlink" href="#libmp3lame-mp3" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://trac.ffmpeg.org/wiki/Encode/MP3">MP3</a> 曾经是最为流行的压缩音乐格式。FFmpeg 通过 <a class="reference external" href="https://trac.ffmpeg.org/wiki/libmp3lame">libmp3lame</a> 编码器对 MP3 编码提供支持，一般有可变比特率、固定比特率、平均比特率三种质量控制方式。</p>
+<section id="vbr">
+<h3>可变比特率（VBR）<a class="headerlink" href="#vbr" title="Link to this heading"></a></h3>
+<p>一般地，推荐利用可变比特率（VBR）来编码 MP3 音频：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.wav<span class="w"> </span>-c:a<span class="w"> </span>libmp3lame<span class="w"> </span>-q:a<span class="w"> </span><span class="m">2</span><span class="w"> </span>output.mp3
+</pre></div>
+</div>
+<p>其中，质量参数 <code class="docutils literal notranslate"><span class="pre">-q:a</span></code> （或者其全称 <code class="docutils literal notranslate"><span class="pre">-qscale:a</span></code>）用于控制 MP3 品质。编码器 libmp3lame 支持 0~9 的质量参数，其中 0 表示最高质量（最高比特率，245 kbps 左右），而默认值是 4。一般认为 0~3 的取值可以达到令人满意的质量。</p>
+<p>FFmpeg 比特率参数与实际比特率范围（kbps）有如下对应关系：</p>
+<table class="docutils align-center" id="id2">
+<caption><span class="caption-text">FFmpeg 比特率参数与实际比特率范围对照表</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>平均比特率</p></th>
+<th class="head"><p>比特率范围</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-b:a 320k*</p></td>
+<td><p>320</p></td>
+<td><p>320 (CBR)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-q:a 0</p></td>
+<td><p>245</p></td>
+<td><p>220 ~ 260</p></td>
+</tr>
+<tr class="row-even"><td><p>-q:a 1</p></td>
+<td><p>225</p></td>
+<td><p>190 ~ 250</p></td>
+</tr>
+<tr class="row-odd"><td><p>-q:a 2</p></td>
+<td><p>190</p></td>
+<td><p>170 ~ 210</p></td>
+</tr>
+<tr class="row-even"><td><p>-q:a 3</p></td>
+<td><p>175</p></td>
+<td><p>150 ~ 195</p></td>
+</tr>
+<tr class="row-odd"><td><p>-q:a 4</p></td>
+<td><p>165</p></td>
+<td><p>140 ~ 185</p></td>
+</tr>
+<tr class="row-even"><td><p>-q:a 5</p></td>
+<td><p>130</p></td>
+<td><p>120 ~ 150</p></td>
+</tr>
+<tr class="row-odd"><td><p>-q:a 6</p></td>
+<td><p>115</p></td>
+<td><p>100 ~ 130</p></td>
+</tr>
+<tr class="row-even"><td><p>-q:a 7</p></td>
+<td><p>100</p></td>
+<td><p>80 ~ 120</p></td>
+</tr>
+<tr class="row-odd"><td><p>-q:a 8</p></td>
+<td><p>85</p></td>
+<td><p>70 ~ 105</p></td>
+</tr>
+<tr class="row-even"><td><p>-q:a 9</p></td>
+<td><p>65</p></td>
+<td><p>45 ~ 85</p></td>
+</tr>
+</tbody>
+</table>
+<p>* <em>此为 MP3 所支持的最高码率，但在实际应用中并不推荐。详情请参考下文中关于固定比特率（CBR）部分的内容。</em></p>
+</section>
+<section id="cbr">
+<h3>固定比特率（CBR）<a class="headerlink" href="#cbr" title="Link to this heading"></a></h3>
+<p>除了可变比特率，在网络上分享的 MP3 文件也常常采用固定比特率（CBR）编码，如 128, 192, 256 kbps。编码器 libmp3lame 通过 <code class="docutils literal notranslate"><span class="pre">-b:a</span></code> 参数支持一系列固定比特率，分别是 8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192, 224, 256, 以及 320 kbps。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>一般认为在 MP3（或者其他压缩格式上）追求高码率（如 320 kbps） 是没有意义的，因为 VBR 0~3 的质量对压缩格式已经足够好。毕竟无论如何，MP3 都是有损压缩；想要更高的质量，建议转向 FLAC 等无损格式。</p>
+</div>
+<p>下例将音频以 192 kbps 的固定码率输出为 MP3（不要忘记码率数字后面的字母 &quot;k&quot;）：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.wav<span class="w"> </span>-c:a<span class="w"> </span>libmp3lame<span class="w"> </span>-b:a<span class="w"> </span>192k<span class="w"> </span>output.mp3
+</pre></div>
+</div>
+</section>
+<section id="abr">
+<h3>平均比特率（ABR）<a class="headerlink" href="#abr" title="Link to this heading"></a></h3>
+<p>平均比特率（ABR）介于固定与可变之间，可以向参数 <code class="docutils literal notranslate"><span class="pre">-abr</span></code> 赋值 <code class="docutils literal notranslate"><span class="pre">1</span></code> 来启用。除此之外，libmp3lame 编码器此时仍需要 <code class="docutils literal notranslate"><span class="pre">-b:a</span></code> 的码率参数作为指导：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.wav<span class="w"> </span>-c:a<span class="w"> </span>libmp3lame<span class="w"> </span>-abr<span class="w"> </span><span class="m">1</span><span class="w"> </span>-b:a<span class="w"> </span>192k<span class="w"> </span>output.mp3
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="FFmpeg.html" class="btn btn-neutral float-left" title="FFmpeg 实用命令" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

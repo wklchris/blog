@@ -57,14 +57,19 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 提取流（音频、字幕）
 ~~~~~~~~~~~~~~~~~~~~
 
-有时需要指定流来完成格式转换，比如将一个 MP4 视频文件转为 AAC
-音频文件（此处实质上是直接提取）：
+有时需要指定流来完成格式转换，比如将一个 MP4 视频文件转为 AAC 音频文件（此处实质上是直接提取）：
 
 .. code:: shell
 
    ffmpeg -i video.mp4 -c:a copy audio.aac
 
 此处的 ``-c:a`` 表示音频流；视频流 ``-c:v`` 与字幕流 ``-c:s`` 自然也类似。 注意：如果音频流与容器冲突时，你需要将 ``copy`` 改为正确的编解码器（或者删去 ``-c:a copy`` 来让 FFmpeg 自动选择），以执行重编码。
+
+也可以在提取流的时候进行转码：
+
+.. code:: shell
+   
+   ffmpeg -i video.mkv -c:a libmp3lame -q:a 2 audio.mp3
 
 对于内挂了字幕的视频文件，也可以将其字幕单独提取出来，例如：
 
@@ -232,6 +237,45 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
    # 自动检测黑色边框来裁切
    ffmpeg -i video.mp4 -vf "cropdetect" -c:a copy out.mp4
 
+更改帧率/速度
+---------------
+
+视频变速的一个常见应用场景是帧率减半，例如将 60 帧视频通过变速输出为 30 帧的视频。请注意：这一过程是可以只通过混流、不重新编码就实现的。
+
+需要指出， 通过 FFmpeg 自带的 ``-vf`` 参数的 ``fps`` 或者 ``setpts`` 键，我们可以指定视频帧率。但是，这些方法\ **不是一个无损转换**\ ，因此不推荐使用。下例中， FFmpeg 将输入的 60 帧视频通过每两帧丢弃一帧的方式降为 30 帧：
+
+.. code-block:: shell
+   
+   # 以下方法会抽帧，均不推荐！
+   ffmpeg -i video-60p.mp4 -vf fps=30 video-30p.mp4
+   ffmpeg -i video-60p.mp4 -vf "setpts=0.5*PTS" video-30p.mp4
+
+以下是推荐的变速方式，它无损且无需重新编码。原理是将视频输出为不包含时间戳的数据流，然后在重封装时指定变速后的时间戳。
+
+.. code-block:: shell
+   
+   # 如果是 H265，使用: ... -bsf:v hevc_mp4toannexb raw.h265
+   ffmpeg -i video-60p.mp4 -map 0:v -c:v copy -bsf:v h264_mp4toannexb raw.h264
+   
+   # 只处理视频流
+   ffmpeg -fflags +genpts -r 30 -i raw.h264 -c:v copy video-30p.mp4
+   
+* 如果需要同时对视频、音频进行降速，可以利用 :all:`atempo` 滤镜。将上述第二条命令更换为：
+
+  .. code-block:: shell
+     
+     ffmpeg -fflags +genpts -r 30 -i raw.h264 -i video-60p.mp4 -map 0:v -c:v copy -map 1:a -af atempo=0.5 output.mp4
+  
+  其中， atempo 滤镜只支持 0.5 到 100 之间的变速倍率；不过你可以重复调用，例如 ``-af "atempo=0.5,atempo=0.5"`` 将会把音频降速为 0.25 倍。
+
+* 如果需要对加速或减速后的帧之间进行动态插值（运动补偿），可以使用 :filter:`minterpolate` 滤镜。但这就需要对视频重新编码了：
+
+  .. code-block:: shell
+   
+     ffmpeg -i input.mkv -filter:v "minterpolate='mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=30'" output.mkv
+
+更多的变速内容，请参考 :wiki:`How to speed up / slow down a video` 一文。
+
 
 字幕操作
 -----------
@@ -369,6 +413,8 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
      ffmpeg -i video.mkv out1.mkv -c:s dvdsub out2.mkv
 
+.. _bitrate_control:
+
 压制与码率
 -------------
 
@@ -376,6 +422,9 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
    
    在大多数压制场合，CRF都是更受欢迎的，也是保持画面质量的一选。如果要严格限制文件大小，那么就使用二压；如果要严格限制视频码率，才会考虑使用定限码率压制（或者二压）。
 
+.. important::
+
+   本节以下的例子将以 libx264 编码器为例，并只是进行了粗略的介绍。关于编码器的更多详细内容，请参考 :doc:`Codecs` 一节。
 
 视频的压制主要有 CRF（Constant Rate Factor，恒定率系数）与二压（2Pass）两种常用的方法，以及定限码率压制这种相对不常用的方法（不太推荐）： 
 
@@ -388,11 +437,10 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 - 二压（2Pass）是需要生成固定大小文件时的压制方法，顾名思义，需要编码两次（因此较慢）。用户可能需要自行计算视频码率限值。
 - 定限码率（Limited bitrate）压制是仅在网络上传有严苛要求时才使用的方法，并不是画面质量的第一选择。
 
-
 恒定率系数（CRF）
 ~~~~~~~~~~~~~~~~~~~~~~
 
-CRF 的压制中还有一个参数，称为预案 ``-preset`` 。较慢的预案能够更好地发挥压制的效果，按压制后质量从低到高分为 ``ultrafast`` , ``superfast`` , ``veryfast`` , ``faster`` , ``fast`` , ``medium`` , ``slow`` , ``slower`` , ``veryslow`` 这9种。预案越慢，压缩效果（指视频质量与文件体积之比）越好，或者说同等视频质量下输出文件的体积越小。
+除 ``-crf`` 外，CRF 的压制中还有一个参数，称为预案 ``-preset`` 。较慢的预案能够更好地发挥压制的效果，按压制后质量从低到高分为 ``ultrafast`` , ``superfast`` , ``veryfast`` , ``faster`` , ``fast`` , ``medium`` , ``slow`` , ``slower`` , ``veryslow`` 这9种。预案越慢，压缩效果（指视频质量与文件体积之比）越好，或者说同等视频质量下输出文件的体积越小。
 
 下例中使用了 ``slow`` 预案来进行压制，即期望得到较好的压缩效果。视频编解码器设置为 libx264，设定了一个恒定率系数优于默认的 CRF 值（设定的20比默认的23小，即效果优于默认转码），并对音频流进行复制：
 
@@ -402,6 +450,8 @@ CRF 的压制中还有一个参数，称为预案 ``-preset`` 。较慢的预案
 
 编码器 ``libx264`` 还提供了一个 ``-qp`` 参数，即量化参数（Quantization Parameter）。它可以取 -1 以上的整数值（默认值 -1 表示自动）。简单地理解，CRF 就是自动根据画面中运动的多与少来调整 QP ，来达到好的压缩效果。通常情况下，用户都应当选择 CRF，而不是 QP 参数。 
 
+
+.. _2pass:
 
 二压（2Pass）
 ~~~~~~~~~~~~~
@@ -421,6 +471,10 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
    \frac{200 \times 8192}{600} - 128 \approx 2730 - 128 = 2602 \,\mathrm{kbit/s}.
 
 在上式的 2602 kbit/s 的基础上留一定余量，设置为 2600 kbit/s：
+
+.. warning::
+
+   如果 first pass 后的文件出现了问题，请使用 ``-vsync cfr`` 代替 ``-an``\ 。
 
 .. code:: shell
    
@@ -442,11 +496,12 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
   
 - ``-an`` 表示忽略音频流。同理还有 ``-vn/sn/dn``\ 。
 
+.. _bitrate_constrained:
 
 定限码率压制
 ~~~~~~~~~~~~~~
 
-定限码率压制并不考虑文件大小，而是只限制文件码率；这多见于网络上传视频（或者流媒体传输受到网络条件限制）的场合（参考 `FFmpeg - Limiting the output bitrate <https://trac.ffmpeg.org/wiki/Limiting%20the%20output%20bitrate>`_\ ）。以 libx264/libx265 编码器为例，有以下几种码率限制参数：
+定限码率压制并不考虑文件大小，而是只限制文件码率；这多见于网络上传视频（或者流媒体传输受到网络条件限制）的场合（参考 :wiki:`Limiting the output bitrate`）。以 libx264/libx265 编码器为例，有以下几种码率限制参数：
 
 - ``-b:v`` 目标平均码率，也即希望得到的输出文件的平均码率（单位 bit/s）。该参数也在二压中被使用。
   
@@ -542,6 +597,10 @@ FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用�
 
 其中的 ``1`` 表示将第二个（因为从0开始索引）输入文件，即第二个 ``-i`` 之后的参数值 ``FFMETA.ini`` 映射为元数据。
 
+网络视频优化：快速播放
+-----------------------
+
+使用 ``-movflags +faststart`` 参数，可以在输出时让视频文件将一些数据前置，从而实现在网络视频未被全部下载时就能够开始播放。
 
 更正色彩空间*
 --------------------
