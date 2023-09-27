@@ -1,7 +1,7 @@
 author = "wklchris"
 copyright = "wklchris"
 exclude_patterns = ['_build', '**.ipynb_checkpoints']
-extensions = ['nbsphinx', 'sphinx_copybutton', 'sphinx.ext.extlinks', 'sphinx.ext.mathjax']
+extensions = ['sphinx_copybutton', 'sphinx.ext.extlinks', 'sphinx.ext.mathjax']
 html_css_files = ['style.css']
 html_static_path = ['../_static']
 html_theme = "sphinx_rtd_theme"
@@ -17,8 +17,8 @@ year = 2020
 
 # [sphinx.ext.extlinks]
 extlinks = {
-   'docutils': ("https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#%s", 'Docutils: '),
-   'docutils-directive': ("https://docutils.sourceforge.io/docs/ref/rst/directives.html#%s", 'Directive: ')
+   'docutils': ("https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#%s", 'Docutils: %s'),
+   'docutils-directive': ("https://docutils.sourceforge.io/docs/ref/rst/directives.html#%s", 'Directive: %s')
 }
 
 # Others

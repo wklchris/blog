@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>reST 基础 &mdash; reStructuredText 简介  文档</title>
@@ -14,16 +14,16 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "tags": "ams"}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7d86a446"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+        <script>window.MathJax = {"tex": {"tags": "ams"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -48,11 +48,15 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-            <a href="index.html" class="icon icon-home"> reStructuredText 简介
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            reStructuredText 简介
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -67,7 +71,7 @@
    </a>
 </div>
 
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <p class="caption" role="heading"><span class="caption-text">目录</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
@@ -86,8 +90,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#id11">超链接</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id12">图表</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id13">简单表</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">网格表</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#csv">CSV表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">序列表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#csv">CSV 表</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#image-figure">图片：image 与 figure 指令</a></li>
 </ul>
 </li>
@@ -106,17 +110,17 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">reStructuredText 简介</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+          <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>reST 基础</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">reST 基础</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Fundamentals.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -126,38 +130,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="math notranslate nohighlight">
+  <div class="math notranslate nohighlight">
 \[\newcommand{\ud}{\mathop{}\negthinspace\mathrm{d}}
 \newcommand{\pfrac}[2][x]{\frac{\partial #2}{\partial #1}}\]</div>
 <section id="rest">
-<h1>reST 基础<a class="headerlink" href="#rest" title="永久链接至标题"></a></h1>
+<h1>reST 基础<a class="headerlink" href="#rest" title="Link to this heading"></a></h1>
 <p>本章包含最基础的 reStructuredText 语法。</p>
 <section id="id1">
-<h2>语法速览<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<h2>语法速览<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <dl>
 <dt>段落</dt><dd><p>段落之间用空白行作为分隔。正文的段落一律顶格书写（行首不得有空格）。</p>
 </dd>
@@ -219,11 +199,11 @@
 </dl>
 </section>
 <section id="id2">
-<h2>行内标记<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2>行内标记<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>最基础的行内标记（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#inline-markup">Docutils: inline-markup</a> ）有强调、加粗、代码等。</p>
 <dl>
 <dt>强调</dt><dd><p>或称加斜，用一对单星号 <code class="docutils literal notranslate"><span class="pre">*text*</span></code> 表示强调，效果如 <em>text</em> 所示。</p>
-<p>在 <a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> 支持下 <a class="footnote-reference brackets" href="#docutils-support" id="id3">1</a> ，它的角色（role）别名是 emphasis，即强调也可以用 <code class="docutils literal notranslate"><span class="pre">:emphasis:`text`</span></code> 的形式来实现，效果相同 <em>text</em> 。</p>
+<p>在 <a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> 支持下 <a class="footnote-reference brackets" href="#docutils-support" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> ，它的角色（role）别名是 emphasis，即强调也可以用 <code class="docutils literal notranslate"><span class="pre">:emphasis:`text`</span></code> 的形式来实现，效果相同 <em>text</em> 。</p>
 </dd>
 <dt>加粗</dt><dd><p>用一对双星号 <code class="docutils literal notranslate"><span class="pre">**text**</span></code> 表示加粗，效果如 <strong>text</strong> 所示。</p>
 <p>角色名 strong，即也可以使用 <code class="docutils literal notranslate"><span class="pre">:strong:`text`</span></code> 的角色写法。</p>
@@ -257,18 +237,19 @@
 </li>
 </ol>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
+<p class="admonition-title">备注</p>
 <p>值得指出的是，在 reStructuredText 中，无法简单地实现“强调且加粗”的功能。它的实现可能需要借助 HTML/CSS 功能。</p>
 </div>
 <p class="rubric">本节注释</p>
-<dl class="footnote brackets">
-<dt class="label" id="docutils-support"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
-<dd><p><a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> 是一个字处理引擎，支持 HTML, LaTeX, man-pages 等众多文本格式。对 reStructuredText 格式文本，最常用的处理引擎就是 Docutils。本文中若无特殊说明，默认以 Docutils 引擎为准。</p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="docutils-support" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> 是一个字处理引擎，支持 HTML, LaTeX, man-pages 等众多文本格式。对 reStructuredText 格式文本，最常用的处理引擎就是 Docutils。本文中若无特殊说明，默认以 Docutils 引擎为准。</p>
+</aside>
+</aside>
 </section>
 <section id="id4">
-<h2>章节标题<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2>章节标题<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <p>reStructuredText 的章节标题有两种书写格式：</p>
 <ol class="arabic simple">
 <li><p>在标题的下一行以某一种章节装饰符号填充，其长度不得小于标题文字长；</p></li>
@@ -309,7 +290,7 @@ Part   Chapter  Section  Subsec  Subsub  Para
 </ul>
 </section>
 <section id="id5">
-<h2>分隔线<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2>分隔线<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
 <p>restructuredtext 支持的分隔线（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#transitions">Docutils: transitions</a> ）语法使用与标题装饰符相同的符号集。用相同的4个或以上的连续符号来表示分隔：</p>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>段落一。
 
@@ -325,10 +306,10 @@ Part   Chapter  Section  Subsec  Subsub  Para
 </ul>
 </section>
 <section id="id6">
-<h2>列表<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<h2>列表<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <p>列表分为编号列表、无编号列表、定义列表等。</p>
 <section id="id7">
-<h3>编号列表<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3>编号列表<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>编号列表与 Markdown 的语法类似。具体是：</p>
 <ul class="simple">
 <li><p>列表第一项之前需要有空行，最后一项之后也需要有空行。</p></li>
@@ -358,7 +339,7 @@ Part   Chapter  Section  Subsec  Subsub  Para
 </div>
 </section>
 <section id="id8">
-<h3>非编号列表<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3>非编号列表<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <p>非编号列表除了用星号 <code class="docutils literal notranslate"><span class="pre">*</span></code> （加号 <code class="docutils literal notranslate"><span class="pre">+</span></code> 或减号 <code class="docutils literal notranslate"><span class="pre">-</span></code> 也可以）而不是序数+小数点开启每一项外，大致与编号列表的用法相同。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -380,7 +361,7 @@ Part   Chapter  Section  Subsec  Subsub  Para
 </div>
 </section>
 <section id="id9">
-<h3>定义列表<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<h3>定义列表<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <p>这是一种用来排列术语的列表。与 LaTeX 中的 definition 环境有异曲同工之义。</p>
 <p>定义列表的例子：</p>
 <ul class="simple">
@@ -400,7 +381,7 @@ def3
 </div>
 </section>
 <section id="id10">
-<h3>选项列表*<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<h3>选项列表*<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <p>选项列表（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#option-lists">Docutils: option-lists</a> ）用来展示命令的参数。</p>
 <ul class="simple">
 <li><p>列表的参数项支持用 <code class="docutils literal notranslate"><span class="pre">-</span></code> 或 <code class="docutils literal notranslate"><span class="pre">/</span></code> 开头。</p></li>
@@ -421,7 +402,7 @@ def3
 </section>
 </section>
 <section id="id11">
-<h2>超链接<a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<h2>超链接<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
 <p>reStructuredText 中，最简单的超链接可以使用一种轻便的行内标记格式。例如：</p>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="s">`Github </span><span class="si">&lt;https://github.com&gt;</span><span class="s">`_</span>
 </pre></div>
@@ -442,12 +423,12 @@ def3
 </ul>
 </section>
 <section id="id12">
-<h2>图表<a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
+<h2>图表<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
 <p>reStructuredText 中允许插入图片与表格内容。</p>
-<p>常用的表格插入有简单表、网格表与CSV表三种书写格式，而图片插入可以使用 <code class="docutils literal notranslate"><span class="pre">figure</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">image</span></code> 两种指令。</p>
+<p>常用的表格插入有简单表、序列表与 CSV 表三种书写格式，而图片插入可以使用 <code class="docutils literal notranslate"><span class="pre">figure</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">image</span></code> 两种指令。</p>
 <section id="id13">
-<h3>简单表<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
-<p>简单表（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#simple-tables">Docutils: simple-tables</a> ）是一种快速创建表格的方式。</p>
+<h3>简单表<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<p>简单表 <code class="docutils literal notranslate"><span class="pre">simple-table</span></code>（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#table">Directive: table</a> ）是一种快速创建表格的方式。</p>
 <ul class="simple">
 <li><p>行分隔：以等号 <code class="docutils literal notranslate"><span class="pre">=</span></code> 标记表格的顶线与底线。</p>
 <ul>
@@ -469,11 +450,7 @@ def3
 </ul>
 <p>简单表的例子：</p>
 <table class="docutils align-center" id="table-simple-eg">
-<caption><span class="caption-number">表 1 </span><span class="caption-text">Caption of a Simple Table</span><a class="headerlink" href="#table-simple-eg" title="永久链接至表格"></a></caption>
-<colgroup>
-<col style="width: 21%" />
-<col style="width: 79%" />
-</colgroup>
+<caption><span class="caption-number">表 1 </span><span class="caption-text">Caption of a Simple Table</span><a class="headerlink" href="#table-simple-eg" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head" colspan="2"><p>Multicol Head</p></th>
 </tr>
@@ -521,72 +498,60 @@ Row 4       Multi para text.
 <p>以上简单表的内容可以放在 <code class="docutils literal notranslate"><span class="pre">table</span></code> 指令内部，以便进行交叉引用，或者添加 <code class="docutils literal notranslate"><span class="pre">:align:</span></code> 等选项来对齐表格、设定表格宽度。</p>
 </section>
 <section id="id14">
-<h3>网格表<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
-<p>网格表（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#grid-tables">Docutils: grid-tables</a> ）提供了一种复古的表格书写格式。它比起简单表的主要优势是允许跨行。</p>
+<h3>序列表<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p>序列表（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#list-table">Directive: list-table</a> ）提供了一种类似列表的表格书写格式。它比起简单表的主要优势是不需要在编排时操心横线长度以及对齐。</p>
 <ul class="simple">
-<li><p>表线必须完整地围住表格文本。</p></li>
-<li><p>行分隔线一律用横线 <code class="docutils literal notranslate"><span class="pre">-</span></code> 书写，除了表头分割线用等号 <code class="docutils literal notranslate"><span class="pre">=</span></code> 。</p></li>
-<li><p>列分隔线一律用竖线 <code class="docutils literal notranslate"><span class="pre">|</span></code> 书写。</p></li>
-<li><p>行、列分隔线的交叉点用加号 <code class="docutils literal notranslate"><span class="pre">+</span></code> 标记。</p></li>
+<li><p>用 <code class="docutils literal notranslate"><span class="pre">:widths:</span></code> 给出各列的百分比宽度，或者用 <code class="docutils literal notranslate"><span class="pre">:width:</span></code> 给出实际宽度值</p></li>
+<li><p>表格的每一行以 <code class="docutils literal notranslate"><span class="pre">*</span></code> 开头。每一表格行的列以 <code class="docutils literal notranslate"><span class="pre">-</span></code> 开头，并额外缩进。</p></li>
+<li><p>表格行的列数必须与 <code class="docutils literal notranslate"><span class="pre">:width(s):</span></code> 中指定的相同。如果有空白单元格，请留空。</p></li>
+<li><p>通过 <code class="docutils literal notranslate"><span class="pre">header-rows</span></code> 指定表头行数、<code class="docutils literal notranslate"><span class="pre">:stub-columns:</span></code> 指定行表头的列数。</p></li>
 </ul>
-<p>网格表的例子（选自 Docutils 文档）：</p>
-<table class="docutils align-default">
+<p>序列表的例子：</p>
+<table class="docutils align-center" id="id19">
+<caption><span class="caption-number">表 2 </span><span class="caption-text">Example of List table</span><a class="headerlink" href="#id19" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 43%" />
-<col style="width: 21%" />
+<col style="width: 27%" />
 <col style="width: 18%" />
-<col style="width: 18%" />
+<col style="width: 55%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Header row, column 1
-(header rows optional)</p></th>
-<th class="head"><p>Header 2</p></th>
-<th class="head"><p>Header 3</p></th>
-<th class="head"><p>Header 4</p></th>
+<tr class="row-odd"><th class="head"><p>Header 1, col 1</p></th>
+<th class="head"><p>Header 1, col 2</p></th>
+<th class="head"><p>Header 1, col 3</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>body row 1, column 1</p></td>
-<td><p>column 2</p></td>
-<td><p>column 3</p></td>
-<td><p>column 4</p></td>
+<tr class="row-even"><td><p>Row 1, col 1</p></td>
+<td></td>
+<td><p>Row 1, col 3</p></td>
 </tr>
-<tr class="row-odd"><td><p>body row 2</p></td>
-<td colspan="3"><p>Cells may span columns.</p></td>
-</tr>
-<tr class="row-even"><td><p>body row 3</p></td>
-<td rowspan="2"><p>Cells may
-span rows.</p></td>
-<td colspan="2" rowspan="2"><ul class="simple">
-<li><p>Table cells</p></li>
-<li><p>contain</p></li>
-<li><p>body elements.</p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><p>body row 4</p></td>
+<tr class="row-odd"><td><p>Row 2, col 1</p></td>
+<td><p><em>Row 2, col 2</em></p></td>
+<td><p>Row 2, col 3</p></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>+------------------------+------------+----------+----------+
-<span class="o">|</span> Header row, column 1   | Header 2   | Header 3 | Header 4 |
-<span class="o">|</span> (header rows optional) |            |          |          |
-+========================+============+==========+==========+
-<span class="o">|</span> body row 1, column 1   | column 2   | column 3 | column 4 |
-+------------------------+------------+----------+----------+
-<span class="o">|</span> body row 2             | Cells may span columns.          |
-+------------------------+------------+---------------------+
-<span class="o">|</span> body row 3             | Cells may  | - Table cells       |
-+------------------------+ span rows. | - contain           |
-<span class="o">|</span> body row 4             |            | - body elements.    |
-+------------------------+------------+---------------------+
+<div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">list-table</span><span class="p">::</span> Example of List table
+   <span class="nc">:widths:</span> 15 10 30
+   <span class="nc">:header-rows:</span> 1
+   <span class="nc">:align:</span> center
+
+   <span class="m">*</span> - Header 1, col 1
+     <span class="m">-</span> Header 1, col 2
+     <span class="m">-</span> Header 1, col 3
+   <span class="m">*</span> - Row 1, col 1
+     -
+     <span class="m">-</span> Row 1, col 3
+   <span class="m">*</span> - Row 2, col 1
+     <span class="m">-</span> <span class="ge">*Row 2, col 2*</span>
+     <span class="m">-</span> Row 2, col 3
 </pre></div>
 </div>
 <p>以上网格表的内容可以放在 <code class="docutils literal notranslate"><span class="pre">table</span></code> 指令内部，以便进行交叉引用。</p>
 </section>
 <section id="csv">
-<h3>CSV表<a class="headerlink" href="#csv" title="永久链接至标题"></a></h3>
-<p>CSV表（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#csv-table">Directive: csv-table</a> ）支持以CSV格式（逗号分隔格式）来输入表格，用法是 <code class="docutils literal notranslate"><span class="pre">csv-table</span></code> 指令。该指令包括以下选项：</p>
+<h3>CSV 表<a class="headerlink" href="#csv" title="Link to this heading"></a></h3>
+<p>CSV 表（ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#csv-table">Directive: csv-table</a> ）支持以 CSV 格式（逗号分隔格式）来输入表格，用法是 <code class="docutils literal notranslate"><span class="pre">csv-table</span></code> 指令。该指令包括以下选项：</p>
 <ul class="simple">
 <li><p>表宽 <code class="docutils literal notranslate"><span class="pre">:width:</span> <span class="pre">LENGTH/PERCENT</span></code> 表格的总宽度，以长度值或者百分数来指定</p></li>
 <li><p>列宽 <code class="docutils literal notranslate"><span class="pre">:widths:</span> <span class="pre">INT,INT,...</span></code> 每列的相对宽度（相对于100）可以由整数 INT 指定。默认各列等宽。</p></li>
@@ -598,7 +563,7 @@ span rows.</p></td>
 </li>
 <li><p>列头： <code class="docutils literal notranslate"><span class="pre">:stub-columns:</span> <span class="pre">INT</span></code> 将前 INT 列作为列头。</p></li>
 <li><p>对齐： <code class="docutils literal notranslate"><span class="pre">:align:</span> <span class="pre">ALIGN</span></code> 用 left, center 或者 right 来指定整个表如何向外部环境对齐。</p></li>
-<li><p>外部CSV文件： 用 <code class="docutils literal notranslate"><span class="pre">:file:</span> <span class="pre">FILEPATH</span></code> 引用本地文件或者 <code class="docutils literal notranslate"><span class="pre">:url:</span> <span class="pre">URL</span></code> 引用网络文件。</p></li>
+<li><p>外部 CSV 文件： 用 <code class="docutils literal notranslate"><span class="pre">:file:</span> <span class="pre">FILEPATH</span></code> 引用本地文件或者 <code class="docutils literal notranslate"><span class="pre">:url:</span> <span class="pre">URL</span></code> 引用网络文件。</p></li>
 </ul>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">csv-table</span><span class="p">::</span> CSV Table Caption
     <span class="nc">:header:</span> &quot;First Name&quot;, &quot;Age&quot;, &quot;Gender&quot;
@@ -611,9 +576,9 @@ span rows.</p></td>
     &quot;Harry&quot;,, Male
 </pre></div>
 </div>
-<p>上例的CSV表将输出以下结果：</p>
-<table class="colwidths-given docutils align-center" id="id19" style="width: 60%">
-<caption><span class="caption-number">表 2 </span><span class="caption-text">CSV Table Caption</span><a class="headerlink" href="#id19" title="永久链接至表格"></a></caption>
+<p>上例的 CSV 表将输出以下结果：</p>
+<table class="docutils align-center" id="id20" style="width: 60%">
+<caption><span class="caption-number">表 3 </span><span class="caption-text">CSV Table Caption</span><a class="headerlink" href="#id20" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 43%" />
 <col style="width: 29%" />
@@ -642,7 +607,7 @@ span rows.</p></td>
 </table>
 </section>
 <section id="image-figure">
-<h3>图片：image 与 figure 指令<a class="headerlink" href="#image-figure" title="永久链接至标题"></a></h3>
+<h3>图片：image 与 figure 指令<a class="headerlink" href="#image-figure" title="Link to this heading"></a></h3>
 <p>指令 <code class="docutils literal notranslate"><span class="pre">image</span></code> （ <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#image">Directive: image</a> ）是不含标题的图片。它沿用了 HTML 中 img 的格式选项：</p>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">image</span><span class="p">::</span> img.jpg
    <span class="nc">:height:</span> 128px
@@ -669,10 +634,10 @@ span rows.</p></td>
 </pre></div>
 </div>
 <p>最后，给出一个 <code class="docutils literal notranslate"><span class="pre">figure</span></code> 指令的例子。</p>
-<figure class="align-center" id="id20">
+<figure class="align-center" id="id21">
 <a class="reference internal image-reference" href="_images/eg.png"><img alt="An adorable ginger cat." src="_images/eg.png" style="width: 240px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 1 </span><span class="caption-text">我不允许有人没见过我家的可爱小橘！</span><a class="headerlink" href="#id20" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 1 </span><span class="caption-text">我不允许有人没见过我家的可爱小橘！</span><a class="headerlink" href="#id21" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">figure</span><span class="p">::</span> eg.png
@@ -686,10 +651,10 @@ span rows.</p></td>
 </section>
 </section>
 <section id="cross-ref">
-<span id="id15"></span><h2>交叉引用<a class="headerlink" href="#cross-ref" title="永久链接至标题"></a></h2>
+<span id="id15"></span><h2>交叉引用<a class="headerlink" href="#cross-ref" title="Link to this heading"></a></h2>
 <p>reStructuredText 交叉引用上的功能远强于 Markdown，这也是我选择它撰写文档的重要原因之一。</p>
 <section id="id16">
-<h3>章节或图表引用<a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
+<h3>章节或图表引用<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <p>主要的引用角色有两种：由 reStructuredText 支持的标题引用 <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> ，以及 Sphinx 额外支持的带序号引用 <code class="docutils literal notranslate"><span class="pre">:numref:</span></code> 。</p>
 <p>在章节前添加特定的标签，以便在文中的其他位置（之前或之后）使用 <code class="docutils literal notranslate"><span class="pre">ref</span></code> 角色对其进行引用。章节交叉引用实质是一个超链接，显示的文本是章节标题，指向该章节的浏览位置。</p>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span><span class="cp">.. custom-section-label:</span>
@@ -725,7 +690,7 @@ A figure number link <span class="na">:numref:</span><span class="nv">`custom-la
 <p>除了 <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> 中支持的引用对象，指令 <code class="docutils literal notranslate"><span class="pre">:numref:</span></code> 还额外支持 <code class="docutils literal notranslate"><span class="pre">code-block</span></code> 代码块。</p>
 </section>
 <section id="id17">
-<h3>脚注与文本引用<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
+<h3>脚注与文本引用<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
 <p>脚注在文中以 <code class="docutils literal notranslate"><span class="pre">[#name]_</span></code> 的链接形式标出。之后，一般在文章结尾的 <code class="docutils literal notranslate"><span class="pre">rubric</span></code> 指令后声明其内容。</p>
 <p>脚注在文中会以编号的形式输出，且格式上位于上标位置。点击文中脚注的链接可以跳转到文末，之后可以点击文末该脚注的链接重新跳回之前文中的阅读位置。</p>
 <div class="highlight-reST notranslate"><div class="highlight"><pre><span></span>A paragraph with footnote <span class="s">[#my-fn]_</span>.
@@ -743,7 +708,7 @@ A figure number link <span class="na">:numref:</span><span class="nv">`custom-la
 </div>
 </section>
 <section id="id18">
-<h3>其他交叉引用<a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
+<h3>其他交叉引用<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
 <p>Sphinx 还支持一些 reStructuredText 原生语法之外的交叉引用，可以参考 <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#cross-referencing-syntax">Sphinx: 交叉引用</a>。</p>
 <p>下面是几个可能用到的、由 Sphinx 支持的交叉引用角色：</p>
 <dl>
@@ -765,7 +730,7 @@ A figure number link <span class="na">:numref:</span><span class="nv">`custom-la
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="Intro.html" class="btn btn-neutral float-left" title="引言" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="Advance.html" class="btn btn-neutral float-right" title="高级功能" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
@@ -773,12 +738,12 @@ A figure number link <span class="na">:numref:</span><span class="nv">`custom-la
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 wklchris.</p>
+    <p>&#169; 版权所有 wklchris。</p>
   </div>
 
-  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
-    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
    
 
 </footer>
