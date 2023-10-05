@@ -290,13 +290,24 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
 
 -----
 
-在预览图文件 ``thumb.png`` 准备完成后，我们就可以将其嵌入到视频文件了。这需要使用 ``disposition`` 参数：
+在预览图文件 ``thumb.png`` 准备完成后，我们就可以将其嵌入到视频文件了。对于 MP4 文件，这需要使用 ``disposition`` 参数：
 
 .. code:: shell
 
-    ffmpeg -i video.mp4 -i thumb.png -map 0 -map 1 -c copy -disposition:1 attached_pic out.mp4
+    ffmpeg -i video.mp4 -i thumb.png -map 0 -map 1 -c copy -c:v:1 png -disposition:v:1 attached_pic out.mp4
 
 上例接受了第 1 个输入文件（#0） ``video.mp4`` 与第 2 个输入文件（#1） ``thumb.jpg`` 的所有流数据，然后将输入 #1 设置为预览图。请注意，我们必须像例中一样用 ``-map`` 指明接受两个输入的流数据，否则 ffmpeg 会自动只保留一个视频流。
+
+对于 MKV 文件，我们则需要使用 ``-attach`` 参数来嵌入缩略图（也称 MKV 封面）。
+
+.. important::
+
+   请注意： **MKV 封面图片的文件名必须为 cover**，例如 cover.jpg 或 cover.png。否则，嵌入的封面不能作为预览图被正常地显示。
+
+.. code:: shell
+   
+   # 如果使用 PNG 文件（cover.png），请相应地将后续参数改为 mimetype=image/png
+   ffmpeg -i video.mkv -c copy -attach cover.jpg -metadata:s:t:0 mimetype=image/jpeg out.mkv
 
 
 更改帧率/速度

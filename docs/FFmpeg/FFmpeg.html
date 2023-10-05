@@ -372,11 +372,20 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>clip.mp4<span class="w">
 </div>
 <p>最后，预览图当然也可以由用户利用 FFmpeg 以外的软件自行准备。甚至，即使图与视频内容无关，在技术上也是能把它设置为预览图的——但还是别了吧。</p>
 <hr class="docutils" />
-<p>在预览图文件 <code class="docutils literal notranslate"><span class="pre">thumb.png</span></code> 准备完成后，我们就可以将其嵌入到视频文件了。这需要使用 <code class="docutils literal notranslate"><span class="pre">disposition</span></code> 参数：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-i<span class="w"> </span>thumb.png<span class="w"> </span>-map<span class="w"> </span><span class="m">0</span><span class="w"> </span>-map<span class="w"> </span><span class="m">1</span><span class="w"> </span>-c<span class="w"> </span>copy<span class="w"> </span>-disposition:1<span class="w"> </span>attached_pic<span class="w"> </span>out.mp4
+<p>在预览图文件 <code class="docutils literal notranslate"><span class="pre">thumb.png</span></code> 准备完成后，我们就可以将其嵌入到视频文件了。对于 MP4 文件，这需要使用 <code class="docutils literal notranslate"><span class="pre">disposition</span></code> 参数：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-i<span class="w"> </span>thumb.png<span class="w"> </span>-map<span class="w"> </span><span class="m">0</span><span class="w"> </span>-map<span class="w"> </span><span class="m">1</span><span class="w"> </span>-c<span class="w"> </span>copy<span class="w"> </span>-c:v:1<span class="w"> </span>png<span class="w"> </span>-disposition:v:1<span class="w"> </span>attached_pic<span class="w"> </span>out.mp4
 </pre></div>
 </div>
 <p>上例接受了第 1 个输入文件（#0） <code class="docutils literal notranslate"><span class="pre">video.mp4</span></code> 与第 2 个输入文件（#1） <code class="docutils literal notranslate"><span class="pre">thumb.jpg</span></code> 的所有流数据，然后将输入 #1 设置为预览图。请注意，我们必须像例中一样用 <code class="docutils literal notranslate"><span class="pre">-map</span></code> 指明接受两个输入的流数据，否则 ffmpeg 会自动只保留一个视频流。</p>
+<p>对于 MKV 文件，我们则需要使用 <code class="docutils literal notranslate"><span class="pre">-attach</span></code> 参数来嵌入缩略图（也称 MKV 封面）。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>请注意： <strong>MKV 封面图片的文件名必须为 cover</strong>，例如 cover.jpg 或 cover.png。否则，嵌入的封面不能作为预览图被正常地显示。</p>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 如果使用 PNG 文件（cover.png），请相应地将后续参数改为 mimetype=image/png</span>
+ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mkv<span class="w"> </span>-c<span class="w"> </span>copy<span class="w"> </span>-attach<span class="w"> </span>cover.jpg<span class="w"> </span>-metadata:s:t:0<span class="w"> </span><span class="nv">mimetype</span><span class="o">=</span>image/jpeg<span class="w"> </span>out.mkv
+</pre></div>
+</div>
 </section>
 <section id="id13">
 <h2>更改帧率/速度<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
