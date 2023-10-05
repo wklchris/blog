@@ -81,25 +81,30 @@
 <li class="toctree-l3"><a class="reference internal" href="#id4">提取流（音频、字幕）</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">截取视频</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">分辨率改变：缩放与裁切</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id8">分辨率缩放</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">裁切</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">截取视频</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extract-frame">截取帧为图片</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">截取视频片段</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">更改帧率/速度</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">字幕操作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id12">内挂字幕</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id13">内挂字幕的元数据操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">分辨率改变：缩放与裁切</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">分辨率缩放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">裁切</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">内嵌字幕</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">设置视频预览图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">更改帧率/速度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">字幕操作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">内挂字幕</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id16">内挂字幕的元数据操作</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id15">合并视频</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id17">替换或删除流</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id18">删除流</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id19">替换流</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">内嵌字幕</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">合并视频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id20">替换或删除流</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id21">删除流</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">替换流</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#bitrate-control">压制与码率</a><ul>
@@ -108,14 +113,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#bitrate-constrained">定限码率压制</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id23">添加章节信息</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id24">网络视频优化：快速播放</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id25">更正色彩空间*</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id26">显卡硬件加速*</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id27">硬件支持</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id28">FFmpeg 支持</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id29">硬件加速命令</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id30">硬件加速下的质量控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id26">添加章节信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id27">网络视频优化：快速播放</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id28">视频稳定/去抖动*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id29">更正色彩空间*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id30">显卡硬件加速*</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id31">硬件支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">FFmpeg 支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id33">硬件加速命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">硬件加速下的质量控制</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#fonts-conf">附录：fonts.conf</a></li>
@@ -204,6 +210,26 @@
 </section>
 <section id="id5">
 <h2>截取视频<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>视频文件的截取可以分为截取视频与截取图片两种。</p>
+<section id="extract-frame">
+<span id="id6"></span><h3>截取帧为图片<a class="headerlink" href="#extract-frame" title="Link to this heading"></a></h3>
+<p>下例利用 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#select">select</a> 过滤器，抽取了视频中的第 105 帧，保存为 extract.png：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="s1">&#39;select=eq(n\,105)&#39;</span><span class="w"> </span>-vframes<span class="w"> </span><span class="m">1</span><span class="w"> </span>extract.png
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>实际上，帧序号是从 0 开始的，因此参数 <code class="docutils literal notranslate"><span class="pre">select=eq(n\,105)</span></code> 实际选取的是第 106 帧。但为了避免叙述上的繁琐与混乱，本文并未忠于这一细节。对于确实需要精确到某一帧的读者，请特别注意这一点。</p>
+</div>
+<p>如果不需要特别精确，也可以将帧序号转换为时间戳来截取：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 假如该视频每秒 30 帧</span>
+ffmpeg<span class="w"> </span>-ss<span class="w"> </span><span class="m">00</span>:00:03.50<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-vframes<span class="w"> </span><span class="m">1</span><span class="w"> </span>extract.png
+</pre></div>
+</div>
+<p>上例中的两个命令，对同一个每秒 30 帧的视频的帧截取结果是等同的。但是，如果时间戳的小数不能除近，则很难准确地选中想要的帧。因此，还是更推荐使用 select 过滤器配合帧序号的方法。</p>
+</section>
+<section id="id7">
+<h3>截取视频片段<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>下面，以想要截取 video.mp4 视频的第2到第5分钟为例。</p>
 <p>对于容易计算片段秒数的截取任务（本例中片段长为 (5-2)*60=180秒），可以使用 <code class="docutils literal notranslate"><span class="pre">-t</span></code> 参数，即指定片段长度。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-ss<span class="w"> </span><span class="m">00</span>:02:00<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-t<span class="w"> </span><span class="m">180</span><span class="w"> </span>cut.mp4
@@ -267,14 +293,15 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 <p>具体的解释请参考 <a class="reference external" href="https://ffmpeg.org/ffmpeg.html">FFmpeg 官方文档</a> 中关于 <code class="docutils literal notranslate"><span class="pre">-ss</span></code> 参数的说明。</p>
 </div>
 </section>
-<section id="id7">
-<h2>分辨率改变：缩放与裁切<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+</section>
+<section id="id9">
+<h2>分辨率改变：缩放与裁切<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>缩放与裁切总是会重编码视频，请注意这一点。</p>
 </div>
-<section id="id8">
-<h3>分辨率缩放<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<section id="id10">
+<h3>分辨率缩放<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <p>分辨率缩放也是一个常见的需求，这需要使用到 FFmpeg 提供的视频过滤器（或称视频滤镜，video filter），也即 <code class="docutils literal notranslate"><span class="pre">-vf</span></code> 参数。由于过滤器的使用过于复杂，在此也不会详细介绍；这里只是针对过滤器中的缩放器（scaler）功能进行说明。缩放器还有许多复杂的用法详情也可以参考官方文档的 <a class="reference external" href="https://ffmpeg.org/ffmpeg-all.html#scale-1">Video filter - Scaler</a> 章节。</p>
 <p>例如，我们要将一个高分辨率视频从 1440p 缩放，那么我们可以使用参数：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 输出到1280x720的例子</span>
@@ -304,8 +331,8 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h3>裁切<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<section id="id11">
+<h3>裁切<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <p>裁切同样使用视频过滤器完成，使用 <code class="docutils literal notranslate"><span class="pre">crop</span></code> 字段：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从原视频距左上角横20、竖30的位置，向右下角裁切一个宽100、高200的矩形</span>
 <span class="nv">crop</span><span class="o">=</span><span class="nv">w</span><span class="o">=</span><span class="m">100</span>:h<span class="o">=</span><span class="m">200</span>:x<span class="o">=</span><span class="m">20</span>:y<span class="o">=</span><span class="m">30</span>
@@ -329,8 +356,30 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </div>
 </section>
 </section>
-<section id="id10">
-<h2>更改帧率/速度<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<section id="id12">
+<h2>设置视频预览图<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<p>在为视频文件设置预览图（缩略图）之前，我们首先要准备这样一张图片。FFmpeg 支持用 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#thumbnail">thumbnail</a> 过滤器自动从视频中抽取一张预览图。它会从头到尾以 <code class="docutils literal notranslate"><span class="pre">thumbnail=n</span></code> 中的 n （默认为 100）数量的帧为扫描步长来抽取预览图。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 自动选取 1 张预览图，按宽边为 1080 缩放分辨率，然后保存到文件</span>
+ffmpeg<span class="w"> </span>-i<span class="w"> </span>clip.mp4<span class="w"> </span>-vf<span class="w"> </span>thumbnail,scale<span class="o">=</span>-1:1080<span class="w"> </span>-vframes<span class="w"> </span><span class="m">1</span><span class="w"> </span>thumb.png
+<span class="c1"># 以 30 帧为扫描步长，从视频中自动选取 3 张预览图以供挑选（并在保存时进行三位数编号）</span>
+ffmpeg<span class="w"> </span>-i<span class="w"> </span>clip.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="nv">thumbnail</span><span class="o">=</span><span class="m">30</span>,scale<span class="o">=</span>-1:1080<span class="w"> </span>-vframes<span class="w"> </span><span class="m">3</span><span class="w"> </span>thumb-%03d.pngs
+</pre></div>
+</div>
+<p>或者，利用在 <a class="reference internal" href="#extract-frame"><span class="std std-ref">截取帧为图片</span></a> 一节中提到的帧截取方法，指定截取某一帧作为图片：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 指定截取视频中的第 100 帧</span>
+ffmpeg<span class="w"> </span>-i<span class="w"> </span>clip.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="s1">&#39;select=eq(n\,100)&#39;</span><span class="w"> </span>-vframes<span class="w"> </span><span class="m">1</span><span class="w"> </span>thumb.png
+</pre></div>
+</div>
+<p>最后，预览图当然也可以由用户利用 FFmpeg 以外的软件自行准备。甚至，即使图与视频内容无关，在技术上也是能把它设置为预览图的——但还是别了吧。</p>
+<hr class="docutils" />
+<p>在预览图文件 <code class="docutils literal notranslate"><span class="pre">thumb.png</span></code> 准备完成后，我们就可以将其嵌入到视频文件了。这需要使用 <code class="docutils literal notranslate"><span class="pre">disposition</span></code> 参数：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-i<span class="w"> </span>thumb.png<span class="w"> </span>-map<span class="w"> </span><span class="m">0</span><span class="w"> </span>-map<span class="w"> </span><span class="m">1</span><span class="w"> </span>-c<span class="w"> </span>copy<span class="w"> </span>-disposition:1<span class="w"> </span>attached_pic<span class="w"> </span>out.mp4
+</pre></div>
+</div>
+<p>上例接受了第 1 个输入文件（#0） <code class="docutils literal notranslate"><span class="pre">video.mp4</span></code> 与第 2 个输入文件（#1） <code class="docutils literal notranslate"><span class="pre">thumb.jpg</span></code> 的所有流数据，然后将输入 #1 设置为预览图。请注意，我们必须像例中一样用 <code class="docutils literal notranslate"><span class="pre">-map</span></code> 指明接受两个输入的流数据，否则 ffmpeg 会自动只保留一个视频流。</p>
+</section>
+<section id="id13">
+<h2>更改帧率/速度<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
 <p>视频变速的一个常见应用场景是帧率减半，例如将 60 帧视频通过变速输出为 30 帧的视频。请注意：这一过程是可以只通过混流、不重新编码就实现的。</p>
 <p>需要指出， 通过 FFmpeg 自带的 <code class="docutils literal notranslate"><span class="pre">-vf</span></code> 参数的 <code class="docutils literal notranslate"><span class="pre">fps</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">setpts</span></code> 键，我们可以指定视频帧率。但是，这些方法<strong>不是一个无损转换</strong>，因此不推荐使用。下例中， FFmpeg 将输入的 60 帧视频通过每两帧丢弃一帧的方式降为 30 帧：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 以下方法会抽帧，均不推荐！</span>
@@ -347,13 +396,13 @@ ffmpeg<span class="w"> </span>-fflags<span class="w"> </span>+genpts<span class=
 </pre></div>
 </div>
 <ul>
-<li><p>如果需要同时对视频、音频进行降速，可以利用 <a class="reference external" href="http://ffmpeg.org/ffmpeg-all.html#atempo">atempo</a> 滤镜。将上述第二条命令更换为：</p>
+<li><p>如果需要同时对视频、音频进行降速，可以利用 <a class="reference external" href="http://ffmpeg.org/ffmpeg-all.html#atempo">atempo</a> 过滤器。将上述第二条命令更换为：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-fflags<span class="w"> </span>+genpts<span class="w"> </span>-r<span class="w"> </span><span class="m">30</span><span class="w"> </span>-i<span class="w"> </span>raw.h264<span class="w"> </span>-i<span class="w"> </span>video-60p.mp4<span class="w"> </span>-map<span class="w"> </span><span class="m">0</span>:v<span class="w"> </span>-c:v<span class="w"> </span>copy<span class="w"> </span>-map<span class="w"> </span><span class="m">1</span>:a<span class="w"> </span>-af<span class="w"> </span><span class="nv">atempo</span><span class="o">=</span><span class="m">0</span>.5<span class="w"> </span>output.mp4
 </pre></div>
 </div>
-<p>其中， atempo 滤镜只支持 0.5 到 100 之间的变速倍率；不过你可以重复调用，例如 <code class="docutils literal notranslate"><span class="pre">-af</span> <span class="pre">&quot;atempo=0.5,atempo=0.5&quot;</span></code> 将会把音频降速为 0.25 倍。</p>
+<p>其中， atempo 过滤器只支持 0.5 到 100 之间的变速倍率；不过你可以重复调用，例如 <code class="docutils literal notranslate"><span class="pre">-af</span> <span class="pre">&quot;atempo=0.5,atempo=0.5&quot;</span></code> 将会把音频降速为 0.25 倍。</p>
 </li>
-<li><p>如果需要对加速或减速后的帧之间进行动态插值（运动补偿），可以使用 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#minterpolate">minterpolate</a> 滤镜。但这就需要对视频重新编码了：</p>
+<li><p>如果需要对加速或减速后的帧之间进行动态插值（运动补偿），可以使用 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#minterpolate">minterpolate</a> 过滤器。但这就需要对视频重新编码了：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"> </span>-filter:v<span class="w"> </span><span class="s2">&quot;minterpolate=&#39;mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=30&#39;&quot;</span><span class="w"> </span>output.mkv
 </pre></div>
 </div>
@@ -361,8 +410,8 @@ ffmpeg<span class="w"> </span>-fflags<span class="w"> </span>+genpts<span class=
 </ul>
 <p>更多的变速内容，请参考 <a class="reference external" href="https://trac.ffmpeg.org/wiki/How to speed up / slow down a video">How to speed up / slow down a video</a> 一文。</p>
 </section>
-<section id="id11">
-<h2>字幕操作<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<section id="id14">
+<h2>字幕操作<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
 <p>FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中。</p>
 <p>一些注意事项：</p>
 <ul class="simple">
@@ -374,8 +423,8 @@ ffmpeg<span class="w"> </span>-fflags<span class="w"> </span>+genpts<span class=
 </ul>
 </li>
 </ul>
-<section id="id12">
-<h3>内挂字幕<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<section id="id15">
+<h3>内挂字幕<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <p>内挂字幕是一种相对于外挂字幕的称呼。外挂字幕是指将字幕存放在一个独立的字幕文件中，在播放视频时，通过视频播放器来加载这个字幕文件。而内挂字幕，是将这样一个独立的“字幕文件”，封装在了视频文件内部作为独立的字幕数据流。这样既能按需开启或关闭字幕，也免去了字幕文件丢失、匹配等烦恼。</p>
 <p>内挂字幕的本质是将字幕文件单独作为字幕流封装，因此不需要对视频流进行编码。因此，将字幕文件内挂到指定的视频一般非常快：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-i<span class="w"> </span>input.srt<span class="w"> </span>-c:v<span class="w"> </span>copy<span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>-c:s<span class="w"> </span>ass<span class="w"> </span>output.mkv
@@ -383,8 +432,8 @@ ffmpeg<span class="w"> </span>-fflags<span class="w"> </span>+genpts<span class=
 </div>
 <p>在封装时，一般需要选择 <code class="docutils literal notranslate"><span class="pre">-c:s</span> <span class="pre">ass</span></code> 这个字幕转码器。上例中使用了早年间非常流行的内挂字幕容器 mkv，实际上 mp4 容器也可以进行内挂操作。</p>
 <p>要从有字幕流的视频文件中移除字幕，可以使用 <code class="docutils literal notranslate"><span class="pre">-sn</span></code> 参数；可以参考本文替换流与删除流部分的内容。</p>
-<section id="id13">
-<h4>内挂字幕的元数据操作<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
+<section id="id16">
+<h4>内挂字幕的元数据操作<a class="headerlink" href="#id16" title="Link to this heading"></a></h4>
 <p>FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包括字幕流（内挂字幕）。其中，比较常用的元数据可能是指定字幕的语言。下例向一个无字幕的视频文件中添加了一个 ass 字幕文件，并指定其语言为中文（语言码应遵循 ISO639-2 标准的三位代码，例如英文 eng、日文 jpn）：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-i<span class="w"> </span>input.ass<span class="w"> </span>-c:v<span class="w"> </span>copy<span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>-c:s<span class="w"> </span>ass<span class="w"> </span>-metadata:s:s:0<span class="w"> </span><span class="nv">language</span><span class="o">=</span>chi<span class="w"> </span>output.mkv
 </pre></div>
@@ -400,8 +449,8 @@ ffmpeg<span class="w"> </span>-fflags<span class="w"> </span>+genpts<span class=
 </div>
 </section>
 </section>
-<section id="id14">
-<h3>内嵌字幕<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<section id="id17">
+<h3>内嵌字幕<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
 <p>内嵌字幕（或称硬字幕）是指将字幕与原视频图像混叠的一种字幕，它直接嵌入到图像中，因此无法关闭，也无法调整字幕的大小、字体等样式。内嵌字幕的本质是将字幕作为图像输出，因此需要对视频流进行编码，往往速度慢：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="nv">subtitles</span><span class="o">=</span>input.srt<span class="w"> </span>output.mp4
 </pre></div>
@@ -412,8 +461,8 @@ ffmpeg<span class="w"> </span>-fflags<span class="w"> </span>+genpts<span class=
 </div>
 </section>
 </section>
-<section id="id15">
-<h2>合并视频<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
+<section id="id18">
+<h2>合并视频<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
 <p>最简单的视频合并方法，是将所有待合并的视频文件路径，依次列在一个 txt 文件中，然后让 FFmpeg 读取它。</p>
 <p>假设我们已经将所有待合并的 mp4 文件放在当前文件夹中，并且按照合并的顺序进行了命名。那么，用户可以在该文件夹中用 Shift + 鼠标右键打开 PowerShell 控制台，然后依次输入以下命令：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>eg-*.mp4<span class="w"> </span><span class="p">|</span><span class="w"> </span>%<span class="w"> </span>Name<span class="w"> </span><span class="p">|</span><span class="w"> </span>foreach<span class="w"> </span><span class="o">{</span><span class="s2">&quot;file &#39;&quot;</span><span class="w"> </span>+<span class="w"> </span><span class="nv">$_</span><span class="w"> </span>+<span class="w"> </span><span class="s2">&quot;&#39;&quot;</span><span class="o">}</span><span class="w"> </span>&gt;<span class="w"> </span>mylist.txt
@@ -433,19 +482,26 @@ file &#39;eg-02.mp4&#39;
 </div>
 <p>当然，如果视频文件数量不多，用户也可以自行创建这样一个 <code class="docutils literal notranslate"><span class="pre">mylist.txt</span></code> 文件。在执行完第二行的 ffmpeg 指令进行视频合并后，用户可以删除文件夹中的 <code class="docutils literal notranslate"><span class="pre">mylist.txt</span></code> 文件。</p>
 </section>
-<section id="id17">
-<h2>替换或删除流<a class="headerlink" href="#id17" title="Link to this heading"></a></h2>
+<section id="id20">
+<h2>替换或删除流<a class="headerlink" href="#id20" title="Link to this heading"></a></h2>
 <p>除了格式转换中提到的提取流的操作，删除或替换也是常见的选择。</p>
-<section id="id18">
-<h3>删除流<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
-<p>利用 <code class="docutils literal notranslate"><span class="pre">-vn/-an/sn/-dn</span></code> 参数可以跳过视频/音频/字幕/数据流，比如一段没有音频流的视频：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>copy<span class="w"> </span>-an<span class="w"> </span>NoAudio.mp4
+<section id="id21">
+<h3>删除流<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<p>删除流有两种操作方法：一是利用 <code class="docutils literal notranslate"><span class="pre">-vn/-an/sn/-dn</span></code> 参数，跳过视频/音频/字幕/数据流，并手动指定保留哪些流；二是利用 <code class="docutils literal notranslate"><span class="pre">-map</span></code> 参数，反选要删除的流并保留其他所有流。</p>
+<p>参数 <code class="docutils literal notranslate"><span class="pre">-vn/-an/sn/-dn</span></code> 的功能局限一些，但很好理解。比如从文件中删除音频：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>copy<span class="w"> </span>-an<span class="w"> </span>VideoWithoutAudio.mp4
 </pre></div>
 </div>
-<p>上例中的 <code class="docutils literal notranslate"><span class="pre">-c:v</span></code> 是传递视频编解码器， <code class="docutils literal notranslate"><span class="pre">copy</span></code> 表示不进行编解码操作而是直接拷贝。因此，上述命令保留了原文件的视频、删除了音频，并将结果输出。</p>
+<p>上例中的 <code class="docutils literal notranslate"><span class="pre">-c:v</span></code> 是传递视频编解码器， <code class="docutils literal notranslate"><span class="pre">copy</span></code> 表示不进行编解码操作而是直接拷贝。因此，上述命令保留了原文件的视频、删除了音频，并将结果输出。请注意，音频、视频以外的流都被抛弃了。</p>
+<hr class="docutils" />
+<p>有时候，视频文件中包含了多个流，我们只想删除其中的一个，而保留其他所有的流。这时候可以用 <code class="docutils literal notranslate"><span class="pre">-map</span></code> 参数来反选：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-map<span class="w"> </span><span class="m">0</span><span class="w"> </span>-map<span class="w"> </span>-0:a<span class="w"> </span>EverythingButAudio.mp4
+</pre></div>
+</div>
+<p>上例中， <code class="docutils literal notranslate"><span class="pre">-map</span> <span class="pre">0</span></code> 表示接受第 1 个输入文件（即 video.mp4）的所有流；接着，用减号指定 <code class="docutils literal notranslate"><span class="pre">-</span></code> 要丢弃的流为 <code class="docutils literal notranslate"><span class="pre">0:a</span></code>，即第 1 个输入文件的音频流。</p>
 </section>
-<section id="id19">
-<h3>替换流<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<section id="id22">
+<h3>替换流<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
 <p>替换流的常用场景是将一段音频替换原视频中的音频流：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-i<span class="w"> </span>audio.mp3<span class="w"> </span>-c:v<span class="w"> </span>copy<span class="w"> </span>-map<span class="w"> </span><span class="m">0</span>:v:0<span class="w"> </span>-map<span class="w"> </span><span class="m">1</span>:a:0<span class="w"> </span>out.mp4
 <span class="c1"># 或者省略第二冒号</span>
@@ -466,7 +522,7 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </section>
 </section>
 <section id="bitrate-control">
-<span id="id20"></span><h2>压制与码率<a class="headerlink" href="#bitrate-control" title="Link to this heading"></a></h2>
+<span id="id23"></span><h2>压制与码率<a class="headerlink" href="#bitrate-control" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>在大多数压制场合，CRF都是更受欢迎的，也是保持画面质量的一选。如果要严格限制文件大小，那么就使用二压；如果要严格限制视频码率，才会考虑使用定限码率压制（或者二压）。</p>
@@ -497,7 +553,7 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 <p>编码器 <code class="docutils literal notranslate"><span class="pre">libx264</span></code> 还提供了一个 <code class="docutils literal notranslate"><span class="pre">-qp</span></code> 参数，即量化参数（Quantization Parameter）。它可以取 -1 以上的整数值（默认值 -1 表示自动）。简单地理解，CRF 就是自动根据画面中运动的多与少来调整 QP ，来达到好的压缩效果。通常情况下，用户都应当选择 CRF，而不是 QP 参数。</p>
 </section>
 <section id="pass">
-<span id="id21"></span><h3>二压（2Pass）<a class="headerlink" href="#pass" title="Link to this heading"></a></h3>
+<span id="id24"></span><h3>二压（2Pass）<a class="headerlink" href="#pass" title="Link to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>通常只在强制要求文件大小时使用二压。</p>
@@ -535,7 +591,7 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </ul>
 </section>
 <section id="bitrate-constrained">
-<span id="id22"></span><h3>定限码率压制<a class="headerlink" href="#bitrate-constrained" title="Link to this heading"></a></h3>
+<span id="id25"></span><h3>定限码率压制<a class="headerlink" href="#bitrate-constrained" title="Link to this heading"></a></h3>
 <p>定限码率压制并不考虑文件大小，而是只限制文件码率；这多见于网络上传视频（或者流媒体传输受到网络条件限制）的场合（参考 <a class="reference external" href="https://trac.ffmpeg.org/wiki/Limiting the output bitrate">Limiting the output bitrate</a>）。以 libx264/libx265 编码器为例，有以下几种码率限制参数：</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">-b:v</span></code> 目标平均码率，也即希望得到的输出文件的平均码率（单位 bit/s）。该参数也在二压中被使用。</p>
@@ -624,8 +680,8 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </div>
 </section>
 </section>
-<section id="id23">
-<h2>添加章节信息<a class="headerlink" href="#id23" title="Link to this heading"></a></h2>
+<section id="id26">
+<h2>添加章节信息<a class="headerlink" href="#id26" title="Link to this heading"></a></h2>
 <p>FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用的大概是章节（chapter）跳转的元数据，它得到了许多主流播放器的支持（例如 MPV）。</p>
 <p>元数据需要存放在一个外部文件中，并遵循类似 <code class="docutils literal notranslate"><span class="pre">ini</span></code> 文件的格式。下面是官方文档 <a class="reference external" href="https://ffmpeg.org/ffmpeg-formats.html#Metadata-1">Metadata - FFmpeg</a> 页面给出的例子：</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1">;FFMETADATA1</span>
@@ -670,12 +726,30 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </div>
 <p>其中的 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示将第二个（因为从0开始索引）输入文件，即第二个 <code class="docutils literal notranslate"><span class="pre">-i</span></code> 之后的参数值 <code class="docutils literal notranslate"><span class="pre">FFMETA.ini</span></code> 映射为元数据。</p>
 </section>
-<section id="id24">
-<h2>网络视频优化：快速播放<a class="headerlink" href="#id24" title="Link to this heading"></a></h2>
+<section id="id27">
+<h2>网络视频优化：快速播放<a class="headerlink" href="#id27" title="Link to this heading"></a></h2>
 <p>使用 <code class="docutils literal notranslate"><span class="pre">-movflags</span> <span class="pre">+faststart</span></code> 参数，可以在输出时让视频文件将一些数据前置，从而实现在网络视频未被全部下载时就能够开始播放。</p>
 </section>
-<section id="id25">
-<h2>更正色彩空间*<a class="headerlink" href="#id25" title="Link to this heading"></a></h2>
+<section id="id28">
+<h2>视频稳定/去抖动*<a class="headerlink" href="#id28" title="Link to this heading"></a></h2>
+<p>FFmpeg 支持通过二次处理（2 Pass）的方式进行去抖动：先用 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#vidstabdetect">vidstabdetect</a> 过滤器检测并生成一个 <code class="docutils literal notranslate"><span class="pre">trf</span></code> 文件，再用 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#vidstabtransform">vidstabtransform</a> 根据该文件以及用户给出的去抖动参数，完成图像变换（并通常配合 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#unsharp">unsharp</a> 过滤器进行适量锐化）。</p>
+<p>以下是一个向 clip.mp4 应用去抖动的例子：</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span> <span class="n">-i</span> <span class="n">clip</span><span class="p">.</span><span class="n">mp4</span> <span class="n">-vf</span> <span class="n">vidstabdetect</span> <span class="o">-f</span> <span class="n">null</span> <span class="n">NUL</span> <span class="p">&amp;&amp;</span> <span class="p">`</span>
+<span class="n">ffmpeg</span> <span class="n">-i</span> <span class="n">clip</span><span class="p">.</span><span class="n">mp4</span> <span class="n">-vf</span> <span class="n">vidstabtransform</span><span class="p">,</span><span class="n">unsharp</span><span class="p">=</span><span class="n">5</span><span class="p">:</span><span class="n">5</span><span class="p">:</span><span class="n">0</span><span class="p">.</span><span class="n">8</span><span class="p">:</span><span class="n">3</span><span class="p">:</span><span class="n">3</span><span class="p">:</span><span class="n">0</span><span class="p">.</span><span class="n">4</span> <span class="n">-crf</span> <span class="n">17</span> <span class="n">clip-stablized</span><span class="p">.</span><span class="n">mp4</span>
+</pre></div>
+</div>
+<ul>
+<li><p>第一行行末的 NUL 之后的内容是 Powershell 的换行记号，为了能够一次执行整个过程。如果愿意分两次输入命令，则换行记号不是必须的。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">null</span> <span class="pre">NUL</span></code> 表示 Pass 1 不输出视频文件。尽管如此，Pass 1 会默认生成一个 transform.trf 文件。</p></li>
+<li><p>Pass 2 中的过滤器也接受其他参数。常用的是用 <code class="docutils literal notranslate"><span class="pre">smoothing</span></code> 指定平滑半径所用的帧数量（默认 10，表示查看前后 10 帧共 21 帧），以及用 <code class="docutils literal notranslate"><span class="pre">input</span></code> 指定接受的变换文件的文件名（默认 transform.trf）：</p>
+<p><code class="docutils literal notranslate"><span class="pre">-vf</span> <span class="pre">vidstabtransform=smoothing=10:input=transform.trf</span></code></p>
+</li>
+<li><p><strong>总是推荐在使用 vidstabtransform 过滤器的同时，也使用 unsharp 过滤器</strong>。本例中 unsharp 过滤器的参数来自官方 FFmpeg 文档的例子。</p></li>
+<li><p>上例中使用了 CRF=17 的高品质输出。在实际中，应按需设置视频质量参数。</p></li>
+</ul>
+</section>
+<section id="id29">
+<h2>更正色彩空间*<a class="headerlink" href="#id29" title="Link to this heading"></a></h2>
 <p>以我们最常用的 BT.709 色彩空间为例，许多视频播放器必须检测到色彩空间的元数据信息为 BT.709 才能正常地播放，否则可能引起偏色等问题。如果一个视频在播放时发生了色彩异常（通常发生于在不同设备、屏幕上播放时），那么我们需要检查视频的色彩空间信息并进行修正。</p>
 <p>要检查一个视频的现有色彩空间信息，可以使用 FFmpeg 安装时附带的 <code class="docutils literal notranslate"><span class="pre">ffprobe</span></code> 工具：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffprobe<span class="w"> </span>-v<span class="w"> </span>quiet<span class="w"> </span>-show_streams<span class="w"> </span>-select_streams<span class="w"> </span>v:0<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">select</span>-string<span class="w"> </span><span class="s2">&quot;color&quot;</span>
@@ -695,11 +769,11 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </div>
 <p>关于更多色彩空间的参数信息，可以参考 FFmpeg 官方文档的 <a class="reference external" href="https://ffmpeg.org/ffmpeg-all.html#setparams-1">setparams</a> 这一节。</p>
 </section>
-<section id="id26">
-<h2>显卡硬件加速*<a class="headerlink" href="#id26" title="Link to this heading"></a></h2>
+<section id="id30">
+<h2>显卡硬件加速*<a class="headerlink" href="#id30" title="Link to this heading"></a></h2>
 <p>FFmpeg 支持显卡硬件加速；本节主要以 Nvidia 的显卡与 H.264 编码方式为例展示一些用法。</p>
-<section id="id27">
-<h3>硬件支持<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
+<section id="id31">
+<h3>硬件支持<a class="headerlink" href="#id31" title="Link to this heading"></a></h3>
 <p>关于用户当前的显卡支持哪些编码格式的硬件加速，可以参考 Nvidia 给出的一张表格： <a class="reference external" href="https://developer.nvidia.com/video-encode-decode-gpu-support-matrix">Video Encode and Decode GPU Support Matrix</a>。简要来说，大概是：</p>
 <ul class="simple">
 <li><p>大多 Maxwell 一代显卡（GTX 745/850/850M/960M 及同代更高型号）支持完整的 H.264 编码硬件加速</p></li>
@@ -708,8 +782,8 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 <li><p>较新的显卡对于其他主流的编码格式，如 VP9 等，也有硬件加速支持</p></li>
 </ul>
 </section>
-<section id="id28">
-<h3>FFmpeg 支持<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
+<section id="id32">
+<h3>FFmpeg 支持<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>由于 FFmpeg 存在众多的编译版本，用户正使用的不一定包含了硬件加速功能。但官方提供的预编译版本均涵盖了该功能，本文也不再对如何在编译时引入硬件加速支持进行介绍。</p>
@@ -729,8 +803,8 @@ DEV.L.<span class="w"> </span>hevc<span class="w">                 </span>H.265<
 <li><p>关于该编码器的详细帮助，可以参考 <code class="docutils literal notranslate"><span class="pre">ffmpeg</span> <span class="pre">-h</span> <span class="pre">encoder=h264_nvenc</span></code> 命令给出的参数列表。</p></li>
 </ul>
 </section>
-<section id="id29">
-<h3>硬件加速命令<a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
+<section id="id33">
+<h3>硬件加速命令<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
 <p>硬件加速有混合模式（CPU 与 GPU 共同工作）与独占模式（完全 GPU 工作）两种。</p>
 <p>混合模式直接指定编码器为支持硬件加速的编码器即可，比如 <code class="docutils literal notranslate"><span class="pre">h264_nvenc</span></code>：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># CPU+GPU 混合模式</span>
@@ -744,8 +818,8 @@ ffmpeg<span class="w"> </span>-hwaccel<span class="w"> </span>cuda<span class="w
 </div>
 <p>上述命令会自动以 2000 kbps（即 2Mbps）左右的总文件比特率（视频、音频多轨综合，因此单独看视频码率可能会略高于 2M ）来压缩视频。</p>
 </section>
-<section id="id30">
-<h3>硬件加速下的质量控制<a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
+<section id="id34">
+<h3>硬件加速下的质量控制<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
 <p>由于 <code class="docutils literal notranslate"><span class="pre">h264_nvenc</span></code> 编码器不支持 CRF 参数，我个人的习惯是通过 <code class="docutils literal notranslate"><span class="pre">-rc</span></code> 参数来设置 <code class="docutils literal notranslate"><span class="pre">vbr_hq</span></code> 可变码率模式，并手动指定 <code class="docutils literal notranslate"><span class="pre">-b:v</span></code> 视频码率的数值。例如下述命令使用可变码率模式，并将视频设置在 2Mbps 附近：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-hwaccel<span class="w"> </span>cuda<span class="w"> </span>-hwaccel_output_format<span class="w"> </span>cuda<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>h264_nvenc<span class="w"> </span>-rc<span class="w"> </span>vbr_hq<span class="w"> </span>-b:v<span class="w"> </span>2M<span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>out.mp4
 </pre></div>

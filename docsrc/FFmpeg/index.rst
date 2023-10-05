@@ -4,7 +4,7 @@
    :series: CLI
    :series_num: 1
    :date_init: 2017-07-11
-   :date_modified: 2023-09-28
+   :date_modified: 2023-10-06
    :abstract: 本文介绍了命令行视频编辑软件 FFmpeg。
 
 FFmpeg 教程

@@ -80,6 +80,35 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 截取视频
 ----------
 
+视频文件的截取可以分为截取视频与截取图片两种。
+
+.. _extract_frame:
+
+截取帧为图片
+~~~~~~~~~~~~~~~
+
+下例利用 :filter:`select` 过滤器，抽取了视频中的第 105 帧，保存为 extract.png：
+
+.. code:: shell
+
+   ffmpeg -i video.mp4 -vf 'select=eq(n\,105)' -vframes 1 extract.png
+
+.. warning::
+
+   实际上，帧序号是从 0 开始的，因此参数 ``select=eq(n\,105)`` 实际选取的是第 106 帧。但为了避免叙述上的繁琐与混乱，本文并未忠于这一细节。对于确实需要精确到某一帧的读者，请特别注意这一点。
+
+如果不需要特别精确，也可以将帧序号转换为时间戳来截取：
+
+.. code:: shell
+   
+   # 假如该视频每秒 30 帧
+   ffmpeg -ss 00:00:03.50 -i video.mp4 -vframes 1 extract.png
+
+上例中的两个命令，对同一个每秒 30 帧的视频的帧截取结果是等同的。但是，如果时间戳的小数不能除近，则很难准确地选中想要的帧。因此，还是更推荐使用 select 过滤器配合帧序号的方法。
+
+截取视频片段
+~~~~~~~~~~~~~~~
+
 下面，以想要截取 video.mp4 视频的第2到第5分钟为例。
 
 对于容易计算片段秒数的截取任务（本例中片段长为 (5-2)*60=180秒），可以使用 ``-t`` 参数，即指定片段长度。
@@ -237,6 +266,39 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
    # 自动检测黑色边框来裁切
    ffmpeg -i video.mp4 -vf "cropdetect" -c:a copy out.mp4
 
+
+设置视频预览图
+-----------------
+
+在为视频文件设置预览图（缩略图）之前，我们首先要准备这样一张图片。FFmpeg 支持用 :filter:`thumbnail` 过滤器自动从视频中抽取一张预览图。它会从头到尾以 ``thumbnail=n`` 中的 n （默认为 100）数量的帧为扫描步长来抽取预览图。
+
+.. code:: shell
+   
+   # 自动选取 1 张预览图，按宽边为 1080 缩放分辨率，然后保存到文件
+   ffmpeg -i clip.mp4 -vf thumbnail,scale=-1:1080 -vframes 1 thumb.png
+   # 以 30 帧为扫描步长，从视频中自动选取 3 张预览图以供挑选（并在保存时进行三位数编号）
+   ffmpeg -i clip.mp4 -vf thumbnail=30,scale=-1:1080 -vframes 3 thumb-%03d.pngs
+
+或者，利用在 :ref:`extract_frame` 一节中提到的帧截取方法，指定截取某一帧作为图片：
+
+.. code:: shell
+
+   # 指定截取视频中的第 100 帧
+   ffmpeg -i clip.mp4 -vf 'select=eq(n\,100)' -vframes 1 thumb.png
+
+最后，预览图当然也可以由用户利用 FFmpeg 以外的软件自行准备。甚至，即使图与视频内容无关，在技术上也是能把它设置为预览图的——但还是别了吧。
+
+-----
+
+在预览图文件 ``thumb.png`` 准备完成后，我们就可以将其嵌入到视频文件了。这需要使用 ``disposition`` 参数：
+
+.. code:: shell
+
+    ffmpeg -i video.mp4 -i thumb.png -map 0 -map 1 -c copy -disposition:1 attached_pic out.mp4
+
+上例接受了第 1 个输入文件（#0） ``video.mp4`` 与第 2 个输入文件（#1） ``thumb.jpg`` 的所有流数据，然后将输入 #1 设置为预览图。请注意，我们必须像例中一样用 ``-map`` 指明接受两个输入的流数据，否则 ffmpeg 会自动只保留一个视频流。
+
+
 更改帧率/速度
 ---------------
 
@@ -260,15 +322,15 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
    # 只处理视频流
    ffmpeg -fflags +genpts -r 30 -i raw.h264 -c:v copy video-30p.mp4
    
-* 如果需要同时对视频、音频进行降速，可以利用 :all:`atempo` 滤镜。将上述第二条命令更换为：
+* 如果需要同时对视频、音频进行降速，可以利用 :all:`atempo` 过滤器。将上述第二条命令更换为：
 
   .. code-block:: shell
      
      ffmpeg -fflags +genpts -r 30 -i raw.h264 -i video-60p.mp4 -map 0:v -c:v copy -map 1:a -af atempo=0.5 output.mp4
   
-  其中， atempo 滤镜只支持 0.5 到 100 之间的变速倍率；不过你可以重复调用，例如 ``-af "atempo=0.5,atempo=0.5"`` 将会把音频降速为 0.25 倍。
+  其中， atempo 过滤器只支持 0.5 到 100 之间的变速倍率；不过你可以重复调用，例如 ``-af "atempo=0.5,atempo=0.5"`` 将会把音频降速为 0.25 倍。
 
-* 如果需要对加速或减速后的帧之间进行动态插值（运动补偿），可以使用 :filter:`minterpolate` 滤镜。但这就需要对视频重新编码了：
+* 如果需要对加速或减速后的帧之间进行动态插值（运动补偿），可以使用 :filter:`minterpolate` 过滤器。但这就需要对视频重新编码了：
 
   .. code-block:: shell
    
@@ -382,13 +444,26 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 删除流
 ~~~~~~
 
-利用 ``-vn/-an/sn/-dn`` 参数可以跳过视频/音频/字幕/数据流，比如一段没有音频流的视频：
+删除流有两种操作方法：一是利用 ``-vn/-an/sn/-dn`` 参数，跳过视频/音频/字幕/数据流，并手动指定保留哪些流；二是利用 ``-map`` 参数，反选要删除的流并保留其他所有流。
+
+参数 ``-vn/-an/sn/-dn`` 的功能局限一些，但很好理解。比如从文件中删除音频：
 
 .. code:: shell
 
-   ffmpeg -i video.mp4 -c:v copy -an NoAudio.mp4
+   ffmpeg -i video.mp4 -c:v copy -an VideoWithoutAudio.mp4
 
-上例中的 ``-c:v`` 是传递视频编解码器， ``copy`` 表示不进行编解码操作而是直接拷贝。因此，上述命令保留了原文件的视频、删除了音频，并将结果输出。
+上例中的 ``-c:v`` 是传递视频编解码器， ``copy`` 表示不进行编解码操作而是直接拷贝。因此，上述命令保留了原文件的视频、删除了音频，并将结果输出。请注意，音频、视频以外的流都被抛弃了。
+
+-----
+
+有时候，视频文件中包含了多个流，我们只想删除其中的一个，而保留其他所有的流。这时候可以用 ``-map`` 参数来反选：
+
+.. code:: shell
+   
+   ffmpeg -i video.mp4 -map 0 -map -0:a EverythingButAudio.mp4
+
+上例中， ``-map 0`` 表示接受第 1 个输入文件（即 video.mp4）的所有流；接着，用减号指定 ``-`` 要丢弃的流为 ``0:a``\ ，即第 1 个输入文件的音频流。
+
 
 替换流
 ~~~~~~~
@@ -412,6 +487,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
   .. code:: shell
 
      ffmpeg -i video.mkv out1.mkv -c:s dvdsub out2.mkv
+
 
 .. _bitrate_control:
 
@@ -496,6 +572,7 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
   
 - ``-an`` 表示忽略音频流。同理还有 ``-vn/sn/dn``\ 。
 
+
 .. _bitrate_constrained:
 
 定限码率压制
@@ -547,6 +624,7 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
    
    Youtube 的音频码率推荐则为单声道 128 Kbps、环绕声 384 Kbps 以及 5.1 声道 512 Kbps. 
 
+
 添加章节信息
 --------------------
 
@@ -597,10 +675,34 @@ FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用�
 
 其中的 ``1`` 表示将第二个（因为从0开始索引）输入文件，即第二个 ``-i`` 之后的参数值 ``FFMETA.ini`` 映射为元数据。
 
+
 网络视频优化：快速播放
 -----------------------
 
 使用 ``-movflags +faststart`` 参数，可以在输出时让视频文件将一些数据前置，从而实现在网络视频未被全部下载时就能够开始播放。
+
+
+视频稳定/去抖动*
+------------------
+
+FFmpeg 支持通过二次处理（2 Pass）的方式进行去抖动：先用 :filter:`vidstabdetect` 过滤器检测并生成一个 ``trf`` 文件，再用 :filter:`vidstabtransform` 根据该文件以及用户给出的去抖动参数，完成图像变换（并通常配合 :filter:`unsharp` 过滤器进行适量锐化）。
+
+以下是一个向 clip.mp4 应用去抖动的例子：
+
+.. code-block:: powershell
+
+   ffmpeg -i clip.mp4 -vf vidstabdetect -f null NUL && `
+   ffmpeg -i clip.mp4 -vf vidstabtransform,unsharp=5:5:0.8:3:3:0.4 -crf 17 clip-stablized.mp4
+
+* 第一行行末的 NUL 之后的内容是 Powershell 的换行记号，为了能够一次执行整个过程。如果愿意分两次输入命令，则换行记号不是必须的。
+* ``-f null NUL`` 表示 Pass 1 不输出视频文件。尽管如此，Pass 1 会默认生成一个 transform.trf 文件。
+* Pass 2 中的过滤器也接受其他参数。常用的是用 ``smoothing`` 指定平滑半径所用的帧数量（默认 10，表示查看前后 10 帧共 21 帧），以及用 ``input`` 指定接受的变换文件的文件名（默认 transform.trf）：
+  
+  ``-vf vidstabtransform=smoothing=10:input=transform.trf``
+
+* **总是推荐在使用 vidstabtransform 过滤器的同时，也使用 unsharp 过滤器**。本例中 unsharp 过滤器的参数来自官方 FFmpeg 文档的例子。
+* 上例中使用了 CRF=17 的高品质输出。在实际中，应按需设置视频质量参数。
+
 
 更正色彩空间*
 --------------------
