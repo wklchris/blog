@@ -113,15 +113,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#bitrate-constrained">定限码率压制</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id26">添加章节信息</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id27">网络视频优化：快速播放</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id28">视频稳定/去抖动*</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id29">更正色彩空间*</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id30">显卡硬件加速*</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id31">硬件支持</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id32">FFmpeg 支持</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id33">硬件加速命令</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id34">硬件加速下的质量控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id26">元数据：添加章节信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id27">元数据：清除元数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id28">网络视频优化：快速加载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id29">视频稳定/去抖动*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id30">更正色彩空间*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id31">显卡硬件加速*</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id32">硬件支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id33">FFmpeg 支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">硬件加速命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id35">硬件加速下的质量控制</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#fonts-conf">附录：fonts.conf</a></li>
@@ -474,7 +475,7 @@ ffmpeg<span class="w"> </span>-fflags<span class="w"> </span>+genpts<span class=
 <h2>合并视频<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
 <p>最简单的视频合并方法，是将所有待合并的视频文件路径，依次列在一个 txt 文件中，然后让 FFmpeg 读取它。</p>
 <p>假设我们已经将所有待合并的 mp4 文件放在当前文件夹中，并且按照合并的顺序进行了命名。那么，用户可以在该文件夹中用 Shift + 鼠标右键打开 PowerShell 控制台，然后依次输入以下命令：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>eg-*.mp4<span class="w"> </span><span class="p">|</span><span class="w"> </span>%<span class="w"> </span>Name<span class="w"> </span><span class="p">|</span><span class="w"> </span>foreach<span class="w"> </span><span class="o">{</span><span class="s2">&quot;file &#39;&quot;</span><span class="w"> </span>+<span class="w"> </span><span class="nv">$_</span><span class="w"> </span>+<span class="w"> </span><span class="s2">&quot;&#39;&quot;</span><span class="o">}</span><span class="w"> </span>&gt;<span class="w"> </span>mylist.txt
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>eg-*.mp4<span class="w"> </span><span class="p">|</span><span class="w"> </span>%<span class="w"> </span>Name<span class="w"> </span><span class="p">|</span><span class="w"> </span>foreach<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">&quot;file &#39;</span><span class="si">${</span><span class="nv">_</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="w"> </span><span class="o">}</span><span class="w"> </span>&gt;<span class="w"> </span>mylist.txt
 ffmpeg<span class="w"> </span>-f<span class="w"> </span>concat<span class="w"> </span>-i<span class="w"> </span>mylist.txt<span class="w"> </span>-c<span class="w"> </span>copy<span class="w"> </span>output.mp4
 </pre></div>
 </div>
@@ -690,8 +691,8 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </section>
 </section>
 <section id="id26">
-<h2>添加章节信息<a class="headerlink" href="#id26" title="Link to this heading"></a></h2>
-<p>FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用的大概是章节（chapter）跳转的元数据，它得到了许多主流播放器的支持（例如 MPV）。</p>
+<h2>元数据：添加章节信息<a class="headerlink" href="#id26" title="Link to this heading"></a></h2>
+<p>FFmpeg 支持在混流时向视频文件中写入元数据（metadata）；这其中最实用的大概是章节（chapter）跳转的元数据，它得到了许多主流播放器的支持（例如 MPV）。</p>
 <p>元数据需要存放在一个外部文件中，并遵循类似 <code class="docutils literal notranslate"><span class="pre">ini</span></code> 文件的格式。下面是官方文档 <a class="reference external" href="https://ffmpeg.org/ffmpeg-formats.html#Metadata-1">Metadata - FFmpeg</a> 页面给出的例子：</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1">;FFMETADATA1</span>
 <span class="na">title</span><span class="o">=</span><span class="s">bike\\shed</span>
@@ -736,11 +737,27 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 <p>其中的 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示将第二个（因为从0开始索引）输入文件，即第二个 <code class="docutils literal notranslate"><span class="pre">-i</span></code> 之后的参数值 <code class="docutils literal notranslate"><span class="pre">FFMETA.ini</span></code> 映射为元数据。</p>
 </section>
 <section id="id27">
-<h2>网络视频优化：快速播放<a class="headerlink" href="#id27" title="Link to this heading"></a></h2>
-<p>使用 <code class="docutils literal notranslate"><span class="pre">-movflags</span> <span class="pre">+faststart</span></code> 参数，可以在输出时让视频文件将一些数据前置，从而实现在网络视频未被全部下载时就能够开始播放。</p>
+<h2>元数据：清除元数据<a class="headerlink" href="#id27" title="Link to this heading"></a></h2>
+<p>通过向 <code class="docutils literal notranslate"><span class="pre">-map_metadata</span></code> 参数传递值 <code class="docutils literal notranslate"><span class="pre">-1</span></code> 可以清除元数据。我们常用 <code class="docutils literal notranslate"><span class="pre">:g</span></code> 后缀来指定清除全局元数据（这不包括其他数据流比如字幕流内部的元数据）。通常，我们想要清除的元数据都是全局元数据：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-map_metadata:g<span class="w"> </span>-1<span class="w"> </span>-c<span class="w"> </span>copy<span class="w"> </span>out.mp4
+</pre></div>
+</div>
+<p>如果要尽可能地清除所有元数据（包括编码信息在内），则可以使用比特流过滤器 <code class="docutils literal notranslate"><span class="pre">filter_units</span></code>；但是，该参数仅支持 H264、VP9、H265、AV1 等部分格式作为输出。下例选自 FFmpeg 文档，它将只保留 NAL 1-5 （也即 VCL）的元数据信息。其中， <code class="docutils literal notranslate"><span class="pre">pass_types</span></code> 指定了仅要保留的 NAL 单元信息；与此相反，也可以使用 <code class="docutils literal notranslate"><span class="pre">remove_types</span></code> 来指定要清除的 NAL 单元信息。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-map_metadata<span class="w"> </span>-1<span class="w"> </span>-bsf:v<span class="w"> </span><span class="s1">&#39;filter_units=pass_types=1-5&#39;</span><span class="w"> </span>-c<span class="w"> </span>copy<span class="w"> </span>out.mp4
+</pre></div>
+</div>
+<p>对于不受 <code class="docutils literal notranslate"><span class="pre">-bsf:v</span> <span class="pre">filter_units</span></code> 支持的输出格式，我们可以使用一种更老式的方法清除元数据。下例给出了将视频的音频转为 MP3 时，尽可能地清除所有元数据（包括编码信息）：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:a<span class="w"> </span>libmp3lame<span class="w"> </span>-map_metadata:g<span class="w"> </span>-1<span class="w"> </span>-fflags<span class="w"> </span>+bitexact<span class="w"> </span>-q:a<span class="w"> </span><span class="m">0</span><span class="w"> </span>audio.mp3
+</pre></div>
+</div>
+<p>有时候我们也会再额外添加 <code class="docutils literal notranslate"><span class="pre">-flags:v</span> <span class="pre">+bitexact</span></code> 与 <code class="docutils literal notranslate"><span class="pre">-flags:a</span> <span class="pre">+bitexact</span></code> 参数作为补充。</p>
 </section>
 <section id="id28">
-<h2>视频稳定/去抖动*<a class="headerlink" href="#id28" title="Link to this heading"></a></h2>
+<h2>网络视频优化：快速加载<a class="headerlink" href="#id28" title="Link to this heading"></a></h2>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">-movflags</span> <span class="pre">+faststart</span></code> 参数，可以在输出时让视频文件将一些数据前置，从而实现在网络视频未被全部下载时就能够开始播放。</p>
+</section>
+<section id="id29">
+<h2>视频稳定/去抖动*<a class="headerlink" href="#id29" title="Link to this heading"></a></h2>
 <p>FFmpeg 支持通过二次处理（2 Pass）的方式进行去抖动：先用 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#vidstabdetect">vidstabdetect</a> 过滤器检测并生成一个 <code class="docutils literal notranslate"><span class="pre">trf</span></code> 文件，再用 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#vidstabtransform">vidstabtransform</a> 根据该文件以及用户给出的去抖动参数，完成图像变换（并通常配合 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html#unsharp">unsharp</a> 过滤器进行适量锐化）。</p>
 <p>以下是一个向 clip.mp4 应用去抖动的例子：</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span> <span class="n">-i</span> <span class="n">clip</span><span class="p">.</span><span class="n">mp4</span> <span class="n">-vf</span> <span class="n">vidstabdetect</span> <span class="o">-f</span> <span class="n">null</span> <span class="n">NUL</span> <span class="p">&amp;&amp;</span> <span class="p">`</span>
@@ -757,8 +774,8 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 <li><p>上例中使用了 CRF=17 的高品质输出。在实际中，应按需设置视频质量参数。</p></li>
 </ul>
 </section>
-<section id="id29">
-<h2>更正色彩空间*<a class="headerlink" href="#id29" title="Link to this heading"></a></h2>
+<section id="id30">
+<h2>更正色彩空间*<a class="headerlink" href="#id30" title="Link to this heading"></a></h2>
 <p>以我们最常用的 BT.709 色彩空间为例，许多视频播放器必须检测到色彩空间的元数据信息为 BT.709 才能正常地播放，否则可能引起偏色等问题。如果一个视频在播放时发生了色彩异常（通常发生于在不同设备、屏幕上播放时），那么我们需要检查视频的色彩空间信息并进行修正。</p>
 <p>要检查一个视频的现有色彩空间信息，可以使用 FFmpeg 安装时附带的 <code class="docutils literal notranslate"><span class="pre">ffprobe</span></code> 工具：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffprobe<span class="w"> </span>-v<span class="w"> </span>quiet<span class="w"> </span>-show_streams<span class="w"> </span>-select_streams<span class="w"> </span>v:0<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">select</span>-string<span class="w"> </span><span class="s2">&quot;color&quot;</span>
@@ -778,11 +795,11 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </div>
 <p>关于更多色彩空间的参数信息，可以参考 FFmpeg 官方文档的 <a class="reference external" href="https://ffmpeg.org/ffmpeg-all.html#setparams-1">setparams</a> 这一节。</p>
 </section>
-<section id="id30">
-<h2>显卡硬件加速*<a class="headerlink" href="#id30" title="Link to this heading"></a></h2>
-<p>FFmpeg 支持显卡硬件加速；本节主要以 Nvidia 的显卡与 H.264 编码方式为例展示一些用法。</p>
 <section id="id31">
-<h3>硬件支持<a class="headerlink" href="#id31" title="Link to this heading"></a></h3>
+<h2>显卡硬件加速*<a class="headerlink" href="#id31" title="Link to this heading"></a></h2>
+<p>FFmpeg 支持显卡硬件加速；本节主要以 Nvidia 的显卡与 H.264 编码方式为例展示一些用法。</p>
+<section id="id32">
+<h3>硬件支持<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
 <p>关于用户当前的显卡支持哪些编码格式的硬件加速，可以参考 Nvidia 给出的一张表格： <a class="reference external" href="https://developer.nvidia.com/video-encode-decode-gpu-support-matrix">Video Encode and Decode GPU Support Matrix</a>。简要来说，大概是：</p>
 <ul class="simple">
 <li><p>大多 Maxwell 一代显卡（GTX 745/850/850M/960M 及同代更高型号）支持完整的 H.264 编码硬件加速</p></li>
@@ -791,8 +808,8 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 <li><p>较新的显卡对于其他主流的编码格式，如 VP9 等，也有硬件加速支持</p></li>
 </ul>
 </section>
-<section id="id32">
-<h3>FFmpeg 支持<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
+<section id="id33">
+<h3>FFmpeg 支持<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>由于 FFmpeg 存在众多的编译版本，用户正使用的不一定包含了硬件加速功能。但官方提供的预编译版本均涵盖了该功能，本文也不再对如何在编译时引入硬件加速支持进行介绍。</p>
@@ -812,8 +829,8 @@ DEV.L.<span class="w"> </span>hevc<span class="w">                 </span>H.265<
 <li><p>关于该编码器的详细帮助，可以参考 <code class="docutils literal notranslate"><span class="pre">ffmpeg</span> <span class="pre">-h</span> <span class="pre">encoder=h264_nvenc</span></code> 命令给出的参数列表。</p></li>
 </ul>
 </section>
-<section id="id33">
-<h3>硬件加速命令<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
+<section id="id34">
+<h3>硬件加速命令<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
 <p>硬件加速有混合模式（CPU 与 GPU 共同工作）与独占模式（完全 GPU 工作）两种。</p>
 <p>混合模式直接指定编码器为支持硬件加速的编码器即可，比如 <code class="docutils literal notranslate"><span class="pre">h264_nvenc</span></code>：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># CPU+GPU 混合模式</span>
@@ -827,8 +844,8 @@ ffmpeg<span class="w"> </span>-hwaccel<span class="w"> </span>cuda<span class="w
 </div>
 <p>上述命令会自动以 2000 kbps（即 2Mbps）左右的总文件比特率（视频、音频多轨综合，因此单独看视频码率可能会略高于 2M ）来压缩视频。</p>
 </section>
-<section id="id34">
-<h3>硬件加速下的质量控制<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
+<section id="id35">
+<h3>硬件加速下的质量控制<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
 <p>由于 <code class="docutils literal notranslate"><span class="pre">h264_nvenc</span></code> 编码器不支持 CRF 参数，我个人的习惯是通过 <code class="docutils literal notranslate"><span class="pre">-rc</span></code> 参数来设置 <code class="docutils literal notranslate"><span class="pre">vbr_hq</span></code> 可变码率模式，并手动指定 <code class="docutils literal notranslate"><span class="pre">-b:v</span></code> 视频码率的数值。例如下述命令使用可变码率模式，并将视频设置在 2Mbps 附近：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-hwaccel<span class="w"> </span>cuda<span class="w"> </span>-hwaccel_output_format<span class="w"> </span>cuda<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>h264_nvenc<span class="w"> </span>-rc<span class="w"> </span>vbr_hq<span class="w"> </span>-b:v<span class="w"> </span>2M<span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>out.mp4
 </pre></div>

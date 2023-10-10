@@ -426,7 +426,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
 .. code:: shell
    
-   ls eg-*.mp4 | % Name | foreach {"file '" + $_ + "'"} > mylist.txt
+   ls eg-*.mp4 | % Name | foreach { "file '${_}'" } > mylist.txt
    ffmpeg -f concat -i mylist.txt -c copy output.mp4
 
 .. note::
@@ -636,10 +636,10 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
    Youtube 的音频码率推荐则为单声道 128 Kbps、环绕声 384 Kbps 以及 5.1 声道 512 Kbps. 
 
 
-添加章节信息
---------------------
+元数据：添加章节信息
+-----------------------
 
-FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用的大概是章节（chapter）跳转的元数据，它得到了许多主流播放器的支持（例如 MPV）。
+FFmpeg 支持在混流时向视频文件中写入元数据（metadata）；这其中最实用的大概是章节（chapter）跳转的元数据，它得到了许多主流播放器的支持（例如 MPV）。
 
 元数据需要存放在一个外部文件中，并遵循类似 ``ini`` 文件的格式。下面是官方文档 `Metadata - FFmpeg <https://ffmpeg.org/ffmpeg-formats.html#Metadata-1>`_ 页面给出的例子：
 
@@ -687,7 +687,31 @@ FFmpeg 支持在混流时向视频文件中写入元数据；这其中最实用�
 其中的 ``1`` 表示将第二个（因为从0开始索引）输入文件，即第二个 ``-i`` 之后的参数值 ``FFMETA.ini`` 映射为元数据。
 
 
-网络视频优化：快速播放
+元数据：清除元数据
+----------------------
+
+通过向 ``-map_metadata`` 参数传递值 ``-1`` 可以清除元数据。我们常用 ``:g`` 后缀来指定清除全局元数据（这不包括其他数据流比如字幕流内部的元数据）。通常，我们想要清除的元数据都是全局元数据：
+
+.. code-block:: shell
+
+   ffmpeg -i video.mp4 -map_metadata:g -1 -c copy out.mp4
+
+如果要尽可能地清除所有元数据（包括编码信息在内），则可以使用比特流过滤器 ``filter_units``\ ；但是，该参数仅支持 H264、VP9、H265、AV1 等部分格式作为输出。下例选自 FFmpeg 文档，它将只保留 NAL 1-5 （也即 VCL）的元数据信息。其中， ``pass_types`` 指定了仅要保留的 NAL 单元信息；与此相反，也可以使用 ``remove_types`` 来指定要清除的 NAL 单元信息。
+
+.. code-block:: shell
+
+   ffmpeg -i video.mp4 -map_metadata -1 -bsf:v 'filter_units=pass_types=1-5' -c copy out.mp4
+
+对于不受 ``-bsf:v filter_units`` 支持的输出格式，我们可以使用一种更老式的方法清除元数据。下例给出了将视频的音频转为 MP3 时，尽可能地清除所有元数据（包括编码信息）：
+
+.. code-block:: shell
+
+   ffmpeg -i video.mp4 -c:a libmp3lame -map_metadata:g -1 -fflags +bitexact -q:a 0 audio.mp3
+
+有时候我们也会再额外添加 ``-flags:v +bitexact`` 与 ``-flags:a +bitexact`` 参数作为补充。
+
+
+网络视频优化：快速加载
 -----------------------
 
 使用 ``-movflags +faststart`` 参数，可以在输出时让视频文件将一些数据前置，从而实现在网络视频未被全部下载时就能够开始播放。
