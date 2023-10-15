@@ -75,6 +75,7 @@
 <li class="toctree-l1"><a class="reference internal" href="FFmpeg.html">FFmpeg 实用命令</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">常用编码器与参数</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#libx264-h-264">libx264（H.264 视频）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libx265-h-265-hevc">libx265（H.265/HEVC 视频）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#libmp3lame-mp3">libmp3lame（MP3 音频）</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#vbr">可变比特率（VBR）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cbr">固定比特率（CBR）</a></li>
@@ -128,8 +129,16 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"
 <ul>
 <li><p>恒定率系数（CRF）：crf 越小，画面质量越好，但文件体积越大。</p>
 <ul class="simple">
-<li><p>系数 <code class="docutils literal notranslate"><span class="pre">-crf</span></code>：对于常见的 8 bit 视频， <code class="docutils literal notranslate"><span class="pre">-crf</span></code> 参数可以从 0（无损）到 51（最差压缩）取值，而默认值是 23。一般地，我们只选择 17~28 之间的数值：从视觉观感上，17 已经很接近无压缩的结果，更小的 crf 值徒增文件体积罢了。对于 10 bit 视频， <code class="docutils literal notranslate"><span class="pre">-crf</span></code> 参数的取值是 0~63。</p></li>
-<li><p>预案 <code class="docutils literal notranslate"><span class="pre">-preset</span></code>：指导视频压制的质量。越慢的预案，压缩越好，即输出同等质量的视频所需的文件体积越小。预案从快到慢包括：ultrafast, superfast, veryfast, faster, fast, medium（默认）, slow, slower, veryslow。</p></li>
+<li><p>系数 <code class="docutils literal notranslate"><span class="pre">-crf</span></code>：对于常见的 8 bit H.264 视频， <code class="docutils literal notranslate"><span class="pre">-crf</span></code> 参数可以从 0（无损）到 51（最差压缩）取值，而默认值是 23。一般地，我们只选择 17~28 之间的数值：从视觉观感上，17 已经很接近无压缩的结果，更小的 crf 值徒增文件体积罢了。</p>
+<ul>
+<li><p>对于 10 bit H.264 视频， <code class="docutils literal notranslate"><span class="pre">-crf</span></code> 参数的取值是 0~63。</p></li>
+</ul>
+</li>
+<li><p>预案 <code class="docutils literal notranslate"><span class="pre">-preset</span></code>：指导视频压制的质量。越慢的预案，压缩越好，即输出同等质量的视频所需的文件体积越小。预案从快到慢包括：ultrafast, superfast, veryfast, faster, fast, medium（默认）, slow, slower, veryslow。</p>
+<ul>
+<li><p>从输出质量上讲，只建议使用 medium 或更慢的预案，一般以使用 medium 或 slow 最为常见。例外的情形是指定了无损（CRF=0）的情形，此时可以选用 ultrafast。</p></li>
+</ul>
+</li>
 <li><p>风格 <code class="docutils literal notranslate"><span class="pre">-tune</span></code>：告知输入视频的风格。风格包括：</p>
 <ul>
 <li><p>animation：动画。提升去块（deblocking）强度与参考帧数量。</p></li>
@@ -148,6 +157,37 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"
 </li>
 <li><p>定限码率压制：适用于强制要求码率的场合，比如直播。请参考 <a class="reference internal" href="FFmpeg.html#bitrate-constrained"><span class="std std-ref">定限码率压制</span></a> 一节的内容。</p></li>
 <li><p>二压（2Pass）：适用于强制要求文件大小的场合。请参考 <a class="reference internal" href="FFmpeg.html#pass"><span class="std std-ref">二压（2Pass）</span></a> 一节的内容。</p></li>
+</ul>
+</section>
+<section id="libx265-h-265-hevc">
+<h2>libx265（H.265/HEVC 视频）<a class="headerlink" href="#libx265-h-265-hevc" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://trac.ffmpeg.org/wiki/Encode/H.265">H.265</a> 的许多参数与 H.264 相同（但取值含义可能不同），只是使用 libx265 编码器代替 libx264。</p>
+<ul>
+<li><p>恒定率系数（CRF）：crf 越小，画面质量越好，但文件体积越大。</p>
+<ul>
+<li><p>不同于 H.264 的默认 CRF 取值 23，H.265 的默认 CRF 取值是 28；它们两者对应的视觉画面质量相同。</p></li>
+<li><p>不同于 H.264 视觉上的无损 CRF 值 17，H.265 中该值（从经验上）大约在 20~22。</p></li>
+<li><p>不同于 H.264 的 CRF 取值范围（8bit 0~51; 10bit 0~63），H.265 的取值范围始终为 0（无损）到 51（最差压缩）。</p>
+<div class="important admonition">
+<p class="admonition-title">libx264 与 libx265 的 CRF 取值无法对应</p>
+<p>libx264 与 libx265 的 CRF 取值没有一一对应的公式。除了上文所述的无损参数均为 CRF=0、libx264 CRF=23 对应 libx265 CRF=28，其余 CRF 值并不存在对应关系。</p>
+</div>
+</li>
+<li><p>预案 <code class="docutils literal notranslate"><span class="pre">-preset</span></code>：指导视频压制的质量。其取值与 libx264 相同，默认为 medium。</p>
+<ul class="simple">
+<li><p>与 libx264 类似，我们建议使用 medium/slow 或更慢的预案。例外的情形是指定了无损（CRF=0）的情形，此时可以选用 ultrafast。</p></li>
+</ul>
+</li>
+<li><p>风格 <code class="docutils literal notranslate"><span class="pre">-tune</span></code>：告知输入视频的风格。libx265 支持的风格不如 libx264 多，只包括：</p>
+<ul class="simple">
+<li><p>fastdecode：快速解码。禁用滤镜来加快解码。</p></li>
+<li><p>zerolatency：零延迟。适用于快速编码，或者低延迟流媒体内容。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>定限码率压制：用法与 libx264 类似，适用于强制要求码率的场合，比如直播。请参考 <a class="reference internal" href="FFmpeg.html#bitrate-constrained"><span class="std std-ref">定限码率压制</span></a> 一节的内容。</p></li>
+<li><p>二压（2Pass）：用法与 libx264 类似，适用于强制要求文件大小的场合。但请注意，编码器 libx265 需要额外在两步中指定 <code class="docutils literal notranslate"><span class="pre">-x265-params</span></code> 参数。具体的用法，请参考 <a class="reference internal" href="FFmpeg.html#pass"><span class="std std-ref">二压（2Pass）</span></a> 一节的内容。</p></li>
 </ul>
 </section>
 <section id="libmp3lame-mp3">
