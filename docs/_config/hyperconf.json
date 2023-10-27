@@ -2,8 +2,8 @@
     "author": "wklchris",
     "copyright": "wklchris",
     "extensions": [
-        "nbsphinx",
         "sphinx_copybutton",
+        "sphinx.ext.extlinks",
         "sphinx.ext.mathjax"
     ],
     "language": "zh_CN",
