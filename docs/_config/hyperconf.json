@@ -25,5 +25,6 @@
     ],
     "templates_path": [
         "../_templates"
-    ]
+    ],
+    "rst_prolog": ".. role:: box\n.. role:: strike\n.. role:: uline\n.. role:: underover\n.. role:: xsmall\n.. role:: hlred\n.. role:: hlyellow\n.. role:: hlgreen\n.. role:: hlblue"
 }

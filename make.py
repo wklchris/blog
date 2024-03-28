@@ -37,8 +37,13 @@ def load_json(fpath):
         data = json.load(f)
     return data
 
-def sort_dict(dictdata):
-    return {k: dictdata[k] for k in sorted(dictdata.keys())}
+def sort_dict(dictdata, keep_last=["rst_prolog"]):
+    # Sort dict by keys, except keeping a list of keys in the last
+    d = {k: dictdata[k] for k in sorted(dictdata.keys()) if k not in keep_last}
+    for k in keep_last:
+        if k in dictdata.keys():
+            d |= {k: dictdata[k]}
+    return d
 
 def create_new_doc(docname, doctitle=None):
     """
@@ -73,7 +78,13 @@ def init_conf_py(docname, doctitle):
     def write_dict_value(dict_val):
         ## Dict value is either string or int/list
         if isinstance(dict_val, str):
-            write_str = '"{}"'.format(dict_val.strip('"'))
+            s = dict_val.strip('"').strip()
+            lwrap, rwrap = ('"', '"')
+            # Use triple-quote format if the string has newline
+            if '\n' in dict_val:
+                lwrap = '"""\n'
+                rwrap = '\n"""'
+            write_str = f'{lwrap}{s}{rwrap}'
         else:
             write_str = dict_val
         return write_str
