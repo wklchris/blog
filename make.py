@@ -78,7 +78,7 @@ def init_conf_py(docname, doctitle):
     def write_dict_value(dict_val):
         ## Dict value is either string or int/list
         if isinstance(dict_val, str):
-            s = dict_val.strip('"').strip()
+            s = dict_val.strip()
             lwrap, rwrap = ('"', '"')
             # Use triple-quote format if the string has newline
             if '\n' in dict_val:

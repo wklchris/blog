@@ -26,12 +26,12 @@ span.strike { text-decoration: line-through; }
 span.uline { text-decoration: underline; }
 span.underover { text-decoration: dashed underline overline; }
 
-span.xsmall { font-size: x-small; }
+.xsmall { font-size: x-small; }
 
 /**
 Inline highlighting mimicking admonitions (not exact same color).
 **/
-span.hlred { background-color: lightpink; padding: var(--hl-padding); }
-span.hlyellow { background-color: lightyellow; padding: var(--hl-padding); }
-span.hlgreen { background-color: lightgreen; padding: var(--hl-padding); }
-span.hlblue { background-color: lightblue; padding: var(--hl-padding); }
+.hlred { background-color: lightpink; padding: var(--hl-padding); }
+.hlyellow { background-color: lightyellow; padding: var(--hl-padding); }
+.hlgreen { background-color: lightgreen; padding: var(--hl-padding); }
+.hlblue { background-color: lightblue; padding: var(--hl-padding); }
