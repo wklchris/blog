@@ -12,3 +12,21 @@ smartquotes = False
 templates_path = ['../_templates']
 today_fmt = "%Y-%m-%d"
 year = 2024
+
+rst_prolog = """
+.. role:: strike
+.. role:: uline
+.. role:: underover
+.. role:: box
+.. role:: xsmall
+.. role:: hlred
+.. role:: hlyellow
+.. role:: hlgreen
+.. role:: hlblue
+
+.. role:: cpp
+   :class: cpp hlblue xsmall
+   
+.. |cpp11| replace::
+   :cpp:`C++ 11`
+"""

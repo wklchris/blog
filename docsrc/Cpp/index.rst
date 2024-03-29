@@ -4,7 +4,7 @@
    :series: C/C++
    :series_num: 1
    :date_init: 2020-06-06
-   :date_modified: 2024-03-16
+   :date_modified: 2024-03-29
    :abstract: 本文是学习现代 C++ 时的笔记，基于 C++ 11 （或更新）的规范版本。
 
 C++ 笔记
@@ -19,11 +19,14 @@ C++ 是一门高效、强大、贴近底层的编译型高级语言，能够承�
 .. toctree::
    :maxdepth: 2
    :caption: 目录
-
+   
+   QuickRef.rst
    Intro.rst
+   DataTypes.rst
+   Control.rst
 
 参考文献：
 
-* C++ Primer (5 edition)
+* C++ Primer (5th edition)
 
 本文档最后构建于 |today|。
