@@ -5,5 +5,7 @@ docs/**/*.ipynb
 docsrc/_homepage/tableofblogs.html
 docsrc/**/_build
 
+test*
+
 # C++
 **.exe
