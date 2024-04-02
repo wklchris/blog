@@ -2,20 +2,52 @@
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://wklchris.github.io/blog/Cpp/Control.html</loc>
+    <lastmod>2024-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Cpp/DataTypes.html</loc>
+    <lastmod>2024-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Cpp/index.html</loc>
+    <lastmod>2024-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Cpp/Intro.html</loc>
+    <lastmod>2024-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Cpp/PointerAndRef.html</loc>
+    <lastmod>2024-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Cpp/QuickRef.html</loc>
+    <lastmod>2024-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Cpp/TypeConversion.html</loc>
+    <lastmod>2024-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Cpp/Variables.html</loc>
+    <lastmod>2024-04-02</lastmod>
+  </url>
+  <url>
     <loc>https://wklchris.github.io/blog/FFmpeg/Codecs.html</loc>
-    <lastmod>2023-10-15</lastmod>
+    <lastmod>2024-03-30</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/FFmpeg/FFmpeg.html</loc>
-    <lastmod>2023-10-15</lastmod>
+    <lastmod>2024-03-30</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/FFmpeg/index.html</loc>
-    <lastmod>2023-10-15</lastmod>
+    <lastmod>2024-03-30</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/FFmpeg/Intro.html</loc>
-    <lastmod>2023-10-15</lastmod>
+    <lastmod>2024-03-30</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Branch.html</loc>
@@ -183,6 +215,6 @@
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/</loc>
-    <lastmod>2023-10-15</lastmod>
+    <lastmod>2024-04-02</lastmod>
   </url>
 </urlset>
