@@ -29,4 +29,18 @@ rst_prolog = """
    
 .. |cpp11| replace::
    :cpp:`C++ 11`
+
+.. |cpp14| replace::
+   :cpp:`C++ 14`
+
+.. |cpp17| replace::
+   :cpp:`C++ 17`
+
+.. |cpp20| replace::
+   :cpp:`C++ 20`
+
+.. admonition:: 施工提示
+   :class: caution   
+
+   本博文尚在施工中，内容并未完成且可能变更。
 """
