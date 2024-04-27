@@ -141,10 +141,86 @@ auto |cpp11| 类型允许编译器推断类型，其在定义时必须初始化�
 字符串
 -------------
 
+在 C++ 中，有三种字符串相关的类型：
+
+* 字符串字面值，如 ``"Hello"``
+* C 风格字符串（常量字符指针），形如 ``const char *cp = ...``
+* 标准库字符串，如 ``std::string s;`` 
+
+.. _C-style-string:
+
+C 风格字符串
+^^^^^^^^^^^^^^^
+
 .. _std-string:
 
 std::string
 ^^^^^^^^^^^^^^^^^^^^^^^
+
+C++ 标准库 ``string`` 定义了 ``std::string`` 类型。我们更多地使用该类型，而不是 C 风格的字符串类型。
+
+初始化
+################
+
+``std::string`` 可以用下例中的方法初始化，尤其注意：
+
+* ``s(n, c)`` 重复字符 c 数字 n 次
+* ``s(ss, i)`` 复制字符串 ss 下标 i 及之后的内容
+* ``s(ss, i, n)`` 复制字符串 ss 从下标 i 开始的 n 个字符内容
+
+下面是一些字符串初始化的例子：
+
+.. code-block:: c++
+
+    #include <string>
+    using std::string;
+
+    string s1;
+    string s2 = "foo bar";  // 不包括最后的空字符
+
+    // 以下都初始化为 "aaa"
+    string s3(3, 'a');
+    string s4 = string(3, 'a');
+    string s5 = s3;
+
+常用操作
+#############
+
+如果有 ``std::string`` 类型的变量 ``s``\ ，那么它支持的常用操作有：
+
+* 拼接：\ ``s + ss`` 将 s 与另一个字符串 ss 拼接
+* 长度：\ ``s.size()`` 返回字串长度，其返回类型为无符号类型 ``std::string::size_type``\ ；我们用 ``size_t`` 来作为迭代数组时的下标变量类型，这通常对于字符串也适用。
+* 判断是否为空：\ ``s.empty()``
+* 子字符串：\ ``s.substr(i, n)`` 返回一个从下标 i 开始长为 n 的子字串
+* 取字符：用 ``s[i]`` 返回对下标 i 字符的引用。
+  
+  * 注意 i 必须小于字符长，即 :math:`0\leq i < s.size()`
+  * 由于是引用，允许通过 ``s[i]`` 对原字符串 s 进行更改。
+
+  下面是一个按下标 i 逐个更改字符串中字符的例子（其中 cctype 的字符操作参考 :ref:`cctype`\ ）：
+  
+  .. literalinclude:: codes/string_upper_lower.cpp
+      :linenos:
+      :language: c++
+      :emphasize-lines: 8-10
+
+* 打印与读入
+
+  * 打印到 ostream 对象 os：\ ``os << s``
+  * 从 istream 对象 is 读入：\ ``is >> s``\ ，注意读入时会跳过开头的空白符
+  * 从 is 中读取一行到 s：\ ``getline(is, s)``\ ，它会在读到换行符时停止，向 s 中存储不含换行符的该行内容，然后返回 is\ 。下例将逐行读入的字符按原样（因为添加回了换行符）输出：
+    
+    .. code-block:: c++
+
+        string line;
+        while (getline(cin, line)) {
+            cout << line << '\n';
+        }
+
+容器操作
+###############
+
+
 
 .. _std-vector:
 
