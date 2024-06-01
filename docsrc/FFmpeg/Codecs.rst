@@ -70,6 +70,7 @@ libx265（H.265/HEVC 视频）
   * 预案 ``-preset``\ ：指导视频压制的质量。其取值与 libx264 相同，默认为 medium。
     
     * 与 libx264 类似，我们建议使用 medium/slow 或更慢的预案。例外的情形是指定了无损（CRF=0）的情形，此时可以选用 ultrafast。
+    * 较慢的预案在同等的 CRF 值上有更好的表现。建议在选用更快速的预案时，适当降低 CRF 值以保持相近的质量。
 
   * 风格 ``-tune``\ ：告知输入视频的风格。libx265 支持的风格不如 libx264 多，只包括：
     
@@ -78,6 +79,20 @@ libx265（H.265/HEVC 视频）
 
 * 定限码率压制：用法与 libx264 类似，适用于强制要求码率的场合，比如直播。请参考 :ref:`bitrate_constrained` 一节的内容。
 * 二压（2Pass）：用法与 libx264 类似，适用于强制要求文件大小的场合。但请注意，编码器 libx265 需要额外在两步中指定 ``-x265-params`` 参数。具体的用法，请参考 :ref:`2pass` 一节的内容。 
+
+-----
+
+如果要以 10 bit 色深编码 H.265 视频，使用 ``-x265-params`` 下的 ``profile`` 参数。例如：
+
+.. code:: shell
+   
+   ffmpeg -i video.mp4 -c:v libx265 -crf 21 -preset faster -tune fastdecode -x265-params profile=main10 -c:a aac -b:a 192k out.mp4
+
+* 如果输入视频是 8 bit 的，那么需要使用 ``-pix_fmt`` 参数将其转为 10 bit：
+  
+  .. code::shell
+     
+     ... -i video.mp4 -pix_fmt yuv420p10le -c:v libx265 ...
 
 
 libmp3lame（MP3 音频）
@@ -166,3 +181,16 @@ FFmpeg 比特率参数与实际比特率范围（kbps）有如下对应关系：
    
    ffmpeg -i input.wav -c:a libmp3lame -abr 1 -b:a 192k output.mp3
 
+
+aac（AAC 音频）
+--------------------------
+
+:encode:`AAC` 是另一种常见的有损音频编码。AAC 普遍在 MP4 视频容器中被使用，它也常用作独立的音频 m4a 文件。
+
+FFmpeg 原生支持 ``aac`` 编码器，声称是仅次于 ``libfdk_aac`` 的 AAC 编码器。官方提供的编译版本不使用 ``libfdk_aac`` 编码器，用户使用则需要重新编译 FFmpeg 。
+
+建议在原生的 FFmpeg aac 编码器上使用固定比特率（CBR）参数 ``-b:a``\ ：
+
+.. code-block:: shell
+   
+   ffmpeg -i input.wav -c:a aac -b:a 192k output.m4a
