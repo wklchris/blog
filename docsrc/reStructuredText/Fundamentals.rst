@@ -562,6 +562,12 @@ reStructuredText 交叉引用上的功能远强于 Markdown，这也是我选择
 
     For details, see :ref:`custom-section-label` section.
 
+在需要手动指定引用文本的时候，我们可以使用类似超链接的语法：
+
+.. code-block:: reST
+
+    For details, see :ref:`Custom <custom-section-label>` section.
+
 以上 ``:ref:`` 引用语法也适用于：
 
 - ``figure`` 图片的内部 ``:name:`` 字段。引用时将显示该图片的标题，见下例。
