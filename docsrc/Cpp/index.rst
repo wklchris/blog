@@ -4,7 +4,7 @@
    :series: C/C++
    :series_num: 1
    :date_init: 2020-06-06
-   :date_modified: 2024-04-27
+   :date_modified: 2024-06-01
    :abstract: 本文是学习现代 C++ 时的笔记，基于 C++ 11 （或更新）的规范版本。
 
 C++ 笔记
