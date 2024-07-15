@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据类型进阶 &mdash; Cpp  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://self-contained.github.io/Cpp/DataTypesAdvance.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7d86a446"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="类型转换与溢出*" href="TypeConversion.html" />
+    <link rel="prev" title="常用数据类型" href="DataTypes.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Cpp
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="QuickRef.html">速查：C++ 语法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">C++ 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Variables.html">变量基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataTypes.html">常用数据类型</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">数据类型进阶</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#const">常量：const</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#constexpr">常量表达式：constexpr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decltype-auto">类型别名、decltype 与 auto</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#typedef">typedef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decltype">decltype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto">auto 类型</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#string">字符串</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#c">C 风格字符串</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#std-string">std::string</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">常用操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">容器操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#std-vector">向量（std::vector）</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TypeConversion.html">类型转换与溢出*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PointerAndRef.html">引用与指针</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Control.html">控制流语句</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Cpp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">数据类型进阶</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/DataTypesAdvance.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="caution admonition">
+<p class="admonition-title">施工提示</p>
+<p>本博文尚在施工中，内容并未完成且可能变更。</p>
+</div>
+<section id="id1">
+<h1>数据类型进阶<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>本节继续 <a class="reference internal" href="DataTypes.html"><span class="doc">常用数据类型</span></a> 一节的内容，介绍：</p>
+<ul class="simple">
+<li><p>const 常量限定符</p></li>
+<li><p>类型别名：typedef 等用法</p></li>
+<li><p>类型操作：auto 与 decltype</p></li>
+</ul>
+<p>以及：</p>
+<ul class="simple">
+<li><p>标准库支持的变量类型：例如字符串（<code class="docutils literal notranslate"><span class="pre">std::string</span></code>）。</p></li>
+<li><p>标准库支持的模板类型：例如向量（<code class="docutils literal notranslate"><span class="pre">std::vector</span></code>）。</p></li>
+</ul>
+<p>关于指针与引用，请参考 <a class="reference internal" href="PointerAndRef.html"><span class="doc">引用与指针</span></a> 一节的内容。</p>
+<section id="const">
+<span id="id2"></span><h2>常量：const<a class="headerlink" href="#const" title="Link to this heading"></a></h2>
+<p>关于引用与常量、指针与常量，分别参考 <a class="reference internal" href="PointerAndRef.html#const-reference"><span class="std std-ref">常量引用</span></a> 与 <a class="reference internal" href="PointerAndRef.html#pointer-and-const"><span class="std std-ref">指针与 const</span></a> 章节。</p>
+<p>当我们想定义一个不能被改变的值时，使用 const 限定符在变量定义时进行修饰。</p>
+<ul class="simple">
+<li><p>常量在定义时 <strong>必须显式初始化</strong>。</p></li>
+<li><p>常量一经创建，就不能再改变其值。</p></li>
+<li><p>常量可以用同基础类型的变量初始化；反之，变量也可以用同类型的常量初始化或赋值。</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">e_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.71828</span><span class="p">;</span>
+
+<span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">pi_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14159265</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi_value</span><span class="p">;</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">capacity</span><span class="p">;</span><span class="w">     </span><span class="c1">// 错误：未初始化</span>
+<span class="n">e_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.718</span><span class="p">;</span><span class="w">         </span><span class="c1">// 错误：不能更改常量的值</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">常量一般只在当前文件有效</p>
+<p>值得注意的是，const 常量只在当前文件内有效。要在多个文件之间共享某个常量，需要在定义与声明中均使用 <code class="docutils literal notranslate"><span class="pre">extern</span></code> 修饰：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在 lib.h 头文件中声明常量，令包含该头文件的文件共享该常量</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxflow</span><span class="p">;</span>
+<span class="c1">// 在 lib.cpp 文件中定义常量</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxflow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1800</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="constexpr">
+<span id="id3"></span><h2>常量表达式：constexpr<a class="headerlink" href="#constexpr" title="Link to this heading"></a></h2>
+<p>常量表达式 constexpr <span class="cpp hlblue xsmall">C++ 11</span> 是指值不变且在编译时就能得到结果的表达式，或者用这种表达式初始化的常量对象。</p>
+<ul class="simple">
+<li><p>常量表达式类型必须是字面值类型，比如浮点数、任意整型。指针也属于字面值类型，但是定义为常量表达式时，初始值必须为 nullptr 或 0，或者固定地址对象的地址。</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">half_pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14159</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="decltype-auto">
+<span id="type-alias"></span><h2>类型别名、decltype 与 auto<a class="headerlink" href="#decltype-auto" title="Link to this heading"></a></h2>
+<section id="typedef">
+<h3>typedef<a class="headerlink" href="#typedef" title="Link to this heading"></a></h3>
+<p>使用类型别名可以简化输入、让人迅速理解使用类型的目的。C++ 使用 <code class="docutils literal notranslate"><span class="pre">typedef</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">=</span></code> 定义类型别名：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ages</span><span class="p">;</span><span class="w">       </span><span class="c1">// 将 ages 定义为 int 的别名</span>
+<span class="n">ages</span><span class="w"> </span><span class="n">person_age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">21</span><span class="p">;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">grades</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">double</span><span class="p">;</span><span class="w">  </span><span class="c1">// 将 grades 定义为 double 的别名</span>
+<span class="n">grades</span><span class="w"> </span><span class="n">midterm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w"> </span><span class="n">final_exam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>需要特别注意对于复杂类型（例如指针）的类型别名使用。请注意下例中 <code class="docutils literal notranslate"><span class="pre">p1</span></code> 与 <code class="docutils literal notranslate"><span class="pre">p2</span></code> 的不同。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">intp</span><span class="p">;</span><span class="w">      </span><span class="c1">// 定义了 intp 类型，即指向 int 的指针</span>
+<span class="k">const</span><span class="w"> </span><span class="n">intp</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">      </span><span class="c1">// 指向 int 的常量指针</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">      </span><span class="c1">// 指向 const int 的指针</span>
+</pre></div>
+</div>
+<p>在上例中，p1 定义中的 const 修饰 intp 类型，表示 p1 是一个 intp 类型的常量，即指向 int 的常量指针。p2 定义中的 const 则只修饰 int，而 *p2 作为标识符。这表示 p2 是一个指针，这个指针指向 const int 类型。</p>
+</section>
+<section id="decltype">
+<h3>decltype<a class="headerlink" href="#decltype" title="Link to this heading"></a></h3>
+<p>decltype 推断类型（而不计算结果），并用推断类型定义对象：</p>
+<ul class="simple">
+<li><p>在对变量进行类型推断时，decltype 保留：（1）引用，以及；（2）顶层常量属性。</p></li>
+<li><p>在对表达式（非变量）进行类型推断时，decltype 返回表达式结果的类型</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+<span class="k">decltype</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">     </span><span class="c1">// 推断为 const int</span>
+<span class="k">decltype</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w">     </span><span class="c1">// 推断为 const int&amp; 引用</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">37</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="p">;</span>
+<span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">    </span><span class="c1">// 解引用后，推断为 int&amp; 引用</span>
+</pre></div>
+</div>
+</section>
+<section id="auto">
+<h3>auto 类型<a class="headerlink" href="#auto" title="Link to this heading"></a></h3>
+<p>auto <span class="cpp hlblue xsmall">C++ 11</span> 类型允许编译器推断类型，其在定义时必须初始化：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.23</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">  </span><span class="c1">// y 推断为 double 类型</span>
+</pre></div>
+</div>
+<ul>
+<li><p>将引用用于 auto 对象的初始化，auto 将被推断为被引对象的类型，而不是引用类型。</p></li>
+<li><p>auto 一般忽略顶层常量；如果需要顶层常量，显式地使用 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto</span></code>：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span><span class="w">           </span><span class="c1">// a 推断为 double 类型</span>
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span><span class="w">     </span><span class="c1">// b 推断为 const double 类型</span>
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span><span class="w">    </span><span class="c1">// 推断引用 r 为常量引用</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="string">
+<span id="id4"></span><h2>字符串<a class="headerlink" href="#string" title="Link to this heading"></a></h2>
+<p>在 C++ 中，有三种字符串相关的类型：</p>
+<ul class="simple">
+<li><p>字符串字面值，如 <code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code></p></li>
+<li><p>C 风格字符串（常量字符指针），形如 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*cp</span> <span class="pre">=</span> <span class="pre">...</span></code></p></li>
+<li><p>标准库字符串，如 <code class="docutils literal notranslate"><span class="pre">std::string</span> <span class="pre">s;</span></code></p></li>
+</ul>
+<section id="c">
+<span id="c-style-string"></span><h3>C 风格字符串<a class="headerlink" href="#c" title="Link to this heading"></a></h3>
+</section>
+<section id="std-string">
+<span id="id5"></span><h3>std::string<a class="headerlink" href="#std-string" title="Link to this heading"></a></h3>
+<p>C++ 标准库 <code class="docutils literal notranslate"><span class="pre">string</span></code> 定义了 <code class="docutils literal notranslate"><span class="pre">std::string</span></code> 类型。我们更多地使用该类型，而不是 C 风格的字符串类型。</p>
+<section id="id6">
+<h4>初始化<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">std::string</span></code> 可以用下例中的方法初始化，尤其注意：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">s(n,</span> <span class="pre">c)</span></code> 重复字符 c 数字 n 次</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">s(ss,</span> <span class="pre">i)</span></code> 复制字符串 ss 下标 i 及之后的内容</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">s(ss,</span> <span class="pre">i,</span> <span class="pre">n)</span></code> 复制字符串 ss 从下标 i 开始的 n 个字符内容</p></li>
+</ul>
+<p>下面是一些字符串初始化的例子：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
+
+<span class="n">string</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span>
+<span class="n">string</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;foo bar&quot;</span><span class="p">;</span><span class="w">  </span><span class="c1">// 不包括最后的空字符</span>
+
+<span class="c1">// 以下都初始化为 &quot;aaa&quot;</span>
+<span class="n">string</span><span class="w"> </span><span class="n">s3</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">);</span>
+<span class="n">string</span><span class="w"> </span><span class="n">s4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">string</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">);</span>
+<span class="n">string</span><span class="w"> </span><span class="n">s5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s3</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h4>常用操作<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<p>如果有 <code class="docutils literal notranslate"><span class="pre">std::string</span></code> 类型的变量 <code class="docutils literal notranslate"><span class="pre">s</span></code>，那么它支持的常用操作有：</p>
+<ul>
+<li><p>拼接：<code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">+</span> <span class="pre">ss</span></code> 将 s 与另一个字符串 ss 拼接</p></li>
+<li><p>长度：<code class="docutils literal notranslate"><span class="pre">s.size()</span></code> 返回字串长度，其返回类型为无符号类型 <code class="docutils literal notranslate"><span class="pre">std::string::size_type</span></code>；我们用 <code class="docutils literal notranslate"><span class="pre">size_t</span></code> 来作为迭代数组时的下标变量类型，这通常对于字符串也适用。</p></li>
+<li><p>判断是否为空：<code class="docutils literal notranslate"><span class="pre">s.empty()</span></code></p></li>
+<li><p>子字符串：<code class="docutils literal notranslate"><span class="pre">s.substr(i,</span> <span class="pre">n)</span></code> 返回一个从下标 i 开始长为 n 的子字串</p></li>
+<li><p>取字符：用 <code class="docutils literal notranslate"><span class="pre">s[i]</span></code> 返回对下标 i 字符的引用。</p>
+<ul class="simple">
+<li><p>注意 i 必须小于字符长，即 <span class="math notranslate nohighlight">\(0\leq i &lt; s.size()\)</span></p></li>
+<li><p>由于是引用，允许通过 <code class="docutils literal notranslate"><span class="pre">s[i]</span></code> 对原字符串 s 进行更改。</p></li>
+</ul>
+<p>下面是一个按下标 i 逐个更改字符串中字符的例子（其中 cctype 的字符操作参考 <a class="reference internal" href="DataTypes.html#cctype"><span class="std std-ref">cctype：字符操作</span></a>）：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cctype&gt;</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World!&quot;</span><span class="p">;</span>
+<span class="linenos"> 7</span>
+<span class="hll"><span class="linenos"> 8</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="linenos"> 9</span><span class="w">        </span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">toupper</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span><span class="hll"><span class="linenos">10</span><span class="w">    </span><span class="p">}</span>
+</span><span class="linenos">11</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;All uppercase: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">12</span><span class="w">    </span>
+<span class="linenos">13</span><span class="w">    </span><span class="c1">// 也可以使用 range for 语法</span>
+<span class="linenos">14</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">tolower</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="linenos">15</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;All lowercase: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">16</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">17</span><span class="p">}</span>
+<span class="linenos">18</span><span class="cm">/*</span>
+<span class="linenos">19</span><span class="cm">  输出：</span>
+<span class="linenos">20</span><span class="cm">  All uppercase: HELLO WORLD!</span>
+<span class="linenos">21</span><span class="cm">  All lowercase: hello world!</span>
+<span class="linenos">22</span><span class="cm">*/</span>
+</pre></div>
+</div>
+</li>
+<li><p>打印与读入</p>
+<ul>
+<li><p>打印到 ostream 对象 os：<code class="docutils literal notranslate"><span class="pre">os</span> <span class="pre">&lt;&lt;</span> <span class="pre">s</span></code></p></li>
+<li><p>从 istream 对象 is 读入：<code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">&gt;&gt;</span> <span class="pre">s</span></code>，注意读入时会跳过开头的空白符</p></li>
+<li><p>从 is 中读取一行到 s：<code class="docutils literal notranslate"><span class="pre">getline(is,</span> <span class="pre">s)</span></code>，它会在读到换行符时停止，向 s 中存储不含换行符的该行内容，然后返回 is。下例将逐行读入的字符按原样（因为添加回了换行符）输出：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="n">line</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h4>容器操作<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+</section>
+</section>
+</section>
+<section id="std-vector">
+<span id="id9"></span><h2>向量（std::vector）<a class="headerlink" href="#std-vector" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="DataTypes.html" class="btn btn-neutral float-left" title="常用数据类型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="TypeConversion.html" class="btn btn-neutral float-right" title="类型转换与溢出*" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

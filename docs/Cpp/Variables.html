@@ -82,9 +82,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="DataTypes.html">常用数据类型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataTypesAdvance.html">数据类型进阶</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TypeConversion.html">类型转换与溢出*</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Control.html">控制流语句</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PointerAndRef.html">引用与指针</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Control.html">控制流语句</a></li>
 </ul>
 
         </div>
@@ -140,7 +141,8 @@
 <h2>初始化<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <p>变量在定义时拥有一个特定值，称为初始化。例如，初始化整数（int）类型的变量：</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="p">;</span><span class="w">   </span><span class="c1">// 被隐式地转换为了整数 3</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="p">;</span><span class="w">       </span><span class="c1">// 被隐式地转换为了整数 3</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span><span class="w"> </span><span class="c1">// 利用逗号初始化多个 int 变量</span>
 </pre></div>
 </div>
 <p>列表初始化 <span class="cpp hlblue xsmall">C++ 11</span> 是一种现代 C++ 的初始化方法，使用花括号来完成初始化。它在隐式转换可能发生数据损失时，将会报错：</p>
@@ -159,6 +161,7 @@
 <p><strong>推荐在定义变量时总是显式地对其进行初始化</strong>，而不要依赖默认初始化。</p>
 <p>在某些情况下，不给定初始值地定义变量时，变量可能不会被初始化（而不是被默认初始化）。访问未初始化变量会引起错误。</p>
 </div>
+<p>变量初始化不等于变量赋值。变量赋值是擦除现有值，并使用新值替代。</p>
 </section>
 <section id="id4">
 <h2>变量声明<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>

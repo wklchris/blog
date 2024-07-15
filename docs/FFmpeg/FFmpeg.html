@@ -117,12 +117,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#id27">元数据：清除元数据</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id28">网络视频优化：快速加载</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id29">视频稳定/去抖动*</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id30">更正色彩空间*</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id31">显卡硬件加速*</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id32">硬件支持</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id33">FFmpeg 支持</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id34">硬件加速命令</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id35">硬件加速下的质量控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id30">像素格式：色深度*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id31">更正色彩空间*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id32">显卡硬件加速*</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id33">硬件支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">FFmpeg 支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id35">硬件加速命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id36">硬件加速下的质量控制</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#fonts-conf">附录：fonts.conf</a></li>
@@ -775,7 +776,15 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </ul>
 </section>
 <section id="id30">
-<h2>更正色彩空间*<a class="headerlink" href="#id30" title="Link to this heading"></a></h2>
+<h2>像素格式：色深度*<a class="headerlink" href="#id30" title="Link to this heading"></a></h2>
+<p>为了设置像素格式，例如 YUV 4:2:0、10 bit 色深度，FFmpeg 提供了 <code class="docutils literal notranslate"><span class="pre">-pix_fmt</span></code> 参数。用户可以使用 <code class="docutils literal notranslate"><span class="pre">ffmpeg</span> <span class="pre">-pix_fmts</span></code> 查看支持的像素格式，例如 <code class="docutils literal notranslate"><span class="pre">yuv420p10le</span></code>。</p>
+<p>下例将视频转换为 10bit 色深 420 结果：</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span> <span class="n">-i</span> <span class="n">input</span><span class="p">.</span><span class="n">mp4</span> <span class="n">-pix_fmt</span> <span class="n">yuv420p10le</span> <span class="n">output</span><span class="p">.</span><span class="n">mp4</span>
+</pre></div>
+</div>
+</section>
+<section id="id31">
+<h2>更正色彩空间*<a class="headerlink" href="#id31" title="Link to this heading"></a></h2>
 <p>以我们最常用的 BT.709 色彩空间为例，许多视频播放器必须检测到色彩空间的元数据信息为 BT.709 才能正常地播放，否则可能引起偏色等问题。如果一个视频在播放时发生了色彩异常（通常发生于在不同设备、屏幕上播放时），那么我们需要检查视频的色彩空间信息并进行修正。</p>
 <p>要检查一个视频的现有色彩空间信息，可以使用 FFmpeg 安装时附带的 <code class="docutils literal notranslate"><span class="pre">ffprobe</span></code> 工具：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffprobe<span class="w"> </span>-v<span class="w"> </span>quiet<span class="w"> </span>-show_streams<span class="w"> </span>-select_streams<span class="w"> </span>v:0<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">select</span>-string<span class="w"> </span><span class="s2">&quot;color&quot;</span>
@@ -795,11 +804,11 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 </div>
 <p>关于更多色彩空间的参数信息，可以参考 FFmpeg 官方文档的 <a class="reference external" href="https://ffmpeg.org/ffmpeg-all.html#setparams-1">setparams</a> 这一节。</p>
 </section>
-<section id="id31">
-<h2>显卡硬件加速*<a class="headerlink" href="#id31" title="Link to this heading"></a></h2>
-<p>FFmpeg 支持显卡硬件加速；本节主要以 Nvidia 的显卡与 H.264 编码方式为例展示一些用法。</p>
 <section id="id32">
-<h3>硬件支持<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
+<h2>显卡硬件加速*<a class="headerlink" href="#id32" title="Link to this heading"></a></h2>
+<p>FFmpeg 支持显卡硬件加速；本节主要以 Nvidia 的显卡与 H.264 编码方式为例展示一些用法。</p>
+<section id="id33">
+<h3>硬件支持<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
 <p>关于用户当前的显卡支持哪些编码格式的硬件加速，可以参考 Nvidia 给出的一张表格： <a class="reference external" href="https://developer.nvidia.com/video-encode-decode-gpu-support-matrix">Video Encode and Decode GPU Support Matrix</a>。简要来说，大概是：</p>
 <ul class="simple">
 <li><p>大多 Maxwell 一代显卡（GTX 745/850/850M/960M 及同代更高型号）支持完整的 H.264 编码硬件加速</p></li>
@@ -808,8 +817,8 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"
 <li><p>较新的显卡对于其他主流的编码格式，如 VP9 等，也有硬件加速支持</p></li>
 </ul>
 </section>
-<section id="id33">
-<h3>FFmpeg 支持<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
+<section id="id34">
+<h3>FFmpeg 支持<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>由于 FFmpeg 存在众多的编译版本，用户正使用的不一定包含了硬件加速功能。但官方提供的预编译版本均涵盖了该功能，本文也不再对如何在编译时引入硬件加速支持进行介绍。</p>
@@ -829,8 +838,8 @@ DEV.L.<span class="w"> </span>hevc<span class="w">                 </span>H.265<
 <li><p>关于该编码器的详细帮助，可以参考 <code class="docutils literal notranslate"><span class="pre">ffmpeg</span> <span class="pre">-h</span> <span class="pre">encoder=h264_nvenc</span></code> 命令给出的参数列表。</p></li>
 </ul>
 </section>
-<section id="id34">
-<h3>硬件加速命令<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
+<section id="id35">
+<h3>硬件加速命令<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
 <p>硬件加速有混合模式（CPU 与 GPU 共同工作）与独占模式（完全 GPU 工作）两种。</p>
 <p>混合模式直接指定编码器为支持硬件加速的编码器即可，比如 <code class="docutils literal notranslate"><span class="pre">h264_nvenc</span></code>：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># CPU+GPU 混合模式</span>
@@ -844,8 +853,8 @@ ffmpeg<span class="w"> </span>-hwaccel<span class="w"> </span>cuda<span class="w
 </div>
 <p>上述命令会自动以 2000 kbps（即 2Mbps）左右的总文件比特率（视频、音频多轨综合，因此单独看视频码率可能会略高于 2M ）来压缩视频。</p>
 </section>
-<section id="id35">
-<h3>硬件加速下的质量控制<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
+<section id="id36">
+<h3>硬件加速下的质量控制<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
 <p>由于 <code class="docutils literal notranslate"><span class="pre">h264_nvenc</span></code> 编码器不支持 CRF 参数，我个人的习惯是通过 <code class="docutils literal notranslate"><span class="pre">-rc</span></code> 参数来设置 <code class="docutils literal notranslate"><span class="pre">vbr_hq</span></code> 可变码率模式，并手动指定 <code class="docutils literal notranslate"><span class="pre">-b:v</span></code> 视频码率的数值。例如下述命令使用可变码率模式，并将视频设置在 2Mbps 附近：</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-hwaccel<span class="w"> </span>cuda<span class="w"> </span>-hwaccel_output_format<span class="w"> </span>cuda<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>h264_nvenc<span class="w"> </span>-rc<span class="w"> </span>vbr_hq<span class="w"> </span>-b:v<span class="w"> </span>2M<span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>out.mp4
 </pre></div>

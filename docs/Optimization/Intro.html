@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>引言 &mdash; Optimization  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="canonical" href="https://self-contained.github.io/Optimization/Intro.html"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7d86a446"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="线性规划" href="LP.html" />
+    <link rel="prev" title="解优化问题" href="index.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Optimization
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">引言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">优化问题分类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">常用求解器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">求解器性能基准测试*</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LP.html">线性规划</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Optimization</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">引言</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Intro.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>引言<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p><strong>优化问题</strong>（Optimization Problem），也称最优化问题，其目标是选择一组变量取值，在满足给定<strong>约束条件</strong>（Constraints）或无约束条件的情形下，使<strong>目标函数</strong>（Objective Function）的取值达到最优。</p>
+<p>优化问题常常写成以下形式：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}      &amp; \min f(\boldsymbol{x}) \\
+s.t.\ &amp; C_{leq}(\boldsymbol{x}) \leq \boldsymbol{0} \\
+      &amp; C_{eq}(\boldsymbol{x}) = \boldsymbol{0} \\\end{split}\]</div>
+<ul class="simple">
+<li><p>变量 <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> （粗体）表示一个向量 <span class="math notranslate nohighlight">\((x_1, x_2, \ldots, x_n, \ldots)\)</span></p></li>
+<li><p>目标函数 <span class="math notranslate nohighlight">\(f(\boldsymbol{x})\)</span> 写为求最小值的形式。如果原函数是求最大值，添加负号。</p></li>
+<li><p>约束条件：整理为不等式约束 <span class="math notranslate nohighlight">\(C_{leq}\)</span> 与等式约束 <span class="math notranslate nohighlight">\(C_{eq}\)</span> 两类。</p>
+<ul>
+<li><p>不等约束均写为小于等于的形式。原使用大于等于号的，两边同乘 -1 来变换不等号为小于等于号。不等约束中的不等号应该包含等号（例如使用小于等于号而不是小于号），因为带等号的不等式才是符合实际的。</p></li>
+<li><p>等号约束写照常书写。</p></li>
+</ul>
+</li>
+</ul>
+<p>因此，我们也常常将其称为<strong>最小化问题</strong>（Minimization Problem）。</p>
+<section id="id2">
+<h2>优化问题分类<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>优化问题一般分为以下几种类型：</p>
+<ul class="simple">
+<li><p>线性规划（LP, Linear Programming）：线性约束条件、线性目标函数的优化问题。</p></li>
+<li><p>其余的问题称为非线性规划（NLP, Non-Linear Programming）：</p>
+<ul>
+<li><p>二次规划（QP, Quadratic Programming）：线性约束条件、二次目标函数的优化问题。</p></li>
+<li><p>二次锥规划（SCOP, Second-Order Cone Programming）：二次锥约束条件的优化问题。</p></li>
+<li><p>指数锥规划（EXP, Exponential Programming）：指数锥约束条件的优化问题。</p></li>
+<li><p>半正定规划（SDP, Semi-Definite Programming）：半正定矩阵的约束。</p></li>
+</ul>
+</li>
+<li><p>整数规划（IP, Integer Programming）：变量必须取整数值的优化问题。</p>
+<ul>
+<li><p>混合整数规划（MIP, Mixed-Integer Programming）：部分变量被规定为整数的优化问题。</p></li>
+<li><p>类似地，我们有混合整数线性规划（MILP）与混合整数非线性规划（MINLP）。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id3">
+<h2>常用求解器<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>商业求解器：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer">CPLEX</a>：IBM 提供的求解器，主要负责线性、混合整数与二次规划。</p></li>
+<li><p><a class="reference external" href="https://www.shanshu.ai/copt/">COPT</a>：杉树科技提供的求解器，在近年来性能达到了一流水准。</p></li>
+<li><p><a class="reference external" href="https://www.gurobi.com/">Gurobi</a>：最广泛使用的商业求解器之一，性能上表现一流。同样是线性、混合整数与二次规划。</p></li>
+<li><p><a class="reference external" href="https://www.fico.com/en/products/fico-xpress-optimization">Xpress</a>：FICO 提供的求解器。</p></li>
+</ul>
+<p>开源/免费求解器：</p>
+<ul>
+<li><p><a class="reference external" href="https://www.coin-or.org/">Coin-OR</a>: 由 OR 界提供的一系列求解器集合，全称为 Computational Infrastructure for Operations Research. 例如：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/coin-or/Cbc">Cbc</a>：COIN-OR 提供的混合整数规划求解器，使用分支定界法</p></li>
+<li><p><a class="reference external" href="https://github.com/coin-or/Clp">Clp</a>：COIN-OR 提供的线性规划求解器（包含在 Cbc 中）</p></li>
+<li><p><a class="reference external" href="https://github.com/coin-or/Ipopt">Ipopt</a>：COIN-OR 提供的非线性规划求解器</p></li>
+</ul>
+<p>完整的 Coin-OR 求解器集合请参考其官方网站。</p>
+</li>
+<li><p><a class="reference external" href="https://www.mosek.com/">MOSEK</a>：广泛支持各种问题的规划求解器。</p></li>
+<li><p><a class="reference external" href="https://github.com/google/or-tools">OR-Tools</a>：Google 提供的 OR 求解器。</p></li>
+<li><p><a class="reference external" href="https://scipopt.org/">SCIP</a>：混合整数规划求解器。</p></li>
+</ul>
+<p>Python 提供的调用库包括：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.cvxpy.org/">cvxpy</a>: 一个常用的凸优化求解库。它也支持调用的外部求解器，可以参考 <a class="reference external" href="https://www.cvxpy.org/tutorial/advanced/index.html#choosing-a-solver">cvxpy 支持的外部求解器</a>。</p></li>
+<li><p><a class="reference external" href="https://pyomo.readthedocs.io/en/stable/">Pyomo</a>：一个功能更强的优化问题库，必须配合外部求解器使用。但它的使用方法较为不直观，语法的抽象程度比较高。</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>求解器性能基准测试*<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>性能基准测试不能完全代表求解器的性能表现。求解器的表现可能是取决于具体问题的。</p>
+</div>
+<p>可以参考 Hans Mittelmann 的性能测试结果（<a class="reference external" href="https://plato.asu.edu/bench.html">Benchmarks for Optimization Software</a>）。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>请注意，这个测试中的许多项中，并没有测试 IBM <a class="reference external" href="https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer">CPLEX</a> 与 FICO <a class="reference external" href="https://www.fico.com/en/products/fico-xpress-optimization">Xpress</a>求解器。这是因为 <a class="reference external" href="https://www.gurobi.com/">Gurobi</a> 在 2018 年利用该页面不当宣传其性能优势——尤其是相比 CPLEX 与 Xpress——它们两者自那之后就要求不再参与该性能测试。</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="解优化问题" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="LP.html" class="btn btn-neutral float-right" title="线性规划" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

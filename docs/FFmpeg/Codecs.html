@@ -82,6 +82,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#abr">平均比特率（ABR）</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#aac-aac">aac（AAC 音频）</a></li>
 </ul>
 </li>
 </ul>
@@ -176,6 +177,7 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"
 <li><p>预案 <code class="docutils literal notranslate"><span class="pre">-preset</span></code>：指导视频压制的质量。其取值与 libx264 相同，默认为 medium。</p>
 <ul class="simple">
 <li><p>与 libx264 类似，我们建议使用 medium/slow 或更慢的预案。例外的情形是指定了无损（CRF=0）的情形，此时可以选用 ultrafast。</p></li>
+<li><p>较慢的预案在同等的 CRF 值上有更好的表现。建议在选用更快速的预案时，适当降低 CRF 值以保持相近的质量。</p></li>
 </ul>
 </li>
 <li><p>风格 <code class="docutils literal notranslate"><span class="pre">-tune</span></code>：告知输入视频的风格。libx265 支持的风格不如 libx264 多，只包括：</p>
@@ -188,6 +190,15 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"
 </li>
 <li><p>定限码率压制：用法与 libx264 类似，适用于强制要求码率的场合，比如直播。请参考 <a class="reference internal" href="FFmpeg.html#bitrate-constrained"><span class="std std-ref">定限码率压制</span></a> 一节的内容。</p></li>
 <li><p>二压（2Pass）：用法与 libx264 类似，适用于强制要求文件大小的场合。但请注意，编码器 libx265 需要额外在两步中指定 <code class="docutils literal notranslate"><span class="pre">-x265-params</span></code> 参数。具体的用法，请参考 <a class="reference internal" href="FFmpeg.html#pass"><span class="std std-ref">二压（2Pass）</span></a> 一节的内容。</p></li>
+</ul>
+<hr class="docutils" />
+<p>如果要以 10 bit 色深编码 H.265 视频，使用 <code class="docutils literal notranslate"><span class="pre">-x265-params</span></code> 下的 <code class="docutils literal notranslate"><span class="pre">profile</span></code> 参数。例如：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>libx265<span class="w"> </span>-crf<span class="w"> </span><span class="m">21</span><span class="w"> </span>-preset<span class="w"> </span>faster<span class="w"> </span>-tune<span class="w"> </span>fastdecode<span class="w"> </span>-x265-params<span class="w"> </span><span class="nv">profile</span><span class="o">=</span>main10<span class="w"> </span>-c:a<span class="w"> </span>aac<span class="w"> </span>-b:a<span class="w"> </span>192k<span class="w"> </span>out.mp4
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>如果输入视频是 8 bit 的，那么需要使用 <code class="docutils literal notranslate"><span class="pre">-pix_fmt</span></code> 参数将其转为 10 bit：</p>
+</li>
 </ul>
 </section>
 <section id="libmp3lame-mp3">
@@ -282,6 +293,15 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"
 </pre></div>
 </div>
 </section>
+</section>
+<section id="aac-aac">
+<h2>aac（AAC 音频）<a class="headerlink" href="#aac-aac" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://trac.ffmpeg.org/wiki/Encode/AAC">AAC</a> 是另一种常见的有损音频编码。AAC 普遍在 MP4 视频容器中被使用，它也常用作独立的音频 m4a 文件。</p>
+<p>FFmpeg 原生支持 <code class="docutils literal notranslate"><span class="pre">aac</span></code> 编码器，声称是仅次于 <code class="docutils literal notranslate"><span class="pre">libfdk_aac</span></code> 的 AAC 编码器。官方提供的编译版本不使用 <code class="docutils literal notranslate"><span class="pre">libfdk_aac</span></code> 编码器，用户使用则需要重新编译 FFmpeg 。</p>
+<p>建议在原生的 FFmpeg aac 编码器上使用固定比特率（CBR）参数 <code class="docutils literal notranslate"><span class="pre">-b:a</span></code>：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.wav<span class="w"> </span>-c:a<span class="w"> </span>aac<span class="w"> </span>-b:a<span class="w"> </span>192k<span class="w"> </span>output.m4a
+</pre></div>
+</div>
 </section>
 </section>
 

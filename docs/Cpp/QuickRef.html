@@ -76,9 +76,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">C++ 简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Variables.html">变量基础</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataTypes.html">常用数据类型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataTypesAdvance.html">数据类型进阶</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TypeConversion.html">类型转换与溢出*</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Control.html">控制流语句</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PointerAndRef.html">引用与指针</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Control.html">控制流语句</a></li>
 </ul>
 
         </div>
@@ -131,6 +132,11 @@
 </li>
 <li><p>变量类型</p>
 <ul>
+<li><p>常量 const</p>
+<ul>
+<li><p>要在多个文件中共享常量，在头文件声明中使用 <code class="docutils literal notranslate"><span class="pre">extern</span></code>，在源文件定义中使用 <code class="docutils literal notranslate"><span class="pre">extern</span></code> 并将其初始化。</p></li>
+</ul>
+</li>
 <li><p>浮点数：一般使用 double 而不是 float。</p></li>
 <li><p>整数：通常使用 int</p></li>
 <li><p>字符（char）与字符串（std::string）：</p>
@@ -147,6 +153,14 @@
 </li>
 <li><p>我们常提到 C 风格字符串，它的类型是 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code>，即常量字符指针。</p></li>
 <li><p>C++ 的<strong>字符串字面值并不属于 std::string 类型</strong>，而是常量字符数组。</p></li>
+</ul>
+</li>
+<li><p>引用：引用不是对象，只是对象的别名。引用在声明时给标识符添加 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> 前缀。</p></li>
+<li><p>指针：指针记录对象的地址。指针在声明时给标识符添加 <code class="docutils literal notranslate"><span class="pre">*</span></code> 前缀。</p>
+<ul>
+<li><p>指针在初始化或赋值时，赋值号右侧使用取地址符 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code></p></li>
+<li><p>指针在调用指向对象时，使用解引用符 <code class="docutils literal notranslate"><span class="pre">*</span></code></p></li>
+<li><p>常量指针 <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">*const</span> <span class="pre">p</span></code>，指向常量的指针 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Type</span> <span class="pre">*p</span></code></p></li>
 </ul>
 </li>
 </ul>

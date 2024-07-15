@@ -1,6 +1,6 @@
 {
     "_homepage": {
-        "date_modified": "2024-04-02",
+        "date_modified": "2024-06-14",
         "date_online": "2020-08-10",
         "date_online_previous": "2017-01-07"
     },
@@ -14,8 +14,8 @@
             "series": "C/C++",
             "series_num": "1",
             "date_init": "2020-06-06",
-            "date_modified": "2024-04-02",
-            "date_build": "2024-04-02",
+            "date_modified": "2024-06-01",
+            "date_build": "2024-06-01",
             "abstract": "本文是学习现代 C++ 时的笔记，基于 C++ 11 （或更新）的规范版本。"
         },
         "FFmpeg": {
@@ -29,7 +29,7 @@
             "series_num": "1",
             "date_init": "2017-07-11",
             "date_modified": "2023-10-15",
-            "date_build": "2024-03-30",
+            "date_build": "2024-06-14",
             "abstract": "本文介绍了命令行视频编辑软件 FFmpeg。"
         },
         "Git": {
@@ -59,6 +59,20 @@
             "date_modified": "2020-01-12",
             "date_build": "2022-08-12",
             "abstract": "本文介绍了 Python 最广为使用的科学绘图库 Matplotlib"
+        },
+        "Optimization": {
+            "category": "Math",
+            "keywords": [
+                "math",
+                "optimization",
+                "python"
+            ],
+            "series": "optimization",
+            "series_num": "1",
+            "date_init": "2023-08-21",
+            "date_modified": "2024-04-07",
+            "date_build": "2024-04-07",
+            "abstract": "使用编程语言工具解优化问题。"
         },
         "Python": {
             "category": "Python",
@@ -122,8 +136,8 @@
             "series": "Misc",
             "series_num": "1",
             "date_init": "2018-10-15",
-            "date_modified": "2023-09-28",
-            "date_build": "2023-09-28",
+            "date_modified": "2024-06-01",
+            "date_build": "2024-06-01",
             "abstract": "本文介绍 reStructuredText，一种最初用于创建 Python 技术文档的标记语言。"
         }
     },
@@ -134,6 +148,9 @@
         "CLI": [
             "FFmpeg",
             "Git"
+        ],
+        "Math": [
+            "Optimization"
         ],
         "Misc": [
             "Rubik",
@@ -174,14 +191,21 @@
         "magic cube": [
             "Rubik"
         ],
+        "math": [
+            "Optimization"
+        ],
         "matplotlib": [
             "Matplotlib"
+        ],
+        "optimization": [
+            "Optimization"
         ],
         "plot": [
             "Matplotlib"
         ],
         "python": [
             "Matplotlib",
+            "Optimization",
             "Python"
         ],
         "r": [
@@ -229,6 +253,9 @@
         ],
         "doc-build": [
             "Sphinx"
+        ],
+        "optimization": [
+            "Optimization"
         ]
     }
 }

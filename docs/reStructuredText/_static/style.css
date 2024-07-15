@@ -1,3 +1,7 @@
+:root {
+    --hl-padding: 1pt;
+}
+
 /** Textwidth **/
 .wy-nav-content {
     max-width: 95% !important;
@@ -14,3 +18,20 @@ a.home-button {
 div.home-button {
     margin-top: 0.8em;
 }
+
+/** Customized RST roles **/
+
+span.box { border: 1pt solid; padding: 1pt; }
+span.strike { text-decoration: line-through; }
+span.uline { text-decoration: underline; }
+span.underover { text-decoration: dashed underline overline; }
+
+.xsmall { font-size: x-small; }
+
+/**
+Inline highlighting mimicking admonitions (not exact same color).
+**/
+.hlred { background-color: lightpink; padding: var(--hl-padding); }
+.hlyellow { background-color: lightyellow; padding: var(--hl-padding); }
+.hlgreen { background-color: lightgreen; padding: var(--hl-padding); }
+.hlblue { background-color: lightblue; padding: var(--hl-padding); }

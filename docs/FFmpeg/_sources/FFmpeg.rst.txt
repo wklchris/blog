@@ -739,6 +739,18 @@ FFmpeg 支持通过二次处理（2 Pass）的方式进行去抖动：先用 :fi
 * 上例中使用了 CRF=17 的高品质输出。在实际中，应按需设置视频质量参数。
 
 
+像素格式：色深度*
+--------------------
+
+为了设置像素格式，例如 YUV 4:2:0、10 bit 色深度，FFmpeg 提供了 ``-pix_fmt`` 参数。用户可以使用 ``ffmpeg -pix_fmts`` 查看支持的像素格式，例如 ``yuv420p10le``\ 。
+
+下例将视频转换为 10bit 色深 420 结果：
+
+.. code-block:: powershell
+
+   ffmpeg -i input.mp4 -pix_fmt yuv420p10le output.mp4
+
+
 更正色彩空间*
 --------------------
 
