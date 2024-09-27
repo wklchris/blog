@@ -76,6 +76,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">常用编码器与参数</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#libx264-h-264">libx264（H.264 视频）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#libx265-h-265-hevc">libx265（H.265/HEVC 视频）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libsvtav1-av1">libsvtav1（AV1 视频）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#libmp3lame-mp3">libmp3lame（MP3 音频）</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#vbr">可变比特率（VBR）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cbr">固定比特率（CBR）</a></li>
@@ -166,9 +167,9 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"
 <ul>
 <li><p>恒定率系数（CRF）：crf 越小，画面质量越好，但文件体积越大。</p>
 <ul>
-<li><p>不同于 H.264 的默认 CRF 取值 23，H.265 的默认 CRF 取值是 28；它们两者对应的视觉画面质量相同。</p></li>
-<li><p>不同于 H.264 视觉上的无损 CRF 值 17，H.265 中该值（从经验上）大约在 20~22。</p></li>
-<li><p>不同于 H.264 的 CRF 取值范围（8bit 0~51; 10bit 0~63），H.265 的取值范围始终为 0（无损）到 51（最差压缩）。</p>
+<li><p>H.265 的默认 CRF 取值是 28，这不同于 H.264 的默认 CRF 取值 23；它们两者对应的视觉画面质量相同。</p></li>
+<li><p>H.265 的视觉上的无损 CRF 值（从经验上）大约在 20~22，这不同于 H.264 中的 17。</p></li>
+<li><p>H.265 的取值范围始终为 0（无损）到 51（最差压缩），这不同于 H.264 的 CRF 取值范围（8bit 0~51; 10bit 0~63）。</p>
 <div class="important admonition">
 <p class="admonition-title">libx264 与 libx265 的 CRF 取值无法对应</p>
 <p>libx264 与 libx265 的 CRF 取值没有一一对应的公式。除了上文所述的无损参数均为 CRF=0、libx264 CRF=23 对应 libx265 CRF=28，其余 CRF 值并不存在对应关系。</p>
@@ -196,10 +197,76 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>libx265<span class="w"> </span>-crf<span class="w"> </span><span class="m">21</span><span class="w"> </span>-preset<span class="w"> </span>faster<span class="w"> </span>-tune<span class="w"> </span>fastdecode<span class="w"> </span>-x265-params<span class="w"> </span><span class="nv">profile</span><span class="o">=</span>main10<span class="w"> </span>-c:a<span class="w"> </span>aac<span class="w"> </span>-b:a<span class="w"> </span>192k<span class="w"> </span>out.mp4
 </pre></div>
 </div>
-<ul class="simple">
+<ul>
 <li><p>如果输入视频是 8 bit 的，那么需要使用 <code class="docutils literal notranslate"><span class="pre">-pix_fmt</span></code> 参数将其转为 10 bit：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>...<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-pix_fmt<span class="w"> </span>yuv420p10le<span class="w"> </span>-c:v<span class="w"> </span>libx265<span class="w"> </span>...
+</pre></div>
+</div>
 </li>
 </ul>
+</section>
+<section id="libsvtav1-av1">
+<h2>libsvtav1（AV1 视频）<a class="headerlink" href="#libsvtav1-av1" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>libsvtav1 编码器在 FFmpeg 5.1 版本后加入到了官方编译版本中。我推荐使用它，而不是较老的 libaom 编码器。本节也只介绍 libsvtav1 的使用。</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>libsvtav1 是一个较新的编码器，其参数可能发生变化，因此本小节中的内容（基于 FFmpeg 7.0）可能与您所安装版本的不同。具体请参考所安装的 FFmpeg 的命令行帮助：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-h<span class="w"> </span><span class="nv">encoder</span><span class="o">=</span>libsvtav1
+</pre></div>
+</div>
+<p>也可以参考 SVT-AV1 官方针对 FFmpeg 撰写的 <a class="reference external" href="https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/master/Docs/Ffmpeg.md">使用指南</a>。</p>
+</div>
+<p><a class="reference external" href="https://trac.ffmpeg.org/wiki/Encode/AV1">AV1</a> 可以视作是 H.265 的继任者，不仅提供了更好的压缩率，在使用权利上的约束也更少。当然，转码的开销也更大；用户需要较新的硬件支持，否则转码速度将会极慢。</p>
+<p><a class="reference external" href="http://ffmpeg.org/ffmpeg-all.html#libsvtav1">libsvtav1</a> 编码器使用的许多参数都类似 libx264/libx265，常用的有：</p>
+<ul>
+<li><p>恒定率系数（CRF）：crf 越小，画面质量越好，但文件体积越大。</p>
+<ul class="simple">
+<li><p>AV1 的取值范围始终为 1（最好压缩）到 63（最差压缩），这不同于 H.264 的 CRF 取值范围（8bit 0~51; 10bit 0~63）。AV1 中的 CRF 默认值为 35。</p></li>
+</ul>
+</li>
+<li><p>预案 <code class="docutils literal notranslate"><span class="pre">-preset</span></code>：指导视频压制的质量。数字越大，编码越快，同时质量越差。</p>
+<ul class="simple">
+<li><p>取值范围为 -1 到 13（默认为 -1）。</p></li>
+<li><p>SVT-AV1 在 <a class="reference external" href="https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/master/Docs/CommonQuestions.md">官方问答</a> 中建议一般用户使用 <strong>预案 4-6 作为一般选择</strong>，以平衡存储效率与压制时间。预案 1-3 压缩质量上佳，但是编码极度缓慢；预案 7-12 用于希望进行快速编码的场合；预案 13 通常只用于开发者测试。</p></li>
+</ul>
+</li>
+<li><p>关键帧间隔帧数量 <code class="docutils literal notranslate"><span class="pre">-g</span></code>：这实际上是 FFmpeg 的通用参数。一般根据视频帧率，取 5 到 10 秒（但不应超过 300）。一个较通用的 g 值是 240，它对应 24 帧视频的 10 秒，或者 30 帧视频的 8 秒。该参数也可以在编码器参数中用 <code class="docutils literal notranslate"><span class="pre">keyint</span></code> 直接指定时长。</p></li>
+<li><p>常用编码器参数 <code class="docutils literal notranslate"><span class="pre">-svtav1-params</span></code>：使用键等于值（ <code class="docutils literal notranslate"><span class="pre">key=value</span></code> ）的格式书写，并用冒号分隔。</p>
+<ul>
+<li><p>主观质量模式 <code class="docutils literal notranslate"><span class="pre">tune</span></code>：采用值 <code class="docutils literal notranslate"><span class="pre">tune=0</span></code> 可以切换到主观质量模式（VQ），这将稍微锐化图像并提供更好的“心理视觉效果”。默认值为 <code class="docutils literal notranslate"><span class="pre">1</span></code>，即峰值信噪比（PSNR）模式。</p></li>
+<li><p>关键帧间隔时长 <code class="docutils literal notranslate"><span class="pre">keyint</span></code>：一般取 5-10 秒，请注意带单位 <code class="docutils literal notranslate"><span class="pre">s</span></code>，例如 <code class="docutils literal notranslate"><span class="pre">keyint=8s</span></code> 。默认值为 -2（约 5 秒）。</p></li>
+<li><p>快速解码等级 <code class="docutils literal notranslate"><span class="pre">fast-decode</span></code>：取值从 0（关闭）到 2（最高）。默认值 0。尽管该参数可以用于主观质量模式，但它是在 <code class="docutils literal notranslate"><span class="pre">tune=1</span></code> （默认）模式下开发测试的，因此不推荐与主观质量模式共用。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>我很少用到 fast-decode 参数，也不推荐在没有 AV1 解码能力的硬件上播放 AV1 编码的视频。因为 AV1 解码的开销较大，即使使用了快速解码模式，在旧硬件上播放也非常容易卡顿。这时候应该放弃文件体积优化，使用硬件支持较好的方式（H.265 甚至 H.264）进行编码，优先保证播放的流畅性。</p>
+</div>
+</li>
+<li><p>去颗粒等级 <code class="docutils literal notranslate"><span class="pre">file-grain</span></code>：取值从 0（关闭）到 50（最高）。默认值 0。</p>
+<p>去颗粒等级并不是越高越好，过高可能会损害原有图像质量。根据官方问答，这里提供以下建议：</p>
+<ul class="simple">
+<li><p>如果原视频具有通常级别的颗粒数量，建议使用 8 左右的数值；如果颗粒比较明显，考虑使用 10-15 之间的数值。</p></li>
+<li><p>如果原视频是平面动画类，建议使用较低的去颗粒等级（4 左右），或者不使用。</p></li>
+<li><p>如果原视频没有颗粒/热噪，建议不使用该参数，以提高编码速度与避免质量损失。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>官方同样在问答中建议总是使用 10 bit 编码输出；即使源是 8 bit 视频，也可以通过 <code class="docutils literal notranslate"><span class="pre">-pix_fmt</span> <span class="pre">yuv420p10le</span></code> 参数来强制转 10 bit。这样能以较小的开销（约 5% 的文件体积增长）降低运算时的损失。</p>
+<p>下面给出一个针对 8 bit 视频的 AV1 转码示例，主要参数释义如下：</p>
+<ul class="simple">
+<li><p>预案 <code class="docutils literal notranslate"><span class="pre">-preset</span> <span class="pre">5</span></code> ，采用了官方建议的一般用户预案 4-6 的中间数。</p></li>
+<li><p>CRF 参数 32 是官方示例中的值</p></li>
+<li><p>关键帧间隔参数 <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">240</span></code> 。对 30 帧视频而言，即 8 秒一个关键帧。</p></li>
+<li><p>色深度 <code class="docutils literal notranslate"><span class="pre">-pix_fmt</span> <span class="pre">yuv420p10le</span></code> ，强制指定输出编码为 10 bit；如果原视频是 10 bit，则可省略该项。</p></li>
+<li><p>在编码器参数中，此处使用了主观质量模式与 8 级去颗粒。</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>video.mp4<span class="w"> </span>-c:v<span class="w"> </span>libsvtav1<span class="w"> </span>-preset<span class="w"> </span><span class="m">5</span><span class="w"> </span>-crf<span class="w"> </span><span class="m">32</span><span class="w"> </span>-g<span class="w"> </span><span class="m">240</span><span class="w"> </span>-pix_fmt<span class="w"> </span>yuv420p10le<span class="w"> </span>-svtav1-params<span class="w"> </span><span class="nv">tune</span><span class="o">=</span><span class="m">0</span>:film-grain<span class="o">=</span><span class="m">8</span><span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>out.mp4
+</pre></div>
+</div>
 </section>
 <section id="libmp3lame-mp3">
 <h2>libmp3lame（MP3 音频）<a class="headerlink" href="#libmp3lame-mp3" title="Link to this heading"></a></h2>
@@ -212,8 +279,8 @@ ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mkv<span class="w"
 </div>
 <p>其中，质量参数 <code class="docutils literal notranslate"><span class="pre">-q:a</span></code> （或者其全称 <code class="docutils literal notranslate"><span class="pre">-qscale:a</span></code>）用于控制 MP3 品质。编码器 libmp3lame 支持 0~9 的质量参数，其中 0 表示最高质量（最高比特率，245 kbps 左右），而默认值是 4。一般认为 0~3 的取值可以达到令人满意的质量。</p>
 <p>FFmpeg 比特率参数与实际比特率范围（kbps）有如下对应关系：</p>
-<table class="docutils align-center" id="id2">
-<caption><span class="caption-text">FFmpeg 比特率参数与实际比特率范围对照表</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<table class="docutils align-center" id="id4">
+<caption><span class="caption-text">FFmpeg 比特率参数与实际比特率范围对照表</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
