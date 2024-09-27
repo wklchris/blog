@@ -22,7 +22,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 
 比如将一个 FLV 文件转为 MP4 文件并重编码，FFmpeg 会自动寻找编解码器：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i video.flv video.mp4
 
@@ -48,7 +48,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 格式转换还有一种快速的情形。如果两者的所有流都不改动且输出容器支持输入的所有流，那么可以直接向 ``-c`` 传递 ``copy``
 以进行流复制。这样省去了重新编码的时间，格式转换将十分迅速：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i video.avi -c copy video.mp4
 
@@ -59,7 +59,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 
 有时需要指定流来完成格式转换，比如将一个 MP4 视频文件转为 AAC 音频文件（此处实质上是直接提取）：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i video.mp4 -c:a copy audio.aac
 
@@ -67,13 +67,13 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 
 也可以在提取流的时候进行转码：
 
-.. code:: shell
+.. code-block:: shell
    
    ffmpeg -i video.mkv -c:a libmp3lame -q:a 2 audio.mp3
 
 对于内挂了字幕的视频文件，也可以将其字幕单独提取出来，例如：
 
-.. code:: shell
+.. code-block:: shell
    
    ffmpeg -i video.mkv -c:s copy subtitle.srt
 
@@ -89,7 +89,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 
 下例利用 :filter:`select` 过滤器，抽取了视频中的第 105 帧，保存为 extract.png：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i video.mp4 -vf 'select=eq(n\,105)' -vframes 1 extract.png
 
@@ -99,7 +99,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 
 如果不需要特别精确，也可以将帧序号转换为时间戳来截取：
 
-.. code:: shell
+.. code-block:: shell
    
    # 假如该视频每秒 30 帧
    ffmpeg -ss 00:00:03.50 -i video.mp4 -vframes 1 extract.png
@@ -113,7 +113,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 
 对于容易计算片段秒数的截取任务（本例中片段长为 (5-2)*60=180秒），可以使用 ``-t`` 参数，即指定片段长度。
 
-.. code:: shell
+.. code-block:: shell
    
    ffmpeg -ss 00:02:00 -i video.mp4 -t 180 cut.mp4
 
@@ -121,7 +121,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 
 或者，用户可以不用 ``-t`` 指定片段长度，而是用 ``-to`` 指定终止时刻。下例中把参数 ``-ss`` 与 ``-to`` 都放在了 ``-i`` 参数之前：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -ss 00:02:00 -to 00:05:00 -i video.mp4 cut.mp4
 
@@ -131,7 +131,7 @@ FFmpeg的\ `官方文档 <https://ffmpeg.org/ffmpeg.html>`__\ 简洁有力，但
 * 由于关键帧定位的特性，输入检索在执行流复制操作（如 ``-c copy`` ）时定位可能并不精确；在非流复制（即重新编码）并指定了 ``-accurate_seek`` （默认已指定）时，则无此问题。关于为何会造成定位的不精确，请参考本小节末尾的注释。
 * 输入检索会提前将 ``-ss`` 参数指定的时间戳设置为 0；因此，如果将 ``-t/-to`` 参数放在 ``-i`` 参数之后（作为输出参数），FFmpeg 都实质将参数值当作一个片段长度（而不是终止时刻）。例如：
 
-  .. code:: shell
+  .. code-block:: shell
 
       ffmpeg -ss 00:02:00 -i video.mp4 -t 00:05:00 cut.mp4
       ffmpeg -ss 00:02:00 -i video.mp4 -to 00:05:00 cut.mp4  # 意外的结果
@@ -267,12 +267,24 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
    ffmpeg -i video.mp4 -vf "cropdetect" -c:a copy out.mp4
 
 
+视频旋转/翻转
+---------------------
+
+FFmpeg 使用 ``-display_rotation`` 参数指定视频的逆时针旋转角度。该操作是元数据操作，无需重编码视频。
+
+.. code-block:: shell
+
+   ffmpeg -display_rotation 90 -i video.mp4 -c copy out.mp4
+
+要翻转视频，使用 ``-display_hflip`` 进行水平翻转、\ ``-display_vflip`` 进行竖直翻转。如果同时使用了翻转与旋转，FFmpeg 会先执行旋转、再执行翻转。
+
+
 设置视频预览图
 -----------------
 
 在为视频文件设置预览图（缩略图）之前，我们首先要准备这样一张图片。FFmpeg 支持用 :filter:`thumbnail` 过滤器自动从视频中抽取一张预览图。它会从头到尾以 ``thumbnail=n`` 中的 n （默认为 100）数量的帧为扫描步长来抽取预览图。
 
-.. code:: shell
+.. code-block:: shell
    
    # 自动选取 1 张预览图，按宽边为 1080 缩放分辨率，然后保存到文件
    ffmpeg -i clip.mp4 -vf thumbnail,scale=-1:1080 -vframes 1 thumb.png
@@ -281,7 +293,7 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
 
 或者，利用在 :ref:`extract_frame` 一节中提到的帧截取方法，指定截取某一帧作为图片：
 
-.. code:: shell
+.. code-block:: shell
 
    # 指定截取视频中的第 100 帧
    ffmpeg -i clip.mp4 -vf 'select=eq(n\,100)' -vframes 1 thumb.png
@@ -292,7 +304,7 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
 
 在预览图文件 ``thumb.png`` 准备完成后，我们就可以将其嵌入到视频文件了。对于 MP4 文件，这需要使用 ``disposition`` 参数：
 
-.. code:: shell
+.. code-block:: shell
 
     ffmpeg -i video.mp4 -i thumb.png -map 0 -map 1 -c copy -c:v:1 png -disposition:v:1 attached_pic out.mp4
 
@@ -304,7 +316,7 @@ FFmpeg 还支持一种自动检测裁切区域的参数 ``cropdetect``\ ，常�
 
    请注意： **MKV 封面图片的文件名必须为 cover**，例如 cover.jpg 或 cover.png。否则，嵌入的封面不能作为预览图被正常地显示。
 
-.. code:: shell
+.. code-block:: shell
    
    # 如果使用 PNG 文件（cover.png），请相应地将后续参数改为 mimetype=image/png
    ffmpeg -i video.mkv -c copy -attach cover.jpg -metadata:s:t:0 mimetype=image/jpeg out.mkv
@@ -370,7 +382,7 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 
 内挂字幕的本质是将字幕文件单独作为字幕流封装，因此不需要对视频流进行编码。因此，将字幕文件内挂到指定的视频一般非常快：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i input.mp4 -i input.srt -c:v copy -c:a copy -c:s ass output.mkv
 
@@ -384,7 +396,7 @@ FFmpeg 可以将字幕内挂到封装容器内，也可以内嵌到视频流中�
 
 FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包括字幕流（内挂字幕）。其中，比较常用的元数据可能是指定字幕的语言。下例向一个无字幕的视频文件中添加了一个 ass 字幕文件，并指定其语言为中文（语言码应遵循 ISO639-2 标准的三位代码，例如英文 eng、日文 jpn）：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i input.mp4 -i input.ass -c:v copy -c:a copy -c:s ass -metadata:s:s:0 language=chi output.mkv
 
@@ -395,7 +407,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
    一个常见的批处理操作是将文件夹内的所有字幕文件批量内挂到同名的视频文件中。下面以使用 Powershell 命令向 mkv 中内挂 ass 字幕为例，该命令在内挂字幕的同时将字幕语言标记为中文、并设置为默认字幕：
 
-   .. code:: powershell
+   .. code-block:: powershell
       
       (Get-ChildItem *.mkv).Basename | ForEach-Object { ffmpeg -i "${_}.mkv" -i "${_}.ass" -y -c:v copy -c:a copy -c:s ass -metadata:s:s:0 language=chi -disposition:s:0 default "${_}-output.mkv"}
    
@@ -406,13 +418,13 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
 内嵌字幕（或称硬字幕）是指将字幕与原视频图像混叠的一种字幕，它直接嵌入到图像中，因此无法关闭，也无法调整字幕的大小、字体等样式。内嵌字幕的本质是将字幕作为图像输出，因此需要对视频流进行编码，往往速度慢：
 
-.. code:: shell
+.. code-block:: shell
    
    ffmpeg -i input.mp4 -vf subtitles=input.srt output.mp4
 
 如果字幕以字幕流的形式存在于另一个视频文件中，可以直接调用，无需将字幕流先提取成文件：
 
-.. code:: shell
+.. code-block:: shell
    
    ffmpeg -i input.mkv -vf subtitles=input.mkv output.mp4
 
@@ -424,7 +436,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
 假设我们已经将所有待合并的 mp4 文件放在当前文件夹中，并且按照合并的顺序进行了命名。那么，用户可以在该文件夹中用 Shift + 鼠标右键打开 PowerShell 控制台，然后依次输入以下命令：
 
-.. code:: shell
+.. code-block:: shell
    
    ls eg-*.mp4 | % Name | foreach { "file '${_}'" } > mylist.txt
    ffmpeg -f concat -i mylist.txt -c copy output.mp4
@@ -459,7 +471,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
 参数 ``-vn/-an/sn/-dn`` 的功能局限一些，但很好理解。比如从文件中删除音频：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i video.mp4 -c:v copy -an VideoWithoutAudio.mp4
 
@@ -469,7 +481,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
 有时候，视频文件中包含了多个流，我们只想删除其中的一个，而保留其他所有的流。这时候可以用 ``-map`` 参数来反选：
 
-.. code:: shell
+.. code-block:: shell
    
    ffmpeg -i video.mp4 -map 0 -map -0:a EverythingButAudio.mp4
 
@@ -481,7 +493,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
 替换流的常用场景是将一段音频替换原视频中的音频流：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -map 0:v:0 -map 1:a:0 out.mp4
    # 或者省略第二冒号
@@ -495,7 +507,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 - 输入文件的所有音频流中声道数最多的。
 - 输入文件的所有字幕流中最靠前的。注意：如果字幕流是图像型而不是文字型的，需要显式地指定 ``c:s`` 参数。比如，如果 ``video.mkv`` 的字幕流是图像型的，那么下例中的 ``out1.mkv`` 不含字幕流（因为默认的 MKV 字幕流编码器只接受文字型字幕流），而 ``out2.mkv`` 则包含字幕流（因为 dvdsub 用于图形型字幕流）：
 
-  .. code:: shell
+  .. code-block:: shell
 
      ffmpeg -i video.mkv out1.mkv -c:s dvdsub out2.mkv
 
@@ -531,7 +543,7 @@ FFmpeg 支持以元数据（metadata）的形式指定流的信息，这也包�
 
 下例中使用了 ``slow`` 预案来进行压制，即期望得到较好的压缩效果。视频编解码器设置为 libx264，设定了一个恒定率系数优于默认的 CRF 值（设定的20比默认的23小，即效果优于默认转码），并对音频流进行复制：
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i video.mp4 -c:v libx264 -preset slow -crf 20 -c:a copy out.mp4
 
@@ -563,7 +575,7 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
 
    如果 first pass 后的文件出现了问题，请使用 ``-vsync cfr`` 代替 ``-an``\ 。
 
-.. code:: shell
+.. code-block:: shell
    
    # 对于 H.264 二压，使用 -pass 参数。请注意首行行尾的续行。
    ffmpeg -y -i video.mp4 -c:v libx264 -b:v 2600k -pass 1 -an -f null NUL && `
@@ -600,13 +612,13 @@ Wiki <https://trac.ffmpeg.org/wiki/Encode/H.264>`_ ）：需要将一个10分钟
 
 只给定平均码率 ``-b:v`` 是一种比较粗糙的码率控制方法。正如上面所说，它会使得输出文件的码率总是略高于指定值。
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i input -c:v libx264 -b:v 8M output.mp4
    
 相对的，利用最大码率参数 ``-maxrate`` 与缓冲区参数 ``-bufsize`` 可以更严格地控制码率上限。它会完成一段缓冲区大小就检验一次码率是否符合要求，因此在缓冲区设置上也存在一些技巧。通常，我们将缓冲区设置为与码率值相同。你也可以增大缓冲区，直到发现码率输出开始大幅度高于或低于目标值的临界点，然后以略低于该临界点的值作为缓冲区大小；当然，这需要更多的时间去尝试。
 
-.. code:: shell
+.. code-block:: shell
 
    ffmpeg -i input -c:v libx264 -b:v 8M -maxrate 8M -bufsize 8M output.mp4
 
@@ -716,6 +728,10 @@ FFmpeg 支持在混流时向视频文件中写入元数据（metadata）；这�
 
 使用 ``-movflags +faststart`` 参数，可以在输出时让视频文件将一些数据前置，从而实现在网络视频未被全部下载时就能够开始播放。
 
+.. code-block:: powershell
+
+   ffmpeg -i video.mp4 -c copy -movflags +faststart out.mp4
+
 
 视频稳定/去抖动*
 ------------------
@@ -742,7 +758,7 @@ FFmpeg 支持通过二次处理（2 Pass）的方式进行去抖动：先用 :fi
 像素格式：色深度*
 --------------------
 
-为了设置像素格式，例如 YUV 4:2:0、10 bit 色深度，FFmpeg 提供了 ``-pix_fmt`` 参数。用户可以使用 ``ffmpeg -pix_fmts`` 查看支持的像素格式，例如 ``yuv420p10le``\ 。
+为了设置像素格式，例如 YUV 4:2:0、10 bit 色深度（也叫位深度），FFmpeg 提供了 ``-pix_fmt`` 参数。用户可以使用 ``ffmpeg -pix_fmts`` 查看支持的像素格式，例如 ``yuv420p10le``\ 。
 
 下例将视频转换为 10bit 色深 420 结果：
 
@@ -785,6 +801,10 @@ FFmpeg 支持通过二次处理（2 Pass）的方式进行去抖动：先用 :fi
 显卡硬件加速*
 -------------------
 
+.. warning::
+
+   一般我们较少使用显卡进行视频编码。尽管显卡的编码速度可以比 CPU 更快，但在质量上往往不如 CPU 编码。
+
 FFmpeg 支持显卡硬件加速；本节主要以 Nvidia 的显卡与 H.264 编码方式为例展示一些用法。
 
 硬件支持
@@ -794,8 +814,8 @@ FFmpeg 支持显卡硬件加速；本节主要以 Nvidia 的显卡与 H.264 编�
 
 * 大多 Maxwell 一代显卡（GTX 745/850/850M/960M 及同代更高型号）支持完整的 H.264 编码硬件加速
 * Maxwell 二代（GTX 750/950/965M 及同代更高型号）还支持 4K YUV 4:2:0 的 H.265 编码硬件加速
-* 大多 Pascal 显卡（GTX 1050 及同代更高型号）及之后架构的显卡，都支持完整的 H.265 编码硬件加速
-* 较新的显卡对于其他主流的编码格式，如 VP9 等，也有硬件加速支持
+* 大多 Pascal 显卡（GTX 1050 等）或更高的显卡，都支持完整的 H.265 编码硬件加速
+* Ada 显卡（RTX 4050 等）或更高的显卡，都支持 AV1 编码硬件加速
 
 FFmpeg 支持
 ~~~~~~~~~~~~~~~~~~~~~~
