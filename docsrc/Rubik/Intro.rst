@@ -82,10 +82,10 @@
   * :jperm:`2look/pll`
   * :jperm:`2look/oll`
 
-* AlgDB 网站
+* AlgDB（宕机中，链接更换为 SpeedCubeDB） 网站
   
-  * :algdb:`pll`
-  * :algdb:`oll`
+  * :alg:`pll`
+  * :alg:`oll`
 
 * Gan 魔方说明书 - Gan's CFOP
 

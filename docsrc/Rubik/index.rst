@@ -4,7 +4,7 @@
    :series: Misc
    :series_num: 1
    :date_init: 2022-08-09
-   :date_modified: 2023-09-20
+   :date_modified: 2025-07-28
    :abstract: 本文介绍了魔方的复原方法（主要是三阶 CFOP）。
 
 魔方复原

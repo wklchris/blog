@@ -25,9 +25,12 @@ rst_prolog = """
 
 # sphinx.ext.extlinks
 extlinks = {
-   'algdb': ("http://algdb.net/puzzle/333/%s", 'AlgDB: %s'),
-   'algdb-pll': ("http://algdb.net/puzzle/333/pll/%s", 'AlgDB: PLL %s'),
-   'algdb-oll': ("http://algdb.net/puzzle/333/oll/%s", 'AlgDB: OLL %s'),
+    # If alg links are changed, also update function `algo_external_link` in CFOPtable.py
+   'alg': ("https://speedcubedb.com/a/3x3/%s", 'SpeedCubeDB: %s'),
+   'alg-pll': ("https://speedcubedb.com/a/3x3/PLL/%s", 'SpeedCubeDB: PLL %s'),
+   'alg-oll': ("https://speedcubedb.com/a/3x3/OLL/%s", 'SpeedCubeDB: OLL %s'),
+   'alg-f2l': ("https://speedcubedb.com/a/3x3/F2L/%s", 'SpeedCubeDB: F2L %s'),
+   # Other links
    'speedsolving': ("https://www.speedsolving.com/wiki/index.php/%s", 'Speedsolving Wiki: %s'),
    'jperm': ("https://jperm.net/algs/%s", 'Jperm.net: %s')
 }
