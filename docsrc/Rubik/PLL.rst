@@ -68,8 +68,4 @@
    :file: tools/PLL.html
 
 
-.. raw:: html
-   :file: tools/roofpig_styler.html
-
-
 .. _`JPerm 使用的 PLL 手法 (Youtube)`: https://www.youtube.com/watch?v=9r_HqG4zSbk

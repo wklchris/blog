@@ -81,9 +81,23 @@ def process_html(df, type_filter, recommend_primary_algo=True, add_colgroup=True
     if not recommend_primary_algo:
         df["solution"] = df["solution"].apply(_algo_convert)
     else:
-        variant_algos = df.alias.str.contains("变体")
-        df.loc[~variant_algos, "solution"] = df.loc[~variant_algos, "solution"].apply(_algo_convert, add_classes=["recommend"])
-        df.loc[variant_algos, "solution"] = df.loc[variant_algos, "solution"].apply(_algo_convert)
+        variant_rows = df.alias.str.contains("变体")
+        multi_angle_rows = df.alias.str.contains("多向")
+
+        # Only mutli-angle, not variant
+        multi_angle_only_rows = multi_angle_rows & ~variant_rows
+        df.loc[multi_angle_only_rows, "solution"] = df.loc[multi_angle_only_rows, "solution"].apply(
+            _algo_convert, add_classes=["multi-angle"]
+        )
+
+        # Variant, no matter mult-angle or not
+        df.loc[variant_rows, "solution"] = df.loc[variant_rows, "solution"].apply(_algo_convert)
+
+        # Recommended: Neither multi-angle nor variant
+        recommend_rows = ~(variant_rows | multi_angle_rows)
+        df.loc[recommend_rows, "solution"] = df.loc[recommend_rows, "solution"].apply(
+            _algo_convert, add_classes=["recommend"]
+        )
 
     df_col_dict = {
         "id_str": "编号",

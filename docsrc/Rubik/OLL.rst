@@ -37,8 +37,4 @@
    :file: tools/OLL.html
 
 
-.. raw:: html
-   :file: tools/roofpig_styler.html
-
-
 .. _`JPerm 使用的 OLL 手法 (Youtube)`: https://www.youtube.com/watch?v=vU6HsK3hvQs

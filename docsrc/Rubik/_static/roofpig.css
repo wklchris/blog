@@ -34,8 +34,14 @@ div.roofpig-inline-container {
 }
 
 /** For recommended roofpig**/
-div.roofpig.recommend {
+div.roofpig.recommend,
+tr:has(div.recommend) {
     background-color: #C9F6C8;
+}
+/** For multi-angle roofpig **/
+div.roofpig.multi-angle,
+tr:has(div.multi-angle) {
+    background-color: #E2C8F6;
 }
 
 /** For tables that display a lot roofpig**/
