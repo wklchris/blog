@@ -1,30 +1,30 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>完整 F2L &mdash; 魔方  文档</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
-      <link rel="stylesheet" href="_static/roofpig.css" type="text/css" />
-    <link rel="canonical" href="https://wklchris.github.io/Rubik/F2L.html"/>
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=3491b469" />
+      <link rel="stylesheet" type="text/css" href="_static/roofpig.css?v=68eb91be" />
+
   
-        <script src="_static/jquery.js?v=3d1d8b85"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=7d86a446"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=f281be69"></script>
-        <script src="_static/translations.js?v=beaddf03"></script>
-        <script src="_static/jquery.js?v=3d1d8b85"></script>
-        <script src="_static/roofpig_and_three.min.js?v=824f3ec1"></script>
+    <link rel="canonical" href="https://wklchris.github.io/Rubik/F2L.html"/>
+      <script src="_static/jquery.js?v=3d1d8b85"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7d86a446"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+      <script src="_static/jquery.js?v=3d1d8b85"></script>
+      <script src="_static/roofpig_and_three.min.js?v=824f3ec1"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -81,8 +81,14 @@
 <li class="toctree-l1"><a class="reference internal" href="PLL.html">完整 PLL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="OLL.html">完整 OLL</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">完整 F2L</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">F2L 的标准情形</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">实用非标</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">F2L 必知概念</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">F2L 棱块的朝向</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">F2L 空槽利用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#f2l-f2l">F2L 非标/高级 F2L</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">F2L 的标准公式（及多向）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">F2L 扩展阅读</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4x4.html">四阶复原：Yau方法</a></li>
@@ -120,12 +126,102 @@
 <p>在学习 CFOP 公式前，请掌握最基础的指法（比如食指中指 U2 轮指、左手无名指做 D 与 D'）以及一些必要手法习惯（比如尽可能地从前手位起手、减少公式中不必要的换手位动作）。一些手法可能初做比较怪异，例如前手位（而不是下手位）的 RUR'U'，但我强烈推荐你学习它们。</p>
 <p>在每条公式的<strong>肌肉记忆固定之前确保手法习惯的正确</strong>，这一点万分重要的！</p>
 </div>
+<div class="attention admonition">
+<p class="admonition-title">实用的 F2L 站点</p>
+<ul class="simple">
+<li><p>计时器： <a class="reference external" href="https://cstimer.net/">csTimer</a>（电脑端），DCTimer（手机端）</p></li>
+<li><p><strong>F2L 训练器</strong>（强烈推荐）：打开 <a class="extlink-jperm reference external" href="https://jperm.net/algs/f2l">Jperm.net: f2l</a> 并点击 Trainer。你可以筛选需要训练的 PLL 情形（可以通过在 PLL 页面单击公式的图形将其标记为”学习中“（黄色）或者”已学习“（绿色）。在手机上则可以用 DCTimer 训练。</p></li>
+<li><p>公式查询：</p>
+<ul>
+<li><p><a class="extlink-alg reference external" href="https://speedcubedb.com/a/3x3/f2l">SpeedCubeDB: f2l</a>：AlgDB 与 SpeedCubeDB 可能是最多魔友使用的公式查询站点。</p></li>
+<li><p><a class="extlink-jperm reference external" href="https://jperm.net/algs/f2l">Jperm.net: f2l</a>：JPerm 出过非常多的公式与手法教学，包括 F2L 的进阶技巧。</p></li>
+<li><p><a class="extlink-speedsolving reference external" href="https://www.speedsolving.com/wiki/index.php/pll">Speedsolving Wiki: pll</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>F2L 实际上是从层先法到 CFOP 法中提速最显著的一步。但不同于 PLL 与 OLL，即使不背公式，用之前两步法中提到的 F2L 核心思路也能极大地提升速度。因此，我把学习 F2L 放在了学习 PLL 与 OLL 之后。</p>
 <p>标准 F2L 公式不多，但有许多十分重要的非标准情形（一般是利用空槽简化手法），因此学习的压力也不算太小。此外，F2L 可能是最考验魔友观察功底的一步。不是说背下 F2L 的公式，就会比直觉 F2L 的速度有显著提升；这也是许多魔友感受到挫败的一点，所以就更应该把 F2L 放在学习的最后一步，在长期的巩固与练习中寻求提升。</p>
 <p>最后，F2L 最重要不是对单个槽能把公式做得多快，而是<strong>观察速度以及四槽之间的连贯衔接</strong>。这与练习 PLL 与 OLL 的差异还是很大的，希望读者能够谨记这一点。</p>
 <section id="id1">
-<h2>F2L 的标准情形<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>以下是完整的 OLL 公式表，总计有 41 种情形。</p>
+<h2>F2L 必知概念<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<div class="important admonition">
+<p class="admonition-title">必须理解 F2L 的基础概念</p>
+<p>F2L 并不像 PLL 与 OLL 那样，记忆公式后就能迅速提升。要掌握 F2L，我建议至少阅读以下基本概念：</p>
+<ul class="simple">
+<li><p>什么是棱块的朝向？正确的棱块朝向是什么意思？</p></li>
+<li><p>什么是空槽？空槽对解某一组 F2L 有什么帮助？</p></li>
+<li><p>什么是非标准公式（非标）？</p></li>
+</ul>
+<p>此外，F2L 与 PLL 一样有多向的概念，甚至更为重要。将 F2L 放入其他位置的槽（而不仅仅是标准的 FR 槽）可以减少转体，而且有时对观察有利（例如，我们复原了难以观察的 LB 槽后，块就不会再出现在那个槽中）。多向公式通常可以利用标准公式的镜像直接得到；少数因为手法原因而无法直接镜像的，将在标准公式中标出。</p>
+</div>
+<section id="id2">
+<h3>F2L 棱块的朝向<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>F2L 易学难精，不仅是因为它需要观察的块与槽更多，而且对同一种魔方情形的不同解法顺序也会影响效率。这里涉及到一个“棱块朝向是否正确”的问题。</p>
+<p>任意一组 F2L 的目标块都由一个棱块与一个角块组成。如果一个 F2L 棱块可以只通过 R、U、L 层的转动（不包括转动 F 层），正确地放入目标槽的棱块位，那么我们称此时的棱块<strong>朝向正确</strong>。否则，我们称棱块朝向错误。</p>
+<p>当我们以 F 面朝前握持魔方时，棱块朝向正确的情况有两种：</p>
+<ul class="simple">
+<li><p>棱块在顶层，且 F 色（或 B 色）朝上</p></li>
+<li><p>棱块在中层（任何一个槽内），且 F 色（或 B 色）朝前或朝后</p></li>
+</ul>
+<div class="roofpig-inline-container">
+   <div class="roofpig inline" data-config="alg=L' R U2' L R'|colored=FR D*/e */m|flags=showalg">在槽内，F 色朝前</div>
+   <div class="roofpig inline" data-config="alg=R' U R2 U' R'|colored=FR D*/e */m|flags=showalg">在槽内，F 色朝后</div>
+   <div class="roofpig inline" data-config="alg=R U R'|colored=FR D*/e */m|flags=showalg">在顶层，且F面颜色朝上</div>
+</div><div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>请注意，F2L 的棱块朝向是否正确是相对于魔方的当前朝向而言的。如果我们将魔方转动 90 度（y 或者 y'），那么原先朝向正确的 F2L 组会变成朝向错误的，而原先朝向错误的则会变为朝向正确的。</p>
+</div>
+<p>判断一组 F2L 的棱块朝向是否正确，对于 F2L 复原有什么用呢？它可以指示这组 F2L 复原<strong>是否需要转体</strong>（或者转动 F 层）。绝大部分的 F2L 解法都是转动 R/L 与 U 层，非常顺手；因此朝向错误的 F2L 必须借助于其他“不顺手的转动”来调整棱块朝向，以此完成复原，例如 F 层、双层 r 转、M 层。因此，我们大致可以认为：<strong>棱块朝向正确的一组 F2L 是比较容易复原的</strong>。</p>
+<p>理想情况下，我们应当优先复原当前朝向正确的所有 F2L 组。然后转体一次魔方，将朝向错误的组变成朝向正确的，并复原它们。这样，我们整个 F2L 中至多只需要一次转体。因此，在完成十字后，我们遵循的 F2L 复原步骤应当是：</p>
+<ol class="arabic simple">
+<li><p>观察在当前魔方状态下，哪些 F2L 组的棱块朝向是正确的</p></li>
+<li><p>复原这些棱块朝向正确的 F2L</p></li>
+<li><p>转体一次，复原剩下的 F2L</p></li>
+</ol>
+</section>
+<section id="id3">
+<h3>F2L 空槽利用<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>F2L 标准公式通常以 FR 槽作为目标槽，且假设其他槽都已经复原。因此，标准公式需要保证在复原 FR 槽时，所有其他的 F2L 槽不会被打乱。但是，在实际的复原过程中，其他槽很可能尚未复原，这称为<strong>空槽</strong>。我们无需关心空槽中的块是否被打乱，因此公式可能可以变得更短。一个典型的例子：</p>
+<ul class="simple">
+<li><p>本例如果使用标准 F2L 公式复原 BR 槽，需要 7 步。</p></li>
+<li><p>在 BR 是空槽时，复原 FR 槽的 F2L 实际只需要 5 步。</p></li>
+</ul>
+<div class="roofpig-inline-container">
+   <div class="roofpig inline" data-config="alg=R' U2' R2 U R2' U R|colored=FR FRD BR BRD D*/e */m|flags=showalg">标准 F2L 公式</div>
+   <div class="roofpig inline" data-config="alg=R' U2' R2 U R'|colored=FR FRD D*/e */m|flags=showalg">利用 BR 空槽</div>
+</div><p>有一类著名的空槽利用方法，称为<strong>钥孔</strong>（keyhole）。它是指目标槽中已经有一个块被正确地归位在内了，那么我们可以借助空槽来快速地归位另一个块。下面是例子：</p>
+<div class="roofpig-inline-container">
+   <div class="roofpig inline" data-config="alg=U' R' F' R U R U' R' F|colored=FR FRD D*/e */m|flags=showalg">标准 F2L 公式</div>
+   <div class="roofpig inline" data-config="alg=D' R U' R' D|colored=FR FRD D*/e */m|flags=showalg">钥孔归棱：利用 BR 空槽</div>
+</div><div class="roofpig-inline-container">
+   <div class="roofpig inline" data-config="alg=U' R U' R' U2 R U' R'|colored=FR FRD D*/e */m|flags=showalg">标准 F2L 公式</div>
+   <div class="roofpig inline" data-config="alg=u R U' R' u'|colored=FR FRD D*/e */m|flags=showalg">钥孔归角：利用 BR 空槽</div>
+</div></section>
+<section id="f2l-f2l">
+<h3>F2L 非标/高级 F2L<a class="headerlink" href="#f2l-f2l" title="Link to this heading"></a></h3>
+<p>非标的出现与空槽基于同样的原因，那就是 F2L 的标准公式假设了其余槽都以及复原，只专注于 FR 槽的复原。因此在标准公式中，FR 这组 F2L 的棱块与角块只能出现在顶层或者 FR 槽中。而在实际复原中，我们常常遇到另一种情况，那就是 FR 的块位于其他槽中。这些状态是标准公式中不涵盖的，它们称为非标准状态。</p>
+<p>要将非标准状态下的 FR 槽复原，有一种显然的方法是将对应的块从非标准槽位中移出，转化为标准状态，然后我们再用标准 F2L 公式解决。直接利用另外开发的公式比转化为标准状态再解可能更快，而这些公式就是非标公式。</p>
+<p>一个简单的非标例子：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=L' U2 L R U R' U2 R U' R'|setupmoves=L' R U R' L U L' U2 L R U R' U2 R U' R'|colored=DFR FR D*/e */m|flags=showalg">直接移出后解标态</div>
+  <div class="roofpig inline" data-config="alg=U' L' R U' R' L|colored=DFR FR D*/e */m|flags=showalg">非标</div>
+</div></section>
+</section>
+<section id="id4">
+<h2>F2L 的标准公式（及多向）<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>以下是完整的 OLL 公式表，总计有 41 种标准情形。绝大部分情形的多向公式都可以通过镜像直接得到：</p>
+<ul class="simple">
+<li><p>左右镜像：将入槽位改为 LF，转动 R 层改为转动 L 层，反转 U 层的旋转方向。</p></li>
+<li><p>前后镜像：将入槽位改为 BR，反转转动 R 层与 U 层的旋转方向。</p></li>
+</ul>
+<p>本表将列出的多向情形包括：</p>
+<ul class="simple">
+<li><p>直接镜像后手法难以实现的情形</p></li>
+<li><p>多向的棱角分离方式与标准公式不同的情形</p></li>
+<li><p>标准公式较为难解的情形</p></li>
+</ul>
+<p>以上情形之外的多向则不会在表中列出。本表中的多向公式主要收录以 RB 槽为目标槽的情况。</p>
 <p>在本表中，我用角块、棱块朝上的颜色以及棱块的位置来描述每一种倾向。例如，“角前后棱右”表示角块朝上的颜色与前面（F 面）相同，棱块位于后面（B 面），且朝上的颜色与右面（R 面）相同。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -155,330 +251,560 @@
   </thead>
   <tbody>
     <tr>
-      <td><span id="F2L-31">F2L-31</span></td>
+      <td><span id="F2L-1">F2L-1</span></td>
       <td>右并</td>
       <td>标准型</td>
       <td><div class="roofpig recommend" data-config="alg=U R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U(RU'R')</p></td>
+      <td><p class="roofpig-algo">U(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_1">SpeedCubeDB 链接：F2L-1</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-34">F2L-34</span></td>
+      <td><span id="F2L-1">F2L-1</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=U f R' f'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(fR'f')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_1">SpeedCubeDB 链接：F2L-1</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-2">F2L-2</span></td>
       <td>左并</td>
       <td>标准型</td>
       <td><div class="roofpig recommend" data-config="alg=y' U' R' U R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'U'(R'UR)</p></td>
+      <td><p class="roofpig-algo">y'U'(R'UR)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_2">SpeedCubeDB 链接：F2L-2</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-40">F2L-40</span></td>
+      <td><span id="F2L-4">F2L-4</span></td>
       <td>右散</td>
       <td>标准型</td>
       <td><div class="roofpig recommend" data-config="alg=R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RUR')</p></td>
+      <td><p class="roofpig-algo">(RUR')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_4">SpeedCubeDB 链接：F2L-4</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-25">F2L-25</span></td>
+      <td><span id="F2L-4">F2L-4</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=f R f'|algdisplay=2p|colored=u-"></div></td>
+      <td><p>推荐转体后按标准公式型做。</p><p class="roofpig-algo">fRf'</p><p>手法：下手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_4">SpeedCubeDB 链接：F2L-4</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-3">F2L-3</span></td>
       <td>左散</td>
       <td>标准型</td>
       <td><div class="roofpig recommend" data-config="alg=y' R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'(R'U'R)</p></td>
+      <td><p class="roofpig-algo">y'(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_3">SpeedCubeDB 链接：F2L-3</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-24">F2L-24</span></td>
+      <td><span id="F2L-3">F2L-3</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=f' L' f|algdisplay=2p|colored=u-"></div></td>
+      <td><p>推荐转体后按标准公式做。</p><p class="roofpig-algo">f'L'f</p><p>手法：前手位起手，左手食指压f'，中指回推f。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_3">SpeedCubeDB 链接：F2L-3</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-13">F2L-13</span></td>
       <td>角前前棱右</td>
       <td>棱角异色</td>
       <td><div class="roofpig recommend" data-config="alg=y' U R' U R U' R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'U(R'URU')(R'U'R)</p></td>
+      <td><p class="roofpig-algo">y'U(R'URU')(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_13">SpeedCubeDB 链接：F2L-13</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-26">F2L-26</span></td>
+      <td><span id="F2L-9">F2L-9</span></td>
       <td>角前后棱右</td>
       <td>棱角异色</td>
       <td><div class="roofpig recommend" data-config="alg=U' R U' R' U y' R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U'(RU'R'U)y'(R'U'R)</p></td>
+      <td><p class="roofpig-algo">U'(RU'R'U)y'(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_9">SpeedCubeDB 链接：F2L-9</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-27">F2L-27</span></td>
+      <td><span id="F2L-9">F2L-9</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=U R' U' R U' R' U' R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(R'U'R)U'(R'U'R) </p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_9">SpeedCubeDB 链接：F2L-9</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-11">F2L-11</span></td>
       <td>角前右棱右</td>
       <td>棱角异色</td>
       <td><div class="roofpig recommend" data-config="alg=U' R U2' R' U y' R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U'(RU2'R'U)y'(R'U'R)</p></td>
+      <td><p class="roofpig-algo">U'(RU2'R'U)y'(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_11">SpeedCubeDB 链接：F2L-11</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-38">F2L-38</span></td>
+      <td><span id="F2L-11">F2L-11</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U R U' R' U R U2' R' U R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(R'URU')(R'UR)U2'(R'UR) </p><p>手法：下手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_11">SpeedCubeDB 链接：F2L-11</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-12">F2L-12</span></td>
       <td>角右前棱前</td>
       <td>棱角异色</td>
       <td><div class="roofpig recommend" data-config="alg=R' U2' R2 U R2' U R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">R'U2'R2UR2'UR</p></td>
+      <td><p class="roofpig-algo">R'U2'R2UR2'UR</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_12">SpeedCubeDB 链接：F2L-12</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-39">F2L-39</span></td>
+      <td>F2L-12<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U' R' U R U' R' U2 R U' R'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U)(RU'R'U2)(RU'R') </p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-10">F2L-10</span></td>
       <td>角右左棱前</td>
       <td>棱角异色</td>
       <td><div class="roofpig recommend" data-config="alg=U' R U R' U R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U'(RUR'U)(RUR')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-41">F2L-41</span></td>
-      <td>角右右棱前</td>
-      <td>棱角异色</td>
-      <td><div class="roofpig recommend" data-config="alg=U' R U' R' U R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U'(RU'R'U)(RUR')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-28">F2L-28</span></td>
-      <td>角前前棱前</td>
-      <td>棱角同色</td>
-      <td><div class="roofpig recommend" data-config="alg=y' R' U R U2' y R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'(R'UR)U2'y(RUR')</p></td>
-    </tr>
-    <tr>
-      <td>F2L-28<br />(变体)</td>
-      <td></td>
-      <td></td>
-      <td><div class="roofpig" data-config="alg=R U R' U2 R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p>无需转体的变体公式。</p><p class="roofpig-algo">(RUR')U2(RU'R'U)(RU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-29">F2L-29</span></td>
-      <td>角前左棱前</td>
-      <td>棱角同色</td>
-      <td><div class="roofpig recommend" data-config="alg=U' R U2' R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U'(RU2'R')U2(RU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-30">F2L-30</span></td>
-      <td>角前后棱前</td>
-      <td>棱角同色</td>
-      <td><div class="roofpig recommend" data-config="alg=U' R U R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(U'RUR')U2(RU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-35">F2L-35</span></td>
-      <td>角右左棱右</td>
-      <td>棱角同色</td>
-      <td><div class="roofpig recommend" data-config="alg=d R' U' R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
-      <td><p>注意 d 与 y'U 实质是一样的。</p><p class="roofpig-algo">d(R'U'R)U2'(R'UR)</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-36">F2L-36</span></td>
-      <td>角右后棱右</td>
-      <td>棱角同色</td>
-      <td><div class="roofpig recommend" data-config="alg=d R' U2 R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
-      <td><p>注意 d 与 y'U 实质是一样的。</p><p class="roofpig-algo">d(R'U2R)U2'(R'UR)</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-37">F2L-37</span></td>
-      <td>角右右棱右</td>
-      <td>棱角同色</td>
-      <td><div class="roofpig recommend" data-config="alg=R U' R' U2 y' R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RU'R'U2)y'(R'U'R)</p></td>
-    </tr>
-    <tr>
-      <td>F2L-37<br />(变体)</td>
-      <td></td>
-      <td></td>
-      <td><div class="roofpig" data-config="alg=U F R U R' U' F' U R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p>无需转体的变体公式。</p><p class="roofpig-algo">UF(RUR'U')F'(URU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-18">F2L-18</span></td>
-      <td>角顶前棱前</td>
-      <td>角块顶色</td>
-      <td><div class="roofpig recommend" data-config="alg=U R U' R' U' R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U(RU'R'U')(RU'R'U)(RU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-19">F2L-19</span></td>
-      <td>角顶左棱前</td>
-      <td>角块顶色</td>
-      <td><div class="roofpig recommend" data-config="alg=U2 R U R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U2(RUR'U)(RU'R')</p></td>
-    </tr>
-    <tr>
-      <td>F2L-19<br />(变体)</td>
-      <td></td>
-      <td></td>
-      <td><div class="roofpig" data-config="alg=R U' R' U2 R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RU'R')U2(RUR')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-20">F2L-20</span></td>
-      <td>角顶后棱前</td>
-      <td>角块顶色</td>
-      <td><div class="roofpig recommend" data-config="alg=U R U2' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U(RU2'R')U(RU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-21">F2L-21</span></td>
-      <td>角顶右棱前</td>
-      <td>角块顶色</td>
-      <td><div class="roofpig recommend" data-config="alg=R U2 R' U' R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RU2R')U'(RUR')</p></td>
+      <td><p class="roofpig-algo">U'(RUR'U)(RUR')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_10">SpeedCubeDB 链接：F2L-10</a></p></td>
     </tr>
     <tr>
       <td><span id="F2L-14">F2L-14</span></td>
-      <td>角顶前棱右</td>
-      <td>角块顶色</td>
-      <td><div class="roofpig recommend" data-config="alg=y' R' U2 R U R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'(R'U2R)U(R'U'R)</p></td>
+      <td>角右右棱前</td>
+      <td>棱角异色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U' R' U R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RU'R'U)(RUR')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_14">SpeedCubeDB 链接：F2L-14</a></p></td>
     </tr>
     <tr>
       <td><span id="F2L-15">F2L-15</span></td>
-      <td>角顶左棱右</td>
-      <td>角块顶色</td>
-      <td><div class="roofpig recommend" data-config="alg=y' U' R' U2 R U' R' U R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'U'(R'U2R)U'(R'UR)</p></td>
+      <td>角前前棱前</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' U2 R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR')U2(RU'R'U)(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_15">SpeedCubeDB 链接：F2L-15</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-7">F2L-7</span></td>
+      <td>角前左棱前</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U2' R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RU2'R')U2(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_7">SpeedCubeDB 链接：F2L-7</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-5">F2L-5</span></td>
+      <td>角前后棱前</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(U'RUR')U2(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_5">SpeedCubeDB 链接：F2L-5</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-6">F2L-6</span></td>
+      <td>角右左棱右</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=d R' U' R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p>注意 d 与 y'U 实质是一样的。</p><p class="roofpig-algo">d(R'U'R)U2'(R'UR)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_6">SpeedCubeDB 链接：F2L-6</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-8">F2L-8</span></td>
+      <td>角右后棱右</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=d R' U2 R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p>注意 d 与 y'U 实质是一样的。</p><p class="roofpig-algo">d(R'U2R)U2'(R'UR)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_8">SpeedCubeDB 链接：F2L-8</a></p></td>
     </tr>
     <tr>
       <td><span id="F2L-16">F2L-16</span></td>
+      <td>角右右棱右</td>
+      <td>棱角同色</td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' U2 y' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U2)y'(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_16">SpeedCubeDB 链接：F2L-16</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-16">F2L-16</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U' R U2' R' U R U' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(R'U'R)U2'(R'URU')(R'UR)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_16">SpeedCubeDB 链接：F2L-16</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-23">F2L-23</span></td>
+      <td>角顶前棱前</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U' R' U' R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(RU'R'U')(RU'R'U)(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_23">SpeedCubeDB 链接：F2L-23</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-23<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U R' U2 R U R' U' R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR')U2(RUR'U')(RUR')</p><p>手法：第一个U用左手食指推。</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-23">F2L-23</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=U R' F R' F' R2 U' R' U R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(R'FR'F')R2U'(R'UR) </p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_23">SpeedCubeDB 链接：F2L-23</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-21">F2L-21</span></td>
+      <td>角顶左棱前</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=U2 R U R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U2(RUR'U)(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_21">SpeedCubeDB 链接：F2L-21</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-21<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U' R' U2 R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p>请仔细体会这两种思路。</p><p class="roofpig-algo">(RU'R')U2(RUR')</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-19">F2L-19</span></td>
+      <td>角顶后棱前</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U2' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(RU2'R')U(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_19">SpeedCubeDB 链接：F2L-19</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-24">F2L-24</span></td>
+      <td>角顶右棱前</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=R U R' d R' U R U' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR')d(R'URU'R'UR)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_24">SpeedCubeDB 链接：F2L-24</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-24">F2L-24</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U' R U2' R' U' R U R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(R'U'R)U2'(R'U'RU)(R'U'R)</p><p>手法：下手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_24">SpeedCubeDB 链接：F2L-24</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-24<br />(多向变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=U2' R2' U2' R U R' U R2|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U2'R2'U2'(RUR'UR2)</p><p>手法：上手位起手。最后一个U用左手食指推。</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-18">F2L-18</span></td>
+      <td>角顶前棱右</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=y' R' U2 R U R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'(R'U2R)U(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_18">SpeedCubeDB 链接：F2L-18</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-20">F2L-20</span></td>
+      <td>角顶左棱右</td>
+      <td>角块顶色</td>
+      <td><div class="roofpig recommend" data-config="alg=y' U' R' U2 R U' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'U'(R'U2R)U'(R'UR)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_20">SpeedCubeDB 链接：F2L-20</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-22">F2L-22</span></td>
       <td>角顶后棱右</td>
       <td>角块顶色</td>
       <td><div class="roofpig recommend" data-config="alg=y' U2 R' U' R U' R' U R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'U2(R'U'R)U'(R'UR)</p></td>
+      <td><p class="roofpig-algo">y'U2(R'U'R)U'(R'UR)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_22">SpeedCubeDB 链接：F2L-22</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-22<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=y' R' U R U2 R' U' R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">y'(R'UR)U2(R'U'R) </p></td>
     </tr>
     <tr>
       <td><span id="F2L-17">F2L-17</span></td>
       <td>角顶右棱右</td>
       <td>角块顶色</td>
-      <td><div class="roofpig recommend" data-config="alg=F U R U' R' F' R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">F(URU'R')F'(RU'R')</p></td>
+      <td><div class="roofpig recommend" data-config="alg=R U2 R' U' R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU2R')U'(RUR')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_17">SpeedCubeDB 链接：F2L-17</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-2">F2L-2</span></td>
+      <td><span id="F2L-26">F2L-26</span></td>
       <td>正角棱右</td>
       <td>角块在位</td>
       <td><div class="roofpig recommend" data-config="alg=U R U' R' U' F' U F|algdisplay=2p|colored=u-"></div></td>
-      <td><p>（层先法公式）</p><p class="roofpig-algo">U(RU'R')U'(F'UF)</p></td>
+      <td><p>（层先法公式）</p><p class="roofpig-algo">U(RU'R')U'(F'UF)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_26">SpeedCubeDB 链接：F2L-26</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-3">F2L-3</span></td>
+      <td><span id="F2L-26">F2L-26</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U R U R' U R U' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(R'URU)(R'URU')(R'U'R)</p><p>手法：上手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_26">SpeedCubeDB 链接：F2L-26</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-25">F2L-25</span></td>
       <td>正角棱前</td>
       <td>角块在位</td>
       <td><div class="roofpig recommend" data-config="alg=R' F' R U R U' R' F|algdisplay=2p|colored=u-"></div></td>
-      <td><p>（层先法公式）</p><p class="roofpig-algo">R'F'RU(RU'R')F</p></td>
+      <td><p>（层先法公式）</p><p class="roofpig-algo">R'F'RU(RU'R')F</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_25">SpeedCubeDB 链接：F2L-25</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-6">F2L-6</span></td>
+      <td>F2L-25<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=U' R' F R F' R U R'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(R'FRF')(RUR') </p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-29">F2L-29</span></td>
       <td>顶角棱右</td>
       <td>角块在位</td>
       <td><div class="roofpig recommend" data-config="alg=y' R' U' R U R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'(R'U'RU)(R'U'R)</p></td>
+      <td><p class="roofpig-algo">y'(R'U'RU)(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_29">SpeedCubeDB 链接：F2L-29</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-7">F2L-7</span></td>
+      <td>F2L-29<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R' F R F' U R U' R'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p>无转体公式</p><p class="roofpig-algo">(R'FRF')(URU'R') </p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-27">F2L-27</span></td>
       <td>顶角棱前</td>
       <td>角块在位</td>
       <td><div class="roofpig recommend" data-config="alg=R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RU'R'U)(RU'R')</p></td>
+      <td><p class="roofpig-algo">(RU'R'U)(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_27">SpeedCubeDB 链接：F2L-27</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-10">F2L-10</span></td>
+      <td><span id="F2L-28">F2L-28</span></td>
       <td>右角棱右</td>
       <td>角块在位</td>
       <td><div class="roofpig recommend" data-config="alg=y' R' U R U' R' U R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">y'(R'URU')(R'UR)</p></td>
+      <td><p class="roofpig-algo">y'(R'URU')(R'UR)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_28">SpeedCubeDB 链接：F2L-28</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-11">F2L-11</span></td>
+      <td>F2L-28<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U R' U' F R' F' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RUR'U')(FR'F'R)</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-30">F2L-30</span></td>
       <td>右角棱前</td>
       <td>角块在位</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U' R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RUR'U')(RUR')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-12">F2L-12</span></td>
-      <td>顶角正棱</td>
-      <td>棱块在位</td>
-      <td><div class="roofpig recommend" data-config="alg=U R U' R' U R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(URU'R')(URU'R')(URU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-13">F2L-13</span></td>
-      <td>顶角反棱</td>
-      <td>棱块在位</td>
-      <td><div class="roofpig recommend" data-config="alg=R U' R' U y' R' U R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RU'R'U)y'(R'UR)</p></td>
-    </tr>
-    <tr>
-      <td>F2L-13<br />(变体)</td>
-      <td></td>
-      <td></td>
-      <td><div class="roofpig" data-config="alg=U' R' F R F' R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p>无需转体的变体公式。</p><p class="roofpig-algo">U'(R'FRF')(RU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-22">F2L-22</span></td>
-      <td>前角正棱</td>
-      <td>棱块在位</td>
-      <td><div class="roofpig recommend" data-config="alg=U' R U' R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U'(RU'R')U2(RU'R')</p></td>
-    </tr>
-    <tr>
-      <td><span id="F2L-23">F2L-23</span></td>
-      <td>前角反棱</td>
-      <td>棱块在位</td>
-      <td><div class="roofpig recommend" data-config="alg=U' R U R' d R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U'(RUR')d(R'U'R)</p></td>
+      <td><p class="roofpig-algo">(RUR'U')(RUR')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_30">SpeedCubeDB 链接：F2L-30</a></p></td>
     </tr>
     <tr>
       <td><span id="F2L-32">F2L-32</span></td>
-      <td>右角正棱</td>
+      <td>顶角正棱</td>
       <td>棱块在位</td>
-      <td><div class="roofpig recommend" data-config="alg=U R U R' U2 R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U(RUR')U2(RUR')</p></td>
+      <td><div class="roofpig recommend" data-config="alg=U R U' R' U R U' R' U R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(URU'R')(URU'R')(URU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_32">SpeedCubeDB 链接：F2L-32</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-32<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R2 U R2 U R2 U2' R2  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">R2UR2UR2U2'R2 </p><p>手法：U层转动全部由左手食指完成。</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-32">F2L-32</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U' R U R' U' R U R' U' R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">R'U'(RUR'U')(RUR'U'R) </p><p>手法：前手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_32">SpeedCubeDB 链接：F2L-32</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-32<br />(多向变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R2 U' R2 U' R2 U2' R2  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">R2U'R2U'R2U2'R2 </p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-31">F2L-31</span></td>
+      <td>顶角反棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R' F R F' R U' R'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p>无转体公式</p><p class="roofpig-algo">U'(R'FRF')(RU'R') </p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_31">SpeedCubeDB 链接：F2L-31</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-31">F2L-31</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U R' F R F' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">R'U(R'FRF')R</p><p>手法：上手位起手。F'用左手食指拨。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_31">SpeedCubeDB 链接：F2L-31</a></p></td>
     </tr>
     <tr>
       <td><span id="F2L-33">F2L-33</span></td>
+      <td>前角正棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U' R' U2 R U' R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RU'R')U2(RU'R')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_33">SpeedCubeDB 链接：F2L-33</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-33">F2L-33</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=U R' U2 R U' R' U' R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(R'U2RU')(R'U'R) </p><p>手法：上手位起手。开头的U用左手做。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_33">SpeedCubeDB 链接：F2L-33</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-33<br />(多向变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=U' R' U' R U2' R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(R'U'R)U2'(R'U'R)</p><p>手法：上手位起手。</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-35">F2L-35</span></td>
+      <td>前角反棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U' R U R' d R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(RUR')d(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_35">SpeedCubeDB 链接：F2L-35</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-35">F2L-35</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=U' f R f' U R' U' R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U'(fRf')U(R'U'R) </p><p>手法：f与f'分别用右手与左手食指下压。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_35">SpeedCubeDB 链接：F2L-35</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-34">F2L-34</span></td>
+      <td>右角正棱</td>
+      <td>棱块在位</td>
+      <td><div class="roofpig recommend" data-config="alg=U R U R' U2 R U R'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(RUR')U2(RUR')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_34">SpeedCubeDB 链接：F2L-34</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-34">F2L-34</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=U R' U R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(R'UR)U2'(R'UR)</p><p>手法：上手位起手。开头的U用左手做。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_34">SpeedCubeDB 链接：F2L-34</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-36">F2L-36</span></td>
       <td>右角反棱</td>
       <td>棱块在位</td>
       <td><div class="roofpig recommend" data-config="alg=U F' U' F U' R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">U(F'U'F)U'(RUR')</p></td>
+      <td><p class="roofpig-algo">U(F'U'F)U'(RUR')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_36">SpeedCubeDB 链接：F2L-36</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-1">F2L-1</span></td>
+      <td><span id="F2L-36">F2L-36</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=U R' U' R U' f R f'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">U(R'U'RU')(fRf')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_36">SpeedCubeDB 链接：F2L-36</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-37">F2L-37</span></td>
       <td>正角反棱</td>
       <td>棱角在位</td>
-      <td><div class="roofpig recommend" data-config="alg=R U' R' d R' U2 R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
+      <td><div class="roofpig recommend" data-config="alg=R2' U2' F R2 F' U2 R' U R'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">R2'U2'(FR2F')U2(R'UR') </p><p>手法：上手位起手。F'用右手无名指拨。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_37">SpeedCubeDB 链接：F2L-37</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-37<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U' R' d R' U2 R U2' R' U R|algdisplay=2p|colored=u-"></div></td>
       <td><p class="roofpig-algo">(RU'R')d(R'U2R)U2'(R'UR)</p></td>
     </tr>
     <tr>
-      <td><span id="F2L-4">F2L-4</span></td>
+      <td><span id="F2L-37">F2L-37</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U r R U2' R2 U' R2' U' r'|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(R'UrR)U2'(R2U'R2'U'r')</p><p>手法：上手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_37">SpeedCubeDB 链接：F2L-37</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-38">F2L-38</span></td>
       <td>前角正棱</td>
       <td>棱角在位</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U' R U2 R' U' R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RUR'U')RU2R'U'(RUR')</p></td>
+      <td><p class="roofpig-algo">(RUR'U')RU2R'U'(RUR')</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_38">SpeedCubeDB 链接：F2L-38</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-8">F2L-8</span></td>
+      <td>F2L-38<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U' R' U' R U R' U2 R U' R'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U')(RUR'U2)(RU'R') </p><p>手法：第二组的U用左手食指推。</p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-38">F2L-38</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U R U' R' U2 R U' R' U R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(R'URU')(R'U2RU')(R'UR) </p><p>手法：上手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_38">SpeedCubeDB 链接：F2L-38</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-39">F2L-39</span></td>
       <td>右角正棱</td>
       <td>棱角在位</td>
-      <td><div class="roofpig recommend" data-config="alg=R U R' U2' R U' R' U R U R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RUR')U2'(RU'R'U)(RUR')</p></td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' U R U2 R' U R U' R'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U)(RU2R'U)(RU'R') </p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_39">SpeedCubeDB 链接：F2L-39</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-5">F2L-5</span></td>
+      <td><span id="F2L-39">F2L-39</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U' R U R' U2' R U R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(R'U'RU)R'U2'(RUR'U'R)</p><p>手法：前手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_39">SpeedCubeDB 链接：F2L-39</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-40">F2L-40</span></td>
       <td>前角反棱</td>
       <td>棱角在位</td>
-      <td><div class="roofpig recommend" data-config="alg=R U' R' F R U R' U' F' R U' R'|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RU'R')F(RUR'U')F'(RU'R')</p></td>
+      <td><div class="roofpig recommend" data-config="alg=R U' R' U' R U' R' U y' R' U' R  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(RU'R'U')(RU'R'U)y'(R'U'R) </p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_40">SpeedCubeDB 链接：F2L-40</a></p></td>
     </tr>
     <tr>
-      <td><span id="F2L-9">F2L-9</span></td>
+      <td>F2L-40<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=r U' r' U2 r U r' R U R'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p>小r流公式</p><p class="roofpig-algo">(rU'r'U2)(rUr')(RUR') </p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-40">F2L-40</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=R' U R r' U r U2 r' U' r  |algdisplay=2p|colored=u-"></div></td>
+      <td><p class="roofpig-algo">(R'UR)(r'Ur)U2(r'U'r) </p><p>手法：上手位起手。</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_40">SpeedCubeDB 链接：F2L-40</a></p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-41">F2L-41</span></td>
       <td>右角反棱</td>
       <td>棱角在位</td>
       <td><div class="roofpig recommend" data-config="alg=R U R' U' R U' R' U2 y' R' U' R|algdisplay=2p|colored=u-"></div></td>
-      <td><p class="roofpig-algo">(RUR'U')(RU'R')U2y'(R'U'R)</p></td>
+      <td><p class="roofpig-algo">(RUR'U')(RU'R')U2y'(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_41">SpeedCubeDB 链接：F2L-41</a></p></td>
+    </tr>
+    <tr>
+      <td>F2L-41<br />(变体)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig" data-config="alg=R U' R' r U' r' U2 r U r'  |algdisplay=2p|colored=u-"></div></td>
+      <td><p>小r流公式</p><p class="roofpig-algo">(RU'R')(rU'r'U2)(rUr') </p></td>
+    </tr>
+    <tr>
+      <td><span id="F2L-41">F2L-41</span><br />(多向)</td>
+      <td></td>
+      <td></td>
+      <td><div class="roofpig multi-angle" data-config="alg=r' U r U2 r' U' r R' U' R|algdisplay=2p|colored=u-"></div></td>
+      <td><p>小r流公式</p><p class="roofpig-algo">(r'Ur)U2(r'U'r)(R'U'R)</p><p><a href="https://speedcubedb.com/a/3x3/F2L/F2L_41">SpeedCubeDB 链接：F2L-41</a></p></td>
     </tr>
   </tbody>
 </table></section>
-<section id="id2">
-<h2>实用非标<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<p>&#64;&#64;&#64;</p>
-<!-- Included in the BOTTOM of a RST file that includes roofpig tables -->
-<script>
-  // Highlight table rows that contains a recommended algorithm
-  $("div.roofpig.recommend").parents('tr').css("background-color", "#C9F6C8");
-</script>
+<section id="id5">
+<h2>F2L 扩展阅读<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>本节提到了比普通 CFOP 更高级的方法；它们无需在学习 CFOP 时掌握，这里仅作了解之用。本文也不详细介绍这部分的内容。</p>
+</div>
+<p>F2L 如何与十字（Cross）与顶面（OLL）复原衔接？</p>
+<ul>
+<li><p>XCross：指在复原底面十字时，顺便做好一组 F2L。类似地，XXCross 表示顺便做好两组，以此类推。这属于十字的高级内容。下面是对同一个十字情形 XCross 的简单例子；XCross 的解法比最优十字多一步，但是它同时复原了一组 F2L。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=R' F R|setupmoves=L F L' U2 R' F R|colored=DFR FR D*/e */m|flags=showalg">最快复原十字</div>
+  <div class="roofpig inline" data-config="alg=U2 L F' L'|setupmoves=L F L' U2 U2 L F' L'|colored=DFR FR D*/e */m|flags=showalg">XCross十字</div>
+</div></li>
+<li><p>控棱：指在复原最后一组 F2L 时，通过采用不同的复原方法来控制顶面棱块的朝向，以避免复杂的顶面情况（例如点型 OLL）。下面是对同一个最后一组 F2L 情形，直接还原与控棱的简单对比。</p>
+<blockquote>
+<div><div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=U R U' R'|setupmoves=F R' F' R U2' F R' F' R2' U2' R'|colored=u- u/e u/m|flags=showalg">直接还原</div>
+  <div class="roofpig inline" data-config="alg=R' F R F'|setupmoves=F R' F' R U2' F R' F' R2' U2' R' R U R' U' R' F R F'|colored=u- u/e u/m|flags=showalg">控棱</div>
+</div></div></blockquote>
+</li>
+</ul>
 </section>
 </section>
 

@@ -10,7 +10,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "84f30f05-32be-436c-8b74-05395fc4346b",
+   "id": "906c4040-07be-4354-8fe3-5764a3a74840",
    "metadata": {
     "editable": true,
     "slideshow": {
@@ -19,52 +19,7 @@
     "tags": []
    },
    "source": [
-    "线性规划（Linear Programming, LP）是指目标函数与约束条件均是关于变量的线性函数的优化问题。线性规划是最简单的优化问题类型，本节只讨论连续变量的线性规划。\n",
-    "\n",
-    "关于线性规划，我们有很多工具可以使用。本节将会使用："
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 1,
-   "id": "316cd8ac-c475-433d-8aae-e3502cf7695f",
-   "metadata": {
-    "editable": true,
-    "nbsphinx": "hidden",
-    "slideshow": {
-     "slide_type": ""
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
-    "# Hide FutureWarning. This cell is hidden by metadata:\n",
-    "#     \"nbsphinx\": \"hidden\" \n",
-    "import warnings\n",
-    "warnings.simplefilter(action='ignore', category=FutureWarning)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "id": "c6de2bc9-2136-47b4-b2ff-b812cef6f566",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "scipy\t1.10.1\n",
-      "cvxpy\t1.4.2\n",
-      "pyomo\t6.7.1\n"
-     ]
-    }
-   ],
-   "source": [
-    "import scipy, cvxpy, pyomo\n",
-    "\n",
-    "for lib in (scipy, cvxpy, pyomo):\n",
-    "    print(lib.__name__, lib.__version__, sep='\\t')"
+    "线性规划（Linear Programming, LP）是最简单的优化问题类型，指**目标函数**与**约束条件**均是关于变量的线性函数的优化问题。"
    ]
   },
   {
@@ -72,17 +27,25 @@
    "id": "030f2393-be7a-4d95-8a77-2d5af82dbf3c",
    "metadata": {},
    "source": [
-    "## 例题"
+    "## 建立线性规划模型"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "3978114b-9706-4b00-9779-d12ee300f295",
+   "id": "53054486-b9fd-40bf-a95d-eb38e63e2858",
    "metadata": {},
    "source": [
-    "考虑这样一个问题：\n",
+    "对于任何线性规划问题，我们通过下列步骤建立模型：\n",
     "\n",
-    "工厂现有的某机器能生产甲、乙、丙三种产品，它们的具体信息如下所示：\n",
+    "1. 定义问题变量\n",
+    "2. 给出目标函数\n",
+    "3. 提供约束条件\n",
+    "\n",
+    "考虑以下工厂生产问题，我们将通过它了解线性规划的建模过程。\n",
+    "\n",
+    "---\n",
+    "\n",
+    "工厂现有的某机器能生产甲、乙、丙三种产品，它们的具体生产信息如下表所示：\n",
     "\n",
     "* 每种产品的单件利润\n",
     "* 每种产品在生产单件时所需的人工工时\n",
@@ -96,11 +59,47 @@
     "| C   | 3    | 1        | 1        |          |\n",
     "| 约束 |      | = 45     | <= 100   | <= 60    |\n",
     "\n",
-    "假设该机器平均每周固定分配人工 45 小时、机器工作不超过 100 小时，且不应生产超过 60 件产品；生产的产品全部可以卖出。求如何分配三种产品的生产数量（可以是小数），使得平均每周的利润最大。\n",
+    "假设该机器平均每周固定分配人工 45 小时、机器工作不超过 100 小时，且不应生产超过 60 件产品；生产的产品全部可以卖出。求如何分配三种产品的生产数量（允许是小数），使得平均每周的总利润最大。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ab8ac2fe-43e0-49eb-ab8c-c1149064bfc6",
+   "metadata": {},
+   "source": [
+    "1. **定义问题变量**\n",
     "\n",
-    "---\n",
+    "   该问题需要求解即每种产品的生产数量。因此，我们将产品 A、B、C 的生产数量作为变量，分别定义为 $x_1$, $x_2$ 与 $x_3$.\n",
     "\n",
-    "我们列出优化模型如下，它是一个线性规划问题："
+    "2. **给出目标函数**\n",
+    "\n",
+    "   该问题的目标是最大化总利润，而每种产品的单位利润已经给出。将生产产品的数量与其利润相乘，最后求和，就得到总利润：\n",
+    "\n",
+    "   $$ \\max \\, 10x_1 + 7x_2 + 3x_3 $$\n",
+    "\n",
+    "   为了统一形式，本节将一律采用最小化问题的形式。我们可以将总利润乘以 $-1$ 并求其最小值（记为最小化目标函数 $z$）：\n",
+    "\n",
+    "   $$ \\min \\, z = -10x_1 - 7x_2 - 3x_3 $$\n",
+    "\n",
+    "3. **提供约束条件**\n",
+    "\n",
+    "   根据生产信息表格，我们用不等式约束机器工时、产品数量，用等式约束人工工时：\n",
+    "\n",
+    "   * 机器工时约束：$4x_1 + 3x_2 + x_3 \\leq 100$\n",
+    "   * 产品数量约束：$x_1 + x_2 + x_3 \\leq 60$\n",
+    "   * 人工工时约束：$2x_1 + 0.5x_2 + x_3 = 45$\n",
+    "   \n",
+    "   最后，每种产品的生产数量不能为负数：\n",
+    "\n",
+    "   * 非负约束：$x_1, x_2, x_3 \\geq 0$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c2e79ee3-781f-43d6-a987-d5c17c4cc949",
+   "metadata": {},
+   "source": [
+    "总结以上步骤，我们列出优化模型如下。由于目标函数与所有约束条件都是线性的，因此它是一个线性规划问题："
    ]
   },
   {
@@ -109,12 +108,141 @@
    "metadata": {},
    "source": [
     "\\begin{align*}\n",
-    "\\min\\ & f(x_1, x_2, x_3) = -10x_1 - 7x_2 - 3x_3 \\\\\n",
+    "\\min\\ & z(x_1, x_2, x_3) = -10x_1 - 7x_2 - 3x_3 \\\\\n",
     "\\text{s.t.}\\quad & 4x_1 + 3x_2 + x_3 \\leq 100 \\\\\n",
     "& x_1 + x_2 + x_3 \\leq 60 \\\\\n",
     "& 2x_1 + 0.5x_2 + x_3 = 45 \\\\\n",
     "& x_1, x_2, x_3 \\geq 0\n",
     "\\end{align*}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b6e22cfd-52ed-45c3-81bb-5111a80d09e1",
+   "metadata": {},
+   "source": [
+    "或者其矩阵形式："
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f9a959b3-b180-4187-ab94-1a0eb3d2d0d5",
+   "metadata": {},
+   "source": [
+    "\\begin{align*}\n",
+    "\\min\\ & z(x_1, x_2, x_3) = \\begin{pmatrix} -10 \\\\ -7 \\\\ -3 \\end{pmatrix}^T\n",
+    "\\begin{pmatrix} x_1 \\\\ x_2 \\\\ x_3\\end{pmatrix} \\\\\n",
+    "\\text{s.t.}\\quad & \\begin{pmatrix} 4 & 3 & 1 \\\\ 1 & 1 & 1 \\end{pmatrix}\n",
+    "\\begin{pmatrix} x_1 \\\\ x_2 \\\\ x_3\\end{pmatrix}\n",
+    "\\leq \\begin{pmatrix} 100 \\\\ 60 \\end{pmatrix} \\\\\n",
+    "& \\begin{pmatrix} 2 & 0.5 & 1 \\end{pmatrix} \\begin{pmatrix} x_1 \\\\ x_2 \\\\ x_3 \\end{pmatrix} = 45\\\\\n",
+    "& \\begin{pmatrix} x_1 \\\\ x_2 \\\\ x_3 \\end{pmatrix} \\geq \\begin{pmatrix} 0 \\\\ 0 \\\\ 0 \\end{pmatrix}\n",
+    "\\end{align*}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "efd23362-b3e9-41cc-a8d2-491ee118e8ec",
+   "metadata": {},
+   "source": [
+    "该矩阵形式可以进一步变形为一般形式，以减少矩阵的数量。这里我们将约束条件分为小于等于约束、等于约束与变量上下限约束三个部分，仅仅是便于后续的代码使用。"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ccd1153d-a01d-4040-97c4-a950e1bd3be4",
+   "metadata": {},
+   "source": [
+    "## 线性规划的一般形式"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9c20363b-cbc0-4adb-ab3f-e49a870ac91b",
+   "metadata": {},
+   "source": [
+    "通过上述例题的模型建立，我们总结：对于拥有 $n$ 个变量、$m$ 个约束的线性规划，其模型的一般形式如下\n",
+    "\n",
+    "\\begin{align*}\n",
+    "\\min \\quad & z(x) = c_1 x_1 + c_2 x_2 + \\dotsm + c_n x_n + d \\\\\n",
+    "\\text{s.t.} \\quad & a_{11}x_1 + a_{12}x_2 + \\dotsm + a_{1n}x_n \\leq b_1 \\\\\n",
+    "& a_{21}x_1 + a_{22}x_2 + \\dotsm + a_{2n}x_n \\leq b_2 \\\\\n",
+    "& \\vdots \\\\\n",
+    "& a_{m1}x_1 + a_{m2}x_2 + \\dotsm + a_{mn}x_n \\leq b_m\n",
+    "\\end{align*}\n",
+    "\n",
+    "或者，我们使用其矩阵标准形式：\n",
+    "\n",
+    "\\begin{align*}\n",
+    "\\min \\quad & z(x) = c^T x \\\\\n",
+    "\\text{s.t.} \\quad & \\boldsymbol{A}x \\leq b\n",
+    "\\end{align*}\n",
+    "\n",
+    "其中变量 $x \\in \\mathbb{R}^n$ 是 n 维向量，$c \\in \\mathbb{R}^n$ 描述了组成目标函数的参数，$\\boldsymbol{A} \\in \\mathbb{R^{m\\times n}}$ 与 $b \\in \\mathbb{R^m}$ 描述了关于变量 $x$ 的 m 个不等式约束条件。\n",
+    "\n",
+    "对于一个不符合标准形式的线性规划模型，我们可以通过以下技巧（在引言中已有所介绍），将其等价变形为标准形式：\n",
+    "\n",
+    "* **目标函数中的常数项**：由于目标函数中的常数 $d \\in \\mathbb{R}$ 的取值不影响最优解 $x^*$ 的求解结果，因此我们可以将它省略。\n",
+    "* **最小化与最大化目标函数**：对于求函数 $z(x)$ 最大值的目标函数，我们可以将其转为求 $-z(x)$ 的最小值。\n",
+    "\n",
+    "  $$ \\max\\,z(x) \\iff \\min\\,-z(x) $$\n",
+    "  \n",
+    "* **大于等于形式的约束**：对于大于等于形式的不等式约束 $\\boldsymbol{A}_{geq} x \\geq b_{geq}$，我们可以将两边乘以 $-1$ 来将其转变为小于形式的约束：\n",
+    "\n",
+    "  $$ \\boldsymbol{A}_{geq} x \\geq b_{geq} \\iff -\\boldsymbol{A}_{geq} x \\leq -b_{geq} $$\n",
+    "\n",
+    "* **等于形式的约束**：对于等于形式的约束 $\\boldsymbol{A}_{eq} x = b_{eq}$，我们可以用一个大于等于约束与一个小于等于约束来描述，然后进一步转为两个不等式描述：\n",
+    "\n",
+    "  $$\n",
+    "  \\boldsymbol{A}_{eq} x = b_{eq} \\iff\n",
+    "  \\begin{cases} \\boldsymbol{A}_{eq} x \\leq b_{eq} \\\\ \\boldsymbol{A}_{eq} x \\geq b_{eq} \\end{cases}\n",
+    "  \\iff \\begin{cases} \\boldsymbol{A}_{eq} x \\leq b_{eq} \\\\ -\\boldsymbol{A}_{eq} x \\leq -b_{eq} \\end{cases}\n",
+    "  $$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ecd4994f-386f-46a7-8d01-0d3f1667a59e",
+   "metadata": {},
+   "source": [
+    "## 线性规划的代码求解"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5f28e62f-a03e-4c8c-91cd-c58fd792d69a",
+   "metadata": {
+    "editable": true,
+    "slideshow": {
+     "slide_type": ""
+    },
+    "tags": []
+   },
+   "source": [
+    "关于线性规划的代码求解，我们有很多工具可以使用。本节将会使用："
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "c6de2bc9-2136-47b4-b2ff-b812cef6f566",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "scipy\t1.14.1\n",
+      "cvxpy\t1.6.4\n"
+     ]
+    }
+   ],
+   "source": [
+    "import scipy\n",
+    "import cvxpy\n",
+    "\n",
+    "for lib in (scipy, cvxpy):\n",
+    "    print(lib.__name__, lib.__version__, sep='\\t')"
    ]
   },
   {
@@ -130,10 +258,10 @@
    "id": "d850d51b-ebd7-423d-8ecc-81bcf81e3a17",
    "metadata": {},
    "source": [
-    "Scipy 可能是许多人第一次在 Python 上解线性规划问题时使用的工具。`scipy.optimize.linprog` 需要我们使用矩阵形式书写代码：\n",
+    "Scipy 可能是许多人第一次在 Python 上解线性规划问题时使用的工具。`scipy.optimize.linprog` 允许我们使用在矩阵形式中使用小于等于约束、等式约束，以及变量上下限约束：\n",
     "\n",
     "\\begin{align*}\n",
-    "\\min\\ & f(x) = \\boldsymbol{C}x \\\\\n",
+    "\\min\\ & z(x) = c^T x \\\\\n",
     "\\text{s.t.}\\quad & \\boldsymbol{A}_{leq} x \\leq b_{leq} \\\\\n",
     "& \\boldsymbol{A}_{eq} x = b_{eq} \\\\\n",
     "& \\ell \\leq x \\leq u\n",
@@ -142,7 +270,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 2,
    "id": "c137ac12-b13c-4a35-a4cd-06eb13ea6f41",
    "metadata": {},
    "outputs": [
@@ -165,6 +293,7 @@
     "A_eq = np.array([[2, 0.5, 1]])\n",
     "b_eq = np.array([45])\n",
     "x_bounds = [(0, None) for _ in range(3)]\n",
+    "\n",
     "result = linprog(c, A_leq, b_leq, A_eq, b_eq, bounds=x_bounds)\n",
     "print(result.message)"
    ]
@@ -179,7 +308,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 3,
    "id": "34ab2a29-8570-43ed-9fb3-6a1548fdbb0f",
    "metadata": {},
    "outputs": [
@@ -189,7 +318,7 @@
        "array([ 0., 22., 34.])"
       ]
      },
-     "execution_count": 4,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -209,7 +338,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 4,
    "id": "e07f12cd-fcf1-4ce5-aa57-fcc5a8924a55",
    "metadata": {},
    "outputs": [
@@ -237,7 +366,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 5,
    "id": "375c76de-076e-4365-a32f-cd931ddbe8fc",
    "metadata": {},
    "outputs": [
@@ -280,17 +409,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 6,
    "id": "8bc7109d-cab5-482c-ab5b-bfc35496997b",
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "-255.99999919804102"
+       "np.float64(-255.99999999194907)"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -323,7 +452,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 7,
    "id": "1ec1bb42-f4fd-4727-90f7-e84b17a6cf39",
    "metadata": {},
    "outputs": [
@@ -351,7 +480,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 8,
    "id": "3a378bc6-c7c3-4b4c-b4d1-41adf86b7386",
    "metadata": {},
    "outputs": [
@@ -359,8 +488,8 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "A feasible solution:\t [9.66046589e-07 2.19999993e+01 3.39999981e+01]\n",
-      "Optimal value:\t\t -255.99999919804102\n"
+      "A feasible solution:\t [9.27094654e-09 2.20000000e+01 3.40000000e+01]\n",
+      "Optimal value:\t\t -255.99999999194907\n"
      ]
     }
    ],
@@ -379,7 +508,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 9,
    "id": "372400a9-21a3-45fd-8423-db3a88a26853",
    "metadata": {},
    "outputs": [
@@ -388,9 +517,9 @@
      "output_type": "stream",
      "text": [
       "Dual solution:\n",
-      "    A_leq      [2.19999999e+00 1.01474852e-07]\n",
-      "    A_eq       [0.79999995]\n",
-      "    x_bounds   [3.99999883e-01 9.66102358e-09 6.00201485e-09]\n"
+      "    A_leq      [2.20000000e+00 8.68986474e-10]\n",
+      "    A_eq       [0.8]\n",
+      "    x_bounds   [3.99999999e-01 8.81435962e-11 5.94961809e-11]\n"
      ]
     }
    ],
@@ -407,547 +536,6 @@
    "metadata": {},
    "source": [
     "我们传入了三组约束。在上述对偶解中，小于号约束组 `A_leq` 的第二值为 0，表示原问题的 $x_1 + x_2 + x_3 \\leq 60$ 是松弛的（在最优解时未取得等号）。同理，变量约束组 `x_bounds` 的第二、三值也是松弛的，表示 $x_2, x_3$ 的最优解值不在边界上（而显然 $x_1^* = 0$ 在边界上）。"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "d21967be-8a59-4348-88c1-fd7258c1e615",
-   "metadata": {},
-   "source": [
-    "## pyomo (AbstractModel)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "12b6a486-e10e-40ec-8d0b-f71375f8b2ce",
-   "metadata": {},
-   "source": [
-    "通过 pyomo 提供的接口，我们调用需要的求解器来解优化问题。我们将前述的线性规划问题\n",
-    "\n",
-    "\\begin{align*}\n",
-    "\\min\\ & f(x_1, x_2, x_3) = -10x_1 - 7x_2 - 3x_3 \\\\\n",
-    "\\text{s.t.}\\quad & 4x_1 + 3x_2 + x_3 \\leq 100 \\\\\n",
-    "& x_1 + x_2 + x_3 \\leq 60 \\\\\n",
-    "& 2x_1 + 0.5x_2 + x_3 = 45 \\\\\n",
-    "& x_1, x_2, x_3 \\geq 0\n",
-    "\\end{align*}\n",
-    "\n",
-    "抽象成规范的优化问题表述的形式，以便使用 ``AbstractModel`` 来建立问题（如果愿意，也可以使用 ``ConcreteModel`` ）。下面是原问题的表述（目标函数写为最大化形式）：\n",
-    "\n",
-    "* 集合\n",
-    "  * $J$：产品下标集\n",
-    "* 参数\n",
-    "  * $c_j$：产品 $j$ 的利润，$j\\in J$\n",
-    "  * $a^{(machine)}_j$：产品 $j$ 的机器工时（正数），$j\\in J$\n",
-    "  * $a^{(product)}_j$：产品 $j$ 的生产数量（非负数），$j\\in J$\n",
-    "  * $a^{(human)}_j$：产品 $j$ 的人工工时（正数），$j\\in J$\n",
-    "  * $ub^{(machine)}$: 总机器工时上限（正数），标量\n",
-    "  * $ub^{(product)}$：总产品数量上限（正数），标量\n",
-    "  * $eb^{(human)}$：固定的总人工工时（正数），标量\n",
-    "* 变量\n",
-    "  * $x_j$：产品 $j$ 的生产数量，$j\\in J$\n",
-    "* 目标函数\n",
-    "  * 最大化产品的总利润： $\\max \\sum_{j=1}^n c_j x_j,\\quad j\\in J$\n",
-    "* 约束条件：以下均有 $\\forall j\\in J$\n",
-    "  * 机器工时上限：$\\sum_{j=1}^n a^{(machine)}_{j} x_j \\leq ub^{(machine)}$\n",
-    "  * 产品生产数量上限：$\\sum_{j=1}^n a^{(product)}_{j} x_j \\leq ub^{(product)}$\n",
-    "  * 固定人工工时：$\\sum_{j=1}^n a^{(human)}_{j} x_j = eb^{(human)}$\n",
-    "  * 产品数量非负：$x_j \\geq 0$\n",
-    "\n",
-    "本例用 pyomo 调用 CPLEX（需要预先安装）来解上述线性规划问题。\n",
-    "\n",
-    "* 约束条件中的变量非负由 `within=pyo.NonNegativeReals` 给出，不用再显示地写出。"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 11,
-   "id": "f68ebf66-28ea-4d41-ac60-e5d1478c87ed",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import pyomo.environ as pyo\n",
-    "infinity = float('inf')\n",
-    "\n",
-    "model = pyo.AbstractModel()\n",
-    "\n",
-    "# --- 集合 ---\n",
-    "model.J = pyo.Set()\n",
-    "\n",
-    "# --- 参数 ---\n",
-    "model.c = pyo.Param(model.J, within=pyo.NonNegativeReals)\n",
-    "\n",
-    "model.a_machine = pyo.Param(model.J, within=pyo.PositiveReals)\n",
-    "model.a_product = pyo.Param(model.J, within=pyo.NonNegativeReals)\n",
-    "model.a_human = pyo.Param(model.J, within=pyo.PositiveReals)\n",
-    "\n",
-    "model.ub_machine = pyo.Param(within=pyo.PositiveReals)\n",
-    "model.ub_product = pyo.Param(within=pyo.PositiveReals)\n",
-    "model.eb_human = pyo.Param(within=pyo.PositiveReals)\n",
-    "\n",
-    "# --- 变量 ---\n",
-    "model.x = pyo.Var(model.J, within=pyo.NonNegativeReals)\n",
-    "\n",
-    "# --- 目标函数 ---\n",
-    "def sale_rule(model):\n",
-    "    return sum(model.c[j] * model.x[j] for j in model.J)\n",
-    "\n",
-    "model.objectives = pyo.Objective(rule=sale_rule, sense=pyo.maximize)  # 最大化\n",
-    "\n",
-    "# --- 约束条件\n",
-    "def machine_constraint_rule(model):\n",
-    "    machine_hours = sum(model.a_machine[j] * model.x[j] for j in model.J)\n",
-    "    return machine_hours <= model.ub_machine\n",
-    "\n",
-    "model.constraint_machine = pyo.Constraint(rule=machine_constraint_rule)\n",
-    "\n",
-    "def product_constraint_rule(model):\n",
-    "    total_product = sum(model.a_product[j] * model.x[j] for j in model.J)\n",
-    "      # 另一种写法: (None, total_product, model.ub_product)\n",
-    "    return total_product <= model.ub_product\n",
-    "\n",
-    "model.constraint_product = pyo.Constraint(rule=product_constraint_rule)\n",
-    "\n",
-    "def human_constraint_rule(model):\n",
-    "    human_hours = sum(model.a_human[j] * model.x[j] for j in model.J)\n",
-    "    return human_hours == model.eb_human\n",
-    "\n",
-    "model.constraint_human = pyo.Constraint(rule=human_constraint_rule)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "4086b2f6-f598-4b89-acb3-c98eb2dd5bea",
-   "metadata": {},
-   "source": [
-    "### 导入模型参数值"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "f8222744-8ae3-41fe-bdeb-c53f51db0ba3",
-   "metadata": {},
-   "source": [
-    "我们可以直接使用 Python 字典变量来传入数据，也可以使用外部文件。先看使用字典，如果参数不含键名，它使用 `None` 字段给出参数的值："
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 12,
-   "id": "6ed49729-04f1-4c75-9e4a-f185420e7a05",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "datadict = {\n",
-    "    None: {\n",
-    "        \"J\": {None: ['A', 'B', 'C']},\n",
-    "        \"c\": {'A': 10, 'B': 7, 'C': 3},\n",
-    "        \"a_machine\": {'A': 4, 'B': 3, 'C': 1},\n",
-    "        \"a_product\": {'A': 1, 'B': 1, 'C': 1},\n",
-    "        \"a_human\": {'A': 2, 'B': 0.5, 'C': 1},\n",
-    "        \"ub_machine\": {None: 100},\n",
-    "        \"ub_product\": {None: 60},\n",
-    "        \"eb_human\": {None: 45}\n",
-    "    }\n",
-    "}"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "a15ca888-cba5-4a41-aded-5c8254d179ac",
-   "metadata": {},
-   "source": [
-    "如果使用外部文件，我们可以准备一个 YAML 文件（需要 pyyaml 库）或者 JSON 文件来指定参数的值。使用 YAML 文件也是我喜欢的做法（因为相比 JSON 不需要输入很多引号），例如："
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 13,
-   "id": "e3a3bc32-6d78-4ee1-ad13-289d88fcad66",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "J: [A, B, C]\n",
-      "c: \n",
-      "  A: 10\n",
-      "  B: 7\n",
-      "  C: 3\n",
-      "a_machine:\n",
-      "  A: 4\n",
-      "  B: 3\n",
-      "  C: 1\n",
-      "a_product:\n",
-      "  A: 1\n",
-      "  B: 1\n",
-      "  C: 1\n",
-      "a_human:\n",
-      "  A: 2\n",
-      "  B: 0.5\n",
-      "  C: 1\n",
-      "ub_machine: 100.0\n",
-      "ub_product: 60.0\n",
-      "eb_human: 45\n"
-     ]
-    }
-   ],
-   "source": [
-    "data_file = \"dataset/LP_machine.yaml\"\n",
-    "with open(data_file, \"r\") as f:\n",
-    "    data_rawstr = f.read()\n",
-    "print(data_rawstr)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "f6706d1f-7d4d-42f0-9f2f-516af5b9e336",
-   "metadata": {},
-   "source": [
-    "又或者等价地，我们也可以准备一个 pyomo Data Command Files 格式（类似 AMPL 格式，但不完全相同）的 `.dat` 文件（具体参考 [pyomo 文档 - Working with Abstract Models: Data Command Files](https://pyomo.readthedocs.io/en/stable/working_abstractmodels/data/datfiles.html#model-data)）。这样的好处是直接写起来简单，缺点是需要练习这种（对许多人来说都是）新的语法、且难以通过脚本来自动化地更改参数的值。例如："
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 14,
-   "id": "4c2f3221-f9ec-4b8f-9f08-bfae09f14037",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "param:  J:      c   a_machine   a_product   a_human :=\n",
-      "        \"A\"     10  4           1           2\n",
-      "        \"B\"     7   3           1           0.5\n",
-      "        \"C\"     3   1           1           1       ;\n",
-      "param ub_machine    :=  100;\n",
-      "param ub_product    :=  60;\n",
-      "param eb_human      :=  45;\n"
-     ]
-    }
-   ],
-   "source": [
-    "data_file = \"dataset/LP_machine.dat\"\n",
-    "with open(data_file, \"r\") as f:\n",
-    "    data_rawstr = f.read()\n",
-    "print(data_rawstr)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "50f77f56-7d34-4ee2-b326-8039b2e8d256",
-   "metadata": {},
-   "source": [
-    "接下来，我们用 `create_instance()` 实例化这个模型，其中选项 `filename=` 指定外部数据（或者用 `data=` 指定 Python 字典数据）。这里使用 YAML 文件："
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 15,
-   "id": "24d235e1-6308-4066-9ac7-67356518d643",
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 15,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "data_file = \"dataset/LP_machine.yaml\"\n",
-    "# 或者使用：model_instance = model.create_instance(data=datadict)\n",
-    "model_instance = model.create_instance(filename=data_file)\n",
-    "model_instance.is_constructed()"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 16,
-   "id": "be490c51-65fb-4baf-ace4-1017995784b9",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "1 Set Declarations\n",
-      "    J : Size=1, Index=None, Ordered=Insertion\n",
-      "        Key  : Dimen : Domain : Size : Members\n",
-      "        None :     1 :    Any :    3 : {'A', 'B', 'C'}\n",
-      "\n",
-      "7 Param Declarations\n",
-      "    a_human : Size=3, Index=J, Domain=PositiveReals, Default=None, Mutable=False\n",
-      "        Key : Value\n",
-      "          A :     2\n",
-      "          B :   0.5\n",
-      "          C :     1\n",
-      "    a_machine : Size=3, Index=J, Domain=PositiveReals, Default=None, Mutable=False\n",
-      "        Key : Value\n",
-      "          A :     4\n",
-      "          B :     3\n",
-      "          C :     1\n",
-      "    a_product : Size=3, Index=J, Domain=NonNegativeReals, Default=None, Mutable=False\n",
-      "        Key : Value\n",
-      "          A :     1\n",
-      "          B :     1\n",
-      "          C :     1\n",
-      "    c : Size=3, Index=J, Domain=NonNegativeReals, Default=None, Mutable=False\n",
-      "        Key : Value\n",
-      "          A :    10\n",
-      "          B :     7\n",
-      "          C :     3\n",
-      "    eb_human : Size=1, Index=None, Domain=PositiveReals, Default=None, Mutable=False\n",
-      "        Key  : Value\n",
-      "        None :    45\n",
-      "    ub_machine : Size=1, Index=None, Domain=PositiveReals, Default=None, Mutable=False\n",
-      "        Key  : Value\n",
-      "        None : 100.0\n",
-      "    ub_product : Size=1, Index=None, Domain=PositiveReals, Default=None, Mutable=False\n",
-      "        Key  : Value\n",
-      "        None :  60.0\n",
-      "\n",
-      "1 Var Declarations\n",
-      "    x : Size=3, Index=J\n",
-      "        Key : Lower : Value : Upper : Fixed : Stale : Domain\n",
-      "          A :     0 :  None :  None : False :  True : NonNegativeReals\n",
-      "          B :     0 :  None :  None : False :  True : NonNegativeReals\n",
-      "          C :     0 :  None :  None : False :  True : NonNegativeReals\n",
-      "\n",
-      "1 Objective Declarations\n",
-      "    objectives : Size=1, Index=None, Active=True\n",
-      "        Key  : Active : Sense    : Expression\n",
-      "        None :   True : maximize : 10*x[A] + 7*x[B] + 3*x[C]\n",
-      "\n",
-      "3 Constraint Declarations\n",
-      "    constraint_human : Size=1, Index=None, Active=True\n",
-      "        Key  : Lower : Body                     : Upper : Active\n",
-      "        None :  45.0 : 2*x[A] + 0.5*x[B] + x[C] :  45.0 :   True\n",
-      "    constraint_machine : Size=1, Index=None, Active=True\n",
-      "        Key  : Lower : Body                   : Upper : Active\n",
-      "        None :  -Inf : 4*x[A] + 3*x[B] + x[C] : 100.0 :   True\n",
-      "    constraint_product : Size=1, Index=None, Active=True\n",
-      "        Key  : Lower : Body               : Upper : Active\n",
-      "        None :  -Inf : x[A] + x[B] + x[C] :  60.0 :   True\n",
-      "\n",
-      "13 Declarations: J c a_machine a_product a_human ub_machine ub_product eb_human x objectives constraint_machine constraint_product constraint_human\n"
-     ]
-    }
-   ],
-   "source": [
-    "model_instance.pprint()"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "fe304783-e470-4246-aa93-1f48974b79ed",
-   "metadata": {},
-   "source": [
-    "### 求解"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "3ef7d7ae-6a0d-47c4-8012-778e6abf6786",
-   "metadata": {},
-   "source": [
-    "在求解之前，先确保当前计算机上安装了求解器。可以使用 `pyomo help --solvers` 来查看可用的求解器。前带 `+` 号的是当前可用的求解器。"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "708ca35d-319a-4479-9499-767dc1d827ae",
-   "metadata": {},
-   "source": [
-    "本例通过 ``pyomo.SolverFactory()`` 函数指定了 Cplex\\_direct 求解器（请确认安装），然后进行求解（并使用 `tee=True` 选项打印信息）。求解器的安装路径应当在 PATH 环境变量中，或者可以用 SolverFactory() 的选项 `executable='path/to/dir'` 指定位置。 "
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 17,
-   "id": "c7aa4bee-c047-47dd-b8ff-2946099b9656",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Version identifier: 22.1.1.0 | 2023-06-15 | d64d5bd77\n",
-      "CPXPARAM_Read_DataCheck                          1\n",
-      "Tried aggregator 1 time.\n",
-      "No LP presolve or aggregator reductions.\n",
-      "Presolve time = 0.00 sec. (0.00 ticks)\n",
-      "\n",
-      "Iteration log . . .\n",
-      "Iteration:     1   Dual infeasibility =             0.000000\n",
-      "Iteration:     2   Dual objective     =           256.000000\n"
-     ]
-    }
-   ],
-   "source": [
-    "solver = pyo.SolverFactory('cplex_direct')\n",
-    "result = solver.solve(model_instance, tee=True)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "a7448402-d8ee-4969-9ffa-d34073a19e88",
-   "metadata": {},
-   "source": [
-    "检查求解状态 `.solver.status`："
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 18,
-   "id": "16760a39-330c-430e-b3e6-84c25a9128ba",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Solver status: ok\n"
-     ]
-    }
-   ],
-   "source": [
-    "print(f\"Solver status: {result.solver.status}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "b792163c-37c7-420a-af06-f5d27933ada1",
-   "metadata": {},
-   "source": [
-    "打印最优解结果："
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 19,
-   "id": "109552ce-580c-43aa-9075-e9590f5e7888",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "\n",
-      "Problem: \n",
-      "- Name: \n",
-      "  Lower bound: 256.0\n",
-      "  Upper bound: 256.0\n",
-      "  Number of objectives: 1\n",
-      "  Number of constraints: 3\n",
-      "  Number of variables: 3\n",
-      "  Number of binary variables: 0\n",
-      "  Number of integer variables: 0\n",
-      "  Number of continuous variables: 3\n",
-      "  Number of nonzeros: None\n",
-      "  Sense: -1\n",
-      "Solver: \n",
-      "- Name: CPLEX 22.1.1.0\n",
-      "  Status: ok\n",
-      "  Wallclock time: 0.0009968280792236328\n",
-      "  Termination condition: optimal\n",
-      "Solution: \n",
-      "- number of solutions: 0\n",
-      "  number of solutions displayed: 0\n",
-      "\n"
-     ]
-    }
-   ],
-   "source": [
-    "print(result)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "65b74d7d-fb33-433d-a13b-1b8b3ac12d3c",
-   "metadata": {},
-   "source": [
-    "查看最优解的对应的变量值。你也可以把 `pyo.Var` 换成 `pyo.Constraint` 或 `pyo.Param` 来查看约束或者参数的情况。"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 20,
-   "id": "528570be-2d63-4969-abbf-7cd6e939e503",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Variable:\n",
-      "\t{'x': {'A': 0.0, 'B': 21.999999999999996, 'C': 34.0}}\n"
-     ]
-    }
-   ],
-   "source": [
-    "def get_opt_values(inst, component=pyo.Var):\n",
-    "    data = dict()\n",
-    "    for group in inst.component_objects(component, active=True):\n",
-    "        data[str(group)] = {k: pyo.value(v) for k, v in group.items()}\n",
-    "    return data\n",
-    "\n",
-    "print(f\"Variable:\\n\\t{get_opt_values(model_instance)}\")"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "00a982c1-4c56-445b-9806-023253e57890",
-   "metadata": {},
-   "source": [
-    "查看约束的松弛情况。分别使用 `lslack()` 与 `uslack()` 来获取约束的下界与上界处的松弛信息："
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 21,
-   "id": "391c12d8-efc2-4461-8c01-b1dc1daa925e",
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "{'constraint_machine': (inf, 1.4210854715202004e-14),\n",
-       " 'constraint_product': (inf, 4.0),\n",
-       " 'constraint_human': (0.0, 0.0)}"
-      ]
-     },
-     "execution_count": 21,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "def get_slacks(inst):\n",
-    "    data = dict()\n",
-    "    for group in inst.component_objects(pyo.Constraint, active=True):\n",
-    "        data[str(group)] = (group.lslack(), group.uslack())\n",
-    "    return data\n",
-    "\n",
-    "get_slacks(model_instance)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "ba1a1457-4f68-4241-9297-05adcfd4d4e3",
-   "metadata": {},
-   "source": [
-    "由于 0 值表示未松弛，我们可以看出：\n",
-    "\n",
-    "* machine 与 product 没有下界约束（因为它们是小于等于约束）\n",
-    "* machine 的上界约束取到等号、human 的上下界约束均取到等号（因为是等式约束）\n",
-    "* product 的上界约束尚有 4.0 的松弛量，即最优解中生产的产品数量比约束要少 4 个"
    ]
   }
  ],
@@ -967,7 +555,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.11.4"
+   "version": "3.12.7"
   }
  },
  "nbformat": 4,

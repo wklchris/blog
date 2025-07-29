@@ -1,27 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Git 基础命令 &mdash; Git  文档</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
-    <link rel="canonical" href="https://wklchris.github.io/blog/Git/Fundamentals.html"/>
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=3491b469" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="canonical" href="https://wklchris.github.io/blog/Git/Fundamentals.html"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7d86a446"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -46,11 +47,15 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-            <a href="index.html" class="icon icon-home"> Git
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Git
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -65,7 +70,7 @@
    </a>
 </div>
 
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <p class="caption" role="heading"><span class="caption-text">目录</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">Git 简介</a></li>
@@ -134,17 +139,17 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Git</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+          <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Git 基础命令</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Git 基础命令</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Fundamentals.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -154,117 +159,93 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="git">
-<h1>Git 基础命令<a class="headerlink" href="#git" title="永久链接至标题"></a></h1>
+  <section id="git">
+<h1>Git 基础命令<a class="headerlink" href="#git" title="Link to this heading"></a></h1>
 <p>本章节介绍 Git 仓库的基本操作。</p>
 <section id="id1">
-<h2>仓库创建<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<h2>仓库创建<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>要开始创建一个本地仓库，用户可以选择从零初始化一个仓库，或者从一个给定的远程仓库克隆。</p>
 <section id="init">
-<h3>初始化仓库：init<a class="headerlink" href="#init" title="永久链接至标题"></a></h3>
+<h3>初始化仓库：init<a class="headerlink" href="#init" title="Link to this heading"></a></h3>
 <p>常规的初始化仓库，可以新建一个文件夹，然后在其中执行 <cite>git init</cite> 来初始化：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git init
-Initialized empty Git repository <span class="k">in</span> project/.git/
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>init
+Initialized<span class="w"> </span>empty<span class="w"> </span>Git<span class="w"> </span>repository<span class="w"> </span><span class="k">in</span><span class="w"> </span>project/.git/
 </pre></div>
 </div>
 </section>
 <section id="remote">
-<h3>设置远程仓库：remote<a class="headerlink" href="#remote" title="永久链接至标题"></a></h3>
+<h3>设置远程仓库：remote<a class="headerlink" href="#remote" title="Link to this heading"></a></h3>
 <p>如果你有远程的仓库（比如 Github 仓库）需要推送文件，往往需要用 <cite>git remote</cite> 添加对应的远程仓库地址：</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 格式：git remote add &lt;remote-name&gt; &lt;url&gt;</span>
-$ git remote add origin https://github.com/wklchris/wklchris.github.io
+$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/wklchris/wklchris.github.io
 </pre></div>
 </div>
 <p>其中，<cite>origin</cite> 是最常用的远程仓库名称；用户当然也可以选择其他的名称。</p>
 <p>要管理当前仓库配置的远程仓库，可以使用 <cite>git remote -v</cite> 来查看：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git remote -v
-origin  https://github.com/wklchris/wklchris.github.io <span class="o">(</span>fetch<span class="o">)</span>
-origin  https://github.com/wklchris/wklchris.github.io <span class="o">(</span>push<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>-v
+origin<span class="w">  </span>https://github.com/wklchris/wklchris.github.io<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+origin<span class="w">  </span>https://github.com/wklchris/wklchris.github.io<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
 </pre></div>
 </div>
 <p>上述返回的信息表示，当前仓库配置了名为 <cite>origin</cite> 的远程仓库；后缀的 fetch/push 表示取回与推送时使用的地址。</p>
 </section>
 <section id="clone">
-<h3>从远程仓库克隆：clone<a class="headerlink" href="#clone" title="永久链接至标题"></a></h3>
+<h3>从远程仓库克隆：clone<a class="headerlink" href="#clone" title="Link to this heading"></a></h3>
 <p>用户也可以从指定的远程仓库网址（可能是 https, git, 或者 SSH 协议）取回整个仓库，便于在本地展开工作。比如将本站仓库克隆到本地：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/wklchris/wklchris.github.io
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wklchris/wklchris.github.io
 </pre></div>
 </div>
 <p>以上命令会自动在当前目录创建一个与远程仓库同名的文件夹（即 <cite>wklchris.github.io</cite> 文件夹），并将内容拖取到其中。远程仓库中的所有分支都会被同步，且远程仓库会在本地记录中被自动命名为 <cite>origin</cite> （就像默认的分支名叫 master 一样）。</p>
 </section>
 </section>
 <section id="id2">
-<h2>提交文件<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2>提交文件<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>在本地仓库中的修改，需要提交到版本控制记录。</p>
 <section id="status">
-<h3>检查文件状态：status<a class="headerlink" href="#status" title="永久链接至标题"></a></h3>
+<h3>检查文件状态：status<a class="headerlink" href="#status" title="Link to this heading"></a></h3>
 <p>在初始化仓库后，立刻使用 <cite>git status</cite> 命令会返回以下结果：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git status
-On branch master
-nothing to commit, working directory clean
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>status
+On<span class="w"> </span>branch<span class="w"> </span>master
+nothing<span class="w"> </span>to<span class="w"> </span>commit,<span class="w"> </span>working<span class="w"> </span>directory<span class="w"> </span>clean
 </pre></div>
 </div>
 <p>这表示自从上次提交以来，Git 追踪的文件都没有发生变化；同时，也没有任何新的文件被检测到。</p>
 <p>如果新建一个 <cite>README</cite> 文档，再运行此命令：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git status
-On branch master
-Untracked files:
-  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="k">in</span> what will be committed<span class="o">)</span>
-  README
-nothing added to commit but untracked files present <span class="o">(</span>use <span class="s2">&quot;git add&quot;</span> to track<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>status
+On<span class="w"> </span>branch<span class="w"> </span>master
+Untracked<span class="w"> </span>files:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>include<span class="w"> </span><span class="k">in</span><span class="w"> </span>what<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>committed<span class="o">)</span>
+<span class="w">  </span>README
+nothing<span class="w"> </span>added<span class="w"> </span>to<span class="w"> </span>commit<span class="w"> </span>but<span class="w"> </span>untracked<span class="w"> </span>files<span class="w"> </span>present<span class="w"> </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>to<span class="w"> </span>track<span class="o">)</span>
 </pre></div>
 </div>
 <p>这告诉我们发现了一个新的文件（untracked file）,它还从没被 git 版本仓库记录过。</p>
 <p>该命令还可以使用 <cite>-s</cite> 参数，生成一个简略列表。关于暂存、修改、追踪，可以参考 <a class="reference internal" href="Intro.html#git-status"><span class="std std-ref">Git 仓库、工作目录与暂存区</span></a> 一节。</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git status -s
- M README
-MM Rakefile
-A  lib/git.rb
-M  lib/simplegit.rb
-?? LICENSE.txt
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>status<span class="w"> </span>-s
+<span class="w"> </span>M<span class="w"> </span>README
+MM<span class="w"> </span>Rakefile
+A<span class="w">  </span>lib/git.rb
+M<span class="w">  </span>lib/simplegit.rb
+??<span class="w"> </span>LICENSE.txt
 </pre></div>
 </div>
 <p>上例中，偏右的 <cite>M</cite> 表示修改了尚未暂存，偏左的 <cite>M</cite> 表示修改并已暂存。<cite>A</cite> 表示一个新加入追踪的文件，最后 <cite>??</cite> 表示新检测到的未追踪的文件。你也可以使用 <cite>-sb</cite> 参数，这会显示你当前的分支信息。</p>
 </section>
 <section id="add">
-<h3>暂存文件：add<a class="headerlink" href="#add" title="永久链接至标题"></a></h3>
+<h3>暂存文件：add<a class="headerlink" href="#add" title="Link to this heading"></a></h3>
 <p>利用 <cite>git add</cite> 命令来将新文件（untracked）或未暂存（unstaged）文件提交到暂存区。下例</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git add README
-$ git status
-On branch master
-Changes to be committed:
-  <span class="o">(</span>use <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>README
+$<span class="w"> </span>git<span class="w"> </span>status
+On<span class="w"> </span>branch<span class="w"> </span>master
+Changes<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>committed:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>unstage<span class="o">)</span>
 
-    new file: README
-    modified: test.py
+<span class="w">    </span>new<span class="w"> </span>file:<span class="w"> </span>README
+<span class="w">    </span>modified:<span class="w"> </span>test.py
 </pre></div>
 </div>
 <p>你也可以通过 <cite>git add *</cite> 来暂存所有文件：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git add *
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>*
 </pre></div>
 </div>
 <p>其他：</p>
@@ -274,9 +255,9 @@ Changes to be committed:
 </ul>
 </section>
 <section id="gitignore">
-<h3>忽略文件 (.gitignore)<a class="headerlink" href="#gitignore" title="永久链接至标题"></a></h3>
+<h3>忽略文件 (.gitignore)<a class="headerlink" href="#gitignore" title="Link to this heading"></a></h3>
 <p>当目录中有许多文件或者子目录无须交付 Git 进行版本控制时（比如 <cite>.ipynb_checkpoints</cite> ），新建一个 <cite>.gitignore</cite> 文件:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ touch .gitignore
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>touch<span class="w"> </span>.gitignore
 </pre></div>
 </div>
 <p>向其中添加内容来忽略匹配的文件：</p>
@@ -304,28 +285,28 @@ Changes to be committed:
 </li>
 </ul>
 <p>一个简单的例子：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>*.a         <span class="c1"># 忽略所有扩展名为 .a 的文件</span>
-/A          <span class="c1"># 忽略当前目录下名为 A 的文件</span>
-A/          <span class="c1"># 忽略文件夹 A 内的所有内容</span>
-B/*.pdf     <span class="c1"># 忽略文件夹 B 下的（不包括子文件夹） pdf 文件</span>
-B/**/*.pdf  <span class="c1"># 忽略文件夹 B 及其子文件夹中的 pdf 文件</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>*.a<span class="w">         </span><span class="c1"># 忽略所有扩展名为 .a 的文件</span>
+/A<span class="w">          </span><span class="c1"># 忽略当前目录下名为 A 的文件</span>
+A/<span class="w">          </span><span class="c1"># 忽略文件夹 A 内的所有内容</span>
+B/*.pdf<span class="w">     </span><span class="c1"># 忽略文件夹 B 下的（不包括子文件夹） pdf 文件</span>
+B/**/*.pdf<span class="w">  </span><span class="c1"># 忽略文件夹 B 及其子文件夹中的 pdf 文件</span>
 </pre></div>
 </div>
 <p>如果你想要将一些后缀加入全局的忽略列表，可以在 <cite>~</cite> 目录下新建一个 <cite>.gitignore_global</cite> 文件，并使用命令：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git config --global core.excludesfile ~/.gitignore_global
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.excludesfile<span class="w"> </span>~/.gitignore_global
 </pre></div>
 </div>
 <p>这里有一个 <a class="reference external" href="https://github.com/github/gitignore">Github 仓库</a> ，收录了许多编程语言的 <cite>.gitignore</cite> 文件样式，可以参考。</p>
 </section>
 <section id="diff">
-<h3>内容比对：diff<a class="headerlink" href="#diff" title="永久链接至标题"></a></h3>
+<h3>内容比对：diff<a class="headerlink" href="#diff" title="Link to this heading"></a></h3>
 <p>如果你有修改了但尚未暂存的文件，使用 <cite>git diff</cite> 来查看 <strong>尚未暂存的改动</strong> ：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git diff <span class="o">[</span>&lt;filename&gt;<span class="o">]</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>diff<span class="w"> </span><span class="o">[</span>&lt;filename&gt;<span class="o">]</span>
 </pre></div>
 </div>
 <p>如果不指定文件名，那么会查看两次版本快照所有文件的差异。</p>
 <p>如果加入 <cite>--staged/--cached</cite> 选项，则可以查看暂存区与版本库中最新版本之间的差异：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git diff --staged <span class="o">[</span>&lt;filename&gt;<span class="o">]</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>diff<span class="w"> </span>--staged<span class="w"> </span><span class="o">[</span>&lt;filename&gt;<span class="o">]</span>
 </pre></div>
 </div>
 <p>diff 命令提供了众多的参数，我时而会用到的有：</p>
@@ -335,61 +316,61 @@ B/**/*.pdf  <span class="c1"># 忽略文件夹 B 及其子文件夹中的 pdf �
 <li><p><cite>--stat</cite> 参数：用来快速显示文件的更改数目（插入与删除的行数）。</p></li>
 </ul>
 <p>比如利用 <cite>--name-only</cite> 参数，显示在子文件夹 <cite>folder</cite> 中哪些文件已修改并暂存了：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git diff --name-only --staged folder/
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>diff<span class="w"> </span>--name-only<span class="w"> </span>--staged<span class="w"> </span>folder/
 </pre></div>
 </div>
 <p>该参数的输出结果可以帮助脚本来判断文件的更改情况。</p>
 </section>
 <section id="commit">
-<h3>提交更新：commit<a class="headerlink" href="#commit" title="永久链接至标题"></a></h3>
+<h3>提交更新：commit<a class="headerlink" href="#commit" title="Link to this heading"></a></h3>
 <p>使用 <cite>commit</cite> 命令来提交**暂存区的所有内容**：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git commit
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>commit
 </pre></div>
 </div>
 <p>这时，需要你使用编辑器（默认是 Vim）来输入提交的说明文本。对于不熟悉 Vim 操作的用户，在输入内容后按 Esc 切换到 Normal 模式，再输入 <cite>:wq</cite> 命令即可保存并退出。</p>
 <p>你也可以使用 <cite>-m</cite> 选项来避免打开编辑器：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git commit -m <span class="s2">&quot;Input text here.&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Input text here.&quot;</span>
 </pre></div>
 </div>
 <p>提交后，控制台终端会显示该次提交的 SHA-1 校验、提交到的分支（关于分支的内容会在下文介绍）、修改的文件数量，以及修改的行数量。</p>
 <p>最后，git 还提供了一种将工作区内所有被修改的文件（不包括新文件）直接暂存然后提交的选项 <cite>-a</cite> ：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git commit -a -m <span class="s2">&quot;Input text here.&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-a<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Input text here.&quot;</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="id3">
-<h2>版本变更与回退<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2>版本变更与回退<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <p>我们简单提到过 git 使用 HEAD 指针指向最新的一次提交。每一次提交的之前的紧邻提交称为父提交。比如次新的提交就是 <cite>HEAD~</cite> ，父提交的父提交是 <cite>HEAD~2</cite> （确切地说，<cite>~</cite> 指代的是第一父提交，第一父提交的第二父提交需要使用 <cite>HEAD~2^2</cite> ）。</p>
 <ul class="simple">
 <li><p>更多关于分支的内容，参考 <a class="reference internal" href="Branch.html#branch"><span class="std std-ref">分支：branch</span></a> 章节。</p></li>
 <li><p>如果要回退的提交是一个合并提交，请参考 <a class="reference internal" href="Conflict.html#revert-merge-commit"><span class="std std-ref">撤销合并提交</span></a> 部分的内容。</p></li>
 </ul>
 <section id="reset-hard">
-<h3>从工作目录回退：reset --hard<a class="headerlink" href="#reset-hard" title="永久链接至标题"></a></h3>
+<h3>从工作目录回退：reset --hard<a class="headerlink" href="#reset-hard" title="Link to this heading"></a></h3>
 <p>你对工作目录的内容做了修改，但尚未 <cite>add</cite> 到暂存区。现在你想放弃这些修改，回到上次 <cite>commit</cite> 之后的状态:</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>这是个危险的命令；由于被放弃的内容从未被提交，因此无法再找回。</p>
 </div>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 危险的命令！</span>
-$ git reset --hard HEAD &lt;filename&gt;
+$<span class="w"> </span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD<span class="w"> </span>&lt;filename&gt;
 </pre></div>
 </div>
 <p>这里 <cite>HEAD</cite> 是缺省值，可以省略；你也可以用 SHA-1 值（或其前 7 位）来指定要回退到的版本。本质是放弃并销毁上次 <cite>commit</cite> 以来所有的更改。</p>
 </section>
 <section id="reset-mixed">
-<h3>从暂存区回退：reset --mixed<a class="headerlink" href="#reset-mixed" title="永久链接至标题"></a></h3>
+<h3>从暂存区回退：reset --mixed<a class="headerlink" href="#reset-mixed" title="Link to this heading"></a></h3>
 <p>你的修改已经 <cite>add</cite> 到暂存区，现在你想把暂存区清空，但在本地文件中仍保留这些更改：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git reset --mixed HEAD &lt;filename&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>reset<span class="w"> </span>--mixed<span class="w"> </span>HEAD<span class="w"> </span>&lt;filename&gt;
 </pre></div>
 </div>
 <p>这里的 <cite>--mixed</cite> 选项是缺省值，可以省略。该命令相当于取消了 <cite>add</cite> 命令，更改仍存在于文件中。</p>
 </section>
 <section id="reset-soft">
-<h3>从版本回退：reset --soft<a class="headerlink" href="#reset-soft" title="永久链接至标题"></a></h3>
+<h3>从版本回退：reset --soft<a class="headerlink" href="#reset-soft" title="Link to this heading"></a></h3>
 <p>你的文件已 <cite>commit</cite> 到仓库记录中去，现在你想将 HEAD 指针移动到上一个 commit 的位置:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git reset --soft HEAD~
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>reset<span class="w"> </span>--soft<span class="w"> </span>HEAD~
 </pre></div>
 </div>
 <p><cite>HEAD~</cite> 表示 HEAD 指针的父节点。</p>
@@ -397,39 +378,39 @@ $ git reset --hard HEAD &lt;filename&gt;
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p><strong>如果你要应用回退的版本已经推送到远程仓库，那么不要使用 reset 命令</strong> ，因为 reset 命令会更改日志。请使用 <cite>revert</cite> 命令来新建一个提交，这个提交的内容将与你指定的版本一致：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git revert HEAD~
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>revert<span class="w"> </span>HEAD~
 </pre></div>
 </div>
 <p><cite>revert</cite> 命令在还原合并提交中也有作用，可以参考 <a class="reference internal" href="Conflict.html#revert-merge-commit"><span class="std std-ref">撤销合并提交</span></a> 部分的内容。</p>
 </div>
 </section>
 <section id="commit-amend">
-<h3>修改提交：commit --amend<a class="headerlink" href="#commit-amend" title="永久链接至标题"></a></h3>
+<h3>修改提交：commit --amend<a class="headerlink" href="#commit-amend" title="Link to this heading"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>不建议在提交已被推送到远程的情况下对其进行更改。</p>
 </div>
 <p>如果在提交时忘记了 <cite>add</cite> 某个文件，或者其他需要修改提交的场合，使用 <cite>--amend</cite> 参数。例如：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git commit -m <span class="s1">&#39;initial commit&#39;</span>
-$ git add forgotten_file
-$ git commit --amend
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;initial commit&#39;</span>
+$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>forgotten_file
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>--amend
 </pre></div>
 </div>
 <p>它会将暂存区内的修改追加到上个提交中去。如果没有任何修改，它允许你更改提交的说明文本。</p>
 <p>如果修改时也不更改上次的 commit 信息，可以追加 <cite>--no-edit</cite> 选项：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git commit --amend --no-edit
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w"> </span>--no-edit
 </pre></div>
 </div>
 </section>
 </section>
 <section id="log">
-<h2>查看提交历史：log<a class="headerlink" href="#log" title="永久链接至标题"></a></h2>
+<h2>查看提交历史：log<a class="headerlink" href="#log" title="Link to this heading"></a></h2>
 <p>命令是 <cite>log</cite>，不过有很多有趣的参数细节：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git log
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>log
 </pre></div>
 </div>
 <section id="id4">
-<h3>基本参数<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3>基本参数<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <p>这里将 <cite>log</cite> 命令的参数分为输出参数与过滤参数两种。输出参数主要有：</p>
 <ul class="simple">
 <li><p><cite>-p</cite> ：查看提交内容的差异。</p></li>
@@ -442,18 +423,14 @@ $ git commit --amend
 <li><p><cite>--pretty=&lt;option&gt;</cite> ：可选的 <cite>option</cite> 有 <cite>short</cite>, <cite>full</cite>, <cite>oneline</cite> 等。</p></li>
 </ul>
 <p>特别地，<cite>--pretty=format:&quot;&lt;format-str&gt;&quot;</cite> 可以自定义显示内容，例如：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git log --color --pretty<span class="o">=</span>format:<span class="s2">&quot;%Cred%h%Creset %d - %s (%cr by %an)&quot;</span>
-36e8d6b  - Update README. <span class="o">(</span><span class="m">2</span> days ago by wklchris<span class="o">)</span>
-bae6fc8  <span class="o">(</span>origin/master, origin/dev, master<span class="o">)</span> - Init <span class="o">(</span><span class="m">3</span> days ago by wklchris<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>--color<span class="w"> </span>--pretty<span class="o">=</span>format:<span class="s2">&quot;%Cred%h%Creset %d - %s (%cr by %an)&quot;</span>
+36e8d6b<span class="w">  </span>-<span class="w"> </span>Update<span class="w"> </span>README.<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w"> </span>by<span class="w"> </span>wklchris<span class="o">)</span>
+bae6fc8<span class="w">  </span><span class="o">(</span>origin/master,<span class="w"> </span>origin/dev,<span class="w"> </span>master<span class="o">)</span><span class="w"> </span>-<span class="w"> </span>Init<span class="w"> </span><span class="o">(</span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w"> </span>by<span class="w"> </span>wklchris<span class="o">)</span>
 </pre></div>
 </div>
 <p>上例的第一列会显示为红色。我的 <cite>lg</cite> 命令自定义参考下文中 <a class="reference internal" href="#alias"><span class="std std-ref">别名：alias</span></a> 一节的内容。</p>
 <p>常用的选项有：</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 14%" />
-<col style="width: 86%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>选项</p></th>
 <th class="head"><p>说明</p></th>
@@ -501,36 +478,36 @@ bae6fc8  <span class="o">(</span>origin/master, origin/dev, master<span class="o
 </div>
 </section>
 <section id="id5">
-<h3>比较分支间的提交<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3>比较分支间的提交<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p>还有一种常用的 <cite>log</cite> 命令的操作，用于显示位于某分支但未合并到另一分支的提交。比如显示位于 dev 分支但尚未加入 master 分支的提交、以及在当前分支却不在远程仓库的提交：</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 两点命令</span>
-$ git log master..dev
-$ git log origin/master..HEAD
+$<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>master..dev
+$<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>origin/master..HEAD
 </pre></div>
 </div>
 <p>如果使用三点命令，则会显示只位于两分支之一的提交。通常使用 <cite>--left-right</cite> 选项来让 git 显示提交位于哪个分支上：</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 三点命令</span>
-$ git log --left-right master...dev
+$<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>--left-right<span class="w"> </span>master...dev
 </pre></div>
 </div>
 <p>用 <cite>^</cite> 或者 <cite>--not</cite> 指明你不想查看的提交。比如，查看被 A, B 包含但不被 C 包含的提交，以下两种均可：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git log refA refB ^refC
-$ git log refA refB --not refC
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>refA<span class="w"> </span>refB<span class="w"> </span>^refC
+$<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>refA<span class="w"> </span>refB<span class="w"> </span>--not<span class="w"> </span>refC
 </pre></div>
 </div>
 </section>
 </section>
 <section id="id6">
-<h2>文件操作<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<h2>文件操作<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <p>Git 可以管理文件的删除、追踪、移动与重命名。</p>
 <section id="rm">
-<h3>删除文件：rm<a class="headerlink" href="#rm" title="永久链接至标题"></a></h3>
+<h3>删除文件：rm<a class="headerlink" href="#rm" title="Link to this heading"></a></h3>
 <p>手动删除文件不是常规的 git 管理操作，应该使用 <cite>rm</cite> 指令：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git rm &lt;filename&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>rm<span class="w"> </span>&lt;filename&gt;
 </pre></div>
 </div>
 <p>其中，<cite>&lt;filename&gt;</cite> 可以是文件（夹）名，或者是它们的通配 glob 表达式。下例表示删除 <cite>data</cite> 文件夹下的所有后缀名为 <cite>.log</cite> 的文件：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git rm data/<span class="se">\*</span>.log
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>rm<span class="w"> </span>data/<span class="se">\*</span>.log
 </pre></div>
 </div>
 <p>其他选项：</p>
@@ -540,194 +517,194 @@ $ git log refA refB --not refC
 </ul>
 </section>
 <section id="rm-cached">
-<h3>放弃追踪文件：rm --cached<a class="headerlink" href="#rm-cached" title="永久链接至标题"></a></h3>
+<h3>放弃追踪文件：rm --cached<a class="headerlink" href="#rm-cached" title="Link to this heading"></a></h3>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>特别地，此方法也适用于某文件在之前已经 commit 到了远程仓库（比如 Github），现在想将其从远程仓库中移除的情形。</p>
 <p>请注意：尽管放弃追踪不会删除本地的文件，但由于它将这些文件从远程移除了，其他用户在对这个仓库使用 git pull 时，他们会失去这些被放弃追踪的文件！</p>
 </div>
 <p>放弃追踪（untrack）文件：即让 git 放弃记录某一文件的修改状态，但仍保留该文件在磁盘。这一情形通常是你在添加 <cite>.gitignore</cite> 前就进行了 <cite>add</cite> 的误操作.这是你需要 <cite>--cached</cite> 选项：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git rm --cached &lt;filename&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>&lt;filename&gt;
 </pre></div>
 </div>
 <p>如果你不记得哪些文件推送到了远程但现在又不需要了，可以使用下面的方法（即移除所有文件的追踪，然后重新 commit 所有发生修改的文件）。这个方法来自于 <a class="reference external" href="https://stackoverflow.com/a/19095988/6663890">这篇 SO 的回答</a> 。</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git rm -r --cached .
-$ git add .
-$ git commit -am <span class="s2">&quot;Remove ignored files.&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>--cached<span class="w"> </span>.
+$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span><span class="s2">&quot;Remove ignored files.&quot;</span>
 </pre></div>
 </div>
 <p>我建议将其定义为一个别名，我使用了 <code class="docutils literal notranslate"><span class="pre">rmignored</span></code>；可参考上文中我的定义。</p>
 </section>
 <section id="mv">
-<h3>移动或重命名文件：mv<a class="headerlink" href="#mv" title="永久链接至标题"></a></h3>
+<h3>移动或重命名文件：mv<a class="headerlink" href="#mv" title="Link to this heading"></a></h3>
 <p>相当于先 <cite>rm</cite> 再 <cite>add</cite>，但是 <cite>mv</cite> 命令更简洁：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git mv &lt;filename_from&gt; &lt;filename_to&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>mv<span class="w"> </span>&lt;filename_from&gt;<span class="w"> </span>&lt;filename_to&gt;
 </pre></div>
 </div>
 </section>
 </section>
 <section id="id7">
-<h2>远程仓库操作<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<h2>远程仓库操作<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
 <p>本地的 Git 仓库经常会设置一个远程的仓库，以便将文件分享与备份。如无特殊说明，本文中的远程仓库默认指 <a class="reference external" href="https://github.com/">Github</a> 仓库。</p>
 <section id="id9">
-<h3>设置与管理远程仓库：remote<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<h3>设置与管理远程仓库：remote<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <p>不只是 Github，所有远程仓库都是类似的。首先你需要指定的远程仓库：</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># git remote add &lt;remote-name&gt; &lt;url&gt;</span>
-$ git remote add origin https://github.com/wklchris/wklchris.github.io
+$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/wklchris/wklchris.github.io
 </pre></div>
 </div>
 <p>默认地，我们把远程仓库名称叫做 origin；用户也可以使用其他名称。使用 <cite>remote -v</cite> 来查看该本地仓库已配置的远程仓库列表：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git remote -v
-origin  https://github.com/wklchris/wklchris.github.io <span class="o">(</span>fetch<span class="o">)</span>
-origin  https://github.com/wklchris/wklchris.github.io <span class="o">(</span>push<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>-v
+origin<span class="w">  </span>https://github.com/wklchris/wklchris.github.io<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+origin<span class="w">  </span>https://github.com/wklchris/wklchris.github.io<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
 </pre></div>
 </div>
 <p>其中 fetch 表示从哪个远程仓库抓取， push 表示推送到哪个远程仓库。</p>
 <p>查看某个特定的远程仓库，使用 <cite>remote show</cite> ：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git remote show &lt;remote-name&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>show<span class="w"> </span>&lt;remote-name&gt;
 </pre></div>
 </div>
 <p>重命名远程仓库，使用 <cite>remote rename</cite>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git remote rename &lt;old-name&gt; &lt;new-name&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>rename<span class="w"> </span>&lt;old-name&gt;<span class="w"> </span>&lt;new-name&gt;
 </pre></div>
 </div>
 <p>从当前本地仓库已配置的远程仓库列表中，移除某远程仓库：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git remote rm &lt;remote-name&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>rm<span class="w"> </span>&lt;remote-name&gt;
 </pre></div>
 </div>
 </section>
 <section id="fetach-pull">
-<span id="fetch-and-pull"></span><h3>抓取与拉取：fetach &amp; pull<a class="headerlink" href="#fetach-pull" title="永久链接至标题"></a></h3>
+<span id="fetch-and-pull"></span><h3>抓取与拉取：fetach &amp; pull<a class="headerlink" href="#fetach-pull" title="Link to this heading"></a></h3>
 <p>使用 <cite>fetch</cite> 命令来抓取远程仓库的内容：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git fetch &lt;remote-name&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>fetch<span class="w"> </span>&lt;remote-name&gt;
 </pre></div>
 </div>
 <p>但这个命令需要你手动进行文件合并操作。如果存在一个分支跟踪远程分支（详见下文分支部分的内容），那么一般使用 <cite>pull</cite> 指令拉取内容；该指令会自动尝试合并文件：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git pull &lt;remote-name&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>pull<span class="w"> </span>&lt;remote-name&gt;
 </pre></div>
 </div>
 <p>如果你从某一远程仓库将其 <cite>clone</cite> 到本地，会自动设置跟踪其远程仓库的默认分支（通常叫 master）。之后你的 <cite>pull</cite> 命令会自动从该地址取得数据并尝试合并。</p>
 <p>如果要拉取远程仓库的一个非 master 分支（如 dev），只需要在本地切换到同名分支再拉取即可。如果本地的 dev 分支未能正确地匹配到远程仓库的 dev 分支，可以使用 branch 命令的 <code class="docutils literal notranslate"><span class="pre">--set-upstream-to/-u</span></code> 参数，然后再拉取：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git checkout dev
-$ git branch -u origin/dev dev
-$ git pull
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>dev
+$<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>-u<span class="w"> </span>origin/dev<span class="w"> </span>dev
+$<span class="w"> </span>git<span class="w"> </span>pull
 </pre></div>
 </div>
 </section>
 <section id="push">
-<h3>推送到远程仓库：push<a class="headerlink" href="#push" title="永久链接至标题"></a></h3>
+<h3>推送到远程仓库：push<a class="headerlink" href="#push" title="Link to this heading"></a></h3>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
+<p class="admonition-title">备注</p>
 <p>在从当前计算机的本地仓库推送到 Github 远程仓库之前，请确认您的权限。如果远程仓库为您自己的 Github 账户所创建，请检查您的 Github 账户中是否配置了当前计算机的 SSH 密钥。关于这部分内容，请参考 <a class="reference external" href="https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh">使用 SSH 连接到 Github</a> 官方帮助页面。</p>
 </div>
 <p>当你的仓库内容处于上游、且你拥有写入权限时，使用 <cite>push</cite> 命令即可推送：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git push origin master
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
 </pre></div>
 </div>
 <p>该命令的含义是将本地的 master 分支推送到名为 origin 的远程仓库。如果你当前在 master 分支，且已经设置过它的跟踪分支为 origin/master（参考 <a class="reference internal" href="Branch.html#tracking-branch"><span class="std std-ref">远程：跟踪分支（上游分支）</span></a> ），那么你可以省略分支名，使用更简短的命令：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git push
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>push
 </pre></div>
 </div>
 <p>如果要将所有本地分支都推送到远程，使用：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git push origin --all
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--all
 </pre></div>
 </div>
 <p>上游的含义是在你克隆仓库到推送修改这一时段内，没有新的推送到达远程仓库。例如，如果你和另一个人同时克隆了仓库，但他先于你推送，那么你必须拉取他的内容合并后才能推送你的修改。</p>
 </section>
 </section>
 <section id="tag">
-<h2>标签：tag<a class="headerlink" href="#tag" title="永久链接至标题"></a></h2>
+<h2>标签：tag<a class="headerlink" href="#tag" title="Link to this heading"></a></h2>
 <p>标签是用来标记重要版本的一种手段，以便于回溯。</p>
 <section id="id10">
-<h3>添加或追加标签<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<h3>添加或追加标签<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <p>有时我们需要标签来标记节点，比如重要版本是在哪个 commit 发布的：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git tag v1.0
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>v1.0
 </pre></div>
 </div>
 <p>这个语句没有使用任何参数，称为 <strong>轻量标签（Lightweighted tag）</strong> 。它会将 &quot;v1.0&quot; 标签加到最后一次 commit 上。如果你想同时附上一些说明文字，使用 <strong>附注标签（Annotated tag）</strong> ，即用 <cite>-a</cite> 选项：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git tag -a v1.0 -m <span class="s2">&quot;This is a new version.&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;This is a new version.&quot;</span>
 </pre></div>
 </div>
 <p>如果需要输入一段多行说明文字，我推荐使用不带 <cite>-m</cite> 的 <cite>-a</cite> 选项：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git tag -a v1.0
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0
 </pre></div>
 </div>
 <p>上述命令会自动打开编辑器（默认是 vim），输入完文字后，记得用 <cite>:wq</cite> 命令保存，这样标签说明文字才会被正常写入。</p>
 <p>如果要添加标签到以往的 commit 位置，可以指定对应 commit 的哈希值（或其前 7 位），例如:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git tag -a v1.0 36e8d6b
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0<span class="w"> </span>36e8d6b
 </pre></div>
 </div>
 </section>
 <section id="id11">
-<h3>查看标签<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<h3>查看标签<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <p>查看所有的标签，或用上文介绍的 glob 模式来查询：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git tag
-$ git tag --list <span class="s2">&quot;v1.0*&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>tag
+$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>--list<span class="w"> </span><span class="s2">&quot;v1.0*&quot;</span>
 </pre></div>
 </div>
 <p>要查看某一条标签:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git show v1.0
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>show<span class="w"> </span>v1.0
 </pre></div>
 </div>
 </section>
 <section id="id12">
-<h3>推送标签<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<h3>推送标签<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <p>通常 <cite>git push</cite> 命令不会将标签推送到远程仓库，你需要手动推送：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git push origin v1.0
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.0
 </pre></div>
 </div>
 <p>如果你想将尚未推送到远程仓库中的本地标签全部推送，使用 <cite>--tags</cite> 选项：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git push origin --tags
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--tags
 </pre></div>
 </div>
 </section>
 <section id="id13">
-<h3>删除标签<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h3>删除标签<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <p>用 <cite>-d</cite> 选项删除标签：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git tag -d v1.0
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>-d<span class="w"> </span>v1.0
 </pre></div>
 </div>
 <p>即使标签已经被推送到远程，仍然可以从远程删除它，只不过需要加上特殊的前缀 <cite>:refs/tags</cite> ：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git push origin :refs/tags/v1.0
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/tags/v1.0
 
-To https://github.com/wklchris/wklchris.github.io
-- <span class="o">[</span>deleted<span class="o">]</span>         v1.0
+To<span class="w"> </span>https://github.com/wklchris/wklchris.github.io
+-<span class="w"> </span><span class="o">[</span>deleted<span class="o">]</span><span class="w">         </span>v1.0
 </pre></div>
 </div>
 </section>
 <section id="id14">
-<h3>回退到标签<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<h3>回退到标签<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <p>当你想回退到一个带有标签的 commit 的状态，你可以直接使用标签指令而不需找出它的 SHA-1 值。通常的做法是在标签上创建一个新分支：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git checkout -b &lt;branch_name&gt; &lt;tag_name&gt;
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;branch_name&gt;<span class="w"> </span>&lt;tag_name&gt;
 </pre></div>
 </div>
 <p>其中 <cite>checkout -b</cite> 实质是新建分支的命令，我们在下文讨论。</p>
 </section>
 </section>
 <section id="alias">
-<span id="id15"></span><h2>别名：alias<a class="headerlink" href="#alias" title="永久链接至标题"></a></h2>
+<span id="id15"></span><h2>别名：alias<a class="headerlink" href="#alias" title="Link to this heading"></a></h2>
 <p>关于别名的使用我们在前文已经有所提及：即配置用户名 <cite>user.name</cite> 与邮箱 <cite>user.email</cite> 。这里有一些常用的例子：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git config --global alias.st status -sb
-$ git config --global alias.unstage <span class="s1">&#39;reset HEAD --&#39;</span>
-$ git config --gloabl alias.last <span class="s1">&#39;log -1 HEAD&#39;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.st<span class="w"> </span>status<span class="w"> </span>-sb
+$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.unstage<span class="w"> </span><span class="s1">&#39;reset HEAD --&#39;</span>
+$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--gloabl<span class="w"> </span>alias.last<span class="w"> </span><span class="s1">&#39;log -1 HEAD&#39;</span>
 </pre></div>
 </div>
 <p>我个人在日常使用中，还将日志命令设置了别名：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git config --global alias.lg <span class="s2">&quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset:%C(ul yellow)%d%Creset %s (%Cgreen%cr%Creset, %C(bold blue)%an%Creset)&#39; --abbrev-commit&quot;</span>
-$ git config --global alias.rmignored <span class="s2">&quot;rm -r --cached . &amp;&amp; git add .&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.lg<span class="w"> </span><span class="s2">&quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset:%C(ul yellow)%d%Creset %s (%Cgreen%cr%Creset, %C(bold blue)%an%Creset)&#39; --abbrev-commit&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.rmignored<span class="w"> </span><span class="s2">&quot;rm -r --cached . &amp;&amp; git add .&quot;</span>
 </pre></div>
 </div>
 <p>这样使用 <cite>git lg</cite> 的显示效果比原生的 <cite>git log</cite> 显示舒服得多。</p>
 </section>
 <section id="stash">
-<h2>贮藏：stash<a class="headerlink" href="#stash" title="永久链接至标题"></a></h2>
+<h2>贮藏：stash<a class="headerlink" href="#stash" title="Link to this heading"></a></h2>
 <p>如果你需要切换分支，但不想为当前分支的工作创建一个提交．这时候需要用 <cite>stash</cite> 将更改到储存到一个栈上：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash
-Saved working directory and index state WIP on dev: f435e49 Git: update to rebase.
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash
+Saved<span class="w"> </span>working<span class="w"> </span>directory<span class="w"> </span>and<span class="w"> </span>index<span class="w"> </span>state<span class="w"> </span>WIP<span class="w"> </span>on<span class="w"> </span>dev:<span class="w"> </span>f435e49<span class="w"> </span>Git:<span class="w"> </span>update<span class="w"> </span>to<span class="w"> </span>rebase.
 </pre></div>
 </div>
 <p>该命令会储存工作目录和暂存区．现在再运行 <cite>git status</cite> ，工作目录是干净的．如果你不想把已经暂存的部分储藏起来，添加 <cite>--keep-index</cite> 选项．</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash --keep-index
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>--keep-index
 </pre></div>
 </div>
 <p>储藏操作默认只关心已修改或已暂存的跟踪文件，而会忽略工作目录中的未跟踪文件（以及被 <cite>.gitignore</cite> 忽略的文件）。</p>
@@ -735,72 +712,72 @@ Saved working directory and index state WIP on dev: f435e49 Git: update to rebas
 <li><p>使用 <cite>-u</cite> （或 <cite>--include-untracked</cite> ） 选项，可以将未跟踪文件也加入贮藏。</p></li>
 <li><p>使用 <cite>-a</cite> （或 <cite>--all</cite> ）选项，可以将被忽略的文件也加入贮藏。</p></li>
 </ul>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash -u  <span class="c1"># 同时加入未跟踪文件</span>
-$ git stash -a  <span class="c1"># 同时加入忽略的文件</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>-u<span class="w">  </span><span class="c1"># 同时加入未跟踪文件</span>
+$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>-a<span class="w">  </span><span class="c1"># 同时加入忽略的文件</span>
 </pre></div>
 </div>
 <p>查看你的储藏栈：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash list
-stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span>: WIP on dev: f435e49 Git: update to rebase.
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>list
+stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span>:<span class="w"> </span>WIP<span class="w"> </span>on<span class="w"> </span>dev:<span class="w"> </span>f435e49<span class="w"> </span>Git:<span class="w"> </span>update<span class="w"> </span>to<span class="w"> </span>rebase.
 </pre></div>
 </div>
 <section id="stash-apply">
-<h3>恢复储藏：stash apply<a class="headerlink" href="#stash-apply" title="永久链接至标题"></a></h3>
+<h3>恢复储藏：stash apply<a class="headerlink" href="#stash-apply" title="Link to this heading"></a></h3>
 <p>从栈中恢复一个储藏到当前:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash apply
-$ git stash apply stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>apply
+$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>apply<span class="w"> </span>stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span>
 </pre></div>
 </div>
 <p>其中 <cite>stash&#64;{n}</cite> 如果不指定，会默认恢复栈顶的储藏．</p>
 <p>恢复储藏默认会把之前存入的内容都添加到工作目录（也就是说，如果你储藏时暂存区有添加的更改，这部分更改会被退还到工作目录而不是重新暂存）。使用 <cite>--index</cite> 选项以重新恢复暂存，以尽可能地恢复到贮藏前的状态：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash apply --index
-On branch dev
-Changes to be committed:
-  <span class="o">(</span>use <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>apply<span class="w"> </span>--index
+On<span class="w"> </span>branch<span class="w"> </span>dev
+Changes<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>committed:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>unstage<span class="o">)</span>
 
-        modified:   Git/Fundamentals.rst
+<span class="w">        </span>modified:<span class="w">   </span>Git/Fundamentals.rst
 
-Changes not staged <span class="k">for</span> commit:
-  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed<span class="o">)</span>
-  <span class="o">(</span>use <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes <span class="k">in</span> working directory<span class="o">)</span>
+Changes<span class="w"> </span>not<span class="w"> </span>staged<span class="w"> </span><span class="k">for</span><span class="w"> </span>commit:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>update<span class="w"> </span>what<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>committed<span class="o">)</span>
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>discard<span class="w"> </span>changes<span class="w"> </span><span class="k">in</span><span class="w"> </span>working<span class="w"> </span>directory<span class="o">)</span>
 
-        modified:   Git/Fundamentals.rst
+<span class="w">        </span>modified:<span class="w">   </span>Git/Fundamentals.rst
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
+<p class="admonition-title">备注</p>
 <p>如果你尝试恢复到一个储藏点入栈分支之外的分支，或者你的工作目录不是干净的，恢复可能导致问题．比如你建立了一个储藏，却继续在当前位置工作，再尝试恢复．这时，你需要一个新的分支（例如命名为 dev-stash）来帮助你恢复：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash branch dev-stash
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>branch<span class="w"> </span>dev-stash
 </pre></div>
 </div>
 </div>
 </section>
 <section id="stash-drop">
-<h3>丢弃储藏：stash drop<a class="headerlink" href="#stash-drop" title="永久链接至标题"></a></h3>
+<h3>丢弃储藏：stash drop<a class="headerlink" href="#stash-drop" title="Link to this heading"></a></h3>
 <p>最后，如果恢复操作 <cite>apply</cite> 没有问题，你就可以把该储藏点从栈中丢弃了：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash drop stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span>
-Dropped stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span> <span class="o">(</span>2e843b866b3be25c3a8ccb5dd2c688b258d2d337<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>drop<span class="w"> </span>stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span>
+Dropped<span class="w"> </span>stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span><span class="w"> </span><span class="o">(</span>2e843b866b3be25c3a8ccb5dd2c688b258d2d337<span class="o">)</span>
 </pre></div>
 </div>
 <p>你也可以用 <cite>git stash pop</cite> 来达到“恢复储藏，随即将其从栈中丢弃”的效果．</p>
 </section>
 </section>
 <section id="clean">
-<h2>清理仓库：clean<a class="headerlink" href="#clean" title="永久链接至标题"></a></h2>
+<h2>清理仓库：clean<a class="headerlink" href="#clean" title="Link to this heading"></a></h2>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>这是一个危险的命令，可能会导致内容丢失。建议总是使用 <cite>-n</cite> 或 <cite>--dry-run</cite> 参数来预演该命令。</p>
 </div>
 <p>清理目录一般使用 <cite>clean</cite> 指令，它会移除所有未被追踪的文件（不包括你的 <cite>.gitignore</cite> 文件中排除的那些）。利用贮藏来将这些文件放入栈中是个更安全的选择：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git stash --all
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>--all
 </pre></div>
 </div>
 <p>如果你确认要使用 <cite>clean</cite> 这个危险的命令，可以配合 <cite>-d</cite> 移除未追踪文件以及所有空的子目录。添加 <cite>-f</cite> 选项则意味着强制移除。</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git clean -f -d   <span class="c1"># 危险的命令！</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clean<span class="w"> </span>-f<span class="w"> </span>-d<span class="w">   </span><span class="c1"># 危险的命令！</span>
 </pre></div>
 </div>
 <p>安全选项 <cite>-n</cite> （或 <cite>--dry-run</cite> ）来执行一次预演，即告诉你这个操作实际上将会移除哪些文件，但此次并不执行移除操作：</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git clean -d --dry-run   <span class="c1"># 显示 git clean -d 将会移除的内容</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clean<span class="w"> </span>-d<span class="w"> </span>--dry-run<span class="w">   </span><span class="c1"># 显示 git clean -d 将会移除的内容</span>
 </pre></div>
 </div>
 <p>最后，该命令还拥有一个选项 <cite>-x</cite> 。它允许你同时也清除那些 <cite>.gitignore</cite> 通配的文件。</p>
@@ -810,7 +787,7 @@ Dropped stash@<span class="o">{</span><span class="m">0</span><span class="o">}<
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="Preparation.html" class="btn btn-neutral float-left" title="Git 准备工作" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="Branch.html" class="btn btn-neutral float-right" title="分支：branch" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
@@ -818,12 +795,12 @@ Dropped stash@<span class="o">{</span><span class="m">0</span><span class="o">}<
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 wklchris.</p>
+    <p>&#169; 版权所有 wklchris。</p>
   </div>
 
-  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
-    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
    
 
 </footer>

@@ -55,27 +55,27 @@
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Branch.html</loc>
-    <lastmod>2022-08-12</lastmod>
+    <lastmod>2025-05-13</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Conflict.html</loc>
-    <lastmod>2022-08-12</lastmod>
+    <lastmod>2025-05-13</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Fundamentals.html</loc>
-    <lastmod>2022-08-12</lastmod>
+    <lastmod>2025-05-13</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/index.html</loc>
-    <lastmod>2022-08-12</lastmod>
+    <lastmod>2025-05-13</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Intro.html</loc>
-    <lastmod>2022-08-12</lastmod>
+    <lastmod>2025-05-13</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Git/Preparation.html</loc>
-    <lastmod>2022-08-12</lastmod>
+    <lastmod>2025-05-13</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Matplotlib/AxesControl.html</loc>
@@ -92,6 +92,22 @@
   <url>
     <loc>https://wklchris.github.io/blog/Matplotlib/PlotFunc.html</loc>
     <lastmod>2022-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Optimization/Basic-Convex.html</loc>
+    <lastmod>2025-04-17</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Optimization/index.html</loc>
+    <lastmod>2025-04-17</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Optimization/Intro.html</loc>
+    <lastmod>2025-04-17</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Optimization/LP.html</loc>
+    <lastmod>2025-04-17</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Python/ControlFlow.html</loc>
@@ -155,39 +171,39 @@
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/4x4.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/Appendix.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/Basic.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/CFOP.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/F2L.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/index.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/Intro.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/OLL.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/PLL.html</loc>
-    <lastmod>2023-09-20</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Sphinx/index.html</loc>
@@ -219,6 +235,6 @@
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/</loc>
-    <lastmod>2024-09-27</lastmod>
+    <lastmod>2025-07-29</lastmod>
   </url>
 </urlset>

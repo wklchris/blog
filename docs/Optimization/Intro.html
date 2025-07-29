@@ -1,34 +1,34 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>引言 &mdash; Optimization  文档</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
-    <link rel="canonical" href="https://self-contained.github.io/Optimization/Intro.html"/>
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=3491b469" />
+
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=7d86a446"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=f281be69"></script>
-        <script src="_static/translations.js?v=beaddf03"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://self-contained.github.io/Optimization/Intro.html"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7d86a446"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="线性规划" href="LP.html" />
+    <link rel="next" title="预备知识：凹凸性" href="Basic-Convex.html" />
     <link rel="prev" title="解优化问题" href="index.html" />
  
 
@@ -81,6 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id4">求解器性能基准测试*</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Basic-Convex.html">预备知识：凹凸性</a></li>
 <li class="toctree-l1"><a class="reference internal" href="LP.html">线性规划</a></li>
 </ul>
 
@@ -113,13 +114,13 @@
 <p><strong>优化问题</strong>（Optimization Problem），也称最优化问题，其目标是选择一组变量取值，在满足给定<strong>约束条件</strong>（Constraints）或无约束条件的情形下，使<strong>目标函数</strong>（Objective Function）的取值达到最优。</p>
 <p>优化问题常常写成以下形式：</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}      &amp; \min f(\boldsymbol{x}) \\
-s.t.\ &amp; C_{leq}(\boldsymbol{x}) \leq \boldsymbol{0} \\
-      &amp; C_{eq}(\boldsymbol{x}) = \boldsymbol{0} \\\end{split}\]</div>
+\[\begin{split}      &amp; \min f(x) \\
+s.t.\ &amp; \boldsymbol{C_{leq}}(x) \leq 0 \\
+      &amp; \boldsymbol{C_{eq}}(x) = 0 \\\end{split}\]</div>
 <ul class="simple">
-<li><p>变量 <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> （粗体）表示一个向量 <span class="math notranslate nohighlight">\((x_1, x_2, \ldots, x_n, \ldots)\)</span></p></li>
-<li><p>目标函数 <span class="math notranslate nohighlight">\(f(\boldsymbol{x})\)</span> 写为求最小值的形式。如果原函数是求最大值，添加负号。</p></li>
-<li><p>约束条件：整理为不等式约束 <span class="math notranslate nohighlight">\(C_{leq}\)</span> 与等式约束 <span class="math notranslate nohighlight">\(C_{eq}\)</span> 两类。</p>
+<li><p>变量 <span class="math notranslate nohighlight">\(x\)</span> 表示一个 <span class="math notranslate nohighlight">\(n\)</span> 维向量 <span class="math notranslate nohighlight">\((x_1, x_2, \ldots, x_n, \ldots)\)</span></p></li>
+<li><p>目标函数 <span class="math notranslate nohighlight">\(f(x)\)</span> 写为求最小值的形式。如果原函数是求最大值，添加负号。</p></li>
+<li><p>约束条件：整理为不等式约束 <span class="math notranslate nohighlight">\(\boldsymbol{C_{leq}}\)</span> 与等式约束 <span class="math notranslate nohighlight">\(\boldsymbol{C_{eq}}\)</span> 两类。</p>
 <ul>
 <li><p>不等约束均写为小于等于的形式。原使用大于等于号的，两边同乘 -1 来变换不等号为小于等于号。不等约束中的不等号应该包含等号（例如使用小于等于号而不是小于号），因为带等号的不等式才是符合实际的。</p></li>
 <li><p>等号约束写照常书写。</p></li>
@@ -147,6 +148,7 @@ s.t.\ &amp; C_{leq}(\boldsymbol{x}) \leq \boldsymbol{0} \\
 </ul>
 </li>
 </ul>
+<p>我们一般较多地讨论凸优化（Convex Optimization）问题。</p>
 </section>
 <section id="id3">
 <h2>常用求解器<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
@@ -196,7 +198,7 @@ s.t.\ &amp; C_{leq}(\boldsymbol{x}) \leq \boldsymbol{0} \\
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="index.html" class="btn btn-neutral float-left" title="解优化问题" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="LP.html" class="btn btn-neutral float-right" title="线性规划" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Basic-Convex.html" class="btn btn-neutral float-right" title="预备知识：凹凸性" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

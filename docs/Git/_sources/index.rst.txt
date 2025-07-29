@@ -4,7 +4,7 @@
    :series: CLI
    :series_num: 2
    :date_init: 2018-04-07
-   :date_modified: 2022-08-12
+   :date_modified: 2025-05-13
    :abstract: 本文介绍了 Git，一个流行的版本控制系统。
 
 Git 使用笔记

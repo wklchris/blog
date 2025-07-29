@@ -1,30 +1,30 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CFOP 简介：两步法 &mdash; 魔方  文档</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
-      <link rel="stylesheet" href="_static/roofpig.css" type="text/css" />
-    <link rel="canonical" href="https://wklchris.github.io/Rubik/CFOP.html"/>
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=3491b469" />
+      <link rel="stylesheet" type="text/css" href="_static/roofpig.css?v=68eb91be" />
+
   
-        <script src="_static/jquery.js?v=3d1d8b85"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=7d86a446"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=f281be69"></script>
-        <script src="_static/translations.js?v=beaddf03"></script>
-        <script src="_static/jquery.js?v=3d1d8b85"></script>
-        <script src="_static/roofpig_and_three.min.js?v=824f3ec1"></script>
+    <link rel="canonical" href="https://wklchris.github.io/Rubik/CFOP.html"/>
+      <script src="_static/jquery.js?v=3d1d8b85"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7d86a446"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+      <script src="_static/jquery.js?v=3d1d8b85"></script>
+      <script src="_static/roofpig_and_three.min.js?v=824f3ec1"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -193,7 +193,7 @@
 </section>
 <section id="f2l-f2l">
 <h2>F2L 核心思路（直觉 F2L）<a class="headerlink" href="#f2l-f2l" title="Link to this heading"></a></h2>
-<p>&#64;&#64;&#64;</p>
+<p>调整一组槽的角块与棱块的朝向与相对位置，在归位之前组成 F2L 基本型之一，以便一次性完成它们（而不是先归角后归棱）。建议阅读本文 F2L 章节中的一些公式，以体会其中的思想。</p>
 </section>
 <section id="oll-oll">
 <h2>OLL 的十字公式（两步 OLL）<a class="headerlink" href="#oll-oll" title="Link to this heading"></a></h2>
@@ -269,7 +269,7 @@
 <h3>复原顶层棱块<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <p>完成顶层的角块复原后，我们就可以进行两步 PLL 的第二步，也即整个魔方复原的最后一步，顶层棱块复原。顶层的棱块排列只有 4 种。</p>
 <ul>
-<li><p>三棱换（PLL 1 &amp; 2）： 逆时针三棱即在层先法中学习过的公式 <code class="docutils literal notranslate"><span class="pre">(RU'RU)(RURU')(R'U'R2)</span></code>，顺时针三棱则是简单地反转该公式，即 <code class="docutils literal notranslate"><span class="pre">R2U(RUR'U')R'U'(R'UR')</span></code>。</p>
+<li><p>三棱换（PLL 1 &amp; 2）： 逆时针三棱即在层先法中学习过的公式 <code class="docutils literal notranslate"><span class="pre">(RU'RU)(RURU')(R'U'R2)</span></code>（或者带 M 层的公式 <code class="docutils literal notranslate"><span class="pre">M2'UMU2M'UM2'</span></code>）。顺时针三棱则是简单地反转该公式，即 <code class="docutils literal notranslate"><span class="pre">R2U(RUR'U')R'U'(R'UR')``（或者</span> <span class="pre">M</span> <span class="pre">层公式</span> <span class="pre">``M2'U'MU2M'U'M2</span></code>）。</p>
 <div class="roofpig-inline-container">
   <div class="roofpig inline recommend" data-config="alg=R U' R U R U R U' R' U' R2|flags=showalg|algdisplay=2p">PLL 1：逆时针三棱换</div>
   <div class="roofpig inline recommend" data-config="alg=R2 U R U R' U' R' U' R' U R'|flags=showalg|algdisplay=2p">PLL 2：顺时针三棱换</div>

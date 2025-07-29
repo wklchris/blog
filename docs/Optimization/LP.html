@@ -1,35 +1,35 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>线性规划 &mdash; Optimization  文档</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
-    <link rel="canonical" href="https://self-contained.github.io/Optimization/LP.html"/>
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=3491b469" />
+
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=7d86a446"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=f281be69"></script>
-        <script src="_static/translations.js?v=beaddf03"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://self-contained.github.io/Optimization/LP.html"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7d86a446"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="prev" title="引言" href="Intro.html" />
+    <link rel="prev" title="预备知识：凹凸性" href="Basic-Convex.html" />
  
 
 <!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
@@ -76,15 +76,13 @@
               <p class="caption" role="heading"><span class="caption-text">目录</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic-Convex.html">预备知识：凹凸性</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">线性规划</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#例题">例题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#建立线性规划模型">建立线性规划模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#线性规划的一般形式">线性规划的一般形式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#线性规划的代码求解">线性规划的代码求解</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scipy.optimize.linprog">scipy.optimize.linprog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cvxpy">cvxpy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pyomo-(AbstractModel)">pyomo (AbstractModel)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#导入模型参数值">导入模型参数值</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#求解">求解</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -115,33 +113,18 @@
              
   <section id="线性规划">
 <h1>线性规划<a class="headerlink" href="#线性规划" title="Link to this heading"></a></h1>
-<p>线性规划（Linear Programming, LP）是指目标函数与约束条件均是关于变量的线性函数的优化问题。线性规划是最简单的优化问题类型，本节只讨论连续变量的线性规划。</p>
-<p>关于线性规划，我们有很多工具可以使用。本节将会使用：</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span><span class="o">,</span> <span class="nn">cvxpy</span><span class="o">,</span> <span class="nn">pyomo</span>
-
-<span class="k">for</span> <span class="n">lib</span> <span class="ow">in</span> <span class="p">(</span><span class="n">scipy</span><span class="p">,</span> <span class="n">cvxpy</span><span class="p">,</span> <span class="n">pyomo</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">lib</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-scipy   1.10.1
-cvxpy   1.4.2
-pyomo   6.7.1
-</pre></div></div>
-</div>
-<section id="例题">
-<h2>例题<a class="headerlink" href="#例题" title="Link to this heading"></a></h2>
-<p>考虑这样一个问题：</p>
-<p>工厂现有的某机器能生产甲、乙、丙三种产品，它们的具体信息如下所示：</p>
+<p>线性规划（Linear Programming, LP）是最简单的优化问题类型，指<strong>目标函数</strong>与<strong>约束条件</strong>均是关于变量的线性函数的优化问题。</p>
+<section id="建立线性规划模型">
+<h2>建立线性规划模型<a class="headerlink" href="#建立线性规划模型" title="Link to this heading"></a></h2>
+<p>对于任何线性规划问题，我们通过下列步骤建立模型：</p>
+<ol class="arabic simple">
+<li><p>定义问题变量</p></li>
+<li><p>给出目标函数</p></li>
+<li><p>提供约束条件</p></li>
+</ol>
+<p>考虑以下工厂生产问题，我们将通过它了解线性规划的建模过程。</p>
+<hr class="docutils" />
+<p>工厂现有的某机器能生产甲、乙、丙三种产品，它们的具体生产信息如下表所示：</p>
 <ul class="simple">
 <li><p>每种产品的单件利润</p></li>
 <li><p>每种产品在生产单件时所需的人工工时</p></li>
@@ -184,28 +167,123 @@ pyomo   6.7.1
 </tr>
 </tbody>
 </table>
-<p>假设该机器平均每周固定分配人工 45 小时、机器工作不超过 100 小时，且不应生产超过 60 件产品；生产的产品全部可以卖出。求如何分配三种产品的生产数量（可以是小数），使得平均每周的利润最大。</p>
-<hr class="docutils" />
-<p>我们列出优化模型如下，它是一个线性规划问题：</p>
+<p>假设该机器平均每周固定分配人工 45 小时、机器工作不超过 100 小时，且不应生产超过 60 件产品；生产的产品全部可以卖出。求如何分配三种产品的生产数量（允许是小数），使得平均每周的总利润最大。</p>
+<ol class="arabic">
+<li><p><strong>定义问题变量</strong></p>
+<p>该问题需要求解即每种产品的生产数量。因此，我们将产品 A、B、C 的生产数量作为变量，分别定义为 <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span> 与 <span class="math notranslate nohighlight">\(x_3\)</span>.</p>
+</li>
+<li><p><strong>给出目标函数</strong></p>
+<p>该问题的目标是最大化总利润，而每种产品的单位利润已经给出。将生产产品的数量与其利润相乘，最后求和，就得到总利润：</p>
+<div class="math notranslate nohighlight">
+\[\max \, 10x_1 + 7x_2 + 3x_3\]</div>
+<p>为了统一形式，本节将一律采用最小化问题的形式。我们可以将总利润乘以 <span class="math notranslate nohighlight">\(-1\)</span> 并求其最小值（记为最小化目标函数 <span class="math notranslate nohighlight">\(z\)</span>）：</p>
+<div class="math notranslate nohighlight">
+\[\min \, z = -10x_1 - 7x_2 - 3x_3\]</div>
+</li>
+<li><p><strong>提供约束条件</strong></p>
+<p>根据生产信息表格，我们用不等式约束机器工时、产品数量，用等式约束人工工时：</p>
+<ul class="simple">
+<li><p>机器工时约束：<span class="math notranslate nohighlight">\(4x_1 + 3x_2 + x_3 \leq 100\)</span></p></li>
+<li><p>产品数量约束：<span class="math notranslate nohighlight">\(x_1 + x_2 + x_3 \leq 60\)</span></p></li>
+<li><p>人工工时约束：<span class="math notranslate nohighlight">\(2x_1 + 0.5x_2 + x_3 = 45\)</span></p></li>
+</ul>
+<p>最后，每种产品的生产数量不能为负数：</p>
+<ul class="simple">
+<li><p>非负约束：<span class="math notranslate nohighlight">\(x_1, x_2, x_3 \geq 0\)</span></p></li>
+</ul>
+</li>
+</ol>
+<p>总结以上步骤，我们列出优化模型如下。由于目标函数与所有约束条件都是线性的，因此它是一个线性规划问题：</p>
 <p><span class="math">\begin{align*}
-\min\ & f(x_1, x_2, x_3) = -10x_1 - 7x_2 - 3x_3 \\
+\min\ & z(x_1, x_2, x_3) = -10x_1 - 7x_2 - 3x_3 \\
 \text{s.t.}\quad & 4x_1 + 3x_2 + x_3 \leq 100 \\
 & x_1 + x_2 + x_3 \leq 60 \\
 & 2x_1 + 0.5x_2 + x_3 = 45 \\
 & x_1, x_2, x_3 \geq 0
 \end{align*}</span></p>
+<p>或者其矩阵形式：</p>
+<p><span class="math">\begin{align*}
+\min\ & z(x_1, x_2, x_3) = \begin{pmatrix} -10 \\ -7 \\ -3 \end{pmatrix}^T
+\begin{pmatrix} x_1 \\ x_2 \\ x_3\end{pmatrix} \\
+\text{s.t.}\quad & \begin{pmatrix} 4 & 3 & 1 \\ 1 & 1 & 1 \end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \\ x_3\end{pmatrix}
+\leq \begin{pmatrix} 100 \\ 60 \end{pmatrix} \\
+& \begin{pmatrix} 2 & 0.5 & 1 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} = 45\\
+& \begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} \geq \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}
+\end{align*}</span></p>
+<p>该矩阵形式可以进一步变形为一般形式，以减少矩阵的数量。这里我们将约束条件分为小于等于约束、等于约束与变量上下限约束三个部分，仅仅是便于后续的代码使用。</p>
+</section>
+<section id="线性规划的一般形式">
+<h2>线性规划的一般形式<a class="headerlink" href="#线性规划的一般形式" title="Link to this heading"></a></h2>
+<p>通过上述例题的模型建立，我们总结：对于拥有 <span class="math notranslate nohighlight">\(n\)</span> 个变量、<span class="math notranslate nohighlight">\(m\)</span> 个约束的线性规划，其模型的一般形式如下</p>
+<p><span class="math">\begin{align*}
+\min \quad & z(x) = c_1 x_1 + c_2 x_2 + \dotsm + c_n x_n + d \\
+\text{s.t.} \quad & a_{11}x_1 + a_{12}x_2 + \dotsm + a_{1n}x_n \leq b_1 \\
+& a_{21}x_1 + a_{22}x_2 + \dotsm + a_{2n}x_n \leq b_2 \\
+& \vdots \\
+& a_{m1}x_1 + a_{m2}x_2 + \dotsm + a_{mn}x_n \leq b_m
+\end{align*}</span></p>
+<p>或者，我们使用其矩阵标准形式：</p>
+<p><span class="math">\begin{align*}
+\min \quad & z(x) = c^T x \\
+\text{s.t.} \quad & \boldsymbol{A}x \leq b
+\end{align*}</span></p>
+<p>其中变量 <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> 是 n 维向量，<span class="math notranslate nohighlight">\(c \in \mathbb{R}^n\)</span> 描述了组成目标函数的参数，<span class="math notranslate nohighlight">\(\boldsymbol{A} \in \mathbb{R^{m\times n}}\)</span> 与 <span class="math notranslate nohighlight">\(b \in \mathbb{R^m}\)</span> 描述了关于变量 <span class="math notranslate nohighlight">\(x\)</span> 的 m 个不等式约束条件。</p>
+<p>对于一个不符合标准形式的线性规划模型，我们可以通过以下技巧（在引言中已有所介绍），将其等价变形为标准形式：</p>
+<ul>
+<li><p><strong>目标函数中的常数项</strong>：由于目标函数中的常数 <span class="math notranslate nohighlight">\(d \in \mathbb{R}\)</span> 的取值不影响最优解 <span class="math notranslate nohighlight">\(x^*\)</span> 的求解结果，因此我们可以将它省略。</p></li>
+<li><p><strong>最小化与最大化目标函数</strong>：对于求函数 <span class="math notranslate nohighlight">\(z(x)\)</span> 最大值的目标函数，我们可以将其转为求 <span class="math notranslate nohighlight">\(-z(x)\)</span> 的最小值。</p>
+<div class="math notranslate nohighlight">
+\[\max\,z(x) \iff \min\,-z(x)\]</div>
+</li>
+<li><p><strong>大于等于形式的约束</strong>：对于大于等于形式的不等式约束 <span class="math notranslate nohighlight">\(\boldsymbol{A}_{geq} x \geq b_{geq}\)</span>，我们可以将两边乘以 <span class="math notranslate nohighlight">\(-1\)</span> 来将其转变为小于形式的约束：</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}_{geq} x \geq b_{geq} \iff -\boldsymbol{A}_{geq} x \leq -b_{geq}\]</div>
+</li>
+<li><p><strong>等于形式的约束</strong>：对于等于形式的约束 <span class="math notranslate nohighlight">\(\boldsymbol{A}_{eq} x = b_{eq}\)</span>，我们可以用一个大于等于约束与一个小于等于约束来描述，然后进一步转为两个不等式描述：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}_{eq} x = b_{eq} \iff
+\begin{cases} \boldsymbol{A}_{eq} x \leq b_{eq} \\ \boldsymbol{A}_{eq} x \geq b_{eq} \end{cases}
+\iff \begin{cases} \boldsymbol{A}_{eq} x \leq b_{eq} \\ -\boldsymbol{A}_{eq} x \leq -b_{eq} \end{cases}\end{split}\]</div>
+</li>
+</ul>
+</section>
+<section id="线性规划的代码求解">
+<h2>线性规划的代码求解<a class="headerlink" href="#线性规划的代码求解" title="Link to this heading"></a></h2>
+<p>关于线性规划的代码求解，我们有很多工具可以使用。本节将会使用：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">cvxpy</span>
+
+<span class="k">for</span> <span class="n">lib</span> <span class="ow">in</span> <span class="p">(</span><span class="n">scipy</span><span class="p">,</span> <span class="n">cvxpy</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">lib</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+scipy   1.14.1
+cvxpy   1.6.4
+</pre></div></div>
+</div>
 </section>
 <section id="scipy.optimize.linprog">
 <h2>scipy.optimize.linprog<a class="headerlink" href="#scipy.optimize.linprog" title="Link to this heading"></a></h2>
-<p>Scipy 可能是许多人第一次在 Python 上解线性规划问题时使用的工具。<code class="docutils literal notranslate"><span class="pre">scipy.optimize.linprog</span></code> 需要我们使用矩阵形式书写代码：</p>
+<p>Scipy 可能是许多人第一次在 Python 上解线性规划问题时使用的工具。<code class="docutils literal notranslate"><span class="pre">scipy.optimize.linprog</span></code> 允许我们使用在矩阵形式中使用小于等于约束、等式约束，以及变量上下限约束：</p>
 <p><span class="math">\begin{align*}
-\min\ & f(x) = \boldsymbol{C}x \\
+\min\ & z(x) = c^T x \\
 \text{s.t.}\quad & \boldsymbol{A}_{leq} x \leq b_{leq} \\
 & \boldsymbol{A}_{eq} x = b_{eq} \\
 & \ell \leq x \leq u
 \end{align*}</span></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -218,6 +296,7 @@ pyomo   6.7.1
 <span class="n">A_eq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 <span class="n">b_eq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">45</span><span class="p">])</span>
 <span class="n">x_bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+
 <span class="n">result</span> <span class="o">=</span> <span class="n">linprog</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">A_leq</span><span class="p">,</span> <span class="n">b_leq</span><span class="p">,</span> <span class="n">A_eq</span><span class="p">,</span> <span class="n">b_eq</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">x_bounds</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 </pre></div>
@@ -233,7 +312,7 @@ Optimization terminated successfully. (HiGHS Status 7: Optimal)
 </div>
 <p>以上 Optimal 状态信息表示 LP 问题成功解得最优值。我们利用 <code class="docutils literal notranslate"><span class="pre">result.x</span></code> 查看取得最优值时，变量的取值：</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
@@ -242,7 +321,7 @@ Optimization terminated successfully. (HiGHS Status 7: Optimal)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -252,7 +331,7 @@ array([ 0., 22., 34.])
 </div>
 <p>查看目标函数最优值 <code class="docutils literal notranslate"><span class="pre">result.fun</span></code> ，或者使用 <code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">&#64;</span> <span class="pre">x</span></code> 手动计算：</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Optimal:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
@@ -271,7 +350,7 @@ Manual compute:  -256.0
 </div>
 <p>还可以用 <code class="docutils literal notranslate"><span class="pre">result.slack</span></code> 查看不等式约束的满足情况，或用 <code class="docutils literal notranslate"><span class="pre">result.con</span></code> 查看等式约束的满足情况：</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Leq constraints: </span><span class="si">{</span><span class="n">b_leq</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">A_leq</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -301,7 +380,7 @@ Eq constraints: [0.]
 <li><p>cvxpy 可以使用 <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> 来表示带等的不等于号；但是，不能像 <code class="docutils literal notranslate"><span class="pre">1&lt;=</span> <span class="pre">x</span> <span class="pre">&lt;=2</span></code> 这样连写。</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -323,17 +402,17 @@ Eq constraints: [0.]
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--255.99999919804102
+np.float64(-255.99999999194907)
 </pre></div></div>
 </div>
 <p>LP 问题的解结果（例如，求得最优 <code class="docutils literal notranslate"><span class="pre">cvxpy.OPTIMAL</span></code> 、不可行 <code class="docutils literal notranslate"><span class="pre">cvxpy.INFEASIBLE</span></code> 或者未约束 <code class="docutils literal notranslate"><span class="pre">cvxpy.UNBOUNDED</span></code> 等）：</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Status: </span><span class="si">{</span><span class="n">problem</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -352,7 +431,7 @@ True
 </div>
 <p>LP 问题的解存放在 <code class="docutils literal notranslate"><span class="pre">x.value</span></code> 与 <code class="docutils literal notranslate"><span class="pre">problem.value</span></code> 中：</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A feasible solution:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
@@ -365,13 +444,13 @@ True
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-A feasible solution:     [9.66046589e-07 2.19999993e+01 3.39999981e+01]
-Optimal value:           -255.99999919804102
+A feasible solution:     [9.27094654e-09 2.20000000e+01 3.40000000e+01]
+Optimal value:           -255.99999999194907
 </pre></div></div>
 </div>
 <p>对偶解（Dual Solution）中符号为正的第 <em>i</em> 个值表示在最优解时约束 <span class="math notranslate nohighlight">\(a_i x \leq b_i\)</span> 恰好取得等号。这也意味着改变 <span class="math notranslate nohighlight">\(b_i\)</span> 会引起最优解的改变。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">constraint_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;A_leq&quot;</span><span class="p">,</span> <span class="s2">&quot;A_eq&quot;</span><span class="p">,</span> <span class="s2">&quot;x_bounds&quot;</span><span class="p">]</span>
@@ -387,443 +466,12 @@ Optimal value:           -255.99999919804102
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Dual solution:
-    A_leq      [2.19999999e+00 1.01474852e-07]
-    A_eq       [0.79999995]
-    x_bounds   [3.99999883e-01 9.66102358e-09 6.00201485e-09]
+    A_leq      [2.20000000e+00 8.68986474e-10]
+    A_eq       [0.8]
+    x_bounds   [3.99999999e-01 8.81435962e-11 5.94961809e-11]
 </pre></div></div>
 </div>
 <p>我们传入了三组约束。在上述对偶解中，小于号约束组 <code class="docutils literal notranslate"><span class="pre">A_leq</span></code> 的第二值为 0，表示原问题的 <span class="math notranslate nohighlight">\(x_1 + x_2 + x_3 \leq 60\)</span> 是松弛的（在最优解时未取得等号）。同理，变量约束组 <code class="docutils literal notranslate"><span class="pre">x_bounds</span></code> 的第二、三值也是松弛的，表示 <span class="math notranslate nohighlight">\(x_2, x_3\)</span> 的最优解值不在边界上（而显然 <span class="math notranslate nohighlight">\(x_1^* = 0\)</span> 在边界上）。</p>
-</section>
-<section id="pyomo-(AbstractModel)">
-<h2>pyomo (AbstractModel)<a class="headerlink" href="#pyomo-(AbstractModel)" title="Link to this heading"></a></h2>
-<p>通过 pyomo 提供的接口，我们调用需要的求解器来解优化问题。我们将前述的线性规划问题</p>
-<p><span class="math">\begin{align*}
-\min\ & f(x_1, x_2, x_3) = -10x_1 - 7x_2 - 3x_3 \\
-\text{s.t.}\quad & 4x_1 + 3x_2 + x_3 \leq 100 \\
-& x_1 + x_2 + x_3 \leq 60 \\
-& 2x_1 + 0.5x_2 + x_3 = 45 \\
-& x_1, x_2, x_3 \geq 0
-\end{align*}</span></p>
-<p>抽象成规范的优化问题表述的形式，以便使用 <code class="docutils literal notranslate"><span class="pre">AbstractModel</span></code> 来建立问题（如果愿意，也可以使用 <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> ）。下面是原问题的表述（目标函数写为最大化形式）：</p>
-<ul class="simple">
-<li><p>集合</p>
-<ul>
-<li><p><span class="math notranslate nohighlight">\(J\)</span>：产品下标集</p></li>
-</ul>
-</li>
-<li><p>参数</p>
-<ul>
-<li><p><span class="math notranslate nohighlight">\(c_j\)</span>：产品 <span class="math notranslate nohighlight">\(j\)</span> 的利润，<span class="math notranslate nohighlight">\(j\in J\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(a^{(machine)}_j\)</span>：产品 <span class="math notranslate nohighlight">\(j\)</span> 的机器工时（正数），<span class="math notranslate nohighlight">\(j\in J\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(a^{(product)}_j\)</span>：产品 <span class="math notranslate nohighlight">\(j\)</span> 的生产数量（非负数），<span class="math notranslate nohighlight">\(j\in J\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(a^{(human)}_j\)</span>：产品 <span class="math notranslate nohighlight">\(j\)</span> 的人工工时（正数），<span class="math notranslate nohighlight">\(j\in J\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(ub^{(machine)}\)</span>: 总机器工时上限（正数），标量</p></li>
-<li><p><span class="math notranslate nohighlight">\(ub^{(product)}\)</span>：总产品数量上限（正数），标量</p></li>
-<li><p><span class="math notranslate nohighlight">\(eb^{(human)}\)</span>：固定的总人工工时（正数），标量</p></li>
-</ul>
-</li>
-<li><p>变量</p>
-<ul>
-<li><p><span class="math notranslate nohighlight">\(x_j\)</span>：产品 <span class="math notranslate nohighlight">\(j\)</span> 的生产数量，<span class="math notranslate nohighlight">\(j\in J\)</span></p></li>
-</ul>
-</li>
-<li><p>目标函数</p>
-<ul>
-<li><p>最大化产品的总利润： <span class="math notranslate nohighlight">\(\max \sum_{j=1}^n c_j x_j,\quad j\in J\)</span></p></li>
-</ul>
-</li>
-<li><p>约束条件：以下均有 <span class="math notranslate nohighlight">\(\forall j\in J\)</span></p>
-<ul>
-<li><p>机器工时上限：<span class="math notranslate nohighlight">\(\sum_{j=1}^n a^{(machine)}_{j} x_j \leq ub^{(machine)}\)</span></p></li>
-<li><p>产品生产数量上限：<span class="math notranslate nohighlight">\(\sum_{j=1}^n a^{(product)}_{j} x_j \leq ub^{(product)}\)</span></p></li>
-<li><p>固定人工工时：<span class="math notranslate nohighlight">\(\sum_{j=1}^n a^{(human)}_{j} x_j = eb^{(human)}\)</span></p></li>
-<li><p>产品数量非负：<span class="math notranslate nohighlight">\(x_j \geq 0\)</span></p></li>
-</ul>
-</li>
-</ul>
-<p>本例用 pyomo 调用 CPLEX（需要预先安装）来解上述线性规划问题。</p>
-<ul class="simple">
-<li><p>约束条件中的变量非负由 <code class="docutils literal notranslate"><span class="pre">within=pyo.NonNegativeReals</span></code> 给出，不用再显示地写出。</p></li>
-</ul>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyomo.environ</span> <span class="k">as</span> <span class="nn">pyo</span>
-<span class="n">infinity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">AbstractModel</span><span class="p">()</span>
-
-<span class="c1"># --- 集合 ---</span>
-<span class="n">model</span><span class="o">.</span><span class="n">J</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Set</span><span class="p">()</span>
-
-<span class="c1"># --- 参数 ---</span>
-<span class="n">model</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Param</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">NonNegativeReals</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">a_machine</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Param</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">PositiveReals</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">a_product</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Param</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">NonNegativeReals</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">a_human</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Param</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">PositiveReals</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">ub_machine</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Param</span><span class="p">(</span><span class="n">within</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">PositiveReals</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">ub_product</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Param</span><span class="p">(</span><span class="n">within</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">PositiveReals</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">eb_human</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Param</span><span class="p">(</span><span class="n">within</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">PositiveReals</span><span class="p">)</span>
-
-<span class="c1"># --- 变量 ---</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Var</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">NonNegativeReals</span><span class="p">)</span>
-
-<span class="c1"># --- 目标函数 ---</span>
-<span class="k">def</span> <span class="nf">sale_rule</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">c</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">objectives</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">sale_rule</span><span class="p">,</span> <span class="n">sense</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">maximize</span><span class="p">)</span>  <span class="c1"># 最大化</span>
-
-<span class="c1"># --- 约束条件</span>
-<span class="k">def</span> <span class="nf">machine_constraint_rule</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-    <span class="n">machine_hours</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">a_machine</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">machine_hours</span> <span class="o">&lt;=</span> <span class="n">model</span><span class="o">.</span><span class="n">ub_machine</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">constraint_machine</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">machine_constraint_rule</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">product_constraint_rule</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-    <span class="n">total_product</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">a_product</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
-      <span class="c1"># 另一种写法: (None, total_product, model.ub_product)</span>
-    <span class="k">return</span> <span class="n">total_product</span> <span class="o">&lt;=</span> <span class="n">model</span><span class="o">.</span><span class="n">ub_product</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">constraint_product</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">product_constraint_rule</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">human_constraint_rule</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-    <span class="n">human_hours</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">a_human</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">human_hours</span> <span class="o">==</span> <span class="n">model</span><span class="o">.</span><span class="n">eb_human</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">constraint_human</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">human_constraint_rule</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<section id="导入模型参数值">
-<h3>导入模型参数值<a class="headerlink" href="#导入模型参数值" title="Link to this heading"></a></h3>
-<p>我们可以直接使用 Python 字典变量来传入数据，也可以使用外部文件。先看使用字典，如果参数不含键名，它使用 <code class="docutils literal notranslate"><span class="pre">None</span></code> 字段给出参数的值：</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datadict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="kc">None</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;J&quot;</span><span class="p">:</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]},</span>
-        <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
-        <span class="s2">&quot;a_machine&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-        <span class="s2">&quot;a_product&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-        <span class="s2">&quot;a_human&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-        <span class="s2">&quot;ub_machine&quot;</span><span class="p">:</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
-        <span class="s2">&quot;ub_product&quot;</span><span class="p">:</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">60</span><span class="p">},</span>
-        <span class="s2">&quot;eb_human&quot;</span><span class="p">:</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">45</span><span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<p>如果使用外部文件，我们可以准备一个 YAML 文件（需要 pyyaml 库）或者 JSON 文件来指定参数的值。使用 YAML 文件也是我喜欢的做法（因为相比 JSON 不需要输入很多引号），例如：</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_file</span> <span class="o">=</span> <span class="s2">&quot;dataset/LP_machine.yaml&quot;</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">data_rawstr</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data_rawstr</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-J: [A, B, C]
-c:
-  A: 10
-  B: 7
-  C: 3
-a_machine:
-  A: 4
-  B: 3
-  C: 1
-a_product:
-  A: 1
-  B: 1
-  C: 1
-a_human:
-  A: 2
-  B: 0.5
-  C: 1
-ub_machine: 100.0
-ub_product: 60.0
-eb_human: 45
-</pre></div></div>
-</div>
-<p>又或者等价地，我们也可以准备一个 pyomo Data Command Files 格式（类似 AMPL 格式，但不完全相同）的 <code class="docutils literal notranslate"><span class="pre">.dat</span></code> 文件（具体参考 <a class="reference external" href="https://pyomo.readthedocs.io/en/stable/working_abstractmodels/data/datfiles.html#model-data">pyomo 文档 - Working with Abstract Models: Data Command Files</a>）。这样的好处是直接写起来简单，缺点是需要练习这种（对许多人来说都是）新的语法、且难以通过脚本来自动化地更改参数的值。例如：</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_file</span> <span class="o">=</span> <span class="s2">&quot;dataset/LP_machine.dat&quot;</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">data_rawstr</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data_rawstr</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-param:  J:      c   a_machine   a_product   a_human :=
-        &#34;A&#34;     10  4           1           2
-        &#34;B&#34;     7   3           1           0.5
-        &#34;C&#34;     3   1           1           1       ;
-param ub_machine    :=  100;
-param ub_product    :=  60;
-param eb_human      :=  45;
-</pre></div></div>
-</div>
-<p>接下来，我们用 <code class="docutils literal notranslate"><span class="pre">create_instance()</span></code> 实例化这个模型，其中选项 <code class="docutils literal notranslate"><span class="pre">filename=</span></code> 指定外部数据（或者用 <code class="docutils literal notranslate"><span class="pre">data=</span></code> 指定 Python 字典数据）。这里使用 YAML 文件：</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_file</span> <span class="o">=</span> <span class="s2">&quot;dataset/LP_machine.yaml&quot;</span>
-<span class="c1"># 或者使用：model_instance = model.create_instance(data=datadict)</span>
-<span class="n">model_instance</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">create_instance</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">data_file</span><span class="p">)</span>
-<span class="n">model_instance</span><span class="o">.</span><span class="n">is_constructed</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-True
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_instance</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-1 Set Declarations
-    J : Size=1, Index=None, Ordered=Insertion
-        Key  : Dimen : Domain : Size : Members
-        None :     1 :    Any :    3 : {&#39;A&#39;, &#39;B&#39;, &#39;C&#39;}
-
-7 Param Declarations
-    a_human : Size=3, Index=J, Domain=PositiveReals, Default=None, Mutable=False
-        Key : Value
-          A :     2
-          B :   0.5
-          C :     1
-    a_machine : Size=3, Index=J, Domain=PositiveReals, Default=None, Mutable=False
-        Key : Value
-          A :     4
-          B :     3
-          C :     1
-    a_product : Size=3, Index=J, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key : Value
-          A :     1
-          B :     1
-          C :     1
-    c : Size=3, Index=J, Domain=NonNegativeReals, Default=None, Mutable=False
-        Key : Value
-          A :    10
-          B :     7
-          C :     3
-    eb_human : Size=1, Index=None, Domain=PositiveReals, Default=None, Mutable=False
-        Key  : Value
-        None :    45
-    ub_machine : Size=1, Index=None, Domain=PositiveReals, Default=None, Mutable=False
-        Key  : Value
-        None : 100.0
-    ub_product : Size=1, Index=None, Domain=PositiveReals, Default=None, Mutable=False
-        Key  : Value
-        None :  60.0
-
-1 Var Declarations
-    x : Size=3, Index=J
-        Key : Lower : Value : Upper : Fixed : Stale : Domain
-          A :     0 :  None :  None : False :  True : NonNegativeReals
-          B :     0 :  None :  None : False :  True : NonNegativeReals
-          C :     0 :  None :  None : False :  True : NonNegativeReals
-
-1 Objective Declarations
-    objectives : Size=1, Index=None, Active=True
-        Key  : Active : Sense    : Expression
-        None :   True : maximize : 10*x[A] + 7*x[B] + 3*x[C]
-
-3 Constraint Declarations
-    constraint_human : Size=1, Index=None, Active=True
-        Key  : Lower : Body                     : Upper : Active
-        None :  45.0 : 2*x[A] + 0.5*x[B] + x[C] :  45.0 :   True
-    constraint_machine : Size=1, Index=None, Active=True
-        Key  : Lower : Body                   : Upper : Active
-        None :  -Inf : 4*x[A] + 3*x[B] + x[C] : 100.0 :   True
-    constraint_product : Size=1, Index=None, Active=True
-        Key  : Lower : Body               : Upper : Active
-        None :  -Inf : x[A] + x[B] + x[C] :  60.0 :   True
-
-13 Declarations: J c a_machine a_product a_human ub_machine ub_product eb_human x objectives constraint_machine constraint_product constraint_human
-</pre></div></div>
-</div>
-</section>
-<section id="求解">
-<h3>求解<a class="headerlink" href="#求解" title="Link to this heading"></a></h3>
-<p>在求解之前，先确保当前计算机上安装了求解器。可以使用 <code class="docutils literal notranslate"><span class="pre">pyomo</span> <span class="pre">help</span> <span class="pre">--solvers</span></code> 来查看可用的求解器。前带 <code class="docutils literal notranslate"><span class="pre">+</span></code> 号的是当前可用的求解器。</p>
-<p>本例通过 <code class="docutils literal notranslate"><span class="pre">pyomo.SolverFactory()</span></code> 函数指定了 Cplex_direct 求解器（请确认安装），然后进行求解（并使用 <code class="docutils literal notranslate"><span class="pre">tee=True</span></code> 选项打印信息）。求解器的安装路径应当在 PATH 环境变量中，或者可以用 SolverFactory() 的选项 <code class="docutils literal notranslate"><span class="pre">executable='path/to/dir'</span></code> 指定位置。</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;cplex_direct&#39;</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model_instance</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Version identifier: 22.1.1.0 | 2023-06-15 | d64d5bd77
-CPXPARAM_Read_DataCheck                          1
-Tried aggregator 1 time.
-No LP presolve or aggregator reductions.
-Presolve time = 0.00 sec. (0.00 ticks)
-
-Iteration log . . .
-Iteration:     1   Dual infeasibility =             0.000000
-Iteration:     2   Dual objective     =           256.000000
-</pre></div></div>
-</div>
-<p>检查求解状态 <code class="docutils literal notranslate"><span class="pre">.solver.status</span></code>：</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solver status: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Solver status: ok
-</pre></div></div>
-</div>
-<p>打印最优解结果：</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-
-Problem:
-- Name:
-  Lower bound: 256.0
-  Upper bound: 256.0
-  Number of objectives: 1
-  Number of constraints: 3
-  Number of variables: 3
-  Number of binary variables: 0
-  Number of integer variables: 0
-  Number of continuous variables: 3
-  Number of nonzeros: None
-  Sense: -1
-Solver:
-- Name: CPLEX 22.1.1.0
-  Status: ok
-  Wallclock time: 0.0009968280792236328
-  Termination condition: optimal
-Solution:
-- number of solutions: 0
-  number of solutions displayed: 0
-
-</pre></div></div>
-</div>
-<p>查看最优解的对应的变量值。你也可以把 <code class="docutils literal notranslate"><span class="pre">pyo.Var</span></code> 换成 <code class="docutils literal notranslate"><span class="pre">pyo.Constraint</span></code> 或 <code class="docutils literal notranslate"><span class="pre">pyo.Param</span></code> 来查看约束或者参数的情况。</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_opt_values</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="n">pyo</span><span class="o">.</span><span class="n">Var</span><span class="p">):</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">component_objects</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">data</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">pyo</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-    <span class="k">return</span> <span class="n">data</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Variable:</span><span class="se">\n\t</span><span class="si">{</span><span class="n">get_opt_values</span><span class="p">(</span><span class="n">model_instance</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Variable:
-        {&#39;x&#39;: {&#39;A&#39;: 0.0, &#39;B&#39;: 21.999999999999996, &#39;C&#39;: 34.0}}
-</pre></div></div>
-</div>
-<p>查看约束的松弛情况。分别使用 <code class="docutils literal notranslate"><span class="pre">lslack()</span></code> 与 <code class="docutils literal notranslate"><span class="pre">uslack()</span></code> 来获取约束的下界与上界处的松弛信息：</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_slacks</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">component_objects</span><span class="p">(</span><span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">data</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">lslack</span><span class="p">(),</span> <span class="n">group</span><span class="o">.</span><span class="n">uslack</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">data</span>
-
-<span class="n">get_slacks</span><span class="p">(</span><span class="n">model_instance</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;constraint_machine&#39;: (inf, 1.4210854715202004e-14),
- &#39;constraint_product&#39;: (inf, 4.0),
- &#39;constraint_human&#39;: (0.0, 0.0)}
-</pre></div></div>
-</div>
-<p>由于 0 值表示未松弛，我们可以看出：</p>
-<ul class="simple">
-<li><p>machine 与 product 没有下界约束（因为它们是小于等于约束）</p></li>
-<li><p>machine 的上界约束取到等号、human 的上下界约束均取到等号（因为是等式约束）</p></li>
-<li><p>product 的上界约束尚有 4.0 的松弛量，即最优解中生产的产品数量比约束要少 4 个</p></li>
-</ul>
-</section>
 </section>
 </section>
 
@@ -831,7 +479,7 @@ Variable:
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="Intro.html" class="btn btn-neutral float-left" title="引言" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="Basic-Convex.html" class="btn btn-neutral float-left" title="预备知识：凹凸性" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>预备知识：凹凸性 &mdash; Optimization  文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=3491b469" />
+
+  
+    <link rel="canonical" href="https://self-contained.github.io/Optimization/Basic-Convex.html"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7d86a446"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="线性规划" href="LP.html" />
+    <link rel="prev" title="引言" href="Intro.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Optimization
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">预备知识：凹凸性</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">仿射集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">凸集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">凸集的例子</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">保持凸性的运算</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LP.html">线性规划</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Optimization</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">预备知识：凹凸性</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Basic-Convex.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>预备知识：凹凸性<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>集合与函数的凹凸性（Convexity）是优化问题讨论中的基本概念。</p>
+<section id="id2">
+<h2>仿射集<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>对于 <span class="math notranslate nohighlight">\(n\)</span> 维空间 <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> 中的两个不同的点 <span class="math notranslate nohighlight">\(x_1\)</span> 与 <span class="math notranslate nohighlight">\(x_2\)</span> (<span class="math notranslate nohighlight">\(x_1\neq x_2\)</span>)，我们可以用一个参数 <span class="math notranslate nohighlight">\(\theta\)</span> 来表示过这两个点的直线（即由下列 <span class="math notranslate nohighlight">\(y\)</span> 组成的点集）：</p>
+<div class="math notranslate nohighlight">
+\[y = \theta x_1 + (1-\theta) x_2, \quad \theta \in \mathbb{R}.\]</div>
+<ul class="simple">
+<li><p>当 <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span> 时，点 <span class="math notranslate nohighlight">\(y\)</span> 在 <span class="math notranslate nohighlight">\(x_1\)</span> 与 <span class="math notranslate nohighlight">\(x_2\)</span> 这两点之间连成的线段上。</p></li>
+<li><p>当 <span class="math notranslate nohighlight">\(\theta &lt; 0\)</span> 时， 点 <span class="math notranslate nohighlight">\(y\)</span> 在该两点连线的延长线上偏 <span class="math notranslate nohighlight">\(x_2\)</span> 的一侧；反之，当 <span class="math notranslate nohighlight">\(\theta &gt; 1\)</span> 时，点 <span class="math notranslate nohighlight">\(y\)</span> 在该两点连线的延长线上偏 <span class="math notranslate nohighlight">\(x_1\)</span> 的一侧。</p></li>
+</ul>
+<p>上式可以看作是点 <span class="math notranslate nohighlight">\(x_1\)</span> 与 <span class="math notranslate nohighlight">\(x_2\)</span> 的一个<strong>仿射组合</strong>（Affine Combination），即将它们进行总权重为 1 的加权平均。如果你知道线性组合的概念，那么仿射组合可以看作是一种特殊（权重之和为 1）的线性组合。两个点的仿射组合描述过它们的直线，而这两点的线性组合则描述了它们所张成的平面。</p>
+<p>这种仿射组合的定义可以推广到任意多点的情形。对于 <span class="math notranslate nohighlight">\(k\)</span> 个点 <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_k\)</span>，我们可以用 <span class="math notranslate nohighlight">\(\theta_1, \theta_2, \ldots, \theta_k\)</span> 来表示它们的仿射组合：</p>
+<div class="math notranslate nohighlight">
+\[y = \sum_{i=1}^k \theta_i x_i = \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_k x_k , \quad \sum_{i=1}^k \theta_i = 1, \quad \theta_i \in \mathbb{R}.\]</div>
+<p>在了解仿射组合的概念后，我们来介绍仿射集的定义：</p>
+<div class="important admonition">
+<p class="admonition-title">仿射集</p>
+<p><strong>定义：</strong>如果集合 <span class="math notranslate nohighlight">\(S\)</span> 中任意不同两点确定的直线都在集合 <span class="math notranslate nohighlight">\(S\)</span> 内，即</p>
+<div class="math notranslate nohighlight">
+\[x_1, x_2 \in S  \implies  \theta x_1 + (1-\theta) x_2 \in S, \quad \theta \in \mathbb{R}.\]</div>
+<p>那么称集合 <span class="math notranslate nohighlight">\(S\)</span> 为<strong>仿射集</strong>（Affine Set）。</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">仿射集的相关性质</p>
+<ol class="arabic">
+<li><p>仿射集包含该集合内任意点组成的仿射变换。</p></li>
+<li><p><strong>仿射集可以由线性子空间平移后得到</strong>。对于仿射集 <span class="math notranslate nohighlight">\(S\)</span> 中的任意一点 <span class="math notranslate nohighlight">\(x_0\)</span>，我们将其平移到原点（平移 <span class="math notranslate nohighlight">\(-x_0\)</span>），即可得到一个新集合 <span class="math notranslate nohighlight">\(S' = \{x - x_0 \mid x \in S\}\)</span>。我们对新集合 <span class="math notranslate nohighlight">\(S'\)</span> 验证线性子空间的定义：</p>
+<ul>
+<li><p>非空（或包含原点）：取 <span class="math notranslate nohighlight">\(x = x_0\)</span>，则得 <span class="math notranslate nohighlight">\(x - x_0 = 0 \in S'\)</span>。</p></li>
+<li><p>对加法与乘法闭合：对在新集合 <span class="math notranslate nohighlight">\(S'\)</span> 中的任意两点 <span class="math notranslate nohighlight">\(y_1\)</span>, <span class="math notranslate nohighlight">\(y_2\)</span>，我们知道点 <span class="math notranslate nohighlight">\(y_1 + x_0\)</span> 与 <span class="math notranslate nohighlight">\(y_2 + x_0\)</span> 在仿射集 <span class="math notranslate nohighlight">\(S\)</span> 中。考虑新集合中两点的任意线性组合 <span class="math notranslate nohighlight">\(y = \theta_1 y_1 + \theta_2 y_2\)</span> （其中 <span class="math notranslate nohighlight">\(\theta_1, \theta_2 \in \mathbb{R}\)</span>），并将其反向平移 <span class="math notranslate nohighlight">\(x_0\)</span> 得到点 <span class="math notranslate nohighlight">\(x\)</span>：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x &amp;= \theta_1 y_1 + \theta_2 y_2 + x_0 \\
+&amp;= \theta_1 (y_1 + x_0) + \theta_2 (y_2 + x_0) - \theta_1 x_0 - \theta_2 x_0 + x_0 \\
+&amp;= \theta_1 (y_1 + x_0) + \theta_2 (y_2 + x_0) + (1 - \theta_1 - \theta_2) x_0\end{split}\]</div>
+<p>由于上述线性组合的系数之和为 1，因此该线性组合实质上是集合 <span class="math notranslate nohighlight">\(S\)</span> 中三个点 <span class="math notranslate nohighlight">\(y_1 + x_0\)</span>, <span class="math notranslate nohighlight">\(y_2 + x_0\)</span> 与 <span class="math notranslate nohighlight">\(x_0\)</span> 的一个仿射组合。故上述点 <span class="math notranslate nohighlight">\(x\)</span> 也在仿射集 <span class="math notranslate nohighlight">\(S\)</span> 中；该点在平移后应在新集合 <span class="math notranslate nohighlight">\(S'\)</span> 中，即 <span class="math notranslate nohighlight">\(\theta_1 y_1 + \theta_2 y_2 \in S'\)</span>。因此，集合 <span class="math notranslate nohighlight">\(S'\)</span> 对加法与乘法闭合。</p>
+</li>
+</ul>
+<p>综上，新集合 <span class="math notranslate nohighlight">\(S'\)</span> 满足线性子空间的定义，它是一个线性子空间。</p>
+</li>
+<li><p>线性方程组 <span class="math notranslate nohighlight">\(\boldsymbol{A}x = b\)</span> 的解集 <span class="math notranslate nohighlight">\(S = \{x \mid \boldsymbol{A}x = b\}\)</span> 是一个仿射集。这一点很容易用仿射集的定义验证。对解 <span class="math notranslate nohighlight">\(x_1\)</span> 与 <span class="math notranslate nohighlight">\(x_2\)</span> 及它们的任意仿射变换 <span class="math notranslate nohighlight">\(y = \theta x_1 + (1-\theta) x_2\)</span>，我们有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}y &amp; = \boldsymbol{A}(\theta x_1 + (1-\theta) x_2) \\
+                &amp; = \theta \boldsymbol{A}x_1 + (1-\theta) \boldsymbol{A}x_2 \\
+                &amp; = \theta b + (1-\theta) b \\
+                &amp; = b.\end{split}\]</div>
+<p>这表示 <span class="math notranslate nohighlight">\(y\)</span> 同样是该线性方程组的解，即解集 <span class="math notranslate nohighlight">\(S\)</span> 是一个仿射集。</p>
+<ul class="simple">
+<li><p>当该方程组是一个齐次线性方程组时（<span class="math notranslate nohighlight">\(b = 0\)</span>），解集 <span class="math notranslate nohighlight">\(S\)</span> 既是仿射集也是线性子空间。</p></li>
+</ul>
+</li>
+</ol>
+</div>
+<p>最后，一个集合 <span class="math notranslate nohighlight">\(S\in \mathbb{R}^n\)</span> 的所有仿射组合所构成的集合称为该集合的<strong>仿射包</strong>（Affine Hull），记作 <span class="math notranslate nohighlight">\(\text{aff}(S)\)</span>。</p>
+<div class="math notranslate nohighlight">
+\[\text{aff}(S) = \left\{x \,\middle|\, x = \sum_{i=1}^k \theta_i x_i, \quad x_i\in S, \quad \sum_{i=1}^k \theta_i = 1, \quad \theta_i\in\mathbb{R}\right\}.\]</div>
+<p>一个集合的仿射包通常是包含该集合的最小仿射集。例如，一个圆的仿射包是它所在的平面。</p>
+</section>
+<section id="id3">
+<h2>凸集<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>将仿射集的定义表述中的“直线”替换为“线段”，我们就可以得到凸集的定义：</p>
+<div class="important admonition">
+<p class="admonition-title">凸集</p>
+<p><strong>定义：</strong>如果集合 <span class="math notranslate nohighlight">\(S\)</span> 中任意不同两点确定的<span class="uline">线段</span>都在集合 <span class="math notranslate nohighlight">\(S\)</span> 内，即</p>
+<div class="math notranslate nohighlight">
+\[x_1, x_2 \in S  \implies  \theta x_1 + (1-\theta) x_2 \in S, \quad \forall\theta \in [0, 1].\]</div>
+<p>那么称该集合 <span class="math notranslate nohighlight">\(S\)</span> 为<strong>凸集</strong>（Convex Set）。</p>
+<ul>
+<li><p>推广到无穷和的形式：对于凸集 <span class="math notranslate nohighlight">\(S\)</span> 中的无穷个点 <span class="math notranslate nohighlight">\(x_i\)</span>，其凸组合 <span class="math notranslate nohighlight">\(\sum_{i=1}^{\infty} \theta_i x_i\)</span> 也在该集合内，即</p>
+<div class="math notranslate nohighlight">
+\[x_1, x_2, \ldots \in S  \implies  y = \sum_{i=1}^{\infty} \theta_i x_i \in S, \quad \forall\theta_i\geq 0, \quad \sum_{i=1}^k \theta_i = 1.\]</div>
+</li>
+</ul>
+</div>
+<p>类似于仿射组合、仿射包的定义，我们限制 <span class="math notranslate nohighlight">\(0\leq \theta\leq 1\)</span>，就得到凸组合与凸包的定义：</p>
+<ul>
+<li><p><strong>凸组合</strong>（Convex Combination）：</p>
+<p>对于 <span class="math notranslate nohighlight">\(k\)</span> 个点 <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_k\)</span>，我们可以用 <span class="math notranslate nohighlight">\(\theta_1, \theta_2, \ldots, \theta_k\)</span> 来表示它们的凸组合：</p>
+<div class="math notranslate nohighlight">
+\[y = \sum_{i=1}^k \theta_i x_i = \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_k x_k , \quad \sum_{i=1}^k \theta_i = 1, \quad \theta_i\geq 0.\]</div>
+</li>
+<li><p><strong>凸包</strong>（Convex Hull）：</p>
+<p>集合 <span class="math notranslate nohighlight">\(S\)</span> 的所有凸组合所构成的集合称为该集合的凸包，记作 <span class="math notranslate nohighlight">\(\text{conv}(S)\)</span>。</p>
+<div class="math notranslate nohighlight">
+\[\text{conv}(S) = \left\{x \,\middle|\, x = \sum_{i=1}^k \theta_i x_i, \quad x_i\in S, \quad \sum_{i=1}^k \theta_i = 1, \quad \theta_i\geq 0\right\}.\]</div>
+<p>集合 <span class="math notranslate nohighlight">\(S\)</span> 的凸包是包含该集合的最小凸集。例如，圆心角为 <span class="math notranslate nohighlight">\(270^\circ\)</span> 的扇形，其凸包是整个圆。</p>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h2>凸集的例子<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>TBD</p>
+</section>
+<section id="id5">
+<h2>保持凸性的运算<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>TBD</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="Intro.html" class="btn btn-neutral float-left" title="引言" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="LP.html" class="btn btn-neutral float-right" title="线性规划" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

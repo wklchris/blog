@@ -7,13 +7,13 @@
 
 .. math::
 
-         & \min f(\boldsymbol{x}) \\
-   s.t.\ & C_{leq}(\boldsymbol{x}) \leq \boldsymbol{0} \\
-         & C_{eq}(\boldsymbol{x}) = \boldsymbol{0} \\
+         & \min f(x) \\
+   s.t.\ & \boldsymbol{C_{leq}}(x) \leq 0 \\
+         & \boldsymbol{C_{eq}}(x) = 0 \\
 
-* 变量 :math:`\boldsymbol{x}` （粗体）表示一个向量 :math:`(x_1, x_2, \ldots, x_n, \ldots)`
-* 目标函数 :math:`f(\boldsymbol{x})` 写为求最小值的形式。如果原函数是求最大值，添加负号。
-* 约束条件：整理为不等式约束 :math:`C_{leq}` 与等式约束 :math:`C_{eq}` 两类。
+* 变量 :math:`x` 表示一个 :math:`n` 维向量 :math:`(x_1, x_2, \ldots, x_n, \ldots)`
+* 目标函数 :math:`f(x)` 写为求最小值的形式。如果原函数是求最大值，添加负号。
+* 约束条件：整理为不等式约束 :math:`\boldsymbol{C_{leq}}` 与等式约束 :math:`\boldsymbol{C_{eq}}` 两类。
   
   * 不等约束均写为小于等于的形式。原使用大于等于号的，两边同乘 -1 来变换不等号为小于等于号。不等约束中的不等号应该包含等号（例如使用小于等于号而不是小于号），因为带等号的不等式才是符合实际的。
   * 等号约束写照常书写。
@@ -38,6 +38,8 @@
 
   * 混合整数规划（MIP, Mixed-Integer Programming）：部分变量被规定为整数的优化问题。
   * 类似地，我们有混合整数线性规划（MILP）与混合整数非线性规划（MINLP）。
+
+我们一般较多地讨论凸优化（Convex Optimization）问题。
 
 
 常用求解器

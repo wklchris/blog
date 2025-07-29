@@ -1,35 +1,37 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Math" name="category" />
 <meta content="math, optimization, python" name="keywords" />
 <meta content="optimization" name="series" />
 <meta content="1" name="series_num" />
 <meta content="2023-08-21" name="date_init" />
-<meta content="2024-04-07" name="date_modified" />
+<meta content="2025-04-17" name="date_modified" />
 <meta content="使用编程语言工具解优化问题。" name="abstract" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>解优化问题 &mdash; Optimization  文档</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
-    <link rel="canonical" href="https://self-contained.github.io/Optimization/index.html"/>
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=3491b469" />
+
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=7d86a446"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=f281be69"></script>
-        <script src="_static/translations.js?v=beaddf03"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="canonical" href="https://self-contained.github.io/Optimization/index.html"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7d86a446"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
@@ -80,6 +82,7 @@
               <p class="caption" role="heading"><span class="caption-text">目录</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic-Convex.html">预备知识：凹凸性</a></li>
 <li class="toctree-l1"><a class="reference internal" href="LP.html">线性规划</a></li>
 </ul>
 
@@ -119,16 +122,24 @@
 <li class="toctree-l2"><a class="reference internal" href="Intro.html#id4">求解器性能基准测试*</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Basic-Convex.html">预备知识：凹凸性</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Basic-Convex.html#id2">仿射集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Basic-Convex.html#id3">凸集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Basic-Convex.html#id4">凸集的例子</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Basic-Convex.html#id5">保持凸性的运算</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="LP.html">线性规划</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="LP.html#例题">例题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LP.html#建立线性规划模型">建立线性规划模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LP.html#线性规划的一般形式">线性规划的一般形式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LP.html#线性规划的代码求解">线性规划的代码求解</a></li>
 <li class="toctree-l2"><a class="reference internal" href="LP.html#scipy.optimize.linprog">scipy.optimize.linprog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="LP.html#cvxpy">cvxpy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="LP.html#pyomo-(AbstractModel)">pyomo (AbstractModel)</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<p>本文档最后构建于 2024-04-07。</p>
+<p>本文档最后构建于 2025-04-18。</p>
 </section>
 
 
