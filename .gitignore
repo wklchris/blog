@@ -9,3 +9,5 @@ test*
 
 # C++
 **.exe
+.cache
+/build
