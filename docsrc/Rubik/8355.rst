@@ -1,0 +1,173 @@
+入门：8355 复原法
+====================
+
+.. hint::
+    
+    8355 方法可能是最简单的入门魔方复原方法，比层先法要简单很多，因为它只需要记 1 个短短四步的公式。推荐在层先法之前学习。
+
+8355 方法（或者说 7355 方法）由台湾教师许技江在 1996 年左右发明的魔方复原法。依次按这四个数字复原三阶魔方的块的方法，即按一定的顺序复原除了中心块之外的 20 个块（12 个棱块与 8 个角块）。如果你还不知道什么是魔方的块，请阅读上一章 :doc:`Basic` 中的关于魔方介绍的内容。
+
+1. **底面**\ ：复原底面除了 1 个角块以外的剩下 **8 个块**\ （如果除去中心块，则可以说是剩下的 7 个块，即 4 个棱块与其他 3 个角块）。
+2. **中层**\ ：复原中层除了 1 个棱块以外的剩下 **3 个棱块**
+3. **归棱**\ ：复原魔方剩下的 **5 个棱块**
+4. **归角**\ ：复原魔方最后的 **5 个角块**
+
+以下是一组 8355 复原过程的示意图（以白色中心块作为底面）。点按并拖拽以下魔方，可以旋转它们来观察各个面的状态。
+
+.. raw:: html
+   
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="colored=DFL DBL DBR D*/e */m">一、复原底面 8 块</div>
+     <div class="roofpig inline" data-config="colored=UR- UF- */m">二、复原中层 3 块</div>
+   </div>
+
+.. raw:: html
+
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="colored=UR- UF- */me">三、复原剩余 5 个棱块</div>
+     <div class="roofpig inline" data-config="colored=*">四、复原剩余 5 个角块</div>
+   </div>
+
+我们将第一步中空出的角块所在的位置（以及紧挨着它的上方中层棱块）称为\ **空槽**\ 。第二步复原的棱块也正是空槽之外的棱块。这个空槽正是 8355 方法的核心思想与巧妙之处。
+
+-----
+
+下面我们来依次学习 8355 方法的四个步骤。为了方便跟随学习，请先以白色面朝上、绿色面朝前握持魔方，然后将魔方按以下步骤打乱（点击加号来一步步播放）：
+
+.. raw:: html
+
+    <div class="roofpig-inline-container">
+      <div class="roofpig inline" data-config="alg=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F'|colors=R:r L:o F:g B:b U:w D:y|flags=showalg"></div>
+      <div class="roofpig inline" data-config="setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F'|colors=R:r L:o F:g B:b U:w D:y">打乱后的状态</div>
+    </div>
+
+现在我们无需记忆打乱符号的含义，只需要按照上述动画中的步骤依次打乱即可。如果你的魔方已经是打乱的状态且与上述状态不同，也没有关系。请继续阅读下面的内容。
+
+
+底面 8 块：十字与 3 角块
+-------------------------
+
+在本教程中，我们\ **选择以白色作为底面颜色**\ 。为了方便观察，我们先让白色面朝上。然后，我们寻找所有带有白色的棱块：白红、白绿、白橙、白蓝。在复原这四个底面棱块后，它们会在底面形成一个“十”字形状；随后，我们再进行角块的复原。
+
+底面十字
+^^^^^^^^^^^^^^^^^^
+
+我们按顺序来寻找棱块。先找到白红棱块。在本例中，它位于绿色与黄色面之间。下图隐藏了其他块的颜色，方便你定位这个棱块。
+
+.. raw:: html
+   
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="colored=UR */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F'|colors=R:r L:o F:g B:b U:w D:y|flags=showalg"></div>
+   </div>
+
+我们注意到白红棱块中的\ **白色是朝着侧面**\ （绿色面）的，而不是朝着底面或顶面（白色面或黄色面）。对于这样的棱块，我们需要先转动它所在的侧面（该棱块现在位于绿色面），将它移动到中层（绿色面与红色面之间）；然后再转动此时它所在的另一个面（红色面），将它从中层移动到上层（白色面）。
+
+.. raw:: html
+   
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=F' R|colored=UR */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">复位白红棱块</div>
+     <div class="roofpig inline" data-config="alg=F' R|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">完整的步骤</div>
+   </div>
+
+我们可以看见，在此时的顶面（白色面）上，白红棱块隔着白色中心块的对面，是一个白蓝棱块。由于现在蓝色的中心面在魔方的背面，我们可以转体整个魔方，保持白色面朝上、让蓝色面朝前，这样方便我们对白蓝棱块进行操作。类似于刚才的白红棱块，白蓝棱块的白色是朝着侧面的，因此我们先转动它的白色所在的面（橙色面），让棱块移动到中层，然后转动另一个面来将它移动到上层：
+
+.. raw:: html
+   
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=y2|colored=UL UF */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2|colors=R:o L:r F:b B:g U:w D:y|flags=showalg">1. 转体使蓝色朝前</div>
+     <div class="roofpig inline" data-config="alg=R' F'|colored=UR UB */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F'|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">2. 复原白蓝棱块</div>
+     <div class="roofpig inline" data-config="alg=y2 R' F'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F'|colors=R:o L:r F:b B:g U:w D:y|flags=showalg">完整的步骤</div>
+   </div>
+   
+类似的方法，我们找到位于红色面与黄色面之间的白橙棱块，先转动底层 ``D`` 让它来到前面（蓝色面），然后转动蓝色面 ``F'`` 把它移动到中层，最后转动橙色面 ``R`` 将它归位。在这一步复原白橙棱块时，请注意因为我们转动过了蓝色面，所以扰乱了上一步复位的白蓝棱块。因此，在最后，我们还需要转动蓝色面一次 ``F`` 把白蓝棱块复位。
+
+.. raw:: html
+   
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=D F' R F|colored=UL UR UB */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">白橙棱块的移动</div>
+     <div class="roofpig inline" data-config="alg=D F' R F|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">完整的步骤</div>
+   </div>
+
+.. hint::
+
+    在归位新的棱块后，记得要检查之前复原的棱块是否被扰乱。如果是，需要把被扰乱的棱块复位。
+
+最后，我们复原底面白色十字的最后一部分，也就是白绿棱块。它位于中层，在红色面与蓝色面之间。在这个位置，我们不能直接转动来复原它（因为会扰乱白红或者白蓝），但我们可以先将它移动到底下（黄色面），然后转动到合适的位置，再返回到上面（白色面）。
+
+我们先转动红色面，临时扰乱白红棱块，并将白绿棱块移到底层（黄色面）。然后转动底层黄色面，使棱块离开红色面的范围——这是因为我们稍后需要使用逆向转动红色面，以便还原刚才被扰乱的白红棱块。现在，白绿棱块位于底层了，我们也发现了棱块的另一种的情况：\ **白色是朝着底面**\ 。这时候，我们只需要转动底层将它移动到它的另一个颜色所对应的面（将白绿棱块的绿色对齐绿色面的中心块），然后旋转 180 度这个面（绿色面）即可复位棱块。
+
+.. raw:: html
+
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=y' F D' F' y' F2|colored=U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2|colors=R:o L:r F:b B:g U:w D:y|flags=showalg">白绿棱块的移动</div>
+     <div class="roofpig inline" data-config="alg=y' F D' F' y' F2|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2|colors=R:o L:r F:b B:g U:w D:y|flags=showalg">完整的步骤</div>
+   </div>
+
+我们成功完成了白色面的十字！现在，白色面的中心块与棱块组成了一个十字，而且它们与侧面中心块的颜色是对齐的。接下来，我们进行底面的 3 个角块的还原。
+
+
+底面 3 角块
+^^^^^^^^^^^^^^
+
+在开始复原底面角块之前，我们需要先从侧面颜色（红、绿、橙、蓝）中选一组相邻的颜色作为“空槽”。底面有 4 个角块，而 8355 方法暂时只复原其中的 3 个，把空槽位置的底面角块留空。例如，我们选择“红绿”这一组相邻色作为空槽，那么，我们在底层就不用复原白红绿这个角块。
+
+好的，本教程将\ **以红绿作为空槽颜色**\ 。在上一步中，我们选用了白色作为底面颜色。不过实际上，我们是把白色放在顶面来还原十字的。所以现在，我们转体魔方，把白色放到底面去。
+
+.. raw:: html
+
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=x2|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2|colors=R:r L:o F:b B:g U:y D:w|flags=showalg">转体魔方让白色面朝下</div>
+     <div class="roofpig inline" data-config="setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2|colors=R:r L:o F:g B:b U:w D:y">转体后的状态</div>
+   </div>
+
+底面需要复原的 3 个角块是除了白蓝红以外、带有白色的角块。我们先在顶层寻找是否有带白色的角块。显然，在我们面前就有一个白蓝橙角块，它正好也位于白色面、蓝色面、橙色面的交界处。
+
+角块的还原与棱块类似，我们可以通过观察角块中白色部分的移动方式来理解。我们先转体让橙色面朝前，以便更好地观察白蓝橙角块归位的整个过程。然后，我们让角块的白色朝前，交错移动顶层与右层 ``U R U' R'``\ ：
+
+.. raw:: html
+
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=y' U R U' R'|colored=URB U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">白蓝橙角块的移动</div>
+     <div class="roofpig inline" data-config="alg=y' U R U' R'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">完整的步骤</div>
+   </div>
+
+这个过程可以看作是让底面十字的棱块白色转上来，然后把角块的白色与它并在一起，最后一起返回底面。
+
+.. hint::
+
+    角块归位的步骤虽然简单，但请体会它是如何保证底面十字不被打乱的。
+    
+    理解一个魔方操作如何利用魔方的空位（让位、落位），如何保持已有块的位置，且还要实现目标块的移动，正是魔方的趣味所在。
+
+下一个角块白绿橙也正在我们眼前。我们将它转动到对应的位置（顶层上的白色、绿色交界处），然后让角块的白色朝前，之后我们同样地操作。
+
+.. raw:: html
+
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=y' U U R U' R'|colored=ULB URB U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">白绿橙角块的移动</div>
+     <div class="roofpig inline" data-config="alg=y' U2 R U' R'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">完整的步骤</div>
+   </div>
+
+由于白红绿是空槽，所以我们只剩最后一个底面角块白蓝红了。这个角块与刚才不同，它位于已经位于底层了，不过形态是错误的。与之间底面十字的思路类似，对于这样的块，我们先把它移动出来（到顶层），然后调整后再放入它的正确位置。
+
+这里我们发现，让白蓝红角块的白色朝前时，这个角块位于我们的左侧（而不是右侧）。没关系，我们把之前的右层转动通过镜像，对称作为左层转动，它们实际上是类似的：
+
+.. raw:: html
+
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=y' R U R'|colored=URB ULB URF U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">1. 将角块移到顶层</div>
+     <div class="roofpig inline" data-config="alg=U' L' U L|colored=URB ULB ULF U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">2. 将角块复位</div>
+     <div class="roofpig inline" data-config="alg=y' R U R' U' L' U L|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">完整的步骤</div>
+   </div>
+
+最后，虽然本例中没有出现，但有必要提及另一种角块的状态：角块的白色朝上。这时，我们可以通过旋转层的方式将它“顶起”或者“拉回”，以实现将角块的白色变为朝向侧面的形态。
+
+.. raw:: html
+
+   <div class="roofpig-inline-container">
+     <div class="roofpig inline" data-config="alg=R U2 R' U' R U R'|colored=DRF D*/e */m|colors=F:g R:o B:b L:r D:w U:y|flags=showalg">例子1：将角块的白色顶起到侧面</div>
+     <div class="roofpig inline" data-config="alg=U R U2 R' U R U' R'|colored=DRF D*/e */m|colors=F:g R:o B:b L:r D:w U:y|flags=showalg">例子2：将角块的白色拉回到侧面</div>
+   </div>
+
+
+至此，我们完成了 8355 四步中的第一步，底面复原！
