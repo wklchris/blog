@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>入门：8355 复原法 &mdash; 魔方  文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=3491b469" />
+      <link rel="stylesheet" type="text/css" href="_static/roofpig.css?v=68eb91be" />
+
+  
+    <link rel="canonical" href="https://wklchris.github.io/Rubik/8355.html"/>
+      <script src="_static/jquery.js?v=3d1d8b85"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7d86a446"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+      <script src="_static/jquery.js?v=3d1d8b85"></script>
+      <script src="_static/roofpig_and_three.min.js?v=824f3ec1"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="CFOP 简介：两步法" href="CFOP.html" />
+    <link rel="prev" title="魔方的基础知识" href="Basic.html" />
+ 
+
+<!-- <link rel="stylesheet" type="text/css" href="_config/static/DataTables/datatables.min.css"/> -->
+
+<meta name="google-site-verification" content="ZsXR1o8suFFOr_MSgo5BTvjbznAuEP6XYOmgMiBu5Yw" />
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90643174-3']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            魔方
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="home-button">
+   <a class="home-button" href="https://github.com/wklchris/blog">
+      仓库
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/blog/">
+      博客主页
+   </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="home-button" href="/">
+      关于我
+   </a>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Basic.html">魔方的基础知识</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">入门：8355 复原法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">底面 8 块：十字与 3 角块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">底面十字</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">底面 3 角块</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">中层 3 棱块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">最后 5 棱块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">最后 5 角块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">底层角块朝向</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">最后 2 角块朝向</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">小结与提高</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CFOP.html">CFOP 简介：两步法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLL.html">完整 PLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OLL.html">完整 OLL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="F2L.html">完整 F2L</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4x4.html">四阶复原：Yau方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Appendix.html">附录：向网页中插入魔方动画</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">魔方</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">入门：8355 复原法</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/8355.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>入门：8355 复原法<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>8355 方法可能是最简单的入门魔方复原方法，比层先法要简单很多，因为它只需要记 1 个短短四步的公式。推荐在层先法之前学习。</p>
+</div>
+<p>8355 方法（或者说 7355 方法）由台湾教师许技江在 1996 年左右发明的魔方复原法。依次按这四个数字复原三阶魔方的块的方法，即按一定的顺序复原除了中心块之外的 20 个块（12 个棱块与 8 个角块）。如果你还不知道什么是魔方的块，请阅读上一章 <a class="reference internal" href="Basic.html"><span class="doc">魔方的基础知识</span></a> 中的关于魔方介绍的内容。</p>
+<ol class="arabic simple">
+<li><p><strong>底面</strong>：复原底面除了 1 个角块以外的剩下 <strong>8 个块</strong>（如果除去中心块，则可以说是剩下的 7 个块，即 4 个棱块与其他 3 个角块）。</p></li>
+<li><p><strong>中层</strong>：复原中层除了 1 个棱块以外的剩下 <strong>3 个棱块</strong></p></li>
+<li><p><strong>归棱</strong>：复原魔方剩下的 <strong>5 个棱块</strong></p></li>
+<li><p><strong>归角</strong>：复原魔方最后的 <strong>5 个角块</strong></p></li>
+</ol>
+<p>以下是一组 8355 复原过程的示意图（以白色中心块作为底面）。点按并拖拽以下魔方，可以旋转它们来观察各个面的状态。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="colored=DFL DBL DBR D*/e */m">一、复原底面 8 块</div>
+  <div class="roofpig inline" data-config="colored=UR- UF- */m">二、复原中层 3 块</div>
+</div><div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="colored=UR- UF- */me">三、复原剩余 5 个棱块</div>
+  <div class="roofpig inline" data-config="colored=*">四、复原剩余 5 个角块</div>
+</div><p>我们将第一步中空出的角块所在的位置（以及紧挨着它的上方中层棱块）称为<strong>空槽</strong>。第二步复原的棱块也正是空槽之外的棱块。这个空槽正是 8355 方法的核心思想与巧妙之处。</p>
+<hr class="docutils" />
+<p>下面我们来依次学习 8355 方法的四个步骤。为了方便跟随学习，请先以白色面朝上、绿色面朝前握持魔方，然后将魔方按以下步骤打乱（点击加号来一步步播放）：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F'|colors=R:r L:o F:g B:b U:w D:y|flags=showalg"></div>
+  <div class="roofpig inline" data-config="setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F'|colors=R:r L:o F:g B:b U:w D:y">打乱后的状态</div>
+</div><p>现在我们无需记忆打乱符号的含义，只需要按照上述动画中的步骤依次打乱即可。如果你的魔方已经是打乱的状态且与上述状态不同，也没有关系。请继续阅读下面的内容。</p>
+<section id="id2">
+<h2>底面 8 块：十字与 3 角块<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>在本教程中，我们<strong>选择以白色作为底面颜色</strong>。为了方便观察，我们先让白色面朝上。然后，我们寻找所有带有白色的棱块：白红、白绿、白橙、白蓝。在复原这四个底面棱块后，它们会在底面形成一个“十”字形状；随后，我们再进行角块的复原。</p>
+<section id="id3">
+<h3>底面十字<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>我们按顺序来寻找棱块。先找到白红棱块。在本例中，它位于绿色与黄色面之间。下图隐藏了其他块的颜色，方便你定位这个棱块。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="colored=UR */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F'|colors=R:r L:o F:g B:b U:w D:y|flags=showalg"></div>
+</div><p>我们注意到白红棱块中的<strong>白色是朝着侧面</strong>（绿色面）的，而不是朝着底面或顶面（白色面或黄色面）。对于这样的棱块，我们需要先转动它所在的侧面（该棱块现在位于绿色面），将它移动到中层（绿色面与红色面之间）；然后再转动此时它所在的另一个面（红色面），将它从中层移动到上层（白色面）。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=F' R|colored=UR */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">复位白红棱块</div>
+  <div class="roofpig inline" data-config="alg=F' R|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">完整的步骤</div>
+</div><p>我们可以看见，在此时的顶面（白色面）上，白红棱块隔着白色中心块的对面，是一个白蓝棱块。由于现在蓝色的中心面在魔方的背面，我们可以转体整个魔方，保持白色面朝上、让蓝色面朝前，这样方便我们对白蓝棱块进行操作。类似于刚才的白红棱块，白蓝棱块的白色是朝着侧面的，因此我们先转动它的白色所在的面（橙色面），让棱块移动到中层，然后转动另一个面来将它移动到上层：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=y2|colored=UL UF */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2|colors=R:o L:r F:b B:g U:w D:y|flags=showalg">1. 转体使蓝色朝前</div>
+  <div class="roofpig inline" data-config="alg=R' F'|colored=UR UB */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F'|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">2. 复原白蓝棱块</div>
+  <div class="roofpig inline" data-config="alg=y2 R' F'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F'|colors=R:o L:r F:b B:g U:w D:y|flags=showalg">完整的步骤</div>
+</div><p>类似的方法，我们找到位于红色面与黄色面之间的白橙棱块，先转动底层 <code class="docutils literal notranslate"><span class="pre">D</span></code> 让它来到前面（蓝色面），然后转动蓝色面 <code class="docutils literal notranslate"><span class="pre">F'</span></code> 把它移动到中层，最后转动橙色面 <code class="docutils literal notranslate"><span class="pre">R</span></code> 将它归位。在这一步复原白橙棱块时，请注意因为我们转动过了蓝色面，所以扰乱了上一步复位的白蓝棱块。因此，在最后，我们还需要转动蓝色面一次 <code class="docutils literal notranslate"><span class="pre">F</span></code> 把白蓝棱块复位。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=D F' R F|colored=UL UR UB */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">白橙棱块的移动</div>
+  <div class="roofpig inline" data-config="alg=D F' R F|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">完整的步骤</div>
+</div><div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>在归位新的棱块后，记得要检查之前复原的棱块是否被扰乱。如果是，需要把被扰乱的棱块复位。</p>
+</div>
+<p>最后，我们复原底面白色十字的最后一部分，也就是白绿棱块。它位于中层，在红色面与蓝色面之间。在这个位置，我们不能直接转动来复原它（因为会扰乱白红或者白蓝），但我们可以先将它移动到底下（黄色面），然后转动到合适的位置，再返回到上面（白色面）。</p>
+<p>我们先转动红色面，临时扰乱白红棱块，并将白绿棱块移到底层（黄色面）。然后转动底层黄色面，使棱块离开红色面的范围——这是因为我们稍后需要使用逆向转动红色面，以便还原刚才被扰乱的白红棱块。现在，白绿棱块位于底层了，我们也发现了棱块的另一种的情况：<strong>白色是朝着底面</strong>。这时候，我们只需要转动底层将它移动到它的另一个颜色所对应的面（将白绿棱块的绿色对齐绿色面的中心块），然后旋转 180 度这个面（绿色面）即可复位棱块。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=y' F D' F' y' F2|colored=U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2|colors=R:o L:r F:b B:g U:w D:y|flags=showalg">白绿棱块的移动</div>
+  <div class="roofpig inline" data-config="alg=y' F D' F' y' F2|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2|colors=R:o L:r F:b B:g U:w D:y|flags=showalg">完整的步骤</div>
+</div><p>我们成功完成了白色面的十字！现在，白色面的中心块与棱块组成了一个十字，而且它们与侧面中心块的颜色是对齐的。接下来，我们进行底面的 3 个角块的还原。</p>
+</section>
+<section id="id4">
+<h3>底面 3 角块<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>在开始复原底面角块之前，我们需要先从侧面颜色（红、绿、橙、蓝）中选一组相邻的颜色作为“空槽”。底面有 4 个角块，而 8355 方法暂时只复原其中的 3 个，把空槽位置的底面角块留空。例如，我们选择“红绿”这一组相邻色作为空槽，那么，我们在底层就不用复原白红绿这个角块。</p>
+<p>好的，本教程将<strong>以红绿作为空槽颜色</strong>。在上一步中，我们选用了白色作为底面颜色。不过实际上，我们是把白色放在顶面来还原十字的。所以现在，我们转体魔方，把白色放到底面去。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=x2|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2|colors=R:r L:o F:b B:g U:y D:w|flags=showalg">转体魔方让白色面朝下</div>
+  <div class="roofpig inline" data-config="setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2|colors=R:r L:o F:g B:b U:w D:y">转体后的状态</div>
+</div><p>底面需要复原的 3 个角块是除了白蓝红以外、带有白色的角块。我们先在顶层寻找是否有带白色的角块。显然，在我们面前就有一个白蓝橙角块，它正好也位于白色面、蓝色面、橙色面的交界处。</p>
+<p>角块的还原与棱块类似，我们可以通过观察角块中白色部分的移动方式来理解。我们先转体让橙色面朝前，以便更好地观察白蓝橙角块归位的整个过程。然后，我们让角块的白色朝前，交错移动顶层与右层 <code class="docutils literal notranslate"><span class="pre">U</span> <span class="pre">R</span> <span class="pre">U'</span> <span class="pre">R'</span></code>：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=y' U R U' R'|colored=URB U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">白蓝橙角块的移动</div>
+  <div class="roofpig inline" data-config="alg=y' U R U' R'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">完整的步骤</div>
+</div><p>这个过程可以看作是让底面十字的棱块白色转上来，然后把角块的白色与它并在一起，最后一起返回底面。</p>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>角块归位的步骤虽然简单，但请体会它是如何保证底面十字不被打乱的。</p>
+<p>理解一个魔方操作如何利用魔方的空位（让位、落位），如何保持已有块的位置，且还要实现目标块的移动，正是魔方的趣味所在。</p>
+</div>
+<p>下一个角块白绿橙也正在我们眼前。我们将它转动到对应的位置（顶层上的白色、绿色交界处），然后让角块的白色朝前，之后我们同样地操作。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=y' U U R U' R'|colored=ULB URB U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">白绿橙角块的移动</div>
+  <div class="roofpig inline" data-config="alg=y' U2 R U' R'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">完整的步骤</div>
+</div><p>由于白红绿是空槽，所以我们只剩最后一个底面角块白蓝红了。这个角块与刚才不同，它位于已经位于底层了，不过形态是错误的。与之间底面十字的思路类似，对于这样的块，我们先把它移动出来（到顶层），然后调整后再放入它的正确位置。</p>
+<p>这里我们发现，让白蓝红角块的白色朝前时，这个角块位于我们的左侧（而不是右侧）。没关系，我们把之前的右层转动通过镜像，对称作为左层转动，它们实际上是类似的：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=y' R U R'|colored=URB ULB URF U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R'|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">1. 将角块移到顶层</div>
+  <div class="roofpig inline" data-config="alg=U' L' U L|colored=URB ULB ULF U*/e */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L|colors=R:r L:o F:g B:b U:w D:y|flags=showalg">2. 将角块复位</div>
+  <div class="roofpig inline" data-config="alg=y' R U R' U' L' U L|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L|colors=R:b L:g F:r B:o U:w D:y|flags=showalg">完整的步骤</div>
+</div><div class="admonition- admonition">
+<p class="admonition-title">另一种角块情况：白色朝上</p>
+<p>虽然本例中没有出现，但有必要提及另一种角块的状态：角块的白色朝上。这时，我们可以通过旋转层的方式将它“顶起”或者“拉回”，以实现将角块的白色变为朝向侧面的形态。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=R U2 R' U' R U R'|colored=DRF D*/e */m|colors=F:g R:o B:b L:r D:w U:y|flags=showalg">例子1：将角块的白色顶起到侧面</div>
+  <div class="roofpig inline" data-config="alg=U R U2 R' U R U' R'|colored=DRF D*/e */m|colors=F:g R:o B:b L:r D:w U:y|flags=showalg">例子2：将角块的白色拉回到侧面</div>
+</div></div>
+<p>至此，我们完成了 8355 四步中的第一步，底面复原！</p>
+</section>
+</section>
+<section id="id5">
+<h2>中层 3 棱块<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>完成了底面复原后，下一步是复原中层的三个棱块（除去了空槽对应的红绿棱块），也就是绿橙、橙蓝与蓝红棱块。</p>
+<p>首先，我们转体魔方，让空槽位于我们的右前方（保持黄色面朝上，使红色面朝前、绿色面朝右）。然后我们检查空槽棱位现在的棱块：如果它是我们要还原的三个目标棱块之一，那么我们从顶面交换一个非目标棱块到这个位置。</p>
+<p>本例中，该位置是橙绿棱块，因此我们可以交换一个顶面棱块（带黄色面的棱块）过来。在这一步，我们只关注棱块，可以忽略角块的移动。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=R U R'|colored=URB ULB ULF LF DB */m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">将空槽棱块替换为非目标棱</div>
+  <div class="roofpig inline" data-config="alg=R U R'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">完整的步骤</div>
+</div><div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>你可以把上述过程想象成将顶面与背面之间的棱块归位到空槽中。这其中的原理与我们在底面十字中使用的非常相似。</p>
+</div>
+<p>之后，我们要使用一种称为<em>锁孔</em> （keyhole）或钥孔的技术来放入中层的 3 个棱块。这其中的原理是，通过双层转动（同时转动顶层与中层）来将这些棱块的槽位转动到空槽，然后将棱块放入，再转动回去。</p>
+<p>容易观察到绿橙棱块位于顶层前方（红色面），我们先处理这个棱块：</p>
+<ul class="simple">
+<li><p>先做一个双层转动，使绿橙棱块槽位（夹在绿色中心块与橙色中心块之间的位置）覆盖到空槽位置</p></li>
+<li><p>利用与底层十字类似的棱块归位方法，将绿橙棱块插入到槽位</p></li>
+</ul>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=u|colored=URB ULB ULF U*/e RF */m|tweaks=X:BD|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u|colors=R:g B:r L:b F:o U:w D:y|flags=showalg">1. 双层转动，槽位覆盖</div>
+  <div class="roofpig inline" data-config="alg=R U2' R'|colored=URB ULB ULF U*/e FL */m|tweaks=x:FL x:F/m x:L/m|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">2. 绿橙棱块入槽</div>
+  <div class="roofpig inline" data-config="alg=u R U2' R'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R'|colors=R:g B:r L:b F:o U:w D:y|flags=showalg">完整的步骤</div>
+</div><div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>请谨记：在归位中层棱块时，除了转动顶层，我们只能转动右层与前层，因为我们的空槽在右前。转动其他层（比如左层）会扰乱底层已复原的角块。转动右层与前层时，也只允许顶层的块与空槽交换，不允许让顶层的转动扰乱了右后方或左前方的槽位。</p>
+</div>
+<p>类似地方法，我们可以将另外两个棱块（橙蓝、蓝红）归位：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=u F' U' F|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F|colors=R:g B:r L:b F:o U:w D:y|flags=showalg">先归位橙蓝棱块</div>
+  <div class="roofpig inline" data-config="alg=u U' F' U F|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F|colors=R:g B:r L:b F:o U:w D:y|flags=showalg">再归位蓝红棱块</div>
+</div><p>最后，我们转动双层，使侧面的中心块重新与底面对齐：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=u|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u|colors=R:g B:r L:b F:o U:w D:y|flags=showalg">重新对齐侧面中心</div>
+</div><p>至此，我们完成了对中层 3 棱块的复原。</p>
+</section>
+<section id="id6">
+<h2>最后 5 棱块<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<p>我们根据顶面（黄色面）的十字来复原剩余的 5 个棱。魔方的原理决定了不会只存在一个错误的棱；因此，如果我们调整好了顶面的十字 4 棱，那么中层空槽的棱块也会变为正确。</p>
+<p>顶面十字的步骤如下：</p>
+<ul class="simple">
+<li><p>如果空槽中的棱不是顶层棱（带顶面颜色的棱块），那么需要交换一个顶层棱下来。方法与中层 3 棱最开始的棱块调整方法类似（例如 <code class="docutils literal notranslate"><span class="pre">RUR'</span></code>）。</p></li>
+<li><p>在顶面选择一个顶色（黄色）朝上的棱作为基点，按照侧面中心块的顺序（逆时针依次相邻：红-绿-橙-蓝-红）把空槽中的棱正确插入顶层，并替换一个（朝向或位置）不正确的顶层棱下来。直到所有的顶层棱都正确地排列在顶层</p></li>
+</ul>
+<p>在本例中，我们以黄红棱块作为基点。根据侧面的颜色顺序，黄蓝棱块应当插入到黄红棱块的顺时针相邻方向。注意到黄橙的位置是不正确的：该位置在基点棱黄红棱的逆时针相邻方向，红色的逆时针相邻应为绿色，故此处应当为黄绿棱块。因此我们在还原右层时，转动顶层使得黄橙能够被“带下来”到中层。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=U' R U2 R'|colored=URB ULB ULF */me|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">插入黄蓝棱块</div>
+</div><p>现在，黄蓝、黄红、黄绿的顺序位置已正确，我们只需要转动右层将最后的黄橙棱块（其黄色朝前）放入顶面十字剩余的空位即可。此时，出现了一种在复原最后一个顶层棱时才会发生的特殊情况：右层还需要复位，但我们已经没有顶层棱块可供交换到中层了。这时，我们只需要沿一个方向转动顶层，然后交替地插入右层的反向转动 <code class="docutils literal notranslate"><span class="pre">R'</span></code> 与正向转动 <code class="docutils literal notranslate"><span class="pre">R</span></code>，直到空槽棱块（红绿）正确地回到中层即可。如果我们是通过转动前层来插入最后的顶层棱的（对应该棱块在空槽中时，黄色朝右），那么我们改为交替转动顶层与前层——也就是进行镜像操作。</p>
+<p>完成所有棱块的复位之后，我们转动顶层，对齐顶层十字与侧面的颜色。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=U R|colored=URB ULB ULF */me|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">1. 插入黄橙棱块：无法交换</div>
+  <div class="roofpig inline" data-config="alg=U R' U R U R' U R U R' U'|colored=URB ULB ULF */me|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">2. 交替转动直到空槽棱块复位</div>
+  <div class="roofpig inline" data-config="alg=U R U R' U R U R' U R U R' U'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">完整的步骤</div>
+</div><p>胜利在望了。我们离复原整个魔方，只剩下最后一步了！</p>
+</section>
+<section id="id7">
+<h2>最后 5 角块<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>现在魔方只剩下顶面的 4 个角块和空槽内的 1 个角块需要复原了。我们先转体魔方，调换顶面与底面，但仍然保持空槽在右前方（也就是白色朝上、绿色朝前、红色朝右）：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=z2 y'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y'|colors=R:g B:o L:b F:r U:y D:w|flags=showalg">转体</div>
+</div><p>这一步的目的是<strong>转体魔方让要调整的角块放在底层</strong>。</p>
+<section id="id8">
+<h3>底层角块朝向<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>接下来，我们要学习本方法唯一一个公式，也就是 <code class="docutils literal notranslate"><span class="pre">R</span> <span class="pre">U</span> <span class="pre">R'</span> <span class="pre">U'</span></code>：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=R U R' U'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">R U R' U'</div>
+</div><p>R U R' U' 公式的本质是对顶面与背面、顶面与右面、前面与右面这三组面之间相交的 7 个块进行变换（包括位置交换与朝向更改）。我们利用它的这一特性来<em>调整底层角块的朝向</em>。</p>
+<ul>
+<li><p>通过该公式，将一个底层角块放在空槽中（在上面我们已经完成了这一步，现在黄蓝红位于空槽的角块位）</p></li>
+<li><p>转动底层，让角块的空位与当前空槽中的角块对应</p></li>
+<li><p>重复使用该公式，直到底层的角块空位是否正确了。</p>
+<ul class="simple">
+<li><p>如果空槽中的角块底色（黄色）朝右，那么需要做 1 次公式；</p></li>
+<li><p>如果底色朝前，那么需要做 3 次公式；</p></li>
+<li><p>如果底色朝上，那么需要做 5 次公式（或者逆向做 1 次）。</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>如果你连续做 6 次这个公式，你会发现魔方返回到了做公式之前的状态。因此，正向做 5 次公式（R U R' U'）与逆向做 1 次公式（U R U' R'）的效果是一样的。在熟练之后，你可以通过逆做公式来减少步数。</p>
+<p>继续阅读，在下文中有逆做公式的示例。</p>
+</div>
+</li>
+<li><p>在处理完当前底层角块后，会有一个新的底层角块来到空槽的角块位。重复以上步骤，直到所有的底层角块都被复原。</p></li>
+<li><p>最后，对齐底层与中心。</p></li>
+</ul>
+<p>以下是在本例子中应用公式的步骤（括号内为应用公式的次数）：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=D' R U R' U'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">1. 复原黄蓝红角块（1次）</div>
+  <div class="roofpig inline" data-config="alg=D2 R U R' U'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U' D2 R U R' U'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">2. 复原黄绿橙角块（1次）</div>
+</div><div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=D' R U R' U' R U R' U' R U R' U'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U' D2 R U R' U' D' R U R' U' R U R' U' R U R' U'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">3. 复原黄红绿角块（3次）</div>
+  <div class="roofpig inline" data-config="alg=D2 R U R' U' R U R' U' D2|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U' D2 R U R' U' D' R U R' U' R U R' U' R U R' U' D2 R U R' U' R U R' U' D2|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">4. 复原黄绿橙角块（2次）</div>
+</div><p>到这里，底层（黄色面）的所有角块都复原了。在对齐底层的中心后，我们继续做 R U R' U' 公式，直到只剩下两个角块没有复原:</p>
+<ul class="simple">
+<li><p>如果顶面右后方（顶部白色面、右侧红色面与背部蓝色面所夹）的角块的顶色（白色）朝右，那么需要使用 4 次公式（或者逆做 2 次）；</p></li>
+<li><p>如果该角块的白色朝后，那么需要使用 2 次公式。</p></li>
+</ul>
+<p>这里我们注意到顶面右后方是白蓝红角块，其白色面朝右。如果不愿意记忆这些内容，我们简单地正做公式直到只剩两个块没有复原。这里为了演示，选择逆做 2 次公式：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=U R U' R' U R U' R'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U' D2 R U R' U' D' R U R' U' R U R' U' R U R' U' D2 R U R' U' R U R' U' D2 U R U' R' U R U' R'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">复原至双角块状态（逆做2次）</div>
+</div></section>
+<section id="id9">
+<h3>最后 2 角块朝向<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>接下来是最后的调整了。我们再次转体魔方，把这两个角块放在底层。</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=z|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U' D2 R U R' U' D' R U R' U' R U R' U' R U R' U' D2 R U R' U' R U R' U' D2 U R U' R' U R U' R' z|colors=R:y B:b L:w F:g U:r D:o|flags=showalg">转体</div>
+</div><p>现在我们相当于在处理一个顶面为橙色、底面为红色、前面为绿色的魔方。剩下的步骤与归位 5 棱块的第一步中相同。观察底下的两个角块：</p>
+<ul class="simple">
+<li><p>如果两个角块的底色（现在为红色）都是朝前的，那么先正做 4 次公式（或逆做 2 次），转动底层换位来对齐槽内角块，然后再做 2 次公式 即可。</p></li>
+<li><p>如果它们的底色是朝向两侧的，那么先正做 2 次，换位，然后再正做 4 次（或逆做 2 次）即可。</p></li>
+</ul>
+<p>本例中的是前一种情况：</p>
+<div class="roofpig-inline-container">
+  <div class="roofpig inline" data-config="alg=U R U' R' U R U' R'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U' D2 R U R' U' D' R U R' U' R U R' U' R U R' U' D2 R U R' U' R U R' U' D2 U R U' R' U R U' R' z U R U' R' U R U' R'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">1. 处理红绿白角块（逆做 2 次）</div>
+  <div class="roofpig inline" data-config="alg=D R U R' U' R U R' U'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U' D2 R U R' U' D' R U R' U' R U R' U' R U R' U' D2 R U R' U' R U R' U' D2 U R U' R' U R U' R' z U R U' R' U R U' R' D R U R' U' R U R' U'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">2. 换位，处理红黄绿角块（正做 2 次）</div>
+  <div class="roofpig inline" data-config="alg=D'|setupmoves=U2 B2 R2 D R2 U' B2 R2 D B' U L B' D R' D' B D' F' F' R y2 R' F' D F' R F y' F D' F' y' F2 x2 y' U R U' R' y' U2 R U' R' y' R U R' U' L' U L R U R' u R U2 R' u F' U' F u U' F' U F u U' R U2 R' U R U R' U R U R' U R U R' U' z2 y' R U R' U' D' R U R' U' D2 R U R' U' D' R U R' U' R U R' U' R U R' U' D2 R U R' U' R U R' U' D2 U R U' R' U R U' R' z U R U' R' U R U' R' D R U R' U' R U R' U' D'|colors=R:r B:b L:o F:g U:w D:y|flags=showalg">3. 归位底层</div>
+</div><p>恭喜！我们使用 8355 方法完成了整个魔方的复原！</p>
+</section>
+</section>
+<section id="id10">
+<h2>小结与提高<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>在此小结 8355 方法的步骤如下：</p>
+<ol class="arabic simple">
+<li><p>选定底面颜色与一组空槽颜色，复原除了空槽角块的 8 个底面块</p>
+<ul class="simple">
+<li><p>先复原棱块完成底面十字，再复原底面角块</p></li>
+</ul>
+</li>
+<li><p>利用空槽，依次对位并复原中层的 3 个棱块</p></li>
+<li><p>按颜色顺序复原顶面十字，即复原剩余的 5 个棱块</p></li>
+<li><p>转体魔方，利用 R U R' U' 公式复原剩余的 5 个角块</p>
+<ul class="simple">
+<li><p>转体后先依次对位，复原顶色面（现位于底层）的角块</p></li>
+<li><p>重复做公式直至魔方只剩 2 个角块</p></li>
+<li><p>再次转体，复原右色面（现位于底层）的角块</p></li>
+</ul>
+</li>
+<li><p>完成复原</p></li>
+</ol>
+<p>如何提高复原速度：</p>
+<ul class="simple">
+<li><p>充分练习棱块与角块的基础复原手法。</p></li>
+<li><p>在第一步复原底面时，对于位于背面的底层角块，尝试不转体地去归位角块。减少不必要的转体能够显著提升复原速度。</p></li>
+<li><p>记住如何根据各种状态，聪明地选择逆做或正做 R U R' U' 公式，以此缩短步数。</p></li>
+<li><p>关于底面十字：</p>
+<ul>
+<li><p>尝试在底面朝下的情况下完成底面十字。</p></li>
+<li><p>学习底面十字的方法（参考本文 <a class="reference internal" href="CFOP.html"><span class="doc">CFOP 简介：两步法</span></a> 章节中关于底面十字的内容），尝试使用更少的步数完成底面十字，而不是把每个十字棱都先移动到另一面再移入位置。</p></li>
+<li><p>底面十字即使对资深魔方爱好者也是很困难的内容，不要因为遇到瓶颈而灰心丧气。</p></li>
+</ul>
+</li>
+</ul>
+<p>最后，8355 只是一种入门方法。如果已经完全掌握，接下来可以学习层先法，公式数量也较少（不到 10 个），平均可以用更少的步数复原魔方（因此也更快）。再往后，还可以学习 CFOP 两步法，以及完整的 CFOP 方法（可以参考本文的后续章节）。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="Basic.html" class="btn btn-neutral float-left" title="魔方的基础知识" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="CFOP.html" class="btn btn-neutral float-right" title="CFOP 简介：两步法" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 wklchris。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<div class="footer">本页面采用 <a href="https://analytics.google.com/">Google Analytics</a> 来记录访问数据. 您可以通过屏蔽来自 www.google-analytics.com 的 JavaScript 来阻止该记录行为.
+<script>
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+
+
+</body>
+</html>

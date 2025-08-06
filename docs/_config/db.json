@@ -1,6 +1,6 @@
 {
     "_homepage": {
-        "date_modified": "2025-07-29",
+        "date_modified": "2025-08-06",
         "date_online": "2020-08-10",
         "date_online_previous": "2017-01-07"
     },
@@ -14,8 +14,8 @@
             "series": "C/C++",
             "series_num": "1",
             "date_init": "2020-06-06",
-            "date_modified": "2024-06-01",
-            "date_build": "2024-06-01",
+            "date_modified": "2025-08-05",
+            "date_build": "2025-08-05",
             "abstract": "本文是学习现代 C++ 时的笔记，基于 C++ 11 （或更新）的规范版本。"
         },
         "FFmpeg": {
@@ -107,9 +107,9 @@
             "series": "Misc",
             "series_num": "1",
             "date_init": "2022-08-09",
-            "date_modified": "2025-07-29",
-            "date_build": "2025-07-29",
-            "abstract": "本文介绍了魔方的复原方法（主要是三阶 CFOP）。"
+            "date_modified": "2025-08-06",
+            "date_build": "2025-08-06",
+            "abstract": "本文主要介绍三阶魔方的 CFOP 复原方法，但也涵盖了 8355 作为入门方法。"
         },
         "Sphinx": {
             "category": "Misc",

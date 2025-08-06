@@ -2,40 +2,48 @@
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://wklchris.github.io/blog/Cpp/CMake.html</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>
+  <url>
     <loc>https://wklchris.github.io/blog/Cpp/Control.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Cpp/DataTypes.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Cpp/DataTypesAdvance.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Cpp/index.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Cpp/Install.html</loc>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Cpp/Intro.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Cpp/PointerAndRef.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Cpp/QuickRef.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Cpp/TypeConversion.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Cpp/Variables.html</loc>
-    <lastmod>2024-06-01</lastmod>
+    <lastmod>2025-08-05</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/FFmpeg/Codecs.html</loc>
@@ -171,39 +179,43 @@
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/4x4.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
+  </url>
+  <url>
+    <loc>https://wklchris.github.io/blog/Rubik/8355.html</loc>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/Appendix.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/Basic.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/CFOP.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/F2L.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/index.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/Intro.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/OLL.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Rubik/PLL.html</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/Sphinx/index.html</loc>
@@ -235,6 +247,6 @@
   </url>
   <url>
     <loc>https://wklchris.github.io/blog/</loc>
-    <lastmod>2025-07-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
   </url>
 </urlset>

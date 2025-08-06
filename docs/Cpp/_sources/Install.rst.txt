@@ -1,0 +1,275 @@
+安装 C++ 环境
+===================
+
+.. tip::
+   
+    本节主要介绍在 Windows 系统上配置 C++ 环境。它基于我的主观经验，也许并不是最佳的选择。
+    
+    环境配置的内容并不像语法一样长青。在阅读本节时，请注意时效性。
+
+本节介绍如何在 Windows 上使用 MSYS2 环境，包括：
+
+- 安装 MSYS2
+- 安装 GCC 编译器、GDB 调试工具、CMake 工具
+- 如何安装第三方 C++ 库
+- 在 Visual Studio Code (VS Code) 中配置 C++ 环境
+
+
+安装 MSYS2
+----------------
+
+1. 前往 `MSYS2 官网 <https://www.msys2.org/#installation>`_ 下载 MSYS2 安装包。
+2. 运行安装包并指定一个安装位置。在下文的叙述中，我们将此位置用 ``msys64`` 文件夹指代。
+
+
+.. attention::
+
+    MSYS2 提供了众多的环境。官方现在推荐较新的 UCRT64 环境，而在本文将使用较稳定的 MINGW64 环境。
+
+打开安装目录后，我们可以看到多个 MSYS2 环境的执行文件（例如 ``mingw64.exe``）。双击以运行，我们就可以看到弹出的 MSYS2 命令行窗口。它将显示像下面这样的内容：
+
+.. code-block::
+
+    user@desktop-name MINGW64 ~
+
+.. figure:: imgs/msys2-terminal.png
+    :alt: MSYS2 命令行窗口截图
+    :width: 400px
+    :align: center
+
+
+请注意波浪符左侧的 MSYS2 环境标识，这里我们确认它是 MINGW64 环境。
+
+
+安装 GCC 套件与 CMake
+--------------------------
+
+在 MINGW64 窗口中，运行 ``pacman`` 命令来安装 `GCC 套件 <https://packages.msys2.org/groups/mingw-w64-x86_64-toolchain>`_：
+
+.. code-block:: console
+
+    pacman -S mingw-w64-x86_64-toolchain
+
+该套件包含 GCC 编译器、GDB 调试器，以及 make 等 C++ 环境工具。对于现代 C++ 编译，我们常常使用 CMake，因此建议也安装 CMake 工具：
+
+.. code-block:: console
+
+    pacman -S mingw-w64-x86_64-cmake
+
+以上 MINGW64 包将会被安装到 MSYS2 路径中的 ``mingw64`` 子目录中。
+
+.. tip::
+
+   这些 pacman 包的安装文件被缓存到了 ``var\cache\pacman\pkg`` 子目录中。如果你需要重装 MSYS2、更新 MSYS2，或者在另一台设备上安装 MSYS2，复制这些文件可以避免重复下载它们。
+
+在完成安装后，你可以执行命令来检查 GCC 等已安装项目的版本，确认它们的安装：
+
+.. code-block:: console
+
+    gcc --version
+    gdb --version
+    cmake --version
+
+最后，我们可以把 MSYS2 安装路径中的 ``mingw64\bin`` 与 ``usr\bin`` 这两个子目录都添加到系统的 PATH 环境变量中。请注意可能的环境变量干扰，比如是否安装过 Windows 版本的 CMake。在 Powershell 中，利用 ``Get-Command cmake | % Source`` 来检查运行的 CMake 的路径是否位于 MINGW64 安装路径中；如果不是，尝试将添加到 PATH 的两个目录放在 PATH 最前面，然后重新打开一个 Powershell 窗口来测试。
+
+
+在 VS Code 中使用 MSYS2
+------------------------------------
+
+这部分内容在官方页面 `Using GCC with MINGW <https://code.visualstudio.com/docs/cpp/config-mingw>`_ 中有部分阐述：
+
+1. 下载并安装 `Visual Studio Code <https://code.visualstudio.com/download>`_ 
+2. 打开 VS Code，从插件市场安装微软官方的 C/C++ 插件。
+3. 新建一个代码文件夹用于测试 C++ 环境。在 VS Code 中，使用“文件”菜单来打开该文件夹。
+4. 在 VS Code 的侧栏中，新建一个名为 hello.cpp 的文件，并粘贴以下代码：
+   
+   .. code-block:: cpp
+      
+      #include <iostream>
+      int main() {
+          std::cout << "Hello world" << std::endl;
+          return 0;
+      }
+
+   保存文件。
+
+5. 尝试使用右上角的“运行”按钮来编译该 C++ 文件。VS Code 会在顶栏弹出列表并询问应该使用的 C++ 编译器。选择其中的 g++.exe 作为编译器。它会自动在当前目录的 ``.vscode/task.json`` 中完成配置，类似于：
+   
+   .. code-block::
+      
+      {
+           "tasks": [
+               {
+                   "type": "cppbuild",
+                   "label": "C/C++: gcc.exe 生成活动文件",
+                   "command": "C:\\Programming\\msys64\\mingw64\\bin\\gcc.exe",
+                   ... (以下省略)
+
+6. 编译成功后，你应当在左侧发现生成了可执行文件 ``hello.exe``。在下方的控制台中，该文件在运行后打印了消息 ``Hello world``。
+
+
+添加 MSYS2 到 VS Code 内置终端
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+打开“文件 - 首选项 - 设置”（或按 Ctrl + ,），点击右上角打开 JSON 设置，找到 ``terminal.integrated.profiles.windows`` 这一键。在该键的内部添加 MSYS2 的终端环境（MINGW64）：
+
+.. code-block::
+
+    "terminal.integrated.profiles.windows": {
+        "MSYS2 (MinGW64)": {
+            "path": "C:\\Programming\\msys64\\usr\\bin\\bash.exe",
+            "args": [
+                "--login",
+                "-i"
+            ],
+            "env": {
+                "MSYSTEM": "MINGW64",
+                "CHERE_INVOKING": "1"
+            }
+        },
+        ... (键内的其他项)
+    },
+    ... (设置内的其他键)
+
+按 Ctrl + \` 打开终端面板，在面板右上角的加号下拉菜单处，可以找到 ``MSYS2 (MinGW64)`` 这一项。点击它以启动 MSYS2 的 MINGW64 环境。
+
+
+配置 CMake 编译
+^^^^^^^^^^^^^^^^^^
+
+.. important::
+
+   - 我并不推荐 VS Code 插件市场的 CMake 插件，因为它的自动生成与断点调试很难用。我建议手动管理这部分功能。
+   - 本节不涉及复杂 CMake 语法。关于这部分内容，请参考 :doc:`CMake` 一节的内容。
+
+以上文的 hello.cpp 文件为例，我们配置 CMake 来编译它，以确保 MSYS2 的 CMake 可以正常工作。
+
+1. 新建文件 CMakeLists.txt （这是 CMake 配置文件的专用名称），填入以下内容并保存：
+   
+   .. code-block:: cmake
+      
+      cmake_minimum_required(VERSION 3.10)
+      project(hello)
+      
+      set(CMAKE_CXX_STANDARD 11)
+      set(CMAKE_CXX_STANDARD_REQUIRED ON)
+      
+      add_executable(${PROJECT_NAME} hello.cpp)
+   
+   该配置指定使用 C++ 11 标准，对源文件 hello.cpp 进行编译，将生成的可执行文件命名为 project 名（即 hello）。在 Windows 上，可执行文件以 exe 结尾，即 ``hello.exe.``
+
+2. 新建一个名为 ``build`` 的文件夹，用来存放编译内容。然后打开 MSYS2 终端（像上一节所配置的那样从 VS Code 内打开，或者从外部打开并切换到当前文件夹），运行：
+   
+   .. code-block:: console
+      
+      cmake -S . -B build
+   
+   这将读取当前目录下的 CMakeLists.txt，然后将配置写入到 build 文件夹。
+
+3. 上述命令运行无误，则可以进行编译了：
+   
+   .. code-block:: console
+      
+      cmake --build build
+   
+   这表示将编译结果输出到 build 文件夹。
+
+4. 运行可执行文件：
+   
+   .. code-block:: console
+      
+      ./build/hello.exe
+   
+   我们得到输出的打印结果 ``Hello world``。
+
+5. 最后，你可以尝试在 Powershell 终端（而不是 MSYS2 中）执行上述 CMake 命令，以确认 PATH 环境变量的配置是否生效。如果在 MSYS2 中可以编译，但在 Powershell 中不行，请检查是否已将 ``mingw64\bin`` 与 ``usr\bin`` 两个 MSYS2 子目录均添加到了 PATH。
+
+
+配置 GDB 调试
+^^^^^^^^^^^^^^^^^^
+
+C++ 调试需要可执行文件中包含调试符号，也就是以 ``-DCMAKE_BUILD_TYPE=Debug`` 参数来配置 CMake，并重新生成可执行文件：
+
+.. code-block:: console
+
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+    cmake --build build
+
+生成无误后，我们尝试进行调试：
+
+1. 在 hello.cpp 文件中的 return 所在的行号左侧单击，添加一个断点。
+2. 在 VS Code 的侧边切换到调试面板，找到“运行与调试”按钮下方的“创建launch.json文件”。
+3. 从下拉列表选择 “C/C++ (gdb) 启动”。
+4. 更改 JSON 中的键：
+   
+   * 将 "name" 更改为调试下拉列表中要显示的名称，例如 ``"GDB: Hello"``。
+   * 将 "program" 更改为可执行文件的路径，本例是 ``"${workspaceFolder}/build/hello"``。
+   * 将 "args" 更改为要传递给可执行文件的命令行参数列表，本例是空列表。
+   * 将 "miDebuggerPath" 更改为 GBD 的在 MSYS2 实际文件路径（类似于/mingw64/bin/gdb），或者空字符串以让 VS Code 在 PATH 环境变量中查找。
+
+5. 回到调试面板，从下拉列表中选中刚才创建的配置，然后点击“开始调试”按钮。
+6. 调试器应当停留在刚才创建的断点行。点击顶部的停止按钮以结束调试。
+
+
+（可选）使用 clang-tidy 静态检查
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+LLVM/Clang 编译器提供了一个优秀的 clang-tidy 工具，它能够对代码进行复杂的静态语法检查，例如未使用的头文件不完备的类定义等等。这有助于我们在开始编译前定位到错误并修复。它的功能比 VS Code 的 C/C++ 检查要更好，因此我建议使用它来替换 C/C++ Intellisense 的语法检查功能。
+
+.. important::
+
+   请在安装 VS Code 的 Clangd 插件前先在 MSYS2 中安装 Clang 套件。这是因为 Clangd 会在未检测到 Clang 编译器时自动安装内容，而自动安装的版本常常出现一些头文件不能定位、std空间的函数名不能识别等奇怪的问题。在 MSYS2 中安装完整的 Clang 套件即可避免这些问题。
+
+1. 打开 MSYS2，执行安装命令：
+   
+   .. code-block:: console
+      
+      pacman -S mingw-w64-clang-x86_64-toolchain
+   
+2. 在 VS Code 中安装 Clangd 插件。
+3. 重启 VS Code 以加载插件。VS Code 可能提示 Clangd 的语法检查与 C/C++ Intellisense 冲突，询问是否关闭后者的语法功能。选择“是”。
+
+最后，Clangd 插件提供的静态语法检查需要在 CMakeLists.txt 中添加一行，以允许将编译命令写入到 ``compile_command.json`` 文件供 Clangd 检查：
+
+.. code-block::
+
+    set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+
+安装其他 C++ 库
+--------------------
+
+要在 MSYS2 中安装第三方 C++ 库，可以查阅该库的文档，是否能够通过 pacman 包管理工具来安装。用户还可以尝试使用 ``-Ss`` 选项来搜索。以下是对 Eigen 库的搜索结果：
+
+.. code-block::
+
+    $ pacman -Ss eigen3
+    clangarm64/mingw-w64-clang-aarch64-eigen3
+        Lightweight C++ template library for vector and matrix math (mingw-w64)
+    mingw64/mingw-w64-x86_64-eigen3
+        Lightweight C++ template library for vector and matrix math (mingw-w64)
+    ucrt64/mingw-w64-ucrt-x86_64-eigen3
+        Lightweight C++ template library for vector and matrix math (mingw-w64)
+    clang64/mingw-w64-clang-x86_64-eigen3
+        Lightweight C++ template library for vector and matrix math (mingw-w64)
+
+其中，``mingw64/mingw-w64-x86_64-eigen3`` 即为适合安装到 MINGW64 环境的包。我们运行命令进行安装：
+
+.. code-block:: console
+
+    pacman -S mingw-w64-x86_64-eigen3
+
+
+如果 pacman 上没有提供对应的库（或者版本号落后），我们可以根据库的文档自行编译。
+
+
+（可选）将 MSYS2 添加到 Windows Terminal
+-----------------------------------------------
+
+为了在 Windows Terminal 中可以新建 MSYS2 选项卡，我们打开 Windows Terminal，并新建一个控制台 profile。然后填写：
+
+- 名称 Name：``MINGW64 (MSYS2)``
+- 命令 Command line：``msys64/msys2_shell.cmd -defterm -here -no-start -mingw64 -shell bash`` （将上述 msys64 替换为你的实际 MSYS2 安装目录）
+- 图标 Icon：选择 MSYS2 安装目录下的 mingw64.ico 图标文件
+
+保存后，即可在新建选项卡的下拉菜单中找到 MINGW64 (MSYS2)。
