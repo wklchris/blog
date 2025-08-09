@@ -16,19 +16,8 @@ C++ 是一门高效、强大、贴近底层的编译型高级语言，能够承�
    :maxdepth: 2
    :caption: 目录
    
-   QuickRef.rst
-   Install.rst
    Intro.rst
-   Variables.rst
-   DataTypes.rst
-   DataTypesAdvance.rst
-   TypeConversion.rst
-   PointerAndRef.rst
-   Control.rst
+   Install.rst
    CMake.rst
-
-参考文献：
-
-* C++ Primer (5th edition)
 
 本文档最后构建于 |today|。
