@@ -39,6 +39,9 @@ rst_prolog = """
 .. |cpp20| replace::
    :cpp:`C++ 20`
 
+.. |cpp23| replace::
+   :cpp:`C++ 23`
+
 .. admonition:: 施工提示
    :class: caution   
 
