@@ -18,6 +18,9 @@ C++ 是一门高效、强大、贴近底层的编译型高级语言，能够承�
    
    Intro.rst
    Install.rst
+   Basic.rst
+   DataTypes.rst
+   Control.rst
    CMake.rst
 
 本文档最后构建于 |today|。

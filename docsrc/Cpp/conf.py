@@ -1,6 +1,6 @@
 author = "wklchris"
 copyright = "wklchris"
-exclude_patterns = ['_build', '**.ipynb_checkpoints']
+exclude_patterns = ['_build', '**.ipynb_checkpoints', 'build']
 extensions = ['sphinx_copybutton', 'sphinx.ext.extlinks', 'sphinx.ext.mathjax']
 html_css_files = ['style.css']
 html_static_path = ['../_static']

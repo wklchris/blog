@@ -11,3 +11,4 @@ test*
 **.exe
 .cache
 /build
+docsrc/Cpp/codes/**/build

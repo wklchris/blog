@@ -40,6 +40,7 @@
 
 请注意波浪符左侧的 MSYS2 环境标识，这里我们确认它是 MINGW64 环境。
 
+.. _install-GCC-and-CMake:
 
 安装 GCC 套件与 CMake
 --------------------------
@@ -83,13 +84,8 @@
 3. 新建一个代码文件夹用于测试 C++ 环境。在 VS Code 中，使用“文件”菜单来打开该文件夹。
 4. 在 VS Code 的侧栏中，新建一个名为 hello.cpp 的文件，并粘贴以下代码：
    
-   .. code-block:: cpp
-      
-      #include <iostream>
-      int main() {
-          std::cout << "Hello world" << std::endl;
-          return 0;
-      }
+   .. literalinclude:: codes/hello/hello.cpp
+      :language: cpp
 
    保存文件。
 
@@ -106,6 +102,13 @@
                    ... (以下省略)
 
 6. 编译成功后，你应当在左侧发现生成了可执行文件 ``hello.exe``。在下方的控制台中，该文件在运行后打印了消息 ``Hello world``。
+
+.. admonition:: 指定语法检查或语法高亮使用的 C++ 标准
+   :class: tip
+   
+   由于 C++ 新标准的语法不能在以老标准编译时使用，因此我们需要在 VS Code 中配置语法高亮与语法检查时使用的 C++ 标准。
+
+   按 Ctrl + , 打开设置，搜索 cppStandard 项，并将其改为你想指定的 C++ 标准。例如，如果指定 C++ 20 标准，那么在设置的 JSON 文件中就能看到：``"C_Cpp.default.cppStandard": "c++20"`` 这样一行。
 
 
 添加 MSYS2 到 VS Code 内置终端
@@ -140,21 +143,14 @@
 .. important::
 
    - 我并不推荐 VS Code 插件市场的 CMake 插件，因为它的自动生成与断点调试很难用。我建议手动管理这部分功能。
-   - 本节不涉及复杂 CMake 语法或使用。关于这部分内容，请参考 :doc:`CMake` 一节的内容。
+   - 本节不涉及复杂 CMake 语法或使用。关于这部分内容，请参考\ :doc:`CMake`\ 一节的内容。
 
 以上文的 hello.cpp 文件为例，我们配置 CMake 来编译它，以确保 MSYS2 的 CMake 可以正常工作。
 
 1. 新建文件 CMakeLists.txt （这是 CMake 配置文件的专用名称），填入以下内容并保存：
    
-   .. code-block:: cmake
-      
-      cmake_minimum_required(VERSION 3.10)
-      project(hello)
-      
-      set(CMAKE_CXX_STANDARD 11)
-      set(CMAKE_CXX_STANDARD_REQUIRED ON)
-      
-      add_executable(${PROJECT_NAME} hello.cpp)
+   .. literalinclude:: codes/hello/CMakeLists.txt
+      :language: cmake
    
    该配置指定使用 C++ 11 标准，对源文件 hello.cpp 进行编译，将生成的可执行文件命名为 project 名（即 hello）。在 Windows 上，可执行文件以 exe 结尾，即 ``hello.exe.``
 
