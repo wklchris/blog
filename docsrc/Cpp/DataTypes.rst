@@ -5,20 +5,27 @@
 
 * 基础数据类型：
   
-  * 布尔型 `bool`\ ：参考 :ref:`bool-type` 一节
-  * 整型（如 `int` 与 `char`）\ ：参考 :ref:`integral-type` 一节
-  * 双精度浮点数 `double`\ ：参考 :ref:`floating-number` 一节
+  * 布尔型 `bool` 与逻辑运算符
+  * 整型（如整数 `int` 与字符型 `char`）
+  * 双精度浮点数 `double`
 
 * 高级数据类型：
   
+  * 指针 `*` 与引用 `&`
   * 基础数组 `[]`
   * std 字符串 `std::string`
-  * std 数据类型，例如向量 `std::vector`\ 、映射 `std::map`\ 、数组 `std::array` 等，将在独立章节（:doc:`StdTypes`）中介绍
+  * 枚举类 `enum class`
+  * 变体类型 `std::variant`
+  * 可选类型 `std::optional`
 
 * 其他：
   
   * 空类型 `void`
-  * 空指针类型 `nullptr`
+  * 基础运算符（包括位运算符）与比较符
+  * 常量 `const` 与常量表达式 `constexpr`
+  * 类型别名 `using` 和推断 `decltype/auto`
+
+类（包括结构体）会在另外的 :doc:`Class` 章节中介绍。其他 std 数据类型，例如向量 `std::vector`\ 、映射 `std::map`\ 、数组 `std::array` 等，将在独立章节（:doc:`StdTypes`）中介绍。
 
 .. hint::
 
@@ -38,7 +45,7 @@
     bool has_cat = false;
     unsigned int cats = 0;
     
-    ++cats;
+    cats = 1;
     has_cat = true;
 
 .. _bool-operator:
@@ -257,10 +264,75 @@ C++ 的运算符和比较符如下：
 std 字符串
 ^^^^^^^^^^^^^^^^
 
+
+枚举类
+-----------
+
+
+空类型
+----------
+
+空类型 ``void`` 在用作函数的返回类型时，表示该函数不返回实际数据。对于一个 `void` 函数，我们不需要在最后添加 `return` 语句。例如，一个简单的打印函数不用返回任何数据：
+
+.. code-block:: cpp
+   :linenos:
+   
+   // #include <iostream>
+   void print_hello() {
+       std::cout << "Hello" << std::endl;
+   }
+
+如果需要在一个 `void` 函数的中间中止函数，使用一条 ``return;`` 语句即可。
+
+
 .. _const-and-constexpr:
 
 常量与常量表达式
 -----------------------------
+
+在 :ref:`variable-declaration` 一节中，我们简单介绍了变量的用法。C++ 还支持定义一种不可变的对象，也就是\ **常量**\ （Const）。除了 ``const`` 关键字，我们还可以使用 ``constexpr`` |cpp11| 关键字，也即\ **常量表达式**\ （Const expression）。
+
+常量的概念与科学中的常数类似，例如，圆周率 :math:`\pi` 的值是固定的，因此能以一定的精度定义为一个浮点型常量。
+
+.. code-block:: cpp
+   
+   const double pi = 3.1415926535;
+   constexpr double e = 2.718281828;
+
+.. hint::
+
+   `const` 与 `constexpr` 常量在声明时都必须显式地初始化它的值。这在语法上是合理的，因为常量在概念上就会固定在创建时的状态，禁止在之后的任何情况下对其进行赋值。
+
+其中，\ `constexpr` 常量也称编译时（compile-time）常量，即在代码编译时就能确定值的常量。而 `const` 常量则可以放宽要求，允许在代码运行后才确定数值，因此叫运行时（runtime）常量。科学意义上的常数可以直接给出（在一定精度上近似的）浮点数值，因此不依赖于运行任何代码的运行，它们也就都可以定义为编译时常量。
+
+除了直接给出数值，我们也可以使用常规函数的返回结果来定义一个 `const` 常量。但对于 `constexpr` 常量的定义，它还要求函数必须是由 ``constexpr`` 或 ``consteval`` 关键字修饰的函数。
+
+* `constexpr` 函数必须是纯函数（Pure function），也就是说，它的运行结果只取决于传入的参数，而不取决于其他外部状态（如全局变量等函数外部的非常量对象）；同时，除了返回值，它们也不影响任何外部状态（如 I/O 操作）。
+* 一个 `constexpr` 函数可以在运行时被调用，例如赋值给某个变量或者 `const` 常量，这是为了避免我们为同一个函数定义普通与 `constexpr` 两个版本。如果要禁止函数在运行时被调用，只允许它在编译时被调用，那么使用 ``consteval`` 关键字来代替。
+
+例子：
+
+.. literalinclude:: codes/function/func_constexpr.cpp
+   :linenos:
+   :language: cpp
+
+输出结果为：
+
+.. code-block:: console
+
+   Area 1 = 3.14159
+   Area 2 = 12.5664
+
+最后， `const`关键字还常常用于在为函数传入参数时指定参数为常量，表示该函数不会修改传入的参数；或者用于修饰类的成员函数，表示该成员函数不会修改调用它的类对象（参考 :doc:`Class` 一节）。最常见的用法就是传入常量引用，例如 ``func(const std::array<int>&)``\ ，它是一种对较大参数的高效传递。关于引用，参考 :ref:`reference-and-pointer` 一节。
+
+
+.. _reference-and-pointer:
+
+引用与指针
+--------------
+
+
+
 
 .. _type-aliases:
 
@@ -319,3 +391,12 @@ decltype*
    
    int n = 37, *p = &n;
    decltype(*p) r2 = n;    // 解引用后，推断为 int& 引用
+
+
+变体（std::variant）与 union 类型*
+------------------------------------------
+
+
+可选（std::optional）类型*
+----------------------------------
+

@@ -96,6 +96,8 @@ Hello World
     ./build/hello
 
 
+.. _variable-declaration:
+
 变量的声明与定义
 -------------------
 
