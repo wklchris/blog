@@ -7,6 +7,46 @@
 If 条件判断
 ----------------
 
+使用 if 语句对圆括号内的条件表达式的逻辑值（\ `true` 或 `false`\ ）进行判断，按照判断的结果执行不同的代码分支。If 语句有三种嵌套形式：
+
+* 最简单的 `if (..) {..}`\ 。如果条件不满足，则不做任何事。
+* 带 `else` 的 `if (..) {..} else {..}`\ 。条件满足则执行 `if`` 分支的代码，否则执行 `else` 分支的代码。
+* `else` 语句块可以嵌套另一个 `if` 语句块，从而实现 `if .. else if ..` 这种结构。如果有必要，还可以继续嵌套更多的 `if` 语句块。
+
+以下是 if 条件语句的使用示例：
+
+.. literalinclude:: codes/if/if.cpp
+   :linenos:
+   :language: cpp
+
+输出：
+
+.. code-block:: console
+
+   x is positive
+   v is not empty. It has 3 elements
+   s has exact 5 characters
+
+.. _if-with-initialization:
+
+带初始化的 if 语句
+^^^^^^^^^^^^^^^^^^^^
+
+除了在条件语句处（圆括号内）使用单个表达式，现代 C++ 还提供了一种灵活的写法，即带初始化的 if 语句 |cpp17| 。它允许在条件表达式处定义临时变量来进行较复杂的判断，即 `if (init; cond) {..}` 语法。
+
+一个典型的例子是使用 `<algorithm>` 头文件中的 `std::find` 来检索 std 容器中是否存在要查询的数据（以及第一次出现时的下标）。相对于传统的 for 循环查询，这是一种更现代、更简单的写法，写起来更难以出错，阅读起来也更轻松。
+
+.. literalinclude:: codes/if/if-init.cpp
+   :linenos:
+   :language: cpp
+   :emphasize-lines: 10
+
+这种带初始化的 if 语句的好处在于能够避免将只需要在 if 语句块内使用局部变量（比如上例中的 `it` 指针）暴露在语句块外。该例子的输出如下：
+
+.. code-block:: console
+
+   Target value 20 found at index 1
+
 
 .. _for-loop:
 
