@@ -265,8 +265,41 @@ std 字符串
 ^^^^^^^^^^^^^^^^
 
 
+.. _enum-class:
+
 枚举类
 -----------
+
+C++ 提供了一种特殊的类，枚举类，用 ``enum class`` |cpp11| 来定义枚举数据。例如：
+
+.. code-block:: cpp
+   
+   // 定义一个 AngleType 枚举类（锐角、直角与钝角）
+   enum class AngleType { acute, right, obtuse };
+   AngleType x = AngleType::acute;
+
+* 在使用枚举类数据时，必须添加作用域前缀，如上例中的 ``AngleType::``\ 。在名称无冲突时，我们可以使用 ``using enum`` |cpp20| 来省略作用域前缀。
+  
+  .. note::
+
+     传统 C++ 还提供了一种不带 class 的枚举 ``enum`` 数据类型，它在使用时不需要作用域前缀。但是，这显然增加了名字冲突的风险，因此现代 C++ 中推荐使用 enum class 代替它。
+
+* 枚举类实际上是将每一种数据存储为整型（从 0 开始递增），因此可以将它与整型之间进行转换。
+* 在实践中，有时候会把枚举类的最后一个数据设置为 `size`\ ，以此获取枚举总数。
+
+枚举类默认提供了一些操作符，例如等于比较符 ``==``\ ，不过我们可以像正常的类一样为枚举类定义其他的操作符（参考 :ref:`class-operator` 一节）。下例定义了一个交通信号灯的枚举类，并用 ``++`` 递增操作符来切换红绿灯到下一个状态。
+
+.. literalinclude:: codes/class/enum-class.cpp
+   :linenos:
+   :language: cpp
+   :emphasize-lines: 9
+
+输出：
+
+.. code-block:: console
+
+   Light is green
+   Now light is yellow
 
 
 空类型
