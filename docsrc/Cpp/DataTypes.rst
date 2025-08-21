@@ -15,7 +15,7 @@
   * 基础数组 `[]`
   * std 字符串 `std::string`
   * 枚举类 `enum class`
-  * 变体类型 `std::variant`
+  * 变体类型 `std::variant` 与 `union`
   * 可选类型 `std::optional`
 
 * 其他：
@@ -599,10 +599,78 @@ decltype*
    decltype(*p) r2 = n;    // 解引用后，推断为 int& 引用
 
 
+.. _std-variant:
+
 变体（std::variant）与 union 类型*
 ------------------------------------------
 
+.. hint::
+
+   现代 C++ 使用 ``std::variant`` |cpp17| 代替传统的 ``union`` 类型。
+
+传统 C++ 支持 ``union`` 类型，能够存储指定的多种类型中的一种，以此节省空间占用。例如：
+
+.. code-block:: cpp
+
+   union NumberUnion {
+       int val_int;
+       double val_double;
+   };
+
+由于它不包含类型信息，这种设计需要配合一层额外的包装来存储类型信息，就像：
+
+.. code-block:: cpp
+   
+   enum class NumberType { Int, Double };
+   struct Number {
+       NumberType t;
+       NumberUnion u;
+   };
+
+   // 在使用时
+   Number n {NumberType::Int, 123};
+   if (n.t == NumberType::Int) {
+       std::cout << n.u.val_int << // ...
+   }
+
+可以看到，直接使用 union 的管理方式十分复杂，而且容易出错。作为替代，现代 C++ 的头文件 `<variant>` 引入了变体 ``std::variant`` |cpp17| ，它写法更简单。同时，也允许使用 ``std::holds_alternative`` 来检查变体的具体类型，并用 ``std::get`` 来获取对应类型的数据。
+
+下面是一个变体代码示例，它定义了一个 Shape 变体以存储三角形、矩形或者圆这三种图形之中的一种。在函数 ``calcShapeArea`` 中，我们为每一种图形类型提供了一个匿名函数入口。配合定义的 ``overloaded`` 模板类（参考 :doc:`Template` 章节），C++ 会通过 ``std::visit`` 自动寻找当前图形类型对应的面积计算函数来进行调用。之后在 for 循环中打印图形面积时，我们换用了另一种写法，即使用 ``std::holds_alternative`` 与 ``std::get`` 来检查与取得图形数据并打印信息。
+
+.. literalinclude:: codes/alternative/std-variant.cpp
+   :linenos:
+   :language: cpp
+   :emphasize-lines: 10, 13-15, 19-26, 40-41 
+
+以上代码将输出：
+
+.. code-block:: console
+
+   Area of circle (1) = 3.14159
+   Area of triangle (3,4,5) = 6
+   Area of rectangle (2,3) = 6
+
+最后，C++ 的头文件 `<any>` 还提供了一种 ``std::any`` 类型，用于存储任何类型的数据（在概念上类似于一个包含所有类型的 `std::variant` 对象），并允许通过 ``any_cast<T>`` 函数来将 `any` 类型的对象转为 `T` 类型。它的应用场景较少，这里不做介绍。
+
+
+.. _std-optional:
 
 可选（std::optional）类型*
 ----------------------------------
 
+可选类型 ``std::optional`` |cpp17| 由头文件 `<optional>` 引入，它相当于一个指针，要么指向某一种给定的类型，要么是空对象 `std::nullopt`\ （或者使用一对空的花括号）。
+
+可选类型在检索查询时可能用到。下面是一个例子，按照给定的首字母来检索：
+
+.. literalinclude:: codes/alternative/std-optional.cpp
+   :linenos:
+   :language: cpp
+   :emphasize-lines: 7, 13, 19-20
+
+请注意，在 `std::optional` 对象含有数据时，我们需要解指针（\ ``*fruit``\ ）来获取数据。上例的输出为：
+
+.. code-block:: cpp
+
+   Fruit with initial letter 'a' is found: apple
+   Fruit with initial letter 'c' is NOT found
+   Found fruit: peach
