@@ -12,3 +12,4 @@ test*
 .cache
 /build
 docsrc/Cpp/codes/**/build
+gcm.cache

@@ -49,24 +49,6 @@ Hello World
 
 在命令行窗口中，我们可以看到它打印了字符串 Hello world。我们成功地运行了第一个 C++ 程序。
 
-.. admonition:: 扩展阅读：关于 #include 与 import
-   :class: tip
-
-   C++ 计划引入一种新的库文件加载语法，即用 import |cpp23| 来加载 std 模块。在之前，我们必须为每一个用的标准库头文件单独引入，例如我们要同时引入 ``<iostream>`` 与 ``<vector>`` 两个头文件：
-
-   .. code-block:: cpp
-      
-      #include <iostream>
-      #include <vector>
-
-   尽管这两个头文件的函数都在命名空间 ``std`` 中（例如 ``std::cout`` 与 ``std::vector``），但我们却需要使用两条指令引入。在新的 C++ 标准中，我们可以使用一条模块加载语句来替代：
-
-   .. code-block:: cpp
-      
-      import std;
-
-   如果使用 import 语句，你可能需要较新的 C++ 编译器版本，并启用 C++ 23 标准才能编译通过，例如 ``g++ -std=c++23 hello.cpp -o hello``\ 。
-
 
 使用 CMake 编译*
 --------------------
@@ -206,7 +188,7 @@ Hello World
 
     Area = 9
 
-显然，如果我们要根据半径计算圆的面积，函数的返回值就应当使用小数类型（例如 ``double``\ ）而不是整型。关于函数的更多内容，例如参数类型的隐式转换、函数重载，我们会在\ :doc:`DataTypes`\ 一节介绍数据类型之后再讨论。
+显然，如果我们要根据半径计算圆的面积，函数的返回值就应当使用小数类型（例如 ``double``\ ）而不是整型。关于函数的更多内容（\ :doc:`Function`\ ），例如参数类型的隐式转换、函数重载、匿名函数，我们会在\ :doc:`DataTypes` 一节介绍数据类型之后再讨论。
 
 .. admonition:: 一个函数应专注于一种任务
 
