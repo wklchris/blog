@@ -3,7 +3,7 @@
 
 在详细介绍函数（以及之后的 :doc:`Class` 章节）之前，我们需要先对分离代码有所了解。在大型项目中，拆分代码并合理地组织它们是至关重要的。尽管代码拆分通常在类级别而不是在函数级别进行，但理解这种思想有助于我们组织函数（以及任何代码）。
 
-本节会先介绍 C++ 的代码分离的内容，然后讨论函数。
+本节会先介绍 C++ 的代码分离的内容（包括作用域与命名空间），然后再讨论函数。
 
 作用域
 ------------
@@ -20,6 +20,8 @@ C++ 中的作用域概念很好理解。最常见的作用域分隔符是花括�
 
    main() scope: area = 1
    inner scope : area = 1.23
+
+内部作用域中的对象对于外部作用域而言是临时的。在一个作用域结束时，其内部的对象的生命周期（Lifetime）也就终止了；它们会（通过析构函数）被销毁，以释放所占用的内存。C++ 在初始化时为对象申请内存资源，在离开该对象的作用域时销毁它，这一管理逻辑被称为资源获取即初始化（Resource Acquisition Is Initialization, RAII）。
 
 
 命名空间
@@ -76,6 +78,7 @@ C++ 中的\ **命名空间**\ （Namespace）提供了一种规避名字冲突�
 * **头文件与源文件**\ ：传统的 C++ 文件分离方式。
 * **模块**\ ：C++ 20 引入了一种新的文件分离概念，模块，并支持用 ``import`` 语法来调用。
 
+.. _header-file:
 
 头文件与源文件
 ^^^^^^^^^^^^^^^^^^^^
@@ -156,19 +159,173 @@ C++ 中的\ **命名空间**\ （Namespace）提供了一种规避名字冲突�
 
    CMake 从 4.0 开始对 C++ 模块逐渐增大了支持，但仍是实验性的。它对 ``import std`` 的支持依赖于为 `CMAKE_EXPERIMENTAL_CXX_IMPORT_STD` 参数设定特定的 UUID 值（参考 `C++ import std support <https://github.com/Kitware/CMake/blob/master/Help/dev/experimental.rst#c-import-std-support>`_ ），该值可能随 CMake 版本而变化。因此，暂时不推荐使用 CMake 来编译含 C++ 模块的项目。
 
-   此外，由于 C++ 20 中无法使用 import std，只能混用模块加载与头文件引入。因此，个人建议在 C++ 20 之前的版本只使用头文件。
+   此外，由于 C++ 20 中无法使用 import std，只能混用模块加载与头文件引入。因此，个人建议在 C++ 20 及之前的版本只使用头文件，从 C++ 23 开始再考虑使用模块。
 
 为了在代码中使用 ``import std;`` 来加载标准库模块，我们需要先编译一次标准库文件 `std.cc`\ ；编译后的模块文件会生成在当前目录的 `gcm.cache` 文件夹中。
 
 .. code-block:: console
 
-   g++ -std=c++23 -fmodules -fsearch-include-path -fmodule-only -c bits/std.cc
+   g++ -std=c++23 -fmodules -fsearch-include-path -c bits/std.cc
 
 
 要编译上述 :ref:`C++ 模块示例：Point <code-example-module>` 的代码，以下第一条命令会编译 PointModule.cpp 模块文件生成 PointModule.o 文件，然后第二天命令将 module.cpp 编译并链接到 PointModule 模块，生成名为 module 的可执行文件。
 
 .. code-block:: cpp
    
-   g++ -std=c++23 -fmodules-ts -c PointModule.cpp
-   g++ -std=c++23 -fmodules-ts module.cpp PointModule.o -o module
+   g++ -std=c++23 -fmodules -c PointModule.cpp
+   g++ -std=c++23 -fmodules module.cpp PointModule.o -o module
 
+
+函数的参数传递与返回值
+--------------------------
+
+我们在 :ref:`function-basics` 一节中已简要地介绍了函数。在向函数传递参数时，最简单的方式是\ **传值**\ （Pass by value），即传递实际参数的拷贝：
+
+.. code-block:: cpp
+   
+   // 参数 x 被复制一份，在函数内使用
+   double square_area(double x) { return x * x; }
+
+对于大型的对象，例如 `std::vector` 或 `std::string` 对象，进行复制是低效的。这时，我们添加 ``&`` 以\ **传引用**\ （Pass by reference）。当传入的参数在函数内不会被修改时，我们用 ``const`` 修饰来传递常量引用（参考 :ref:`const-and-constexpr` 一节）：
+
+.. code-block:: cpp
+   :linenos:
+
+   int sum_vector(const std::vector<int>& v) {
+       int result = 0;
+       for (const int x : v) { result += x; }
+       return result;
+   }
+
+在传值与传引用之外，有时候我们也传递指针（或其引用）；因为指针只存放了所指向对象的地址，它本身是小型的。不过传递与使用指针时，要特别注意所指对象的生命周期（尤其是 `unique_ptr` 指针）。此外，我们也可能传递一些 C++ “视图”型对象，例如 `std::string_view` 或 `std::span`\ ；它们也是小型的。例如：
+
+.. code-block:: cpp
+   :linenos:
+   
+   void modify(std::shared_ptr<Data>& ptr);
+   void print_in_uppercase(std::string_view sv);
+   int sum_span(std::span<const int> sp);
+
+除了参数，函数还能利用所在作用域的对象，也即环境变量或状态变量。一个常见的例子是，类的成员函数可以访问该类的成员变量和其他成员函数，而无需以参数的形式传递它们。另一个例子是利用定义在代码的最外层作用域中的变量，即全局变量（Global variable）；但全局变量十分不利于代码组织与错误排查，不建议使用它。
+
+上例中返回值的类型是小型的，直接返回也十分高效。但在返回大型对象时，事情稍微变得复杂了。需要说明的是，我们只在很少数的情况下才返回引用或指针，因为（手动管理它们）较容易带来生命周期问题。好在 C++ 除了复制对象外，还支持一种移动对象操作。C++ 编译器会自动优化代码，在返回大型的、可移动的临时对象时使用移动而不是复制。下例是一个将字符串中的字母全转为大写的例子：
+
+.. literalinclude:: codes/function/func_arg_string.cpp
+   :linenos:
+   :language: cpp
+   :emphasize-lines: 4-9
+
+.. tip::
+
+   程序在执行时的实际性能，还涉及到一些其他的 C++ 编译器优化，比如返回值优化（参考 :ref:`RVO` 一节）。正确地传递参数和返回值，才能让 C++ 编译器应用一些特定的优化手段。
+
+最后，C++ 也允许使用 ``auto`` 作为返回值类型，让编译器进行推断，例如 ``auto plus(int x, char c);`` 。不过我建议尽量不使用这种语法：在定义函数时清晰地写出返回类型有助于整理思路，增强代码的可读性。此外，函数还支持一种箭头式的后缀返回值类型语法，这时的 `auto` 仅仅作为占位符使用：
+
+.. code-block:: cpp
+   
+   auto plus(int x1, int x2) -> int { return x1 + x2; }
+
+匿名函数在指定返回值类型时也涉及这种语法，参考 :ref:`lambda-function` 一节。
+
+
+多值返回与结构化绑定
+-----------------------
+
+C++ 中的函数只能返回一个对象；要返回多个数值，传统的方法是定义一个 struct 结构体，将要返回的数值存储在结构体中：
+
+.. code-block:: cpp
+   :linenos:
+
+   struct Person { int id; std::string name; unsigned int age; };
+
+   Person getRecord(int id) {
+      // ...
+      return Person{p_id, p_name, p_age};
+   }
+
+   void print_person(int person_id) {
+       Person p = getRecord(person_id);
+       std::cout << p.id << " " << p.name << ": Age " << p.age << std::endl;
+   }
+
+结构化绑定 |cpp17| 提供了一种将返回值的成员解包到变量的方法，使用方括号配合对应数量的变量并配合 ``auto`` 类型关键字即可：
+
+.. code-block:: cpp
+
+   auto [p_id, p_name, p_age] = getRecord(person_id);
+   std::cout << p_id << " " << p_name << ": Age " << p_age;
+
+结构化绑定在遍历映射对象（如 `std::map` 与 `std::unordered_map`\ ）时十分常用。在遍历时，可以按需使用引用 ``auto&`` 或者常量引用 ``const auto&`` 形式。
+
+.. code-block:: cpp
+
+   std::map<int, std::string> person_map;
+   for (auto& [id, name] : person_map) {
+       std::cout << "Person ID=" << id << ", name: " << name << std::endl;
+   }
+
+
+.. _lambda-function:
+
+匿名函数(Lambda函数)
+-----------------------
+
+匿名函数，或称 Lambda 函数、Lambda 表达式，是一种临时创建函数的方式。例如一个判断传入的 int 参数是否为负数的匿名函数：
+
+.. code-block:: cpp
+
+   [](int n) { return n < 0; }
+
+* 方括号用来指定匿名函数的捕获列表，也即需要在函数内使用的外部变量。
+  
+  * 空方括号表示不捕获任何环境变量。
+  * 若要以引用捕获外部变量 `x`\ ，使用 ``[&x]``；要以值复制变量 ``x``\ ，使用 ``[x]``
+  * 若要捕获多个变量，使用逗号分隔。例如： ``[x, &y]`` 
+  * 若要捕获所有外部变量，使用 ``[&]``\ （引用）或 ``[=]``\ （复制值）。
+  * 特别地，在类中使用匿名函数时，通过 ``[this]``\ （引用）或 ``[*this]``\ （复制值）来捕获当前的类对象。
+
+* 圆括号用来指定函数要接受的参数
+* 花括号用来指定函数体
+
+匿名函数的返回值类型是自动推断的。如果有必要显式地指定，使用箭头语法：
+
+.. code-block:: cpp
+
+   [](int n) -> bool { return n < 0; }
+
+匿名函数用作函数的参数也是十分常见的，我们在 :ref:`std-variant` 一节中介绍 `std::visit` 时就提到过。下例展示了一个在 `std::cout_if` 与 `std::for_each` 中传递匿名函数作为参数的例子。由于 `std::for_each` 只能传入单参数的函数（用来填充迭代器范围内的每个元素），因此我们无法将 `sum` 作为参数传递给匿名函数，必须通过捕获 `sum` 的引用来更新累加结果。
+
+.. literalinclude:: codes/function/lambda.cpp
+   :linenos:
+   :language: cpp
+   :emphasize-lines: 9, 14
+
+输出：
+
+.. code-block::
+
+   Count of negative numbers: 3
+   Sum of negative numbers: -10
+
+匿名函数被广泛用于需要将语句包装为函数、但又不希望为该函数命名的场合（往往因为该函数只被使用这一次）。除了作为参数，匿名函数还常常用于在复杂情况下初始化对象。下例使用匿名函数来初始化常量 `chars_counts`\ ，避免了为本次初始化创建额外对象（匿名函数内的 counts 对象在离开函数后销毁）：
+
+.. literalinclude:: codes/function/lambda_init.cpp
+   :linenos:
+   :language: cpp
+
+输出：
+
+.. code-block::
+
+   H: 1
+   c: 1
+   e: 1
+   l: 2
+   o: 1
+   p: 2
+
+
+函数对象*
+-------------
+
+函数对象 （Function object 或简称 Functor）是指使一个对象能作为函数使用，也即使用 ``()`` 的方式来调用它。这部分内容请阅读 :ref:`function-operator` 一节。

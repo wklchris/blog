@@ -9,6 +9,7 @@ test*
 
 # C++
 **.exe
+**.o
 .cache
 /build
 docsrc/Cpp/codes/**/build

@@ -87,3 +87,26 @@ class 类
 
 操作符的定义与重载
 ---------------------
+
+.. _function-operator:
+
+函数操作符*
+^^^^^^^^^^^^^^
+
+函数操作符，或者更严格地讲，函数对象（Function object 或简称 Functor），提供了一种将对象定义为可调用函数的方法。可以把它理解为“定义函数的函数”。
+
+下例中，类 `CountChar` 通过构造函数来初始化字符型成员变量 `value`\ 。在自身被调用时，计算传入字符串中含有该字符的次数：
+
+.. literalinclude:: codes/function/func_object.cpp
+   :linenos:
+   :language: cpp
+   :emphasize-lines: 7, 22, 25
+
+输出：
+
+.. code-block::
+   
+   Count of 'l': 3
+   Count of 'a': 0
+
+除了在调用时只需要传递更少的参数，函数对象相比于普通函数的优势是它记忆了状态。上例中的 CountChar 函数对象一经创建，就保存了传入的 `value` 值，并能反复使用。函数对象也可以作为参数传递，典型的例子如 `std::count_if` 或 `std::find_if`\ 。

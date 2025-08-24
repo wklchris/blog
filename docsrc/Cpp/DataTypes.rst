@@ -635,7 +635,7 @@ decltype*
 
 可以看到，直接使用 union 的管理方式十分复杂，而且容易出错。作为替代，现代 C++ 的头文件 `<variant>` 引入了变体 ``std::variant`` |cpp17| ，它写法更简单。同时，也允许使用 ``std::holds_alternative`` 来检查变体的具体类型，并用 ``std::get`` 来获取对应类型的数据。
 
-下面是一个变体代码示例，它定义了一个 Shape 变体以存储三角形、矩形或者圆这三种图形之中的一种。在函数 ``calcShapeArea`` 中，我们为每一种图形类型提供了一个匿名函数入口。配合定义的 ``overloaded`` 模板类（参考 :doc:`Template` 章节），C++ 会通过 ``std::visit`` 自动寻找当前图形类型对应的面积计算函数来进行调用。之后在 for 循环中打印图形面积时，我们换用了另一种写法，即使用 ``std::holds_alternative`` 与 ``std::get`` 来检查与取得图形数据并打印信息。
+下面是一个变体代码示例，它定义了一个 Shape 变体以存储三角形、矩形或者圆这三种图形之中的一种。在函数 ``calcShapeArea`` 中，我们为每一种图形类型提供了一个匿名函数入口（参考 :ref:`lambda-function` 一节）。配合定义的 ``overloaded`` 模板类（参考 :doc:`Template` 章节），C++ 会通过 ``std::visit`` 自动寻找当前图形类型对应的面积计算函数来进行调用。之后在 for 循环中打印图形面积时，我们换用了另一种写法，即使用 ``std::holds_alternative`` 与 ``std::get`` 来检查与取得图形数据并打印信息。
 
 .. literalinclude:: codes/alternative/std-variant.cpp
    :linenos:
