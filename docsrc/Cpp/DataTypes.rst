@@ -5,25 +5,26 @@
 
 * 基础数据类型：
   
-  * 布尔型 `bool` 与逻辑运算符
-  * 整型（如整数 `int` 与字符型 `char`）
-  * 双精度浮点数 `double`
+  * :ref:`布尔型 bool <bool-type>` 与 :ref:`逻辑运算符 <bool-operator>`
+  * :ref:`整型 <integral-type>` （如整数 `int` 与字符型 `char`）
+  * :ref:`浮点数 double <floating-number>`
 
 * 高级数据类型：
   
-  * 指针 `*` 与引用 `&`
-  * 基础数组 `[]`
-  * std 字符串 `std::string`
-  * 枚举类 `enum class`
-  * 变体类型 `std::variant` 与 `union`
-  * 可选类型 `std::optional`
+  * :ref:`其他数字类型 <other-number-types>` ，例如复数
+  * :ref:`引用 & 与指针 * <reference-and-pointer>`
+  * :ref:`基础数组 [] <basic-array>`
+  * :ref:`字符串与 std::string <string>`
+  * :ref:`枚举类 enum class <enum-class>`
+  * :ref:`变体类型 std::variant <std-variant>` ，包括 union
+  * :ref:`可选类型 std::optional <std-optional>`
 
-* 其他：
+* 其他相关内容：
   
-  * 空类型 `void`
-  * 基础运算符（包括位运算符）与比较符
-  * 常量 `const` 与常量表达式 `constexpr`
-  * 类型别名 `using` 和推断 `decltype/auto`
+  * :ref:`空类型 void <void-type>`
+  * :ref:`运算符与比较符 <operator-and-comparator>` ，包括 :ref:`位运算符 <bitwise-operator>`
+  * :ref:`常量 const 与常量表达式 constexpr <const-and-constexpr>`
+  * :ref:`类型别名与推断 <type-aliases>` ，包括 using, typedef, auto 与 decltype
 
 类（包括结构体）会在另外的 :doc:`Class` 章节中介绍。其他 std 数据类型，例如向量 `std::vector`\ 、映射 `std::map`\ 、数组 `std::array` 等，将在独立章节（:doc:`StdTypes`）中介绍。
 
@@ -47,6 +48,8 @@
     
     cats = 1;
     has_cat = true;
+
+其他类型在转换到布尔型时，一般在值为 0 或对象为空时表示逻辑假，其余情况表示逻辑真。
 
 .. _bool-operator:
 
@@ -81,24 +84,42 @@
 整型：整数与字符
 -------------------------
 
-在 C++ 中，整数与字符型可以统称为整型（Integral type）。而在狭义上，我们用整型来称呼整数类型（Integer type）。
+在 C++ 中，整数与字符型可以统称为整型（Integral type）。而在狭义上，我们用整型来称呼整数类型（Integer type）。下表列出了常见的整型类型；其中，数字的字面值标识符为后缀，字符的则为前缀。
 
 .. csv-table:: C++ 的常用基础整型数据类型
-   :header: "关键字", "类型", "最小位数"
-   :widths: 40, 30, 20
+   :header: "关键字", "类型", "最小位数 :superscript:`1`", "字面值前/后缀"
+   :widths: 40, 30, 20, 20
    :width: 75%
    :align: center
    
-   char,字符,8
-   signed char,有符号字符,8
-   unsigned char,无符号字符,8
-   (signed) short,有符号短整数,16
-   unsigned short,无符号短整数,16
-   int/signed/signed int,有符号整数,16
-   (signed) long,有符号长整数,32
-   unsigned long,无符号长整数,32
-   (signed) long long |cpp11|,有符号长长整数,64
-   unsigned long long |cpp11|,无符号长长整数,64
+   **字符型**,,,
+   char,字符,8,
+   signed char,有符号字符,8,
+   unsigned char,无符号字符,8,
+   char8_t |cpp20|,UTF-8 字符,固定 8,``u8``
+   char16_t |cpp11|,UTF-16 字符,固定 16,``u``
+   char32_t |cpp11|,UTF-32 字符,固定 32,``U``
+   wchar_t,宽字符,/,``L``
+   **整数型**
+   (signed) short,有符号短整数,16,
+   unsigned short,无符号短整数,16,
+   int/signed/signed int,有符号整数,16,
+   (signed) long,有符号长整数,32,``L`` 或 ``l``
+   unsigned long,无符号长整数,32,``UL`` 或 ``ul``
+   (signed) long long |cpp11|,有符号长长整数,64,``LL`` 或 ``ll``
+   unsigned long long |cpp11|,无符号长长整数,64,``ULL`` 或 ``ull``
+
+:superscript:`1` C++ 中的许多类型的具体位数取决于硬件，但最小位数是在所有硬件条件下均需满足的 C++ 标准。
+
+例子：
+
+.. code-block:: cpp
+
+   int n1 = 12;
+   unsigned long n2 = 1234;
+   unsigned long n3 = 1234567UL;
+
+C++ 还拥有一些定宽类型，例如 ``std::int8_t``\ , ``std::uint64_t`` 等。本文不介绍这些类型。
 
 .. admonition:: char 的特殊性
    :class: warning
@@ -113,15 +134,30 @@ size_t 类型
 
 size_t 常常被用作循环变量类型。不过由于它是无符号的，因此在反向循环时的写法与传统的 int 反向循环的写法不同，具体请参考 :ref:`reverse-loop` 一节。
 
+不同数字进制
+^^^^^^^^^^^^^^^
 
-整型字面值
-^^^^^^^^^^^^^^^^^
+C++ 允许整数字面值通过前缀标识其进制，以 ``0b`` 开头是二进制，以 ``0`` 开头是八进制，以 ``0x`` 开头是十六进制。通过头文件 `<iomanip>` （或者更现代的 `<format>`\ ），我们可以方便地控制这些数字的打印：
 
+.. literalinclude:: codes/math/number-base.cpp
+   :linenos:
+   :language: cpp
 
-关于宽字符与汉字*
-^^^^^^^^^^^^^^^^^^
+输出：
 
-对于最常见的 UTF-8 编码，我们可以直接用字符型 ``char`` 来表示其数据。虽然每个 ``char`` 是单字节的，但是 ``std::string`` 类型（参见 :ref:`std-string` 一节）被设计为能够存储一系列 ``char`` 组成的多字节字符串。因此，我们可以直接使用 std::string 来存储汉字。
+.. code-block::
+
+   Dec: 63
+   Hex: 63
+   Oct: 63
+   Binary: 63
+   They are the same value.
+   
+   std::hex: 0x3f
+   setbase(16): 0x3f
+   std::format {:#x}: 0x3f
+   std::format {:x}: 3f
+
 
 .. _operator-and-comparator:
 
@@ -251,18 +287,50 @@ C++ 的运算符和比较符如下：
 浮点数
 -------------
 
+C++ 的小数通常使用浮点数表示，分为单精度浮点数 ``float`` 与双精度浮点数 ``double`` 两种类型。
+
+* 一般地，我们更多地使用 double 类型。单精度的有效位数大约是 7 位，而双精度大约是 15 位。
+* 小数字面值默认是 double 类型的（例如 ``1.2``\ ）。如果需要，可以通过后缀 `f` 来将其变为 float 类型（例如 ``1.2f``\ ）。
+
+通过引入 `<iomanip>` 头文件，我们可以使用 ``std::setprecision`` 来控制打印小数时的有效位数。如果还指定了 ``std::fixed``\ ，那么 ``std::setprecision`` 将指定小数位数而不是有效位数。利用 `<limits>` 头文件，我们可以打印（设备所能存储的）完整精度：
+
+.. literalinclude:: codes/math/double.cpp
+   :linenos:
+   :language: cpp
 
 
-.. _string:
+.. _other-number-types:
 
-字符串
--------------
+其他数字类型*
+----------------
 
+除了整数与浮点数，C++ 还有一些数字类型，但并不常用：
 
-.. _std-string:
+* 复数：头文件 `<complex>` 提供了 ``std::complex`` 来表示数学上的复数。它用 ``real()`` 与 ``imag()`` 获取实部与虚部，并允许通过 ``std::complex_literals`` 命名空间来使用虚数后缀 ``i``\ 。C++ 中的复数与其他数字之间可以进行数学意义上的运算。  
 
-std 字符串
-^^^^^^^^^^^^^^^^
+  .. literalinclude:: codes/math/std-complex.cpp
+     :linenos:
+     :language: cpp
+  
+  输出：
+
+  .. code-block::
+     
+     Complex number (3 + 4i) has norm: 5
+     Complex number (5 + 12i) has norm: 13
+
+* 编译期有理数：头文件 `<ratio>` 提供了 ``std::ratio`` 来计算有理数，例如 `std::ratio<1,3>` 表示 1/3 。它还提供了一些进位单位，如 ``std::kilo`` 表示千。它使用 ``::num`` 来获取分子、用 ``::den`` 获取分母。
+
+  .. literalinclude:: codes/math/std-ratio.cpp
+     :linenos:
+     :language: cpp
+  
+  输出：
+
+  .. code-block::
+     
+     Half: 1/2
+     Result: 503/1000 = 0.503
 
 
 .. _enum-class:
@@ -301,6 +369,8 @@ C++ 提供了一种特殊的类，枚举类，用 ``enum class`` |cpp11| 来定�
    Light is green
    Now light is yellow
 
+
+.. _void-type:
 
 空类型
 ----------
@@ -377,6 +447,94 @@ C++ 中使用 ``[]`` 来表示基础数组（或称原生数组、裸数组）�
    int arr2[] = {1, 3};
 
 C++ 的基础数组（以及其他顺序容器）的下标从 0 开始。例如，对于一个长度 3 的数组 ``arr``，它含有的元素是 ``arr[0], arr[1], arr[2]`` 。
+
+
+.. _string:
+
+字符串
+-------------
+
+本节只是简单地介绍字符串类型。更多的字符串操作内容，参考 :doc:`StringAndIO` 一节。
+
+字符串字面值
+^^^^^^^^^^^^^^^^^
+
+C++ 的字符串字面值用一对双引号包围，以与单个字符的单引号区分。字符串字面值使用与字符类似的前缀，并支持 ``s`` 与 ``sv`` 两种后缀：
+
+.. csv-table:: 字符串字面值前缀/后缀表
+   :header: "前缀/后缀", "名称", "类型", "示例"
+   :widths: 20, 40, 50, 40
+   :width: 75%
+   :align: center
+
+   (无), `const char[]`\ , 基础字符串, ``"hello"``
+   **前缀**,,,
+   u8 :superscript:`1` , `const char8_t[]` |cpp20| , UTF-8 字符串, ``u8"hello"``
+   u, `const char16_t[]`\ , UTF-16 字符串, ``u"hello"``
+   U, `const char32_t[]`\ , UTF-32 字符串, ``U"hello"``
+   L, `const wchar_t[]`\ , 宽字符串, ``L"hello"``
+   **后缀**,,,
+   s, `std::string` |cpp14| , std 字符串后缀, ``"hello"s``
+   sv, `std::string_view` |cpp17| , std 字符串视图后缀, ``"hello"sv``
+
+:superscript:`1` 在 C++ 20 之前， ``u8`` 字符串的类型与基础字符串相同，即 `const char[]`\ 。
+
+字符串还有一种特殊的以 ``R`` 开头的原始字符串语法，请参考 :ref:`R-string` 一节。
+
+.. _std-string-basic:
+
+std 字符串
+^^^^^^^^^^^^^^^^
+
+C++ 标准库的字符串 ``std::string`` 通过头文件 `<string>` 引入。下文中如果不特殊说明，字符串均指 `std::string`` 字符串，而不是 C 风格的字符串。
+
+* std 字符串的长度可通过 ``.size()`` 或者 ``.length()`` 的方式获得。
+* std 字符串使用类似数组的下标方式，其中元素的类型为 `char`\ ，例如 ``s[0]`` 表示取字符串 s 的第一个字符。同样类似数组，请在使用下标前检查字符串是否为空，并确保下标没有越界。
+  
+  .. code-block:: cpp
+     
+     std::string s = "Hello";
+     if (!std.empty()) {
+        std::cout << "First character is: " << s[0] << std::endl;
+     }
+
+C++ 字符串拥有非常多的操作函数，例如判空 ``empty()``\ 、取子字符串 ``substr``\ 、查询 ``find``\ 、替换 ``replace``\ 等。这些内容会在 :doc:`StringAndIO` 章节中介绍。
+
+
+.. _wide-character:
+
+关于宽字符与汉字*
+^^^^^^^^^^^^^^^^^^
+
+对于最常见的 UTF-8 编码，我们可以直接用字符型 ``char`` 来表示其数据。虽然每个 ``char`` 是单字节的，但是 ``std::string`` 类型（参见 :ref:`std-string-basic` 一节）被设计为能够存储一系列 ``char`` 组成的多字节字符串。因此，我们可以直接使用 std::string 来存储汉字（但字符串的长度失去意义，因为它计算字节数量而不是字符数量；打印时也不能从单个汉字的中间断开，否则会乱码）。
+
+.. warning::
+
+   在 C++ 17 及之前， ``u8`` 前缀的字符串字面值的每个元素是 `char` 类型的，因此可以直接用于初始化 `std::string`\ 。但在随后的 C++ 20 中，这类字符串字面值中的字符类型变为了 `char8_t`\ , 以与引入的新 UTF-8 字符串类型 `std::u8string`\ 相统一。相比于 `std::string` 的本质是 ``std::basic_string<char>``\ ，新的 `std::u8string` 在本质上是 ``std::basic_string<char8_t>``\ 。
+
+一个 `std::string`\ 与 `std::u8string` |cpp20| 的用法示例。由于 `std::cout` 不能直接输出 `u8string`\ ，需要通过 ``reinterpret_cast`` 将它转换为普通的字符串字面值类型（\ `const char*`\ ）：
+
+.. literalinclude:: codes/string/u8string.cpp
+   :linenos:
+   :language: cpp
+
+汉字在使用 UTF-8 编码时可能占 3 个字节（但也可能不是），因此在打印时从中间断开会可能会导致乱码。上例的输出为：
+
+.. code-block::
+
+   std字串, string size: 9
+   你好，世界！, string size: 18
+   u8字串, u8string size: 8
+   -s-t-d-�-�-�-�-�-�
+   -字-串
+
+此外，C++ 曾经使用过一段时间的宽字符 `wchar_t` 相关的类型，但并不是一种通用性强的方法（因为大部分的字符串操作都基于 std::string 类型）。头文件 `<codecvt>` 在 C++ 20 及之后也进入弃用状态，后续的 C++ 版本可能更依赖于头文件 `<locale>` 的功能。
+
+总之，宽字符编码与处理在 C++ 中是一个复杂的工作。连简单的字符计数都会变得复杂，更不用提检索字符等其他操作了。C++ 在这方面有许多历史包袱，而显然 `u8string` 还不够成熟，也不能代替 `string`\ 。在 C++ 23 中，``std::print`` 被引入并支持了 `u8string` 的打印，但仅仅这种程度的支持是微不足道的。我推荐：
+
+* 总是使用 UTF-8 编码。这可能需要调整系统命令行窗口的设置，让它以 UTF-8 模式工作（而不是 GBK）。
+* 在试验性或小型项目中，如果不需要复杂的字符串操作，那就简单地使用 `std::string` 来存储宽字符。
+* 在大型项目中，使用支持 UTF-8 的第三方字符库（如 `ICU`\ ）。或者使用框架库自带的字符串类型（如果有），比如 Qt 库的 `QString` 类型。
 
 
 .. _reference-and-pointer:

@@ -4,7 +4,7 @@
    :series: C/C++
    :series_num: 1
    :date_init: 2020-06-06
-   :date_modified: 2025-08-24
+   :date_modified: 2025-08-26
    :abstract: 本文是学习现代 C++ 时的笔记，基于 C++ 11 （或更新）的规范版本。
 
 C++ 笔记
@@ -23,6 +23,7 @@ C++ 是一门高效、强大、贴近底层的编译型高级语言，能够承�
    DataTypes.rst
    Control.rst
    Function.rst
+   StringAndIO.rst
    StdTypes.rst
    Class.rst
    Template.rst

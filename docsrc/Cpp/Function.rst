@@ -213,7 +213,7 @@ C++ 中的\ **命名空间**\ （Namespace）提供了一种规避名字冲突�
 .. literalinclude:: codes/function/func_arg_string.cpp
    :linenos:
    :language: cpp
-   :emphasize-lines: 4-9
+   :emphasize-lines: 5-10
 
 .. tip::
 
