@@ -78,10 +78,37 @@ class 类
 
    :uline:`从代码编写的角度来看`\ ，我们在创建一个类时，先思考接口的设计、再为接口提供具体的代码实现，因此接口内容在先；:uline:`从代码阅读的角度来看`\ ，使用该类的用户只关心如何去从外部访问与使用这个类（公有成员），而不关心类的内部（私有成员），因此公有成员在先。不管从哪方面考虑，我们都倾向于把公有成员的内容放在前面。
 
+
 .. _class-constructor:
 
 构造函数
 ------------
+
+
+
+常量类函数
+----------------
+
+类的成员函数也能像通常函数一样指定常量性质，例如用 `const` 或 `constexpr` 修饰。
+
+* 后置 const：在成员函数名之后的 `const`\ ，表示该函数是\ **常量成员函数**\ 。这种函数表示不会更改类对象，例如获取对象的值 ``int getVal() const``\ 、将对象的值转为字符串 ``std::string toStr() const`` 等。变量与常量均可以调用常量成员函数。
+* 前置 const：在成员函数名之前的 `const`\ ，表示该函数是\ **返回常量的成员函数**\ 。这种函数常常用于返回不可或不应修改的对象，例如返回常量引用 ``const std::vector& getVecRef() const``\ （结合了两种 `const` 修饰）。
+* constexpr 函数： `constexpr` 函数只能放在函数名之前，其用法逻辑类似于常量表达式函数。当 constexpr 类对象调用该函数时，它执行编译时操作；当普通的类对象调用该函数时，它忽略 constexpr 修饰而类似于普通函数调用；而特别地，当 const 类对象调用该函数时，其等同于调用后置 const 类型的成员函数。此外， `constexpr` 函数也像前置 const 函数一样，可以与后置 const 结合使用。
+
+例子：
+
+.. literalinclude:: codes/class/const-func.cpp
+   :linenos:
+   :language: cpp
+
+输出：
+
+.. code-block:: cpp
+
+   Point (1, 2): sum = 3
+   Point (3, 4): sum = 7
+   Point (5, 0): sum = 5
+
 
 .. _class-operator:
 
